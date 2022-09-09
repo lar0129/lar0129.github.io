@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>这是一个什么网站</title>
+    <url>/2022/07/04/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%99%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>#意义#</p>
+<p>这是一个lar的个人网站。记录一些学习笔记（计算机、数学），一些随想，一些帮助我理清思绪的文字，还有一些可能有趣的照片。</p>
+<p>右上角进入菜单。随时可能关闭，也可能一直开下去。</p>
+<hr>
+<h2 id="向内探索与向外输出"><a href="#向内探索与向外输出" class="headerlink" title="向内探索与向外输出"></a>向内探索与向外输出</h2><p>一直是一个分享欲寡淡的人，极少在网络上输出自己的观点与想法。一是因为讨论的效率过低，二是因为学疏才浅</p>
+<p>但终究意识到输入与输出必须适配。……</p>
+<h2 id="如何与我讨论"><a href="#如何与我讨论" class="headerlink" title="如何与我讨论"></a>如何与我讨论</h2><p>……</p>
+]]></content>
+      <categories>
+        <category>杂文</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>数学与我</title>
+    <url>/2022/07/07/%E6%95%B0%E5%AD%A6%E4%B8%8E%E6%88%91/</url>
+    <content><![CDATA[<p>一个三分种热度者的自白</p>
+]]></content>
+      <categories>
+        <category>项目</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>人体神经网络调参不完全指南</title>
     <url>/2022/07/08/%E4%BA%BA%E4%BD%93%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p>——转自知乎加上个人整理。</p>
@@ -274,33 +301,6 @@
       </categories>
       <tags>
         <tag>身体</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>这是一个什么网站</title>
-    <url>/2022/07/04/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%99%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>#意义#</p>
-<p>这是一个lar的个人网站。记录一些学习笔记（计算机、数学），一些随想，一些帮助我理清思绪的文字，还有一些可能有趣的照片。</p>
-<p>右上角进入菜单。随时可能关闭，也可能一直开下去。</p>
-<hr>
-<h2 id="向内探索与向外输出"><a href="#向内探索与向外输出" class="headerlink" title="向内探索与向外输出"></a>向内探索与向外输出</h2><p>一直是一个分享欲寡淡的人，极少在网络上输出自己的观点与想法。一是因为讨论的效率过低，二是因为学疏才浅</p>
-<p>但终究意识到输入与输出必须适配。……</p>
-<h2 id="如何与我讨论"><a href="#如何与我讨论" class="headerlink" title="如何与我讨论"></a>如何与我讨论</h2><p>……</p>
-]]></content>
-      <categories>
-        <category>杂文</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数学与我</title>
-    <url>/2022/07/07/%E6%95%B0%E5%AD%A6%E4%B8%8E%E6%88%91/</url>
-    <content><![CDATA[<p>一个三分种热度者的自白</p>
-]]></content>
-      <categories>
-        <category>项目</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
 </search>
