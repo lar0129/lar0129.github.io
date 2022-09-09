@@ -19,18 +19,6 @@
       </categories>
   </entry>
   <entry>
-    <title>数学与我</title>
-    <url>/2022/07/07/%E6%95%B0%E5%AD%A6%E4%B8%8E%E6%88%91/</url>
-    <content><![CDATA[<p>一个三分种热度者的自白</p>
-<span id="more"></span>]]></content>
-      <categories>
-        <category>项目</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>人体神经网络调参不完全指南</title>
     <url>/2022/07/08/%E4%BA%BA%E4%BD%93%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p>——转自知乎加上个人整理。</p>
@@ -304,6 +292,18 @@
       </categories>
       <tags>
         <tag>身体</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数学与我</title>
+    <url>/2022/07/07/%E6%95%B0%E5%AD%A6%E4%B8%8E%E6%88%91/</url>
+    <content><![CDATA[<p>一个三分种热度者的自白</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>项目</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
       </tags>
   </entry>
 </search>
