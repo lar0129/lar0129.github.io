@@ -198,7 +198,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>九月 14, 2022</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>445</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>442</span>
     </div>
   </div>
 </section>
@@ -218,7 +218,7 @@
 <p>剧情向unity游戏《日暮途远》</p>
 <p>java实现的toy JVM</p>
 <p>小程序前端《南大小巷》</p>
-<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#x32;&#x31;&#x31;&#50;&#x35;&#x30;&#49;&#50;&#x37;&#x40;&#115;&#x6d;&#x61;&#105;&#108;&#x2e;&#110;&#x6a;&#117;&#46;&#101;&#x64;&#117;&#46;&#99;&#110;">&#x32;&#x31;&#x31;&#50;&#x35;&#x30;&#49;&#50;&#x37;&#x40;&#115;&#x6d;&#x61;&#105;&#108;&#x2e;&#110;&#x6a;&#117;&#46;&#101;&#x64;&#117;&#46;&#99;&#110;</a></p>
+<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#50;&#x31;&#x31;&#x32;&#53;&#48;&#49;&#x32;&#x37;&#64;&#x73;&#x6d;&#97;&#x69;&#108;&#46;&#110;&#106;&#x75;&#46;&#101;&#x64;&#x75;&#46;&#x63;&#x6e;">&#50;&#x31;&#x31;&#x32;&#53;&#48;&#49;&#x32;&#x37;&#64;&#x73;&#x6d;&#97;&#x69;&#108;&#46;&#110;&#106;&#x75;&#46;&#101;&#x64;&#x75;&#46;&#x63;&#x6e;</a></p>
 <p>WeChat: liar-i2003</p>
 <p>QQ: 1538618464</p>
 <p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/lar0129">@lar0129</a></p>
@@ -240,6 +240,32 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va",
+        app_key: "KW5Sf6EB4jhSNmeyjLe4D4eM",
+        placeholder: "点我",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
 </section>
       
     </section>

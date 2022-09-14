@@ -195,7 +195,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E5%9F%8E%E5%B8%82%E4%B8%80%E8%A7%92/DSCF1239.JPG" draggable="false">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/DSCF1107.JPG" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">人体神经网络调参不完全指南</h1>
     <div class="head-info">
@@ -494,6 +494,32 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va",
+        app_key: "KW5Sf6EB4jhSNmeyjLe4D4eM",
+        placeholder: "点我",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
 </section>
       
     </section>
