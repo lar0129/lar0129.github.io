@@ -22,7 +22,7 @@
     --color-text-secondary: #9899ab;
     --color-text-third: #7d8594;
     --color-border: linear-gradient(to right, #8f41e9, #578aef);
-    --background-image: url("/images/theme/blue.jpg");
+    --background-image: url("/images/theme/welcome-image.jpg");
     --loading-image: url("/images/theme/loading.gif");
     --lazyload-image: url("/images/theme/loading.gif");
   }
@@ -35,7 +35,7 @@
   --color-text-secondary: #9899ab;
   --color-text-third: #7d8594;
   --color-border: linear-gradient(to right, #8f41e9, #578aef);
-  --background-image: url("/images/theme/blue.jpg");
+  --background-image: url("/images/theme/welcome-image.jpg");
   --loading-image: url("/images/theme/loading.gif");
   --lazyload-image: url("/images/theme/loading.gif");
 }
