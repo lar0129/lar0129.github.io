@@ -195,11 +195,18 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/1697C85369ADEDBEA76D090694CB16C2.png" draggable="false">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E7%BA%BF%E6%9D%A1%E4%B8%8E%E8%89%B2%E5%BD%A9/DSCF1585.JPG" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">人体神经网络调参不完全指南</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 08, 2022</span>
+      
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/2022/07/08/%E4%BA%BA%E4%BD%93%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/" class="leancloud-counter" data-flag-title="人体神经网络调参不完全指南"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/2022/07/08/%E4%BA%BA%E4%BD%93%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/" class="leancloud-like" data-flag-title="人体神经网络调参不完全指南"></span>
+        </span>
       
       <span class="post-info-item"><i class="iconfont iconfont-size"></i>16766</span>
     </div>
@@ -586,6 +593,10 @@
     <i class="iconfont iconplus"></i>
   </div>
   
+    <div class="fab fab-like">
+      <i class="iconfont iconheart"></i>
+    </div>
+  
   
   
   <div class="fab fab-up">
@@ -631,6 +642,82 @@
 <script src="/js/script.js"></script>
 
 
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va',
+      appKey: 'KW5Sf6EB4jhSNmeyjLe4D4eM',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://example.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://example.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
 
 
 

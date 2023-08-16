@@ -196,9 +196,16 @@
   <div class="head-mask">
     <h1 class="head-title">关于我</h1>
     <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 11, 2023</span>
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 16, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>483</span>
+        <span class="post-info-item">
+          <i class="iconfont iconeye"></i><span id="/about/index.html" class="leancloud-counter" data-flag-title="关于我"></span>
+        </span>
+        <span class="post-info-item">
+          <i class="iconfont iconheart"></i><span id="/about/index.html" class="leancloud-like" data-flag-title="关于我"></span>
+        </span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>317</span>
     </div>
   </div>
 </section>
@@ -209,23 +216,10 @@
 <p>南京大学软件工程专业本科在读 </p>
 <p>INTP</p>
 <p>观测世界与迭代自我ing：)</p>
-<h1 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h1><p>仍需努力。</p>
-<p>计划大二至少完成一份实习+科研</p>
-<h1 id="Projects"><a href="#Projects" class="headerlink" title="Projects"></a>Projects</h1><p>仍需努力。</p>
-<p>大一上：</p>
-<p>c语言图形化2048小游戏</p>
-<p>c语言魔方复原</p>
-<p>大一下：</p>
-<p>剧情向unity游戏《日暮途远》</p>
-<p>java实现的toy JVM</p>
-<p>微信小程序前端《南大小巷》</p>
-<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#50;&#x31;&#49;&#x32;&#x35;&#x30;&#x31;&#x32;&#55;&#x40;&#x73;&#x6d;&#97;&#105;&#108;&#x2e;&#x6e;&#x6a;&#x75;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#x63;&#x6e;">&#50;&#x31;&#49;&#x32;&#x35;&#x30;&#x31;&#x32;&#55;&#x40;&#x73;&#x6d;&#97;&#105;&#108;&#x2e;&#x6e;&#x6a;&#x75;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#x63;&#x6e;</a></p>
-<p>WeChat: liar-i2003</p>
-<p>QQ: 1538618464</p>
+<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#50;&#x31;&#49;&#x32;&#53;&#48;&#x31;&#x32;&#x37;&#64;&#115;&#109;&#97;&#105;&#108;&#46;&#110;&#106;&#117;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;">&#50;&#x31;&#49;&#x32;&#53;&#48;&#x31;&#x32;&#x37;&#64;&#115;&#109;&#97;&#105;&#108;&#46;&#110;&#106;&#117;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;</a></p>
 <p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/lar0129">@lar0129</a></p>
 <p>bilibili: <a target="_blank" rel="noopener" href="https://space.bilibili.com/4832275">@byebyeschoolboy</a></p>
 <p>网易云音乐：@梦里酩酊</p>
-<p>知乎：@梦里酩酊</p>
 <p>豆瓣：<a target="_blank" rel="noopener" href="https://www.douban.com/people/a1538618464/?_i=4813001zvILtjs">@无恙 &#x2F; a1538618464</a></p>
 <p>instagram: <a target="_blank" rel="noopener" href="https://www.instagram.com/liang_anran/">@liang_anran</a></p>
 
@@ -374,6 +368,82 @@
 <script src="/js/script.js"></script>
 
 
+
+  <script>
+  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
+
+    AV.init({
+      appId: 'saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va',
+      appKey: 'KW5Sf6EB4jhSNmeyjLe4D4eM',
+      serverURLs: 'https://leancloud.cn/',
+    });
+
+    const Counter = AV.Object.extend("Counter");
+    const Like = AV.Object.extend("Like");
+
+    const showCount = (Counter) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-counter").each(async (e) => {
+        const url = $(".leancloud-counter").eq(e).attr('id').trim();
+        const query = new AV.Query("Counter");
+        query.equalTo("words", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-counter").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addCount = (Counter) => {
+      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://example.com';
+      var query = new Counter;
+      query.save({
+        words: url
+      });
+    }
+
+    const showLike = (Like) => {
+      const asyncLimit = new AsyncLimit(2);
+      $(".leancloud-like").each(async (e) => {
+        const url = $(".leancloud-like").eq(e).attr('id').trim();
+        const query = new AV.Query("Like");
+        query.equalTo("path", url);
+        let count = await asyncLimit.run(() => query.count());
+        $(".leancloud-like").eq(e).text(count ? count : 0);
+      });
+    }
+
+    const addLike = (Like) => {
+      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://example.com';
+      var query = new Like;
+      query.save({
+        path: url,
+        nickName: 'Anonymous'
+      });
+      $(".leancloud-like").addClass('islike');
+      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
+      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
+      setTimeout(() => showLike(Like), 1000);
+    }
+
+    const handleLikeClick = () => {
+      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
+      if (isLike) {
+        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
+      } else {
+        addLike(Like);
+      }
+    }
+
+    $(function () {
+      addCount(Counter);
+      showCount(Counter);
+      showLike(Like);
+      $(".fab-like").on("click", function () {
+        handleLikeClick();
+      });
+    });
+
+  });
+</script>
 
 
 
