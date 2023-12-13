@@ -197,18 +197,11 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E5%9F%8E%E5%B8%82%E4%BA%BA%E6%96%87/DSCF1493.JPG" draggable="false">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231213233417970.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">友链</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>九月 07, 2022</span>
-      
-        <span class="post-info-item">
-          <i class="iconfont iconeye"></i><span id="/2022/09/07/%E5%8F%8B%E9%93%BE/" class="leancloud-counter" data-flag-title="友链"></span>
-        </span>
-        <span class="post-info-item">
-          <i class="iconfont iconheart"></i><span id="/2022/09/07/%E5%8F%8B%E9%93%BE/" class="leancloud-like" data-flag-title="友链"></span>
-        </span>
       
       <span class="post-info-item"><i class="iconfont iconfont-size"></i>145</span>
     </div>
@@ -250,8 +243,8 @@
     var loadValine = function () {
       new Valine({
         el: '#valine',
-        app_id: "saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va",
-        app_key: "KW5Sf6EB4jhSNmeyjLe4D4eM",
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
         placeholder: "畅所欲言！",
         avatar: "mp",
         pageSize: "10",
@@ -277,6 +270,11 @@
       <div class="col-xl-3">
         
           
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    
+  </aside>
+
         
       </div>
     </div>
@@ -330,10 +328,6 @@
     <i class="iconfont iconplus"></i>
   </div>
   
-    <div class="fab fab-like">
-      <i class="iconfont iconheart"></i>
-    </div>
-  
   
   
   <div class="fab fab-up">
@@ -379,82 +373,6 @@
 <script src="/js/script.js"></script>
 
 
-
-  <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
-
-    AV.init({
-      appId: 'saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va',
-      appKey: 'KW5Sf6EB4jhSNmeyjLe4D4eM',
-      serverURLs: 'https://leancloud.cn/',
-    });
-
-    const Counter = AV.Object.extend("Counter");
-    const Like = AV.Object.extend("Like");
-
-    const showCount = (Counter) => {
-      const asyncLimit = new AsyncLimit(2);
-      $(".leancloud-counter").each(async (e) => {
-        const url = $(".leancloud-counter").eq(e).attr('id').trim();
-        const query = new AV.Query("Counter");
-        query.equalTo("words", url);
-        let count = await asyncLimit.run(() => query.count());
-        $(".leancloud-counter").eq(e).text(count ? count : 0);
-      });
-    }
-
-    const addCount = (Counter) => {
-      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://example.com';
-      var query = new Counter;
-      query.save({
-        words: url
-      });
-    }
-
-    const showLike = (Like) => {
-      const asyncLimit = new AsyncLimit(2);
-      $(".leancloud-like").each(async (e) => {
-        const url = $(".leancloud-like").eq(e).attr('id').trim();
-        const query = new AV.Query("Like");
-        query.equalTo("path", url);
-        let count = await asyncLimit.run(() => query.count());
-        $(".leancloud-like").eq(e).text(count ? count : 0);
-      });
-    }
-
-    const addLike = (Like) => {
-      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://example.com';
-      var query = new Like;
-      query.save({
-        path: url,
-        nickName: 'Anonymous'
-      });
-      $(".leancloud-like").addClass('islike');
-      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
-      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
-      setTimeout(() => showLike(Like), 1000);
-    }
-
-    const handleLikeClick = () => {
-      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
-      if (isLike) {
-        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
-      } else {
-        addLike(Like);
-      }
-    }
-
-    $(function () {
-      addCount(Counter);
-      showCount(Counter);
-      showLike(Like);
-      $(".fab-like").on("click", function () {
-        handleLikeClick();
-      });
-    });
-
-  });
-</script>
 
 
 

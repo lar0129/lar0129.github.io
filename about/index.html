@@ -198,14 +198,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 16, 2023</span>
       
-        <span class="post-info-item">
-          <i class="iconfont iconeye"></i><span id="/about/index.html" class="leancloud-counter" data-flag-title="关于我"></span>
-        </span>
-        <span class="post-info-item">
-          <i class="iconfont iconheart"></i><span id="/about/index.html" class="leancloud-like" data-flag-title="关于我"></span>
-        </span>
-      
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>318</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>320</span>
     </div>
   </div>
 </section>
@@ -216,7 +209,7 @@
 <p>南京大学软件工程专业本科在读 </p>
 <p>INTP</p>
 <p>观测世界与迭代自我ing：)</p>
-<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#x32;&#x31;&#49;&#x32;&#53;&#48;&#49;&#50;&#55;&#x40;&#x73;&#109;&#x61;&#105;&#108;&#46;&#x6e;&#x6a;&#117;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#99;&#x6e;">&#x32;&#x31;&#49;&#x32;&#53;&#48;&#49;&#50;&#55;&#x40;&#x73;&#109;&#x61;&#105;&#108;&#46;&#x6e;&#x6a;&#117;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#99;&#x6e;</a></p>
+<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#50;&#x31;&#x31;&#x32;&#53;&#48;&#x31;&#x32;&#x37;&#64;&#115;&#x6d;&#x61;&#105;&#x6c;&#46;&#110;&#x6a;&#x75;&#x2e;&#x65;&#x64;&#117;&#46;&#x63;&#110;">&#50;&#x31;&#x31;&#x32;&#53;&#48;&#x31;&#x32;&#x37;&#64;&#115;&#x6d;&#x61;&#105;&#x6c;&#46;&#110;&#x6a;&#x75;&#x2e;&#x65;&#x64;&#117;&#46;&#x63;&#110;</a></p>
 <p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/lar0129">@lar0129</a></p>
 <p>bilibili: <a target="_blank" rel="noopener" href="https://space.bilibili.com/4832275">@byebyeschoolboy</a></p>
 <p>网易云音乐：@梦里酩酊</p>
@@ -243,8 +236,8 @@
     var loadValine = function () {
       new Valine({
         el: '#valine',
-        app_id: "saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va",
-        app_key: "KW5Sf6EB4jhSNmeyjLe4D4eM",
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
         placeholder: "畅所欲言！",
         avatar: "mp",
         pageSize: "10",
@@ -270,6 +263,11 @@
       <div class="col-xl-3">
         
           
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Me"><span class="toc-text">Me</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Contact"><span class="toc-text">Contact</span></a></li></ol>
+  </aside>
+
         
       </div>
     </div>
@@ -368,82 +366,6 @@
 <script src="/js/script.js"></script>
 
 
-
-  <script>
-  $.getScript("//cdn.jsdelivr.net/npm/leancloud-storage@4.1.0/dist/av-min.js", () => {
-
-    AV.init({
-      appId: 'saqo7hpjAs3PsgLN3tZ4I8V9-9Nh9j0Va',
-      appKey: 'KW5Sf6EB4jhSNmeyjLe4D4eM',
-      serverURLs: 'https://leancloud.cn/',
-    });
-
-    const Counter = AV.Object.extend("Counter");
-    const Like = AV.Object.extend("Like");
-
-    const showCount = (Counter) => {
-      const asyncLimit = new AsyncLimit(2);
-      $(".leancloud-counter").each(async (e) => {
-        const url = $(".leancloud-counter").eq(e).attr('id').trim();
-        const query = new AV.Query("Counter");
-        query.equalTo("words", url);
-        let count = await asyncLimit.run(() => query.count());
-        $(".leancloud-counter").eq(e).text(count ? count : 0);
-      });
-    }
-
-    const addCount = (Counter) => {
-      const url = $(".leancloud-counter").length === 1 ? $(".leancloud-counter").attr('id').trim() : 'http://example.com';
-      var query = new Counter;
-      query.save({
-        words: url
-      });
-    }
-
-    const showLike = (Like) => {
-      const asyncLimit = new AsyncLimit(2);
-      $(".leancloud-like").each(async (e) => {
-        const url = $(".leancloud-like").eq(e).attr('id').trim();
-        const query = new AV.Query("Like");
-        query.equalTo("path", url);
-        let count = await asyncLimit.run(() => query.count());
-        $(".leancloud-like").eq(e).text(count ? count : 0);
-      });
-    }
-
-    const addLike = (Like) => {
-      const url = $(".leancloud-like").length === 1 ? $(".leancloud-like").attr('id').trim() : 'http://example.com';
-      var query = new Like;
-      query.save({
-        path: url,
-        nickName: 'Anonymous'
-      });
-      $(".leancloud-like").addClass('islike');
-      $(".fab-like").children(".iconfont").removeClass("iconheart").addClass("iconheart-fill").css("color", "#eb3223");
-      ZHAOO.zui.message({ text: '爱你哦~', type: 'success' });
-      setTimeout(() => showLike(Like), 1000);
-    }
-
-    const handleLikeClick = () => {
-      const isLike = $(".leancloud-like").length === 1 && $(".leancloud-like").hasClass('islike') ? true : false;
-      if (isLike) {
-        ZHAOO.zui.message({ text: '小心心不可以收回呢~', type: 'warning' });
-      } else {
-        addLike(Like);
-      }
-    }
-
-    $(function () {
-      addCount(Counter);
-      showCount(Counter);
-      showLike(Like);
-      $(".fab-like").on("click", function () {
-        handleLikeClick();
-      });
-    });
-
-  });
-</script>
 
 
 
