@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>k8s概念整合 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 云原生">
+  <meta name="description" content="Kubernetes的概念和基本原理繁杂。本文对部分个...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">k8s概念整合</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">k8s概念整合</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3740</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>Kubernetes的概念和基本原理繁杂。本文对部分个人的疑难混乱概念做了整理</p></p>
+        
+        <p>学习路线：<a target="_blank" rel="noopener" href="https://www.infoq.cn/article/9dtx*1i1z8hsxkdrpmhk">Kubernetes 学习路径</a></p>
+<ul>
+<li><strong>初步了解</strong>，在这个阶段需要对 Kubernetes 有个大体了解，知道一些 Kubernetes 中的一些基本概念和基本的使用方法。</li>
+<li><strong>整体学习</strong>，在这个阶段需要对 Kubernetes 有整体全面的了解，知道 Kubernetes 所有核心组件的工作原理。</li>
+<li><strong>加深学习</strong>，在这个阶段需要对 Kubernetes 的拓展生态进行了解，包括与 Kubernetes 相关的一些开源组件、持续关注 Kubernetes 社区与 CNCF 社区等。</li>
+</ul>
+<h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h1><h2 id="pods"><a href="#pods" class="headerlink" title="pods"></a><strong>pods</strong></h2><ul>
+<li>即容器组，是 Kubernetes 集群中最小的操作单元，如创建、调度、管理、销毁等<br>一个 Pod 包含一个或多个紧密相关的容器，并共享命名空间、网络和存储卷等</li>
+<li>隔离container</li>
+<li>每个 Pod 都有一个独立IP</li>
+<li><img src="https://pic3.zhimg.com/80/v2-d2880255d25a566195e734fb28d8726a_1440w.webp"><span class="image-caption">img</span></li>
+</ul>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>Node即节点，对应一个物理节点（物理机或者虚拟机），运行和管理Pod的生命周期，以及其他属于节点上的资源对象。</p>
+<h2 id="Volume-数据卷"><a href="#Volume-数据卷" class="headerlink" title="Volume 数据卷"></a><strong>Volume 数据卷</strong></h2><p>K8S 支持很多类型的 volume 数据卷挂载，具体请参见**<a href="https://link.zhihu.com/?target=https://kubernetes.io/zh/docs/concepts/storage/volumes/">K8S 卷</a><strong>。前文就“如何理解 volume”提到：“</strong>需要手动 mount 的磁盘<strong>”，此外，有一点可以帮助理解：</strong>数据卷 volume 是 Pod 内部的磁盘资源**。</p>
+<p><strong>volume 是 K8S 的对象，对应一个实体的数据卷；而 volumeMounts 只是 container 的挂载点，对应 container 的其中一个参数</strong>。但是，<strong>volumeMounts 依赖于 volume</strong>，只有当 Pod 内有 volume 资源的时候，该 Pod 内部的 container 才可能有 volumeMounts。</p>
+<h2 id="Container-容器"><a href="#Container-容器" class="headerlink" title="Container 容器"></a><strong>Container 容器</strong></h2><p>本文中提到的镜像 Image、容器 Container，都指代了 Pod 下的一个<code>container</code>。关于 K8S 中的容器，在 2.1Pod 章节都已经交代了，这里无非再啰嗦一句：<strong>一个 Pod 内可以有多个容器 container</strong>。</p>
+<p>在 Pod 中，容器也有分类，对这个感兴趣的同学欢迎自行阅读更多资料：</p>
+<ul>
+<li><strong>标准容器 Application Container</strong>。</li>
+<li><strong>初始化容器 Init Container</strong>。</li>
+<li><strong>边车容器 Sidecar Container</strong>。</li>
+<li><strong>临时容器 Ephemeral Container</strong>。</li>
+</ul>
+<p>一般来说，我们部署的大多是<strong>标准容器（ Application Container）</strong>。</p>
+<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a><strong>Deployment</strong></h2><p><strong>作用是管理和控制 Pod 和 ReplicaSet，管控它们运行在用户期望的状态中</strong>。哎，打个形象的比喻，<strong>Deployment 就是包工头</strong>，主要负责监督底下的工人 Pod 干活，确保每时每刻有用户要求数量的 Pod 在工作。如果一旦发现某个工人 Pod 不行了，就赶紧新拉一个 Pod 过来替换它。</p>
+<blockquote>
+<p>ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
+</blockquote>
+<p><img src="https://pic3.zhimg.com/80/v2-7b1633cfca5e301706ffdaa064f38296_1440w.webp"><span class="image-caption">img</span></p>
+<h2 id="NameSpace"><a href="#NameSpace" class="headerlink" title="NameSpace"></a>NameSpace</h2><p>在Kubernetes中，Namespace（命名空间）是用于<strong>隔离和管理Kubernetes资源</strong>的一种机制。它可以将Kubernetes集群划分为多个虚拟的集群，每个Namespace中的资源互相隔离，从而实现多租户和多组织之间的资源共享和管理。</p>
+<p>Namespace的主要作用包括：</p>
+<ol>
+<li>隔离资源：不同Namespace中的<strong>资源相互隔离</strong>，避免资源冲突和影响。例如，在同一个集群中，可以将开发、测试和生产环境的资源分别放在不同的Namespace中，从而避免互相干扰和影响。</li>
+<li>管理访问控制：<strong>通过Namespace可以实现资源的访问控制和权限管理</strong>。管理员可以为每个Namespace分配不同的角色和权限，使得不同的团队和用户拥有不同的访问权限和操作权限。</li>
+<li>管理资源配额：通过Namespace可以限制资源的使用量和配额，从而避免资源滥用和浪费。管理员可以为每个Namespace设置不同的资源配额和限制，例如CPU、内存和存储资源等。</li>
+<li>简化部署和管理：通过Namespace可以将相关的资源组织到一起，从而简化资源的部署和管理。管理员可以通过Namespace来自动部署和管理相关的应用程序和服务，使得资源的管理更加高效和可靠。</li>
+</ol>
+<p>需要注意的是，<strong>不同的Namespace中的资源可以通过Service</strong>和Ingress等对象进行访问和通信。同时，Kubernetes中还有一些默认的Namespace，例如default、kube-system和kube-public等，分别用于存储默认的资源和集群级别的资源。</p>
+<h1 id="2-k8s架构"><a href="#2-k8s架构" class="headerlink" title="2.k8s架构"></a>2.k8s架构</h1><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230630142727042.png"><span class="image-caption">image-20230630142727042</span></p>
+<h1 id="3-yaml文件例"><a href="#3-yaml文件例" class="headerlink" title="3.yaml文件例"></a>3.yaml文件例</h1><p>以部署一个Pod的yaml文件为例，简单介绍部署所需的关键信息</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">apiVersion: v1<br>kind: Pod<br>metadata:<br>  name: memory-demo<br>  namespace: mem-example<br>spec:<br>  containers:<br>  - name: memory-demo-ctr<br>    image: polinux/stress<br>    resources:<br>      limits:<br>        memory: &quot;200Mi&quot;<br>      requests:<br>        memory: &quot;100Mi&quot;<br>    command: [&quot;stress&quot;]<br>    args: [&quot;--vm&quot;, &quot;1&quot;, &quot;--vm-bytes&quot;, &quot;150M&quot;, &quot;--vm-hang&quot;, &quot;1&quot;]<br>    volumeMounts:<br>    - name: redis-storage<br>      mountPath: /data/redis<br>  volumes:<br>  - name: redis-storage<br>    emptyDir: &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>apiVersion</code>记录 K8S 的 API Server 版本，现在看到的都是<code>v1</code>，用户不用管。</p>
+</li>
+<li><p><code>kind</code>记录该 yaml 的对象，比如这是一份 Pod 的 yaml 配置文件，那么值内容就是<code>Pod</code>。</p>
+</li>
+<li><p><code>metadata</code>记录了 Pod 自身的元数据，比如这个 Pod 的名字、这个 Pod 属于哪个 namespace（命名空间的概念，后文会详述，暂时理解为“同一个命名空间内的对象互相可见”）。</p>
+</li>
+<li><p><code>spec</code>记录了 Pod 内部所有的资源的详细信息，看懂这个很重要：</p>
+</li>
+<li><ul>
+<li><code>containers</code>记录了 Pod 内的容器信息，<code>containers</code>包括了：<code>name</code>容器名，<code>image</code>容器的镜像地址，<code>resources</code>容器需要的 CPU、内存、GPU 等资源，<code>command</code>容器的入口命令，<code>args</code>容器的入口参数，<code>volumeMounts</code>容器要挂载的 Pod 数据卷等。可以看到，<strong>上述这些信息都是启动容器的必要和必需的信息</strong>。</li>
+<li><code>volumes</code>记录了 Pod 内的数据卷信息，后文会详细介绍 Pod 的数据卷。</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-其他混乱概念"><a href="#4-其他混乱概念" class="headerlink" title="4.其他混乱概念"></a>4.其他混乱概念</h1><h2 id="Service和Deployment"><a href="#Service和Deployment" class="headerlink" title="Service和Deployment"></a>Service和Deployment</h2><ul>
+<li>Service监控某一Deployment（并转发其中的端口），进而监控Deployment内部的Container</li>
+</ul>
+<p><img src="https://pic1.zhimg.com/80/v2-e31e74d4893707f7537113b075df62c4_1440w.webp"><span class="image-caption">img</span></p>
+<h2 id="Cluster的访问权限"><a href="#Cluster的访问权限" class="headerlink" title="Cluster的访问权限"></a>Cluster的访问权限<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230705114203865.png"><span class="image-caption">image-20230705114203865</span></h2><h2 id="不同Port的类型"><a href="#不同Port的类型" class="headerlink" title="不同Port的类型"></a>不同Port的类型</h2><p><img src="https://pic4.zhimg.com/80/v2-62bfa253308a9676f26bbb8beb4b3baf_1440w.webp"><span class="image-caption">img</span></p>
+<p><strong>port</strong></p>
+<ul>
+<li>nodePort： 使用nodeIp：nodePort 从外部访问请求某个service</li>
+<li>Port： k8s 集群内部访问service端口， 通过clusterip:port 请求某个service</li>
+<li>targetPort：是pod的端口，从port和nodePort来的流量经过kube-proxy流入到后端pod的targetPort上，最后进入容器</li>
+<li>containerPort：是pod内部容器的端口，targetPort映射到containerPort</li>
+</ul>
+<h2 id="pod和Container的关系"><a href="#pod和Container的关系" class="headerlink" title="pod和Container的关系"></a><strong>pod和Container</strong>的关系</h2><ul>
+<li>Pod是Kubernetes中最小的可部署对象，它可以理解为一个逻辑主机，可以包含一个或多个Container，以及共享的网络和存储资源。容器是运行应用程序的实际载体，它们可以在同一个Pod中协同工作，或者在不同的Pod中独立运行，从而实现更灵活的应用程序部署和管理。</li>
+<li>需要注意的是，在设计Pod时，应该避免将多个不相关的容器放在同一个Pod中。通常情况下，一个Pod应该只包含一个主要容器，例如应用程序容器，以及一些辅助容器，例如日志收集器和监控代理等。这样可以确保Pod的可维护性和可扩展性，并提高应用程序的可靠性和性能。</li>
+</ul>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/10/29/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/"><i class="iconfont iconleft"></i>用随机梯度下降来优化人生</a>
+    <a href="/2023/06/12/mac%E6%8C%87%E5%8D%97/">MacOS使用入门<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1.基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pods"><span class="toc-text">pods</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Volume-%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="toc-text">Volume 数据卷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Container-%E5%AE%B9%E5%99%A8"><span class="toc-text">Container 容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NameSpace"><span class="toc-text">NameSpace</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-k8s%E6%9E%B6%E6%9E%84"><span class="toc-text">2.k8s架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-yaml%E6%96%87%E4%BB%B6%E4%BE%8B"><span class="toc-text">3.yaml文件例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96%E6%B7%B7%E4%B9%B1%E6%A6%82%E5%BF%B5"><span class="toc-text">4.其他混乱概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Service%E5%92%8CDeployment"><span class="toc-text">Service和Deployment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cluster%E7%9A%84%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-text">Cluster的访问权限image-20230705114203865</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8CPort%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">不同Port的类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod%E5%92%8CContainer%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">pod和Container的关系</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

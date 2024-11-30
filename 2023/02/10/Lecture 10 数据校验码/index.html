@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记10-数据校验码 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记10-数据校验码
+
+
+Lect...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记10-数据校验码</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记10-数据校验码</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1229</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记10-数据校验码</p></p>
+        
+        <h1 id="Lecture-10-数据校验码"><a href="#Lecture-10-数据校验码" class="headerlink" title="Lecture 10 数据校验码"></a>Lecture 10 数据校验码</h1><h1 id="差错"><a href="#差错" class="headerlink" title="差错"></a>差错</h1><p>硬故障</p>
+<p>软故障</p>
+<p><strong>检错和校正</strong></p>
+<h1 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h1><p>基本思想：储存额外信息以进行检错和校正</p>
+<p>处理过程：</p>
+<ul>
+<li>数据输入：使用函数<strong>𝑓</strong>在𝑀位数据<strong>𝐷</strong>上生成𝐾位校验码<strong>𝐶</strong></li>
+<li>数据输出：使用函数<strong>𝑓</strong>在𝑀位数据𝐷’上生成新的𝐾位代码<strong>𝐶****”</strong> ，并与取出的𝐾位码<strong>𝐶****’</strong>进行比较<ul>
+<li>没有检测到差错：使用数据𝐷’</li>
+<li>检测到差错且可以校正：校正数据𝐷’来生成数据𝐷”，并用数据𝐷”</li>
+<li>检测到差错但无法纠正：报告</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110174316858.png"><span class="image-caption">image-20221110174316858</span></p>
+<h2 id="奇偶校验码"><a href="#奇偶校验码" class="headerlink" title="奇偶校验码"></a>奇偶校验码</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225211413511.png"><span class="image-caption">image-20230225211413511</span></p>
+<p>增加1位校验码来表示数据中1的数量是奇数还是偶数</p>
+<p>• 奇校验：<strong>使</strong>传输的数据（数据位+校验位）中有<strong>奇数</strong>个1</p>
+<p>• 偶校验：<strong>使</strong>传输的数据（数据位+校验位）中有<strong>偶数</strong>个1</p>
+<p><strong>处理过程</strong></p>
+<p>• 假设数据为𝐷 &#x3D; 𝐷𝑀 … 𝐷2𝐷1</p>
+<p>• 数据输入</p>
+<p>​	• 奇校验：𝐶 &#x3D; 𝐷𝑀 ⊕ ⋯⊕ 𝐷2⊕ 𝐷1 ⊕1</p>
+<p>​	• 偶校验：𝐶 &#x3D; 𝐷𝑀 ⊕ ⋯⊕ 𝐷2⊕ 𝐷1</p>
+<p>• 数据输出</p>
+<p>​	• 奇校验：𝐶′′ &#x3D; 𝐷′𝑀 ⊕ ⋯⊕ 𝐷′2⊕ 𝐷′1 ⊕1</p>
+<p>​	• 偶校验：𝐶′′ &#x3D; 𝐷′𝑀 ⊕ ⋯⊕ 𝐷′2⊕ 𝐷′1</p>
+<p>• 检错：S &#x3D; 𝐶′′ ⊕ 𝐶′</p>
+<p>​	• 𝑆 &#x3D; 0：正确 &#x2F; 数据中出错的位数为偶数</p>
+<p>​	• 𝑆 &#x3D; 1：数据中出错的位数为奇数</p>
+<ul>
+<li><strong>优点：</strong><ul>
+<li>代价低，计算简单</li>
+</ul>
+</li>
+<li><strong>缺点：</strong><ul>
+<li>不能发现出错位数为偶数的情形</li>
+<li>不能校正</li>
+</ul>
+</li>
+<li>适用于对<strong>较短长度</strong>（如1字节）的数据进行检错</li>
+</ul>
+<h2 id="海明码"><a href="#海明码" class="headerlink" title="海明码"></a>海明码</h2><p>将数据分成几组， 对每一组都使用奇偶校验码进行检错 </p>
+<p>数据输入：为数据𝐷中每组生成1位校验码， 合并得到𝐾位校验码𝐶</p>
+<p>数据输出：为数据𝐷′中每组生成1位校验码， 合并得到新的𝐾位校验码𝐶′′  </p>
+<p>检错：C’ 与 C’’ 进行异或，生成𝐾位故障字  </p>
+<ul>
+<li>假设最多1位发生错误</li>
+<li>添加一位校验位可纠错一位，检错两位</li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225211715803.png"><span class="image-caption">image-20230225211715803</span></li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225211758389.png"><span class="image-caption">image-20230225211758389</span></p>
+<p><strong>考试时画表，每第k位 纠错位为1</strong></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225211840717.png"><span class="image-caption">image-20230225211840717</span></p>
+<p>最大纠错能力</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225212940790.png"><span class="image-caption">image-20230225212940790</span></p>
+<h2 id="循环冗余校验"><a href="#循环冗余校验" class="headerlink" title="循环冗余校验"></a>循环冗余校验</h2><p>生成多项式：自定义</p>
+<p>使用异或除法</p>
+<p><strong>基本思想</strong></p>
+<p>• 假设数据有M位，左移数据K位（右侧补0），并用K+1位生成多项式除它<br><strong>(异或？)</strong><br>• 采用K位余数作为校验码<br>• 把校验码放在数据（不含补的0）后面，一同存储或传输  </p>
+<p><strong>校错</strong></p>
+<p>• 如果M+K位内容可以被生成多项式除尽，则没有检测到错误<br>• 否则，发生错误  </p>
+<p>模2除法：</p>
+<ul>
+<li>除数首位必为1</li>
+<li>只需看被除数首位是否为1，为1则商1</li>
+<li>异或运算</li>
+</ul>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/06/12/mac%E6%8C%87%E5%8D%97/"><i class="iconfont iconleft"></i>MacOS使用入门</a>
+    <a href="/2023/02/10/Lecture%2011%20Raid%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97/">计算机组成原理-学习笔记11-RAID阵列<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-10-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="toc-text">Lecture 10 数据校验码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%AE%E9%94%99"><span class="toc-text">差错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%A0%E9%94%99"><span class="toc-text">纠错</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="toc-text">奇偶校验码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%B7%E6%98%8E%E7%A0%81"><span class="toc-text">海明码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C"><span class="toc-text">循环冗余校验</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

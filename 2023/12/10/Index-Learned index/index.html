@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Learned index 综述 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 数据库">
+  <meta name="description" content="Learned index 综述
+
+
+
+
+学习索引 (...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Learned index 综述</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Learned index 综述</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3141</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>Learned index 综述</p></p>
+        
+        <h2 id="学习索引-learned-index-技术"><a href="#学习索引-learned-index-技术" class="headerlink" title="学习索引 (learned index) 技术"></a><strong>学习索引 (learned index) 技术</strong></h2><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a><strong>摘要</strong></h2><p>索引技术在数据库中扮演着重要角色, 在数据库中有 b tree, hash 索引等. 但是这些数据结构<strong>没有利用到被索引数据分布的信息</strong>. </p>
+<p>本文总结了谷歌发表于 NIPS 2017 和 SIGMOD 2018 的两篇文章, 探讨如何利用机器学习技术得到更好的范围索引, 使用机器学习模型替代传统的 B-trees 索引, 以及在这之上的改进, 使得学习索引技术可扩展, 解决学习索引更新问题.</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>数据库依靠索引结构来高效地执行众多核心操作. <strong>B-trees 用于范围检索, Hash-Maps 用于按照键值搜索, 布隆过滤器用于判断 record 是否存在.</strong> </p>
+<ul>
+<li>但是这些索引是广义目的的数据结构, 没有利用到被索引数据的信息, 在一些极端情况下会表现得较差, </li>
+<li>比如当数据键值为从 1 递增到 n, 如果使用 b-tree 索引, 查询的时间复杂度为 o(logn), 实际上只需要 o(1) 的复杂度. 同样索引的空间复杂度也只需要 o(1), 而不是 o(n).</li>
+</ul>
+<p>如果能够<strong>学习到一个模型反映数据的模式,</strong> 就有可能<strong>自动构建索引结构</strong>即学习索引 (learned index) , 进而得到显著性能提升.</p>
+<ul>
+<li>Kraska[1], [2] 等人提出使用机器学习模型代替传统的 B 树索引，并在真实数据集上取得了不错的效果，但其提出的模型假设工作负载是静态的、只读的，对于索引更新问题没有提出很好的解决办法. [3] 提出了基于中间层的可扩展的学习索引模型 Dabble，用来解决索引更新引发的模型重新训练问题.</li>
+</ul>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a><strong>内容</strong></h2><h3 id="B-Trees-可以看成模型"><a href="#B-Trees-可以看成模型" class="headerlink" title="B-Trees 可以看成模型"></a><strong>B-Trees 可以看成模型</strong></h3><p>范围索引, 比如 B-Trees, 可以视为一个机器学习模型, 给定输入 Key 返回 position.</p>
+<p><img src="https://pic3.zhimg.com/v2-86bbd7ed6fc91f848e656fe03bbc6c1e_r.jpg"></p>
+<h4 id="一个极端的例子与数据分布"><a href="#一个极端的例子与数据分布" class="headerlink" title="一个极端的例子与数据分布"></a>一个极端的例子与数据分布</h4><p>一个极端的例子，一亿条数据，主键是整型从1到1亿，如果用B树的话，从根节点到一个个中间节点，非常麻烦，如果知道数据是这样分布的话，那肯定不会选择建索引，直接通过偏移量访问了。索引，<strong>一般索引都是不知道数据分布的，这样更具有通用性</strong>，但是通常来说，知道数据分布对于索引的优化(空间和查询效率)是通常都是非常有效的(比如对于稠密数据，用ART肯定没有用普通的span为8的前缀树表现好，尤其是索引的构建上)。但是对于这些传统索引来说，无论是了解数据分布，还是让索引为每种数据分布做专门的优化都过于复杂了。</p>
+<p>于是有了用机器学习来学习出一个能够<strong>反映数据分布</strong>，并能<strong>自动生成出特定的索引结构</strong>的想法。</p>
+<blockquote>
+<p>前面提到了B树需要保证要要查询的key必须在一个区间内，第一感觉用机器学习模型不简单，但事实并非如此。因为这个保证是给已经存储的key，而不是任意key，<strong>对于新来的key，B树需要重新平衡，对于学习型索引需要重新训练</strong>。再有就是这个错误边界并不是一定要有的，因为数据是有序的，误差也很容易纠正通过在预测值附近进行local search，比如用指数查找。因此，可以用其他回归模型，比如线性回归或神经网络来取代B树。</p>
+</blockquote>
+<h3 id="学习索引-learned-index"><a href="#学习索引-learned-index" class="headerlink" title="学习索引 (learned index)"></a><strong>学习索引 (learned index)</strong></h3><p><strong>学习索引要做的事是学习到一个映射函数, f(key)-&gt;pos, 将 key 写成 x, pos 写成 y, 希望学习到一个模型 f(x) 约等于 y.</strong> </p>
+<ul>
+<li>因为 x 是排序过的, 所以 f 实际上是在给数据的 CDF 建模 [4]. 下图是学习索引的一个示例.</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
+<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给$x_i$求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
+<p>同时<strong>为了提高模型的准确率, 使用层级模型</strong>. 损失函数如下所示</p>
+<p><img src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
+<p>模型架构如下所示:</p>
+<p><img src="https://pic4.zhimg.com/v2-5d87b69d40b38df60082e7f9cd22becf_r.jpg"></p>
+<p>层级模型和集成模型的思路相似, 都是通过集成弱分类器得到性能更好的分类器.</p>
+<h3 id="学习索引-learned-index-如何预测"><a href="#学习索引-learned-index-如何预测" class="headerlink" title="学习索引 (learned index) 如何预测"></a><strong>学习索引 (learned index) 如何预测</strong></h3><p>不同于一般的机器学习任务, 在使用学习索引 (learned index) 的时候, <strong>需要考虑模型输出偏差 delta</strong></p>
+<ul>
+<li>需要找到最大的误差 delta_max, 在 [y_pred-delta_max, y_pred+delta_max] 范围内搜寻起始点, 但是这个搜寻起始点可以使用二分查找, 时间复杂度不是很高.</li>
+</ul>
+<h3 id="Dabble-模型"><a href="#Dabble-模型" class="headerlink" title="Dabble 模型"></a><strong>Dabble 模型</strong></h3><p>之前其提出的模型假设工作负载是静态的、只读的，对于<strong>索引更新问题</strong>没有提出很好的解决办法. 因此提出了<strong>基于中间层的可扩展的学习索引模型 Dabble</strong></p>
+<ul>
+<li>用来解决<strong>索引更新引发的模型重训练</strong>问题</li>
+</ul>
+<p>实验：</p>
+<p>Dabble 模型中设计了 3 个机制:</p>
+<ul>
+<li>(1) 利用聚类算法将数据集按照数据的聚集方式划分为 K 个部分, 得到 K 个数据区域, 使得<strong>在每一个数据区域内部, 数据分布尽可能相同</strong>; </li>
+<li>(2) 对于每一个数据区域, <strong>分别利用神经网络对其进行训练</strong>, 使网络能够对该数据区域的分布得到一个比较好的拟合; </li>
+<li>(3) 在神经网络训练阶段, <strong>重点关注访问频率高的热点数据</strong>, 从而使神经网络对这些数据的预测精度更高. 另外, 为了更快地处理动态插入以及更新操作, Dabble 模型提出了一种基于中间层的数据插入机制, 从而使得不同的神经网络模型之间解耦, 模型之间保持独立性. <strong><u>当数据插入时, 只需要重新训练有数据插入的那个数据区域对应的模型即可</u></strong>, 不需要对整个 Dabble 重新训练, 从而提高了模型的可扩展性.</li>
+</ul>
+<p>Dabble 模型架构图如下所示</p>
+<p><img src="https://pic3.zhimg.com/v2-95e0ac3a2beda40d3057dbe875c4a47a_r.jpg"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a><strong>实验</strong></h2><p>论文 [1][2] 在 2 亿网站日志数据 weblogs 数据集上跑了实验. 将经过 cache 优化过的 B-Tree 页大小为 128 作为 baseline, 对于学习索引, 使用两阶段模型, 在没有 GPU 和 TPU 的机器上运行结果如下图所示. 可以看到学习索引<strong>比 B-Tree 更快的同时, 内存占用更少.</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-f9429d9ab98ad58ff6bfb795a40bb5e7_r.jpg"></p>
+<p>论文 [3] 在 weblogs 和 lognormal 数据集上进行评测, 结果如下图.</p>
+<p><img src="https://pic3.zhimg.com/v2-5b1c81aeadaf50e7a052ec60435d7242_r.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文总结了三篇文章, 主要探讨了结合机器学习技术的范围索引架构. 相较于传统的索引结构, 可学习型的索引展示了更好的可适应性.</p>
+<p>参考文献 </p>
+<p>[1] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “A Machine Learning Approach to Databases Indexes”NIPS 2017</p>
+<p>[2] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “The Case for Learned Index Structures”SIGMOD 2018</p>
+<p>[3] 高远宁, 叶金标, 杨念祖, 高晓沨, 陈贵海. 基于中间层的可扩展学习索引技术 [J]. 软件学报, 2020, 31(3): 620-633. <a href="https://link.zhihu.com/?target=http://www.jos.org.cn/1000-9825/5910.htm">http://www.jos.org.cn/1000-9825/5910.htm</a></p>
+<p>[4] M. Magdon-Ismail and A. F. Atiya. Neural networks for density estimation. In M. J. Kearns, S. A. Solla, and D. A. Cohn, editors, Advances in Neural Information Processing Systems 11, pages 522–528. MIT Press, 1999.</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/12/10/Index-ART/"><i class="iconfont iconleft"></i>Adaptive radix tree：高效自适应树状索引结构</a>
+    <a href="/2023/10/29/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%B4%A2%E5%BC%95-learned-index-%E6%8A%80%E6%9C%AF"><span class="toc-text">学习索引 (learned index) 技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-text">内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Trees-%E5%8F%AF%E4%BB%A5%E7%9C%8B%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="toc-text">B-Trees 可以看成模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%B4%A2%E5%BC%95-learned-index"><span class="toc-text">学习索引 (learned index)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%B4%A2%E5%BC%95-learned-index-%E5%A6%82%E4%BD%95%E9%A2%84%E6%B5%8B"><span class="toc-text">学习索引 (learned index) 如何预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dabble-%E6%A8%A1%E5%9E%8B"><span class="toc-text">Dabble 模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

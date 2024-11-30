@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记8-cache - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记8-cache
+
+
+
+
+主板内...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记8-cache</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记8-cache</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4623</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记8-cache</p></p>
+        
+        <p>主板内储存器：寄存器 &#x2F; Cache &#x2F; 主存</p>
+<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><p>内存墙：CPU运算速度比内存的速度快，且两者差距不断扩大</p>
+<p>解决： CPU和内存之间增加Cache</p>
+<ul>
+<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
+<li>Cache位于CPU和主存之间，可以<strong>集成在CPU内部</strong>或作为主板上的一个模块</li>
+<li>Cache中存放了主存中的<strong>部分信息的副本</strong></li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221101165348656.png"><span class="image-caption">image-20221101165348656</span></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>• <strong>检查（Check）</strong>：当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中</p>
+<ul>
+<li>检查后分两种情况处理：</li>
+</ul>
+<p>• <strong>命中（Hit）</strong>：如果在cache中，则把这个字传送给CPU</p>
+<p>• <strong>未命中（Miss）</strong>：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</p>
+<h2 id="1-Questions"><a href="#1-Questions" class="headerlink" title="1.Questions"></a>1.Questions</h2><h4 id="如何判断是命中还是未命中"><a href="#如何判断是命中还是未命中" class="headerlink" title="如何判断是命中还是未命中?"></a>如何判断是命中还是未命中?</h4><p>• CPU通过<strong>位置</strong>对主存中的内容进行寻址，不关心存储在其中的内容</p>
+<p>• Cache通过<strong>标记（tags）</strong>来标识其内容在主存中的对应位置（tag存放在块之前）</p>
+<h4 id="如果未命中，为什么不直接把所需要的字从内存传送到CPU"><a href="#如果未命中，为什么不直接把所需要的字从内存传送到CPU" class="headerlink" title="如果未命中，为什么不直接把所需要的字从内存传送到CPU?"></a>如果未命中，为什么不直接把所需要的字从内存传送到CPU?</h4><p>以便再次访问时命中。</p>
+<p>局部性原理：处理器频繁访问主存中相同或相邻位置的现象。</p>
+<ul>
+<li>时间局部性 ：短时间周期访问相同位置</li>
+<li>空间局部性：短时间周期内访问相邻储存位置<ul>
+<li>顺序局部性：线性排列（如数组）</li>
+</ul>
+</li>
+</ul>
+<h4 id="如果未命中，为什么从内存中读入一个块而不只读入一个字"><a href="#如果未命中，为什么从内存中读入一个块而不只读入一个字" class="headerlink" title="如果未命中，为什么从内存中读入一个块而不只读入一个字?"></a>如果未命中，为什么从内存中读入一个块而不只读入一个字?</h4><p>利用空间局部性。</p>
+<ul>
+<li>块是预先划分好的</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221101172526290.png"><span class="image-caption">image-20221101172526290</span></p>
+<h4 id="使用Cache后需要更多的操作，为什么还可以节省时间"><a href="#使用Cache后需要更多的操作，为什么还可以节省时间" class="headerlink" title="使用Cache后需要更多的操作，为什么还可以节省时间"></a>使用Cache后需要更多的操作，为什么还可以节省时间</h4><p>假设p是<strong>命中率</strong>， 𝑇𝐶 是cache的访问时间， 𝑇𝑀 是主存的访问时间，使用cache时的<strong>平均访问时间</strong>𝑇𝐴为：</p>
+<p>𝑇𝐴 &#x3D; 𝑝 × 𝑇𝐶 + 1 − 𝑝 × 𝑇𝐶 + 𝑇𝑀</p>
+<p>&#x3D; 𝑇𝐶 + (1 − 𝑝) × 𝑇𝑀</p>
+<p>命中率p越大， 𝑇𝐶越小， 效果越好（降低TM很难，故要么提高p要么减少TC）</p>
+<ul>
+<li><p>如果想要 𝑇𝐴 &lt; 𝑇𝑀, 必须要求</p>
+<ul>
+<li>𝑝 &gt; 𝑇𝐶 &#x2F; 𝑇𝑀</li>
+</ul>
+</li>
+<li><p>难点：cache的容量远远小于主存的容量（随机访问时𝑝 &#x3D; Cache容量 &#x2F;主存容量）</p>
+</li>
+</ul>
+<h2 id="2-未命中的原因"><a href="#2-未命中的原因" class="headerlink" title="2.未命中的原因"></a>2.未命中的原因</h2><p><strong>义务失效（Compulsory Miss）&#x2F; 冷启动失效（Cold Start Miss）</strong></p>
+<ul>
+<li>第一次访问一个块时</li>
+</ul>
+<p>• 例如：第一次访问一个数组，会发生义务失效</p>
+<ul>
+<li><strong>容量失效 （Capacity Miss）</strong></li>
+</ul>
+<p>• Cache无法保存程序访问所需的所有数据块，则当某数据块被替换后，又重新被访问，则发生失效</p>
+<p>• 例如： cache大小为8KB，如果需要重复访问一个16KB大小的数组，数组无法全部放入cache，会发生容量失效</p>
+<ul>
+<li><strong>冲突失效（Conflict Miss）</strong></li>
+</ul>
+<p>• 多个存储器位置映射到同一Cache位置</p>
+<p>• 例如：有两个4KB大小的数组都映射到了相同的地址，需要来回访问，则发生冲突失效</p>
+<h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
+<p>good: 增大了命中率𝑝</p>
+<p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
+<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C**(M为块的数量)**</p>
+<p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
+<p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
+<p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache行号 | 块内地址</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221103162423116.png"><span class="image-caption">image-20221103162423116</span></p>
+<ul>
+<li>主存标记与字块标记比较</li>
+<li>未命中，则说明映射到同mod块，需替换</li>
+</ul>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>优点<ul>
+<li>简单</li>
+<li>快速映射</li>
+<li>快速检查</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中,且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低，即发生冲突失效</li>
+</ul>
+</li>
+<li>适合<strong>大容量的cache</strong><ul>
+<li>行数变多，发生冲突失效的概率降低</li>
+<li>硬件电路简单，增大容量对𝑇𝐶的影响不明显，且能增大p</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h4><p>一个主存块可以装入cache<strong>任意一行</strong></p>
+<p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀（M为块的数量）</p>
+<p>主存地址映射为：标记 | 字</p>
+<p><strong>示例</strong></p>
+<p>• 假设cache有4行，每行包含8个字；主存中包含128个字。访问主存的地址长度为7&#x3D;log2(128)位，则：</p>
+<p>​	• 最低的3位：块内地址</p>
+<p>​	• 最高的4位：块号，记录为Cache标记</p>
+<p><strong>优缺点</strong></p>
+<p>• 优点</p>
+<p>​	• 避免抖动</p>
+<p>• 缺点</p>
+<p>​	• 实现起来比较复杂</p>
+<p>​	• Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</p>
+<p>• 适合<strong>容量较小的cache</strong></p>
+<p>​	• 小容量更容易发生冲突失效</p>
+<p>​	• 小容量检查的时间短</p>
+<h4 id="3-组关联映射"><a href="#3-组关联映射" class="headerlink" title="3.组关联映射"></a>3.组关联映射</h4><p>结合上两种映射方式的优点（也结合了缺点）：</p>
+<ul>
+<li>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<strong>固定组的任意一行</strong></li>
+<li>假设𝑠是cache组号，𝑗是主存块号，𝑆是组数<ul>
+<li>s &#x3D; 𝑗 𝑚𝑜𝑑 𝑆</li>
+</ul>
+</li>
+<li>K-路（K路：每组有多少行）组关联映射：<ul>
+<li>𝐾 &#x3D; 𝐶&#x2F;𝑆 （总行数column&#x2F;总组数segment）（小心考试弄反）</li>
+</ul>
+</li>
+</ul>
+<p>​	</p>
+<p>标记：地址中最高𝑛位，𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2𝑆</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache<strong>组</strong>号 | 块内地址</p>
+<h4 id="4-三种比较"><a href="#4-三种比较" class="headerlink" title="4.三种比较"></a>4.三种比较</h4><p>• 关联度（Correlation）：一个主存块映射到cache中可能存放的位置个数</p>
+<p>​	• 直接映射：1</p>
+<p>​	• 关联映射：𝐶</p>
+<p>​	• 组关联映射：𝐾</p>
+<p>• 关联度越低，<strong>命中率越低</strong></p>
+<p>​	• 直接映射的命中率最低，关联映射的命中率最高</p>
+<p>• 关联度越低，判断是否命中的时间越短（即<strong>搜索成本越低）</strong></p>
+<p>​	• 直接映射的命中时间最短，关联映射的命中时间最长</p>
+<p>• 关联度越低，标记所占额外空间开销越小（即<strong>标记长度越短</strong>）</p>
+<p>​	• 直接映射的标记最短，关联映射的标记最长</p>
+<h3 id="3-3-替换算法"><a href="#3-3-替换算法" class="headerlink" title="3.3 替换算法"></a>3.3 替换算法</h3><ul>
+<li>采用替换算法的情景是，多行可选且多行均被占（直接映射不需要算法，直接换）</li>
+<li>替换算法通过<strong>硬件</strong>来实现</li>
+<li>设计替换算法的<strong>目标是提高命中率</strong>（比随机好）</li>
+</ul>
+<h4 id="最近最少使用算法（Least-Recently-Used-LRU）"><a href="#最近最少使用算法（Least-Recently-Used-LRU）" class="headerlink" title="最近最少使用算法（Least Recently Used, LRU）"></a>最近最少使用算法（Least Recently Used, LRU）</h4><p>假设：<strong>最近使用</strong>过的数据块有可能会被再次使用</p>
+<p>策略：替换在cache中<strong>最长时间未被访问</strong>的数据块</p>
+<p>2路组实现实例：</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221103165510353.png"><span class="image-caption">image-20221103165510353</span></p>
+<p>4路组实例：</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221103170805466.png"><span class="image-caption">image-20221103170805466</span></p>
+<p>即：命中时清零，其他加一。</p>
+<p>未命中时，淘汰k-1的,其他加一</p>
+<h4 id="先进先出算法（First-In-First-Out-FIFO）"><a href="#先进先出算法（First-In-First-Out-FIFO）" class="headerlink" title="先进先出算法（First In First Out, FIFO）"></a>先进先出算法（First In First Out, FIFO）</h4><p>• <strong>假设：</strong>最近由<strong>主存载入</strong>Cache的数据块更有可能被使用</p>
+<p>• <strong>策略：</strong>替换掉在Cache中停留时间最长的块</p>
+<p>• <strong>实现：</strong>时间片轮转法 或 环形缓冲技术</p>
+<p>​	• 每行包含一个标识位</p>
+<p>​	• 当同一组中的某行被替换时，将其标识位设为1，同时将其下一行的标识位设为0</p>
+<p>​		• 如果被替换的是该组中的最后一行，则将该组中的第一行的标识位设为0</p>
+<p>​	• 当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</p>
+<p><strong>样例：</strong></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221103172513489.png"><span class="image-caption">image-20221103172513489</span></p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，FIFO为总停留时间</strong></li>
+</ul>
+<h4 id="最不经常使用算法（Least-Frequently-Used-LFU）"><a href="#最不经常使用算法（Least-Frequently-Used-LFU）" class="headerlink" title="最不经常使用算法（Least Frequently Used, LFU）"></a>最不经常使用算法（Least Frequently Used, LFU）</h4><p>• 假设：访问越频繁的数据块越有可能被再次使用</p>
+<p>• 策略：替换掉cache中被访问次数最少的数据块</p>
+<p>• 实现：为每一行设置计数器LFU</p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，LFU为访问次数</strong></li>
+</ul>
+<h4 id="随机替换算法（Random）"><a href="#随机替换算法（Random）" class="headerlink" title="随机替换算法（Random）"></a>随机替换算法（Random）</h4><p>• 假设：每个数据块被再次使用的可能性是相同的</p>
+<p>• 策略：随机替换cache中的数据块</p>
+<p>• 实现：随机替换</p>
+<p>• 随机替换算法在性能上只稍逊于使用其它替换算法</p>
+<h3 id="3-4-写策略"><a href="#3-4-写策略" class="headerlink" title="3.4 写策略"></a>3.4 写策略</h3><ul>
+<li><p>主存和cache的一致性</p>
+<ul>
+<li>cache被替换时，需考虑该cache数据块是否被修改</li>
+</ul>
+</li>
+<li><p>替换时</p>
+<ul>
+<li>如果没被修改，则该数据块可以直接被替换</li>
+<li>如果被修改，则在替换之前必须将修改后的数据块写入主存</li>
+</ul>
+</li>
+<li><p><strong>写策略</strong></p>
+<p>• 写直达（Write Through）</p>
+<p>• 写回法（Write Back）</p>
+</li>
+</ul>
+<h4 id="缓存命中时的写策略"><a href="#缓存命中时的写策略" class="headerlink" title="缓存命中时的写策略"></a>缓存命中时的写策略</h4><ol>
+<li><strong>写直达</strong></li>
+</ol>
+<p>• <strong>所有写操作同时对cache和主存进行</strong></p>
+<p>• <strong>优点</strong>：确保主存中的数据总是和cache中的数据一致，总是最新的（例如多CPU同步的场景）</p>
+<p>• <strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
+<p>• 搭配写不分配</p>
+<ol start="2">
+<li><strong>写回法</strong></li>
+</ol>
+<p>• <strong>先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</strong></p>
+<p>• <strong>利用一个脏位（dirty bit）或者使用位（use bit）来表示块是否被修改</strong></p>
+<p>• <strong>优点</strong>：减少了访问主存的次数</p>
+<p>• <strong>缺点</strong></p>
+<p>​	• 部分主存数据可能不是最新的（例如未发生替换但需要读主存的场景）</p>
+<p>​		• I&#x2F;O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂且有可能带来性能瓶颈</p>
+<p>• 搭配写分配</p>
+<h4 id="缓存未命中时的写策略"><a href="#缓存未命中时的写策略" class="headerlink" title="缓存未命中时的写策略"></a>缓存未命中时的写策略</h4><p>• <strong>写不分配（<strong><strong>Write Non-Allocate</strong></strong>）：</strong>直接将数据写入主存，无需读入cache</p>
+<p>​	• 优点：避免cache和主存中的数据不一致</p>
+<p>​	• 通常搭配：写直达</p>
+<p>• <strong>写分配（<strong><strong>Write Allocate</strong></strong>）：</strong>将数据所在的块读入cache后，在cache中更新内容</p>
+<p>​	• 优点：利用了cache的高速特性，<strong>减少写内存次数</strong></p>
+<p>​	• 通常搭配：写回法</p>
+<h3 id="3-5-行大小"><a href="#3-5-行大小" class="headerlink" title="3.5 行大小"></a>3.5 行大小</h3><p>Cache命中率先升后降</p>
+<ul>
+<li><p>假设从行的大小为一个字开始，随着<strong>行大小的逐步增大</strong>，则Cache命中率会增加</p>
+<ul>
+<li>原因：装入了<strong>更多数据</strong></li>
+</ul>
+</li>
+<li><p>行大小变得较大之后，<strong>继续增加行大小</strong>，则Cache命中率会下降</p>
+<ul>
+<li>Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入cache中的<strong>数据块数量减少</strong>，进而造成<strong>数据块被频繁替换</strong></li>
+<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
+</ul>
+</li>
+<li><p>行大小与命中率之间的关系较为复杂</p>
+<ul>
+<li>行太小，<strong>行数太多</strong>反时间局部性</li>
+<li>行太大<strong>，行数太少</strong>反空间局部性</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-Cache数目"><a href="#3-6-Cache数目" class="headerlink" title="3.6 Cache数目"></a>3.6 Cache数目</h3><ul>
+<li>一级<ul>
+<li>cache与处理器至于同一芯片</li>
+<li>减少处理器在总线上的执行时间</li>
+</ul>
+</li>
+<li>多级<ul>
+<li>当L1（一级缓存）未命中时，减少处理器对总线上DRAM或ROM的访问</li>
+<li>使用单独的数据路径，代替系统总线在L2缓存和处理器之间传输数据，部分处理器将L2（二级缓存） cache结合到处理器芯片上</li>
+</ul>
+</li>
+</ul>
+<p>统一VS分立</p>
+<ul>
+<li>统一<ul>
+<li>更高的命中率，在获取<strong>指令和数据</strong>的负载之间自动进行平衡</li>
+<li>只需要设计和实现一个cache</li>
+</ul>
+</li>
+<li>分立<ul>
+<li>实现多个cache</li>
+<li>消除cache在指令的<strong>取值&#x2F;译码单元和执行单元</strong>之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
+</ul>
+</li>
+</ul>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/02/10/Lecture%207%20%E5%82%A8%E5%AD%98%E5%99%A8/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记7-存储器</a>
+    <a href="/2023/02/10/Lecture%209%20%E5%A4%96%E9%83%A8%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记9-外部存储器<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Cache"><span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Questions"><span class="toc-text">1.Questions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9C%AA%E5%91%BD%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">2.未命中的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%BE%E8%AE%A1Cache%E6%89%80%E9%9C%80%E8%80%83%E8%99%91%E8%A6%81%E7%B4%A0"><span class="toc-text">3.设计Cache所需考虑要素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1Chche%E5%AE%B9%E9%87%8F"><span class="toc-text">3.1Chche容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E6%98%A0%E5%B0%84%E5%8A%9F%E8%83%BD"><span class="toc-text">3.2映射功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">3.3 替换算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%86%99%E7%AD%96%E7%95%A5"><span class="toc-text">3.4 写策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E8%A1%8C%E5%A4%A7%E5%B0%8F"><span class="toc-text">3.5 行大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Cache%E6%95%B0%E7%9B%AE"><span class="toc-text">3.6 Cache数目</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

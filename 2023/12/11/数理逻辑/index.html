@@ -1,0 +1,1082 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数理逻辑-一阶逻辑(模型论角度)-学习笔记 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 数学">
+  <meta name="description" content="我们必须知道，我们终将知道。
+
+
+
+
+ignoramu...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">数理逻辑-一阶逻辑(模型论角度)-学习笔记</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">数理逻辑-一阶逻辑(模型论角度)-学习笔记</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 11, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>25656</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>我们必须知道，我们终将知道。</p></p>
+        
+        <p><strong>ignoramus et ignorabimus</strong></p>
+<h1 id="A-Mathematical-Introduction-to-Logic第二章-一阶逻辑-模型论角度-学习笔记"><a href="#A-Mathematical-Introduction-to-Logic第二章-一阶逻辑-模型论角度-学习笔记" class="headerlink" title="A Mathematical Introduction to Logic第二章-一阶逻辑(模型论角度)-学习笔记"></a>A Mathematical Introduction to Logic第二章-一阶逻辑(模型论角度)-学习笔记</h1><ul>
+<li><p>公式显示失败了..有空换个博客模版</p>
+</li>
+<li><p>笔记来自于 Enderton (2001) A Mathematical Introduction to Logic</p>
+</li>
+</ul>
+<h1 id="课本纠错"><a href="#课本纠错" class="headerlink" title="课本纠错"></a>课本纠错</h1><blockquote>
+<p> <u>以下错误均已经与英文原版作对比</u></p>
+</blockquote>
+<p>P36. 最后一行 $\neg$ 应改为$\rightarrow$</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231121112116386.png"><span class="image-caption">image-20231121112116386</span></li>
+</ul>
+<p>P70. 同态定理 (a)  $h \circ s(t)$应改为  $\overline {h \circ s}(t)$</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231121112504911.png"><span class="image-caption">image-20231121112504911</span></li>
+</ul>
+<p>P84错误 ，$\forall x \varphi$应改为$\forall x \psi$</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231112204951151.png"><span class="image-caption">image-20231112204951151</span></li>
+</ul>
+<p>P85 错误，$\varphi$应改为$ \psi$</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231112205031189.png"><span class="image-caption">image-20231112205031189</span></li>
+</ul>
+<p>P86 错误，$\Gamma \vdash y \psi_{y}^{x}$  应改为  $\Gamma \vdash \forall y \psi_{y}^{x}$</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231112205102530.png"><span class="image-caption">image-20231112205102530</span></p>
+<p>P97错误 “完备性定理的证明”应改为”可靠性定理的证明”</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231114114209539.png"><span class="image-caption">image-20231114114209539</span></li>
+</ul>
+<p>P106错误， $ \sigma$ 应改为 $\varGamma$</p>
+<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231115174017090.png"><span class="image-caption">image-20231115174017090</span></li>
+</ul>
+<h1 id="一阶逻辑定义-x2F-重点总结"><a href="#一阶逻辑定义-x2F-重点总结" class="headerlink" title="一阶逻辑定义&#x2F;重点总结"></a>一阶逻辑定义&#x2F;重点总结</h1><p>一阶逻辑的意义：</p>
+<ul>
+<li>人们很容易想到直觉上正确的推论的例子，而这些推论不能充分反映在命题逻辑模型中。</li>
+<li>本章介绍了一个能力更强的逻辑系统：一阶逻辑。事实上，当“数学家”找到一个证明时，几乎总是意味着一个可以反映在一阶逻辑中的证明</li>
+</ul>
+<h1 id="Section-2-1-First-Order-Languages"><a href="#Section-2-1-First-Order-Languages" class="headerlink" title="Section 2.1: First-Order Languages"></a>Section 2.1: First-Order Languages</h1><h2 id="语言符号整理"><a href="#语言符号整理" class="headerlink" title="语言符号整理:"></a>语言符号整理:</h2><table>
+<thead>
+<tr>
+<th>逻辑符号logical symbols</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>连接符</td>
+<td>$\neg$</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>$\rightarrow$</td>
+</tr>
+<tr>
+<td></td>
+<td>标点符号</td>
+<td>(</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>)</td>
+</tr>
+<tr>
+<td></td>
+<td>变量</td>
+<td>$v_n$</td>
+</tr>
+<tr>
+<td><strong>参数</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>全称量词<strong>quantifier</strong> symbols</td>
+<td>$\forall$</td>
+</tr>
+<tr>
+<td></td>
+<td>谓词符号<strong>predicate</strong> symbols</td>
+<td>$P,Q$；作用于n个参数</td>
+</tr>
+<tr>
+<td></td>
+<td>常量<strong>constant</strong> symbols</td>
+<td>$c$；不可变</td>
+</tr>
+<tr>
+<td></td>
+<td>函数符号<strong>function</strong> symbols</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>一阶语言的不同之处在于</p>
+<ul>
+<li>(a) 是否存在相等符号（相等符号是逻辑符号而不是参数）</li>
+<li>(b) 存在参数</li>
+</ul>
+<p><strong>表达式</strong>：符号的有限序列。表达式有几种特殊类型：</p>
+<ul>
+<li><em>项。</em>对于每个 n 位函数符号 f，我们定义了一个 n 位项构建操作$\mathcal{F}<em>{f}(\epsilon</em>{1},\ldots,\epsilon_{n})&#x3D;f\epsilon_{1}\ldots\epsilon_{n}$.。通过应用零次或多次 n 位项构建运算，从常量符号和变量中构建项。<ul>
+<li>项通过对已构建的对象取函数，从<strong>常量和变量</strong>中归纳出对象。</li>
+</ul>
+</li>
+<li><em>原子公式</em>。一个<strong>原子公式</strong>是形式为$Pt_{1}\ldots t_{n}$的表达式，其中 P 是一个 n 位谓词符号，每个$t_{i}$都是一个项。<ul>
+<li>原子公式是公式中<strong>被赋予真值的最小部分</strong>，由项和谓词组成。</li>
+<li>它们在一阶逻辑中扮演着类似于自然语言中句子的角色。</li>
+</ul>
+</li>
+<li>合式公式。<strong>合式公式</strong>（wff）是一个表达式，可以通过应用零次或多次以下<strong>公式构建操作</strong>来从原子公式中构建：<ul>
+<li>$\mathcal{E}_{\neg}(\gamma)&#x3D;(\neg\gamma)$</li>
+<li>$\mathcal{E}_{\rightarrow}(\gamma,\delta)&#x3D;(\gamma\rightarrow\delta)$</li>
+<li>$\mathcal{Q}<em>{i}(\gamma)&#x3D;\forall v</em>{i}\gamma$.</li>
+</ul>
+</li>
+</ul>
+<p><strong>自由出现</strong>：递归定义。在 合式公式wff 中，变量 x 被称为自由出现（x 是自由变量），当满足以下条件之一时： </p>
+<p>​	(a) $\alpha$ 是原子公式并且 x 自由出现于 $\alpha$中 , </p>
+<p>​	(b) $\alpha&#x3D;(\neg\beta)$ 并且x自由出现于 $\beta$, </p>
+<p>​	(c) $\alpha&#x3D;(\beta\rightarrow\gamma)$ 并且“ x 自由出现于 $\beta$ 或者 x 自由出现于 $\gamma$”</p>
+<p>​	(d) $\alpha&#x3D;\forall v_{i}\beta$ 并且 $x\neq v_{i}$ 并且 x 自由出现于 $\beta$.</p>
+<ul>
+<li><p>或者，我们定义 $h(\alpha)$ 其中$\alpha$是原子的，是其所有<strong>变量的集合</strong>，并将其扩展到在所有 合式公式wff 的集合上定义:</p>
+<ul>
+<li>$\overline{h}(\mathcal{E}_{\neg}(\alpha))&#x3D;\overline{h}(\alpha)$</li>
+<li>$\overline{h}(\mathcal{E}_{\rightarrow}(\alpha,\beta))&#x3D;\overline{h}(\alpha)\cup\overline{h}(\beta)$</li>
+<li>$\overline{h}(\mathcal{Q}<em>{i}(\alpha))&#x3D;\overline{h}(\alpha)-{v</em>{i}}$.</li>
+</ul>
+</li>
+<li><p>$\alpha$  是句子当且仅当 $\overline{h}(\alpha)&#x3D;\emptyset$. 即没有自由出现的变量</p>
+</li>
+</ul>
+<h2 id="转换-x2F-缩写习惯总结："><a href="#转换-x2F-缩写习惯总结：" class="headerlink" title="转换&#x2F;缩写习惯总结："></a>转换&#x2F;缩写习惯总结：</h2><ul>
+<li>$(\alpha\vee\beta)$ 可写为 $((\neg\alpha)\rightarrow\beta)$.</li>
+<li>$(\alpha\wedge\beta)$  可写为 $(\neg(\alpha\rightarrow(\neg\beta)))$.</li>
+<li>$(\alpha\leftrightarrow\beta)$  可写为 $(\neg((\alpha\rightarrow\beta)\rightarrow(\neg(\beta\rightarrow\alpha))))$.</li>
+<li>$\exists x\alpha$ 可写为$(\neg\forall x(\neg\alpha))$.</li>
+<li>$t&#x3D;u$  可写为 $&#x3D;tu$ (对于其他一些两位谓词和函数符号也一样)</li>
+<li>$t\neq u$  可写为 $(\neg&#x3D;tu)$ (对于其他一些两位谓词和函数符号也一样)</li>
+<li>最外面的括号可以去掉</li>
+<li>尽可能少用$\neg$, $\forall$, and $\exists$ 的缩写</li>
+<li>向右的优先级： $\alpha\square\beta\square\gamma$ 被理解为 $(\alpha\square(\beta\square\gamma))$.<ul>
+<li>为了便于阅读，可以将括号添加或更改为 []</li>
+</ul>
+</li>
+</ul>
+<h2 id="字母表"><a href="#字母表" class="headerlink" title="字母表"></a>字母表</h2><ul>
+<li>变量：小写斜体字母 $v_{i}$, $u$, $v$, $x$, $y$, $z$.</li>
+<li>谓词符号：大写斜体字母，以及特定符号，如 $\in$, $&lt;$, etc.</li>
+<li>常量符号：小写斜体字母 $a$, $b$, $c$, $\ldots$, 以及特定符号，如 $0$, etc.</li>
+<li>函数符号：小写斜体字母 $f$, $g$, $h$, and specific symbols such as $\mathbb{S}$, $+$, etc.</li>
+<li>项：小写斜体字母 $t$, $u$.</li>
+<li>公式：小写希腊字母 $\alpha$, $\beta$, $\gamma$, $\ldots$</li>
+<li>句子：小写希腊字母  $\sigma$, $\tau$.</li>
+<li>公式集：大写希腊字母 $\Gamma$</li>
+<li>结构：大写德语（花体）字母 $\mathfrak{A}$</li>
+</ul>
+<h1 id="Section-2-2-Truth-and-Models-真值与模型"><a href="#Section-2-2-Truth-and-Models-真值与模型" class="headerlink" title="Section 2.2: Truth and Models 真值与模型"></a>Section 2.2: Truth and Models 真值与模型</h1><p><strong>语言</strong>：</p>
+<ul>
+<li>语言是一些有实际用处的参数集合，通常可以用等号来讨论．</li>
+</ul>
+<p><em><strong>结构</strong></em> ：</p>
+<ul>
+<li>对于给定的一阶语言，<strong><em>结构</em>  $ \mathfrak{A}$</strong> 是<strong>参数集合上的一个函数</strong>，是一阶语言到自然语言的翻译<ul>
+<li>例子; $(\mathbb{C};0,1,+,\cdot)$</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>全称量词 $\forall$ 对应的所有元素$|\mathfrak{A}|$ 叫做 $\mathfrak{A}$ 的论域.</li>
+<li>每个 n 位谓词符号 P 都在 $|\mathfrak{A}|$上有一个 n 元关系  $P^{\mathfrak{A}}$</li>
+<li>每个常数符号 c 都在 $|\mathfrak{A}|$上有成员 $c^{\mathfrak{A}}$ </li>
+<li>每个 n 位函数符号$f$  都在 $|\mathfrak{A}|$上有一个 n次运算 $f^{\mathfrak{A}}$ .</li>
+</ol>
+<p><em><strong>满足</strong></em>：设 $\phi$ 为合式公式, 并且 $s:V\rightarrow\mathfrak{A}$,  $V$ 是所有变量的集合. 那么 $\mathfrak{A}$ 用$s$<strong>满足</strong>$\phi$, （$\vDash_{\mathfrak{A}}\phi[s]$）, 当且仅当</p>
+<ul>
+<li><p>项满足的定义：首先扩展 $s$ 到 $\overline{s}$ ，定义如下</p>
+<ul>
+<li>a）对所有变量$x$, $\overline{s}(x)&#x3D;s(x)$</li>
+<li>b)  对所有常量 $\overline{s}(c)&#x3D;c^{\mathfrak{A}}$, </li>
+<li>c) 对所有项 $\overline{s}(ft_{1}\ldots t_{n})&#x3D;f^{\mathfrak{A}}(\overline{s}(t_{1}),\ldots,\overline{s}(t_{n}))$.</li>
+</ul>
+</li>
+<li><p>原子公式的满足定义：</p>
+<ul>
+<li>a) $\vDash_{\mathfrak{A}}&#x3D;t_{1}t_{2}[s]$ iff $\overline{s}(t_{1})&#x3D;\overline{s}(t_{2})$ </li>
+<li>b) $\vDash_{\mathfrak{A}}Pt_{1}\ldots t_{n}[s]$ iff $&lt;\overline{s}(t_{1}),\ldots,\overline{s}(t_{n})&gt;\in P^{\mathfrak{A}}$.</li>
+</ul>
+</li>
+<li><p>最后，我们将满足的概念扩展到所有合式公式: </p>
+<ul>
+<li><p>a) $\vDash_{\mathfrak{A}}\neg\phi[s]$ iff $\not\vDash_{\mathfrak{A}}\phi[s]$, </p>
+</li>
+<li><p>b) $\vDash_{\mathfrak{A}}(\phi\rightarrow\psi)[s]$ iff $\not\vDash_{\mathfrak{A}}\phi[s]$ or $\vDash_{\mathfrak{A}}\psi[s]$, </p>
+</li>
+<li><p>c) $\vDash_{\mathfrak{A}}\forall x\phi[s]$ iff 对任意 $d\in|\mathfrak{A}|$, $\vDash_{\mathfrak{A}}\phi[s(x|d)]$ </p>
+<ul>
+<li>（其中 $s(x|d)$在除 $ s(x| d)(x)&#x3D;d$ 之外的所有地方都是 s）</li>
+</ul>
+</li>
+<li><p>另一种方法是，给定 $\mathfrak{A}$, 递归地定义函数 $\overline{h}(\phi)$ 为函数集 $s$ ，使得 $\mathfrak{A}$ 用$s $满足$\phi$</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>假设 $s$ 和 $s’$在 $\phi$ 中自由出现的所有变量上有相同的映射，则 $\vDash_{\mathfrak{A}}\phi[s]$ iff $\vDash_{\mathfrak{A}}\phi[s’]$.</p>
+<ul>
+<li>类似地，如果结构$\mathfrak{A}$ 和 $\mathfrak{B}$在 $\phi$ 中出现的所有参数上一致，那么对任意$s$有   $\vDash_{\mathfrak{A}}\phi[s]$  iff   $\vDash_{\mathfrak{B}}\phi[s]$</li>
+</ul>
+<p>对一个句子 $\sigma$ ，要么 $\vDash_{\mathfrak{A}}\sigma[s]$ ,要么 $\not\vDash_{\mathfrak{A}}\sigma[s]$。$s$是任意的函数。</p>
+<p><em><strong>模型</strong></em>：$\mathfrak{A}$  是句子$\sigma$<strong>的模型</strong>：当且仅当 $\sigma$ 在 结构$\mathfrak{A}$中是真的, </p>
+<ul>
+<li>$\vDash_{\mathfrak{A}}\sigma$, 意味着对任意$s$ $\vDash_{\mathfrak{A}}\sigma[s]$ . </li>
+<li>$\mathfrak{A}$ 是一组句子的模型当且仅当它是该集合中每个句子的模型。</li>
+</ul>
+<h2 id="Logical-Implication-逻辑蕴涵"><a href="#Logical-Implication-逻辑蕴涵" class="headerlink" title="Logical Implication 逻辑蕴涵"></a>Logical Implication 逻辑蕴涵</h2><p><em><strong>逻辑蕴涵</strong></em>：一组合式公式 $\Gamma$ <strong>逻辑蕴涵</strong> 一个合式公式 $\phi$, 表示为$\Gamma\vDash\phi$, 当且仅当对任意结构 $\mathfrak{A}$ 中的所有 $s:V\rightarrow|\mathfrak{A}|$，有 $\vDash_{\mathfrak{A}}\Gamma[s]$ 蕴含$\vDash_{\mathfrak{A}}\phi[s]$</p>
+<blockquote>
+<p> 蕴含：（满足前者时，后者也满足）</p>
+</blockquote>
+<ul>
+<li>合式公式 $\phi$ 和 $\psi$  <strong>逻辑等价</strong> 当且仅当 $\phi\vDash\psi$ and $\psi\vDash\phi$.<ul>
+<li>$\Gamma;\phi\vDash\psi$ iff $\Gamma\vDash(\phi\rightarrow\psi)$.</li>
+</ul>
+</li>
+<li>合式公式 $\phi$ 被称作 <strong>恒真的</strong>, ($\vDash\phi$), 当且仅当$\emptyset\vDash\phi$.<ul>
+<li>$\phi$ 和 $\psi$ 逻辑等价 iff $(\phi\leftrightarrow\psi)$ 恒真.</li>
+<li>$\phi$ 恒真 iff $\forall x\phi$ 恒真.</li>
+</ul>
+</li>
+</ul>
+<p>对句子而言:  $\Sigma\vDash\tau$ iff  $\Sigma$ 的每个模型也是 $\tau$的模型. </p>
+<ul>
+<li>$\tau$ 恒真 iff 它在每个模型中都被满足.</li>
+</ul>
+<h2 id="Homomorphisms-同态"><a href="#Homomorphisms-同态" class="headerlink" title="Homomorphisms 同态"></a>Homomorphisms 同态</h2><p><strong>同态</strong>：</p>
+<ul>
+<li>$h:|\mathfrak{A}|\rightarrow|\mathfrak{B}|$ 是 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的<strong>同态映射</strong>，当且仅当它在谓词关系和函数（包括常数）方面保持不变。</li>
+</ul>
+<p><strong>同构</strong>：</p>
+<ul>
+<li><p>如果 $h$ 是 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的<strong>同构（同构嵌入）</strong>：那么它是一对一的同态映射。</p>
+</li>
+<li><p>$\mathfrak{A}$ 和 $\mathfrak{B}$ 被称为<strong>同构</strong>，记作 $\mathfrak{A}\cong\mathfrak{B}$，当且仅当存在 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的同构映射。</p>
+</li>
+</ul>
+<p><strong>同态定理。</strong> 如果 $h$ 是 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的同态映射，并且 $s:V\rightarrow|\mathfrak{A}|$，那么</p>
+<ul>
+<li>(a) 对于任何项 $t$，$\overline{h\circ s}(t)&#x3D;h(\overline{s}(t))$。</li>
+<li>(b) 对于任何<strong>无全称量词和等式</strong>的公式 $\alpha$，$\vDash_{\mathfrak{A}}\alpha[s]$ 当且仅当 $\vDash_{\mathfrak{B}}\alpha[h\circ s]$。</li>
+<li>(c)  在 (b) 中，如果 $h$ 是一对一的（同构），则 $\alpha$ 可能包含等式符号，如果 $h$ 是满射（同态），则可能包含量词符号。</li>
+</ul>
+<p><strong>子结构</strong>：$\mathfrak{A}$ 是 $\mathfrak{B}$ 的子结构，或者说 $\mathfrak{B}$ 是 $\mathfrak{A}$ 的<strong>扩充</strong>，当且仅当 $|\mathfrak{A}|\subseteq|\mathfrak{B}|$，并且从 $|\mathfrak{A}|$ 到 $|\mathfrak{B}|$ 的恒等映射是同构的。</p>
+<ul>
+<li>如果 a) 对于每个谓词 $P$，$P^{\mathfrak{A}}$ 是 $P^{\mathfrak{B}}$ 对 $|\mathfrak{A}|$ 的限制，b) 对于每个常数 $c$，$c^{\mathfrak{A}}&#x3D;c^{\mathfrak{B}}$，并且 c) 对于每个函数 $f$，$f^{\mathfrak{A}}$ 是 $f^{\mathfrak{B}}$ 对 $|\mathfrak{A}|$ 的限制，则恒等映射是同构的。	</li>
+<li>对于每个结构 $\mathfrak{A}$ 和函数 $h$，使得 $\mbox{ran}h&#x3D;|\mathfrak{A}|$，存在一个结构 $\mathfrak{B}$，使得 $h$ 是 $\mathfrak{B}$ 到 $\mathfrak{A}$ 的同态映射。</li>
+<li>对于每个结构 $\mathfrak{A}$ 和一对一函数 $h$，使得 $\mbox{dom}h&#x3D;|\mathfrak{A}|$，存在唯一的结构 $\mathfrak{B}$，使得 $h$ 是 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的同构映射。</li>
+<li>如果 $h$ 是 $\mathfrak{A}$ 到 $\mathfrak{B}$ 的同构，则存在一个结构 $\mathfrak{C}$，使得 $\mathfrak{A}$ 是 $\mathfrak{C}$ 的子结构，并且 $\mathfrak{C}$ 同构于 $\mathfrak{B}$。</li>
+</ul>
+<p><strong>自同构</strong>：$\mathfrak{A}$ 到 $\mathfrak{A}$ 的同构映射被称为自同构。</p>
+<ul>
+<li>恒等映射是自同构的。如果还有其他自同构，则 $\mathfrak{A}$ 被称为<strong>固化的</strong>。</li>
+<li>如果 $R$ 是 $\mathfrak{A}$ 中可在 $\mathfrak{A}$ 中定义的 $n$ 元关系，则自同构会保持它。<ul>
+<li>一些关系在结构中不可定义的例子：$\mathbb{N}$ 在 $(\mathbb{R},&lt;)$ 中是不可定义的，$h(x)&#x3D;x&#x2F;2$ ；长度在向量空间中通过加法和标量乘法是不可定义的，$h(v)&#x3D;2v$。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Elementarily-equivalent-structures-初等等价"><a href="#Elementarily-equivalent-structures-初等等价" class="headerlink" title="Elementarily equivalent structures 初等等价"></a>Elementarily equivalent structures 初等等价</h2><p>$\mathfrak{A}$ 和 $\mathfrak{B}$ 是<strong>初等等价的</strong>，$\mathfrak{A}\equiv\mathfrak{B}$，当且仅当对于任何句子 $\sigma$，$\vDash_{\mathfrak{A}}\sigma$ 当且仅当 $\vDash_{\mathfrak{B}}\sigma$。</p>
+<ul>
+<li>同构的结构是初等等价的：$\mathfrak{A}\cong\mathfrak{B}$ 意味着 $\mathfrak{A}\equiv\mathfrak{B}$。<ul>
+<li>如果 $\mathfrak{A}$ 是有限的，$\mathfrak{A}\equiv\mathfrak{B}$ 意味着 $\mathfrak{A}\cong\mathfrak{B}$。</li>
+<li>反方向不一定成立：$(\mathbb{R};&lt;<em>{R})$ 和 $(\mathbb{Q};&lt;</em>{Q})$ 是初等等价的但不同构。</li>
+</ul>
+</li>
+<li>$(\mathbb{N};&lt;<em>{N})$ 和 $(\mathbb{R};&lt;</em>{R})$ 不是初等等价的，但在 $(\mathbb{R};&lt;<em>{R})$ 中对每个 $\exists</em>{2}$ 句子为真的 $\sigma$ 也在 $(\mathbb{N};&lt;_{N})$ 中为真。</li>
+</ul>
+<p>初等等价类</p>
+<ul>
+<li>结构 $\mathfrak{A}$ 的<strong>初等等价类</strong>是与 $\mathfrak{A}$ 初等等价的所有结构的类。</li>
+</ul>
+<h2 id="结构中的可定义性"><a href="#结构中的可定义性" class="headerlink" title="结构中的可定义性"></a>结构中的可定义性</h2><p>可定义的：</p>
+<ul>
+<li><p>如果存在定义（区分）关系的一个公式 $\phi$ ，则 $|\mathfrak{A}|$ 上的 $k$ 元关系是<strong>在 $\mathfrak{A}$ 中可定义的</strong>。</p>
+</li>
+<li><p>例子：</p>
+<ul>
+<li>在 $\mathfrak{N}&#x3D;(\mathbb{N};&lt;,+,\cdot)$ 中，所有可判定的关系都是可定义的，但还有许多其他关系。<ul>
+<li>素数集、序关系是可定义的</li>
+</ul>
+</li>
+<li>在 $\mathfrak{R}&#x3D;(\mathbb{R};&lt;,+,\cdot)$ 中，集合是可定义的，当且仅当它是具有端点的区间的有限并集、</li>
+</ul>
+</li>
+</ul>
+<h2 id="结构类的可定义性"><a href="#结构类的可定义性" class="headerlink" title="结构类的可定义性"></a>结构类的可定义性</h2><hr>
+<p>对于一组句子 $\Sigma$，$\mbox{Mod}\Sigma$ 是 $\Sigma$ 的所有模型的类。</p>
+<p>对于语言的结构类 $\mathcal{K}$，如果对于某个句子 $\tau$， $\mathcal{K}&#x3D;\mbox{Mod}\tau$ ，则称其为<strong>初等类（$EC$）</strong>。</p>
+<p>对于语言的结构类 $\mathcal{K}$，如果对于某个句子集 $\Sigma$， $\mathcal{K}&#x3D;\mbox{Mod}\Sigma$ ，则称其为<strong>广义初等类（$EC{}_{\Delta}$）</strong>。</p>
+<h1 id="Section-2-3-A-Parsing-Algorithm解析算法"><a href="#Section-2-3-A-Parsing-Algorithm解析算法" class="headerlink" title="Section 2.3:  A Parsing Algorithm解析算法"></a>Section 2.3:  A Parsing Algorithm解析算法</h1><p>对于递归的论证和定义，有必要论证分解项和合式公式的唯一性。</p>
+<h2 id="Terms-项"><a href="#Terms-项" class="headerlink" title="Terms 项"></a>Terms 项</h2><p>对于变量、常量和函数符号的字符串，我们定义一个函数 $K$ 如下：</p>
+<ul>
+<li><p>$K(x)&#x3D;1$（$x$本身就是一个项，因此它在字符串中的出现增加了一个完整的项）。</p>
+</li>
+<li><p>$K(c)&#x3D;1$（常量也是如此）。</p>
+</li>
+<li><p>$K(f)&#x3D;1-n$，其中 $f$ 是一个 $n$ 元函数符号（函数符号意味着一旦找到字符串中的所有 $n$ 个项（$f$ 的参数），就会有一个完整的项）。</p>
+</li>
+<li><p>$K(s_{1}\ldots s_{n})&#x3D;K(s_{1})+\ldots+K(s_{n})$。</p>
+</li>
+</ul>
+<p>对于项 $t$，$K(t)&#x3D;1$。 对于项 $t$ 的任何终端片段 $t_{1}$，$t_{1}$ 是项的连接，特别是 $K(t_{1})\ge1$。 对于项 $t$ 的任何适当的初始片段 $t_{0}$，$K(t_{0})\le0$，特别是 $t_{0}$ 不是项。</p>
+<h3 id="项解析算法"><a href="#项解析算法" class="headerlink" title="项解析算法"></a>项解析算法</h3><p>略。唯一分解算法</p>
+<p><strong>（项的唯一可读性）</strong> 项的集合是由变量和常量符号的集合通过 $\mathcal{F}_{f}$ 操作自由生成的。</p>
+<h2 id="Formulas-合式公式"><a href="#Formulas-合式公式" class="headerlink" title="Formulas 合式公式"></a>Formulas 合式公式</h2><p>我们可以进一步为其他符号定义 $K$：</p>
+<ul>
+<li>$K(()&#x3D;-1$。</li>
+<li>$K())&#x3D;1$。</li>
+<li>$K(\forall)&#x3D;-1$。</li>
+<li>$K(\neg)&#x3D;0$。</li>
+<li>$K(\rightarrow)&#x3D;-1$。</li>
+<li>$K(P)&#x3D;1-n$，其中 $P$ 是一个 $n$ 元谓词符号。</li>
+<li>$K(&#x3D;)&#x3D;-1$。</li>
+</ul>
+<p>对于 wff $\alpha$，$K(\alpha)&#x3D;1$。 对于 wff $\alpha$ 的任何适当的初始片段 $\alpha_{0}$，$K(\alpha_{0})\le0$，特别是 $\alpha_{0}$ 不是 wff。</p>
+<h3 id="合式公式解析算法"><a href="#合式公式解析算法" class="headerlink" title="合式公式解析算法"></a>合式公式解析算法</h3><p>略。唯一分解算法</p>
+<p><strong>（公式的唯一可读性）</strong> 从原子公式的集合通过操作 $\mathcal{E}<em>{\neg}$、$\mathcal{E}</em>{\rightarrow}$ 和 $\mathcal{Q}_{i}$，其中 $i&#x3D;1,2,\ldots$ 自由生成的 wff 集合。</p>
+<h1 id="Section-2-4-A-Deductive-Calculus-演绎计算"><a href="#Section-2-4-A-Deductive-Calculus-演绎计算" class="headerlink" title="Section 2.4: A Deductive Calculus 演绎计算"></a>Section 2.4: A Deductive Calculus 演绎计算</h1><p>此章节有利于重新建立对推理的数学直觉！！！</p>
+<blockquote>
+<p>假设 $\Sigma\vDash\tau$。 </p>
+<ul>
+<li><p>证明这一事实需要什么证明方法？</p>
+</li>
+<li><p>是否一定存在证明？</p>
+</li>
+</ul>
+</blockquote>
+<p>什么是证明？</p>
+<ul>
+<li><strong>有限性。</strong>这是由于一阶逻辑的紧致性定理，可以保证只需要 $\Sigma$ 的一个有限子集来证明 $\Sigma\vDash\tau$。</li>
+<li><strong>可验证性。</strong>证明的每一步都应该是可以验证的，这意味着可以从空集假设（$\Sigma&#x3D;\emptyset$）中可验证地推导出来。<ul>
+<li>这将意味着所有恒真的集合是可以能行可枚举的。这是由于可枚举性定理在合理的假设下证明了能行可枚举性。</li>
+</ul>
+</li>
+</ul>
+<p>证明的上限和局限：</p>
+<ul>
+<li><strong>紧致性定理和可枚举性定理</strong>意味着<strong>对于每个 $\Sigma\vDash\tau$ 都存在一个可以在有限步内找到的有限证明。</strong></li>
+</ul>
+<ul>
+<li><strong>哥德尔的不完备定理</strong>是关于数理逻辑中的形式系统的性质的结果。第一不完备定理说明，对于足够强大的自包含系统，总存在一个在该系统内无法证明或证伪的陈述。</li>
+<li>紧致性和可枚举性定理是积极的性质，而哥德尔不完备定理揭示了系统的局限性。</li>
+</ul>
+<h2 id="Deductions-演绎"><a href="#Deductions-演绎" class="headerlink" title="Deductions 演绎"></a>Deductions 演绎</h2><p>给 合式公式 $\phi$，**$\phi$的概化**是一个公式 $\forall x_{1}\ldots\forall x_{n}\phi$，其中 $n\ge0$，且变量为 $x_{1},\ldots,x_{n}$。</p>
+<p><strong>逻辑公理</strong>：所有逻辑公理它们都是以下公理的所有可能的_概化_。</p>
+<ol>
+<li><p>永真式（重言式）。</p>
+<ul>
+<li><p><strong>基本公式</strong> 要么是一个原子公式，要么是形式为 $\forall x\alpha$ 的公式。</p>
+</li>
+<li><p><strong>非基本公式</strong>是任何其他公式（由使用 $\neg$ 和 $\rightarrow$ 构建的不同于主要公式的任何其他公式）。</p>
+</li>
+<li><p>给定任何合式公式，它由使用 $\mathcal{E}<em>{\neg}$ 和 $\mathcal{E}</em>{\rightarrow}$ 构建的基本公式构成</p>
+<ul>
+<li><p>因此，可以将其视为命题逻辑的句子，其中所有基本公式都被视为命题符号。当它在命题逻辑中是永真式时，它在一阶逻辑中也是<strong>永真式</strong>。</p>
+</li>
+<li><p>如果 $\Gamma$ 重言蕴含 $\phi$，则 $\Gamma$ 逻辑蕴含 $\phi$，但反之未必成立。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>$\forall x\alpha\rightarrow\alpha_{t}^{x}$，其中 $t$ 在 $\alpha$ 中可以替代 $x$。（难点）</p>
+<p>$\alpha_{t}^{x}$的定义如下：</p>
+<ul>
+<li>a）如果 $\alpha$ 是原子的，则 $t$ 替代每个 $x$，</li>
+<li>b）($\neg\alpha$)$<em>{t}^{x}$&#x3D;($\neg\alpha$)$</em>{t}^{x}$，</li>
+<li>c）($\alpha\rightarrow\beta$)$<em>{t}^{x}$&#x3D;($\alpha</em>{t}^{x}\rightarrow\beta_{t}^{x}$)，</li>
+<li>d）($\forall x\alpha$)$_{t}^{x}$&#x3D;$\forall x\alpha$，$y&#x3D;x$</li>
+<li>e）($\forall y\alpha$)$<em>{t}^{x}$&#x3D;$\forall y\alpha</em>{t}^{x}$，其中 $y\neq x$。</li>
+</ul>
+<p> 合式公式$\alpha$ 中**$x$可以被$t$替换**当且仅当：（否则替换后可能不再满足）</p>
+<ul>
+<li>a）如果 $\alpha$ 是原子公式，无量词，不受限制，</li>
+<li>b）如果 $\alpha$&#x3D;($\neg\beta$) 并且 $t$ 在 $\beta$ 中可以替代 $x$，</li>
+<li>c）$\alpha$&#x3D;($\beta\rightarrow\gamma$) 并且 $t$ 在 $\beta$ 和 $\gamma$ 中可以替代 $x$，</li>
+<li>d）如果 $\alpha$&#x3D;($\forall y\beta$) 并且（ [ $x$ 在 $\alpha$ 中没有自由出现 ] 或 [ $y$ 在 $t$ 中没有出现且 $t$ 在 $\beta$ 中可以替代 $x$ ]）。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：$x$ 总是可以替代 $x$，不包含在 $\alpha$ 中的任何变量的 $t$ 总是可以替代 $\alpha$ 中的任何 $x$。</p>
+<p>对于任何 $\alpha$，$t$ 和 $x$，总是存在 $\alpha’$ 等效于 $\alpha$，使得 $t$ 可以替代 $\alpha’$ 中的 $x$（参考下面的字母变换式)</p>
+<ul>
+<li>举例：在一些 $\forall y\beta$ 的情况下，其中 $y\neq x$，$x$ 在 $\beta$ 中是自由的，$t$ 可以在 $\beta$ 中替代 $x$ ，但 $y$ 出现在 $t$ 中。在这种情况下，我们将其重写为 $\forall z\beta_{z}^{y}$）。</li>
+</ul>
+</blockquote>
+<ol start="3">
+<li>$\forall x(\alpha\rightarrow\beta)\rightarrow(\forall x\alpha\rightarrow\forall x\beta)$。</li>
+<li>$\alpha\rightarrow\forall x\alpha$，其中 $x$ 在 $\alpha$ 中没有自由出现。</li>
+<li>（如果语言有 $&#x3D;$ ）$x&#x3D;x$。</li>
+<li>（如果语言有 $&#x3D;$ ）$x&#x3D;y\rightarrow\alpha\rightarrow\alpha’$，其中 $\alpha$ 是原子的，$\alpha’$ 是通过将 $\alpha$ 中的零个或更多但不一定是全部的地方替换为 $y$ 而得到的。</li>
+</ol>
+<h2 id="Rules-of-Inference-推理规则"><a href="#Rules-of-Inference-推理规则" class="headerlink" title="Rules of Inference 推理规则"></a><strong>Rules of Inference 推理规则</strong></h2><ol>
+<li><strong>假言推理</strong>：从 $\alpha$，$\alpha\rightarrow\beta$ 推导出 $\beta$。</li>
+</ol>
+<p>给定公式集 $\Gamma$（以及逻辑公理集 $\Lambda$，参考上面六条）。如果 $\phi$ 可以通过使用推理规则（有限次数）从 $\Gamma\cup\Lambda$ 得到，则 $\phi$ 是**$\Gamma$的定理<strong>（$\phi$是</strong>从$\Gamma$推导出的<strong>），表示为 $\Gamma\vdash\phi$。</strong>从$\Gamma$推导出$\phi$**的描述说明了如何从 $\Gamma$（和 $\Lambda$）中获得 $\phi$，即它是一系列有限的公式 &lt;$\alpha_{0}$，$\ldots$，$\alpha_{n}$&gt;，满足</p>
+<p>​		a) $\alpha_{n}$&#x3D; $\phi$，</p>
+<p>​		b) 对于 $k\le n$，$\alpha_{k}$ 要么在 $\Gamma\cup\Lambda$ 中，要么由一些 $\alpha_{i}$ 和 $\alpha_{j}$&#x3D;($\alpha_{i}\rightarrow\alpha_{k}$) 的假言三段论得到，其中 $i,j&lt;k$。</p>
+<ul>
+<li>如果 $\Gamma\vdash\alpha$，则 $\Gamma\cup\Lambda$ 逻辑蕴含 $\alpha$。</li>
+<li>如果 $\alpha$ 重言蕴含 $\beta$，那么 $\alpha$ 逻辑蕴含 $\beta$。</li>
+</ul>
+<h3 id="其他推理规则"><a href="#其他推理规则" class="headerlink" title="其他推理规则"></a>其他推理规则</h3><p><strong>（概化定理）</strong> 如果 $\Gamma\vdash\alpha$，并且 $x$ 不在 $\Gamma$ 的任何合式公式wff中自由出现，则 $\Gamma\vdash\forall x\alpha$。</p>
+<ul>
+<li><strong>（常量的概化）</strong> 如果 $\Gamma\vdash\alpha$，并且常量符号 $c$ 不在 $\Gamma$ 的任何 wff 中出现，则存在一个变量 $x$ 不在 $\alpha$ 中出现，使得 $\Gamma\vdash\forall x\alpha_{x}^{c}$（以及从 $\Gamma$ 推导出 $\forall x\alpha_{x}^{c}$ 而不使用 $c$）。<ul>
+<li>如果 $\Gamma\vdash\alpha_{c}^{x}$，其中常量符号 $c$ 在 $\Gamma$ 的任何 wff 中或 $\alpha$ 中都没有出现，则 $\Gamma\vdash\forall x\alpha$（从 $\Gamma$ 推导出 $\forall x\alpha$ 而不使用 $c$）。</li>
+<li><strong>（规则EI ： 存在某个实例）</strong> 如果 $\Gamma$;$\alpha_{c}^{x}\vdash\beta$，其中常量符号 $c$ 在 $\Gamma$ 的任何 wff 或 $\alpha$ 中都没有出现，则 $\Gamma$;$\exists x\alpha\vdash\beta$（从 $\Gamma$;$\exists x\alpha$ 推导出 $\beta$ 而不使用 $c$）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>（规则T）</strong> 如果 $\Gamma\vdash\alpha_{i}$，$i$&#x3D;1,$\ldots$,$n$，并且{$\alpha_{1}$，$,\ldots$，$\alpha_{n}$} 逻辑蕴含 $\beta$，那么 $\Gamma\vdash\beta$。</p>
+<p><strong>（演绎定理）</strong> 如果 $\Gamma$;$\alpha\vdash\beta$，那么 $\Gamma\vdash(\alpha\rightarrow\beta)$。</p>
+<p><strong>（反证法）</strong> 如果 $\Gamma$;$\alpha\vdash\neg\beta$，那么 $\Gamma$;$\beta\vdash\neg\alpha$。</p>
+<p>  <strong>(不和谐)</strong> 一组 wffs $\Gamma$ <strong>不和谐</strong> 当且仅当对于某个 wff $\phi$，$\Gamma\vdash${$\phi$，$\neg\phi$}。</p>
+<ul>
+<li>最大和谐集：对于每个和谐的 $\Gamma$，都存在和谐的 $\Delta\supseteq\Gamma$，使得对于每个 wff $\alpha$，要么 $\alpha\in\Delta$ 要么 ($\neg\alpha$)$\in\Delta$。</li>
+</ul>
+<p><strong>（归谬法）</strong> 如果 $\Gamma$;$\alpha$ 不和谐 ，则 $\Gamma\vdash\neg\alpha$。</p>
+<p><strong>（再替换引理）</strong> 如果 $y$ 在 $\alpha$ 中没有出现，那么 $x$  在 $\alpha_{y}^{x}$ 中可以替代 $y$，且 ($\alpha_{y}^{x}$)$_{x}^{y}$&#x3D;$\alpha$。</p>
+<p><strong>（字母变换式的存在性）</strong> 对于 wff $\alpha$，项 $t$ 和变量 $x$，总存在 wff $\alpha’$，满足 </p>
+<p>​	a) $\alpha’$ 仅在量化变量的选择上与 $\alpha$ 不同，</p>
+<p>​	b) $\alpha’$ 可以从 $\alpha$ 推导出来，反之亦然，</p>
+<p>​	c) $t$ 可以替代 $\alpha’$ 中的 $x$。</p>
+<ul>
+<li><p>定理中描述的公式 $\alpha’$ 称为 $\alpha$ 的<strong>字母变换式</strong>。</p>
+<p>**(等式的规则)**：</p>
+</li>
+</ul>
+<ul>
+<li>Eq1：$\vdash\forall xx&#x3D;x$（自反性）。</li>
+<li>Eq2：$\vdash\forall x\forall y(x&#x3D;y\rightarrow y&#x3D;x)$（对称性）。</li>
+<li>Eq3：$\vdash\forall x\forall y\forall z(x&#x3D;y\rightarrow y&#x3D;z\rightarrow x&#x3D;z)$（传递性）。</li>
+<li>Eq4：$\vdash\forall x_{1}\forall x_{2}\forall y_{1}\forall y_{2}(x_{1}&#x3D;y_{1}\rightarrow x_{2}&#x3D;y_{2}\rightarrow Px_{1}x_{2}\rightarrow Py_{1}y_{2})$（对于 $n$ 元谓词符号也是类似的）。</li>
+<li>Eq5：$\vdash\forall x_{1}\forall x_{2}\forall y_{1}\forall y_{2}(x_{1}&#x3D;y_{1}\rightarrow x_{2}&#x3D;y_{2}\rightarrow fx_{1}x_{2}&#x3D;fy_{1}y_{2})$（对于 $n$ 元函数符号也是类似的）。</li>
+</ul>
+<h2 id="推理策略"><a href="#推理策略" class="headerlink" title="推理策略"></a>推理策略</h2><p>假设我们想要推导 $\Gamma\vdash\phi$，一些逆向思考的方式：</p>
+<ol>
+<li>如果 $\phi$&#x3D;($\alpha\rightarrow\beta$)，证明 $\Gamma$;$\alpha\vdash\beta$ 就足够了（演绎定理）。</li>
+<li>如果 $\phi$&#x3D;$\forall x\alpha$，<ol>
+<li>如果 $x$ 在 $\Gamma$ 中不自由出现，证明 $\Gamma\vdash\alpha$ 就足够了（概化定理）。</li>
+<li>如果 $x$ 在 $\Gamma$ 中自由出现，使用再替换引理，证明 $\Gamma\vdash\alpha_{y}^{x}$ 就足够了。</li>
+</ol>
+</li>
+<li>如果 $\phi$&#x3D;($\neg\alpha$)，<ol>
+<li>如果 $\alpha$&#x3D;($\beta\rightarrow\gamma$)，证明 $\Gamma\vdash${$\beta$，$\neg\gamma$} 就足够了（并且总是可能的）。</li>
+<li>如果 $\alpha$&#x3D;$\neg\beta$，证明 $\Gamma\vdash\beta$ 就足够了。</li>
+<li>如果 $\alpha$&#x3D;$\forall x\beta$，则需要证明 $\Gamma\vdash\neg\beta_{t}^{x}$，其中 $t$ 可以在 $\beta$ 中替代 $x$ ，但归谬法不总是成立的。</li>
+</ol>
+</li>
+</ol>
+<h1 id="Section-2-5-Soundness-and-Completeness-Theorems-可靠性和完备性定理"><a href="#Section-2-5-Soundness-and-Completeness-Theorems-可靠性和完备性定理" class="headerlink" title="Section 2.5: Soundness and Completeness Theorems 可靠性和完备性定理"></a>Section 2.5: Soundness and Completeness Theorems 可靠性和完备性定理</h1><h2 id="Soundness-可靠性"><a href="#Soundness-可靠性" class="headerlink" title="Soundness 可靠性"></a><strong>Soundness 可靠性</strong></h2><p>每个逻辑公理A1-A6都是恒真的。</p>
+<ul>
+<li>证明见书习题</li>
+</ul>
+<p>一组合式公式集合 $\Gamma$ 被称为<strong>可满足的</strong>，当且仅当存在 $\mathfrak{A}$ 和 $s:V\rightarrow|\mathfrak{A}|$，使得 $\mathfrak{A}$ 用 $s$ 满足 $\Gamma$ 中的每个成员。</p>
+<p><strong>(可靠性定理)</strong> 如果 $\Gamma\vdash\phi$，那么 $\Gamma\vDash\phi$。</p>
+<ul>
+<li>另一种表述：如果 $\Gamma$ 是可满足的，则 $\Gamma$ 是和谐的。</li>
+<li>如果 $\vdash\phi\leftrightarrow\psi$ （等价于$\phi\vdash\psi$ 且 $\psi\vdash\phi$），那么 $\phi$ 和 $\psi$ 是逻辑等价的。<ul>
+<li>字母变换式是逻辑等价的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Completeness-完备性"><a href="#Completeness-完备性" class="headerlink" title="Completeness  完备性"></a><strong>Completeness  完备性</strong></h2><p><strong>(完备性定理; Gödel, 1930)</strong> 如果 $\Gamma\vDash\phi$，那么 $\Gamma\vdash\phi$。</p>
+<ul>
+<li>另一种表述：如果 $\Gamma$ 是和谐的，则 $\Gamma$ 是可满足的。</li>
+<li>证明概述（没完全懂，待看）：<ul>
+<li>假设 $\Gamma$ 是和谐的。首先，我们通过添加无穷多个常数符号 $c_{\alpha}$ 扩展语言，并通过添加合式公式$\neg\forall x\phi\rightarrow\neg\phi_{c_{\alpha(\phi,x)}}^{x}$ 来扩展 $\Gamma$，其中 $x$ 是使用常数符号 $c_{\alpha(\phi,x)}$ 的 $\alpha(\phi,x)\neq\alpha(\psi,y)$，且 $c_{\alpha(\phi,x)}$ 不出现在 $\phi$ 中。生成的集合 $\Gamma’$ 是和谐的。此外，我们将 $\Gamma’$ 扩展为和谐的 $\Delta$，使得对于每个 $\phi$，要么 $\phi\in\Delta$ 要么 $\neg\phi\in\Delta$（在不可数的情况下也有$\Delta$ 是封闭的：$\Delta\vdash\phi$ 当且仅当 $\phi\in\Delta$）。</li>
+<li>其次，我们定义 a) 新的二元关系 $E$（而不是 $&#x3D;$）；b) 一个结构 $\mathfrak{A}$ 其中 $|\mathfrak{A}|$ 是所有项（扩展语言的）的集合，$E^{\mathfrak{A}}&#x3D;{&lt;u,t&gt;|u&#x3D;t\in\Delta}$，$P^{\mathfrak{A}}&#x3D;{&lt;t_{1},\ldots,t_{n}&gt;|Pt_{1}\ldots t_{n}\in\Delta}$，$c^{\mathfrak{A}}&#x3D;c$；$f^{\mathfrak{A}}(t_{1},\ldots,t_{n})&#x3D;ft_{1}\ldots t_{n}$，和 c) 一个函数 $s:V\rightarrow|\mathfrak{A}|$ 通过 $s(x)&#x3D;x$（$\overline{s}(t)&#x3D;t$）。<ul>
+<li>设 $\phi^{<em>}$ 是将 $&#x3D;$ 替换为 $E$ 的 $\phi$，$\phi\in\Delta$ 当且仅当 $\vDash_{\mathfrak{A}}\phi^{</em>}[s]$，</li>
+</ul>
+</li>
+<li>第三，我们注意到 $E^{\mathfrak{A}}$ 是 $\mathfrak{A}$ 的同余关系（一个等价关系，使得 $P^{\mathfrak{A}}$ 和 $f^{\mathfrak{A}}$ 与 $E^{\mathfrak{A}}$ 兼容），因此商结构 $\mathfrak{A}&#x2F;E$ 具有以下性质：a) $h(t)&#x3D;[t]$ 是 $\mathfrak{A}$ 到 $\mathfrak{A}&#x2F;E$ 的同态映射，其中 $[t]&#x3D;{u\in|\mathfrak{A}|&lt;u,t&gt;\in E^{\mathfrak{A}}}$，b) $E^{\mathfrak{A}&#x2F;E}$ 是 $|\mathfrak{A}&#x2F;E|$ 上的相等关系，c) $\phi\in\Delta$ 当且仅当 $\vDash_{\mathfrak{A}&#x2F;E}\phi[h\circ s]$。将 $\mathfrak{A}&#x2F;E$ 限制为原始语言后，可以用 $h\circ s$ 满足 $\Gamma$ 中的每个成员。 因此$\Gamma$是可满足的</li>
+</ul>
+</li>
+</ul>
+<p><strong>(紧致性定理)</strong> 如果 $\Gamma\vDash\phi$，那么对于某个有限的 $\Gamma_{0}\subseteq\Gamma$，$\Gamma_{0}\vDash\phi$。</p>
+<ul>
+<li>$\Gamma$ 是可满足的当且仅当 $\Gamma_{0}\subseteq\Gamma$ 中的每个有限子集都是可满足的。$\Sigma$ 有一个模型当且仅当 $\Sigma_{0}\subseteq\Sigma$ 中的每个有限子集都有一个模型。</li>
+<li>不相交的 $EC_{\Delta}$ 类可以通过一个 $EC$ 类分离：如果对于两个句子集，$\text{Mod}\Sigma_{1}\cup\Sigma_{2}&#x3D;\emptyset$，那么存在一个句子 $\tau$，使得 $\text{Mod}\Sigma_{1}\subseteq\text{Mod}\tau$ 且 $\text{Mod}\Sigma_{2}\subseteq\text{Mod}\neg\tau$。<ul>
+<li>例子：对于 $\mathfrak{A}&#x3D;(\mathbb{Z};P^{\mathfrak{A}})$： $&lt;a,b&gt;\in P^{\mathfrak{A}}$ 当且仅当 $|a-b|&#x3D;1$，这个谓词关系存在一个分离结构$EC$ 类。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Decidability-可判定性"><a href="#Decidability-可判定性" class="headerlink" title="Decidability 可判定性"></a>Decidability <strong>可判定性</strong></h2><p>*定义表达式集合卫是可判定的当且仅当对于给定的表达式α,存在能行的过程来判定α是否属于$\Gamma$</p>
+<ul>
+<li>可判定的:是或否</li>
+</ul>
+<p><strong>(可枚举性定理)</strong> 对于一个合理的语言，可以有效枚举合式公式的集合。</p>
+<p>合理语言：</p>
+<ul>
+<li>合理语言参数的集合可以<strong>能行枚举</strong>，并且关系 ${&lt;P,n&gt;|P\text{是}n\text{-位谓词符号}}$ 和 ${&lt;f,n&gt;|f\text{ 是 }n\text{-位函数符号}}$ 是可判定的</li>
+</ul>
+<p>有限语言</p>
+<ul>
+<li><p>一个<strong>有限语言</strong>是只有有限多个参数的语言。有限语言是合理的。</p>
+</li>
+<li><p>一个合理的语言必须是可数的。</p>
+</li>
+</ul>
+<p>推论：</p>
+<ul>
+<li><p>如果 $\Gamma$ 是可判定的且语言是合理的，则 $\text{Th}\Gamma$ 和 ${\phi|\Gamma\vDash\phi}$ 可以被有效枚举。</p>
+</li>
+<li><p>如果 $\Gamma$ 是可判定的、语言是合理的，并且对于每个句子 $\sigma$，要么$\Gamma\vDash\sigma$ 要么 $\Gamma\vDash\neg\sigma$，那么 ${\sigma|\Gamma\vDash\sigma}$ 是可判定的。</p>
+</li>
+</ul>
+<h1 id="Section-2-6-Models-of-Theories-理论的模型"><a href="#Section-2-6-Models-of-Theories-理论的模型" class="headerlink" title="Section 2.6: Models of Theories 理论的模型"></a>Section 2.6: Models of Theories 理论的模型</h1><h2 id="Finite-Models-有限模型"><a href="#Finite-Models-有限模型" class="headerlink" title="Finite Models 有限模型"></a><strong>Finite Models 有限模型</strong></h2><p>一个句子是<strong>有限恒真的</strong>，当且仅当它在每个有限模型中都为真。</p>
+<ul>
+<li>有限恒真句子的否定仅在无限模型中为真</li>
+<li>反之亦然，如果一个句子仅在无限模型中为真，则其否定是有限恒真的。</li>
+</ul>
+<p>如果一组句子有任意大的有限模型，那么它有一个无限模型。</p>
+<ul>
+<li><p>如果一个句子在理论 $T$ 的所有无限模型中都为真，则对于某个 $n\in\mathbb{N}$，它在大小为 $\ge n$ 的 $T$ 的所有模型中也为真。</p>
+<ul>
+<li>推广性质。对阿列夫数也成立</li>
+</ul>
+</li>
+<li><p>所有有限模型的类不是 $EC_{\Delta}$。所有无限模型的类是 $EC_{\Delta}$。</p>
+</li>
+</ul>
+<h2 id="Size-of-Models-模型的大小"><a href="#Size-of-Models-模型的大小" class="headerlink" title="Size of Models 模型的大小"></a><strong>Size of Models 模型的大小</strong></h2><p>假设语言的基数是 $\lambda$。</p>
+<p><strong>(Löwenheim–Skolem, 1915, 1920)</strong> 如果 $\Gamma$ 是可满足的，则 $\Gamma$ 可在基数 $\le\lambda$ 的某个结构中满足。如果 $\Sigma$ 有一个模型，则 $\Sigma$ 有一个基数 $\le\lambda$ 的模型。</p>
+<p><strong>(LST，即Löwenheim–Skolem-Tarski)</strong> 如果 $\Gamma$ 在无限结构中是可满足的，则对于每个 $\kappa\ge\lambda$，$\Gamma$ 在基数 $\kappa$ 的某个结构中是可满足的。如果 $\Sigma$ 有一个无限模型，则对于每个 $\kappa\ge\lambda$，$\Sigma$ 在基数 $\kappa$ 的某个模型中是可满足的。</p>
+<ul>
+<li>对于基数 $\lambda$ 的语言，对于任意结构 $\mathfrak{A}$，存在一个在基数 $\le\lambda$ 的初等等价结构 $\mathfrak{B}$。如果 $\mathfrak{A}$ 是无限的，则对于每个 $\kappa\ge\lambda$，存在基数为 $\kappa$ 的初等等价结构 $\mathfrak{B}$。<ul>
+<li>例如，代数实数集合在初等等价于 $(\mathbb{R};0,1,+,\cdot)$。</li>
+<li>即使 $\mathfrak{A}$ 和 $\mathfrak{B}$ 具有相同的基数，$\mathfrak{B}$ 也不必与 $\mathfrak{A}$ 同构：例如，对于 $(\mathbb{N};0,S,&lt;,+,\cdot)$，存在一个在初等等价的可数结构，但不同构。</li>
+</ul>
+</li>
+<li><strong>Skolem悖论</strong>。对于集合论的公理集 $A_{ST}$，存在一个可数模型 $\mathfrak{G}$。但将$\mathfrak{G}$ 定义为一个断言存在不可数多个集合的句子的模型。<ul>
+<li>悖论的解决：在 $\mathfrak{G}$ 内部观察，从 $\mathbb{N}$ 到域 $|\mathfrak{G}|$ 的函数不存在，但这并不意味着 $\mathfrak{G}$ 外部不存在这样的函数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Theories-理论"><a href="#Theories-理论" class="headerlink" title="Theories 理论"></a><strong>Theories 理论</strong></h2><hr>
+<p><strong>理论</strong>：</p>
+<ul>
+<li><strong>理论</strong> $T$是句子集（和语言同级），是一组在逻辑蕴涵下封闭的句子：$T\vDash\sigma\Rightarrow\sigma\in T$。<ul>
+<li>结构$\mathfrak{A}$的<strong>理论</strong>，$\text{Th}\mathfrak{A}$，是在$\mathfrak{A}$中<strong>为真的句子集。</strong></li>
+<li>一类结构$\mathcal{K}$的<strong>理论</strong>，$\text{Th}\mathcal{K}$，是在$\mathcal{K}$中<strong>每个结构中为真的句子集</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>$\mbox{Th}\mathcal{K}$ 是一个理论。</p>
+<p><strong>证明step 1:</strong> 如果 $\mbox{Th}\mathcal{K}\vDash\sigma$，那么 $\sigma$ 在 $\mbox{Th}\mathcal{K}$ 的所有模型中都为真，但每个结构 $\mathfrak{A}\in\mbox{Th}\mathcal{K}$ 都是 $\mbox{Th}\mathcal{K}$ 的模型。</p>
+<p><strong>证明step 2:</strong> 我们可以将 $\mbox{Th}\mathcal{K}$ 看作 $\cap_{\mathfrak{A}\in\mathcal{K}}\mbox{Th}\mathfrak{A}$。$\mathfrak{A}$ 是 $\mbox{Th}\mathfrak{A}$ 的模型，因此 $\mathfrak{A}$ 也是 $\mbox{Th}\mathcal{K}$ 的模型，因此，如果 $\mbox{Th}\mathcal{K}\vDash\sigma$，那么 $\sigma$ 在 $\mathfrak{A}$ 中为真（对于所有 $\mathfrak{A}\in\mathcal{K}$）。</p>
+<p><strong>推论集</strong>：</p>
+<ul>
+<li>$\mbox{Cn}$ $\Sigma$ $&#x3D; \mbox{Th}\mbox{Mod}\Sigma &#x3D; {\sigma|\Sigma\vDash\sigma}$ , $\Sigma$被称为<strong>推论集</strong></li>
+</ul>
+<p><strong>理论的完备性</strong>：</p>
+<ul>
+<li>一个理论 $T$ 是完备的：当且仅当对于每个句子 $\sigma$，要么 $T\vDash\sigma$ 要么 $T\vDash\neg\sigma$，</li>
+</ul>
+<blockquote>
+<p>等价表示：要么 $\sigma\in T$ 要么 $\neg\sigma\in T$，这时 $T$ 被称为<strong>完备</strong>。</p>
+</blockquote>
+<ul>
+<li>对于每个结构 $\mathfrak{A}$，$\mbox{Th}\mathfrak{A}$ 是完备的。</li>
+<li>对于每个结构类 $\mathcal{K}$，$\mbox{Th}\mathcal{K}$ 是完备的当且仅当对于每个 $\mathfrak{A},\mathfrak{B}\in\mathcal{K}$，$\mathfrak{A}\equiv\mathfrak{B}$。</li>
+<li>如果一个理论 $T$ 是完备的并且可满足的，那么每个严格更大的理论都不可满足，而每个严格更小的理论都不完备。</li>
+<li>例子：<ul>
+<li><p>域的理论不是完备的：$1+1&#x3D;0$ 在某些域中为真，而在其他域中为假。</p>
+</li>
+<li><p>特征为0的代数闭域的理论是完备的。</p>
+</li>
+<li><p>复数域的理论 $(\mathbb{C};0,1,+,\cdot)$ 是完备的。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>范畴</strong>：</p>
+<ul>
+<li><p>一组句子 $\Sigma$ 被称为<strong>范畴</strong>，当且仅当 $\Sigma$ 的任意两个模型是同构的。</p>
+</li>
+<li><p>一个理论 $T$ 是**$\lambda$-范畴**，当且仅当 $T$ 的所有基数为 $\lambda$ 的无限模型是同构的。</p>
+<ul>
+<li>根据LST，$\Sigma$ 是1-范畴当且仅当 $\Sigma$ 没有无限模型。</li>
+</ul>
+</li>
+</ul>
+<p><strong>公理化</strong>：</p>
+<ul>
+<li>一个理论 $T$ 是<strong>公理化的</strong>，当且仅当存在一个<strong>可判定</strong>的句子（公理）集 $\Sigma$，使得 $T&#x3D;\mbox{Cn}\Sigma&#x3D;\mbox{Th}\mbox{Mod}\Sigma$。</li>
+<li>一个理论 $T$ 是<strong>有限公理化的</strong>，当且仅当存在一个<strong>有限</strong>句子（公理）集 $\Sigma$，使得 $T&#x3D;\mbox{Cn}\Sigma&#x3D;\mbox{Th}\mbox{Mod}\Sigma$。<ul>
+<li>跟推论集的定义很像</li>
+</ul>
+</li>
+</ul>
+<p>如果 $\mbox{Cn}\Sigma$ 是有限公理化的，则存在 $\Sigma$ 的有限子集 $\Sigma_{0}\subseteq\Sigma$，使得 $\mbox{Cn}\Sigma_{0}&#x3D;\mbox{Cn}\Sigma$。</p>
+<ul>
+<li>例子（不是数学系的，域还没完全理解…）：<ul>
+<li>域的理论是（有限）公理化的：如果 $\Phi$ 是域公理的（有限）集合，则域的类是 $\mbox{Mod}\Phi$，域的理论是 $\mbox{Th}\mbox{Mod}\Phi$。</li>
+<li>特征为0的域的理论是公理化的：其公理 $\Phi_{0}$ 由 $\Phi$ 和对于每个 $n$ 都有 $1+\ldots+1_{n}\neq0$ 组成。</li>
+<li>特征为0的代数闭域的理论是公理化的：其公理包括 $\Phi_{0}$ 和 $\forall x_{0}\ldots\forall x_{n}x_{n}\neq0\rightarrow\exists xx_{n}\cdot\underbrace{x\cdot\ldots\cdot x}<em>{n}+\ldots+x</em>{1}\cdot x+x_{0}&#x3D;0$</li>
+</ul>
+</li>
+</ul>
+<h2 id="Decidability-可判定性-1"><a href="#Decidability-可判定性-1" class="headerlink" title="Decidability 可判定性"></a>Decidability 可判定性</h2><hr>
+<ul>
+<li>对于<strong>有限语言</strong>，如果 $\mathfrak{A}$ 是<strong>有限的</strong>，则 <strong>$\mbox{Th}\mathfrak{A}$ 是可判定的。</strong></li>
+<li>对于<strong>有限语言</strong>，${\sigma|\sigma$ 有一个<strong>有限模型$}$</strong> 是<strong>能行可枚举</strong>的。</li>
+</ul>
+<p>重新表述可判定性：</p>
+<ul>
+<li>如果 $\Gamma$ 是<strong>可判定的</strong>，语言是<strong>合理</strong>的，则 $\mbox{Th}\Gamma$ 和 ${\phi|\Gamma\vDash\phi}$ 是<strong>能行可枚举</strong>的。<ul>
+<li>合理语言中的<strong>可公理化的理论</strong>是能行可枚举的。<ul>
+<li>可公理化理论是可判定的</li>
+</ul>
+</li>
+<li>反之亦然。在合理语言中是能行可枚举的理论是可公理化的。</li>
+</ul>
+</li>
+<li>如果 $\Gamma$ 是<strong>可判定的</strong>，语言是<strong>合理</strong>的 (对于每个句子 $\sigma$，$\Gamma\vDash\sigma$ 或 $\Gamma\vDash\neg\sigma$) ，则 ${\sigma|\Gamma\vDash\sigma}$ 是可判定的。<ul>
+<li>合理语言中的<strong>完备的  可公理化的 理论</strong>是可判定的。</li>
+</ul>
+</li>
+<li>例子：<ul>
+<li>集合论（如果一致）是不可判定的，因此也不是完备的。</li>
+<li>数论是完备的，但是不可判定（甚至不是能行可枚举的），因此也不可公理化。</li>
+<li>特征为0的代数闭域的理论是可判定的。<ul>
+<li>复数域的理论 $(\mathbb{C};0,1,+,\cdot)$ 是可判定的。</li>
+</ul>
+</li>
+<li>实数域的理论 $(\mathbb{R};0,1,+,\cdot)$ 也是可判定的</li>
+<li>无端点的稠密线性序理论是可判定的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Prenex-Normal-Form-前束范式"><a href="#Prenex-Normal-Form-前束范式" class="headerlink" title="Prenex Normal Form 前束范式"></a>Prenex Normal Form 前束范式</h2><hr>
+<p><strong>前束范式</strong> 是形式为 $Q_{1}x_{1}\ldots Q_{n}x_{n}\alpha$ 的公式，其中 $Q_{i}\in{\forall,\exists}$，$\alpha$ 是不含量词的公式。</p>
+<p><strong>(前束范式定理)</strong> 对于每个合式公式$\phi$，都存在一个逻辑等价的前束范式。</p>
+<h1 id="Section-2-7-Theories之间的解释"><a href="#Section-2-7-Theories之间的解释" class="headerlink" title="Section 2.7: Theories之间的解释"></a>Section 2.7: Theories之间的解释</h1><h2 id="符号表示"><a href="#符号表示" class="headerlink" title="符号表示"></a>符号表示</h2><p>对于给定的公式$\varphi$，通过$\varphi(t_{1},…,t_{k})$表示$((\psi_{t_{1}}^{v_{1}})…)<em>{t</em>{k}}^{v_{k}}$，其中$\psi$是$\varphi$的字母变体（参见第2.4节），使得所有$t_{i}$都可以替代$v_{i}$。</p>
+<h2 id="语言的解释"><a href="#语言的解释" class="headerlink" title="语言的解释"></a>语言的解释</h2><p>解释是将$L$翻译为$L’$和$T’$的一种方式。我们需要将$L$的每个参数翻译成$L’$的语言，还需要考虑一个特定的理论$T’$，因为我们必须确保，例如，$\forall$的翻译指定一个非空集合，并且函数符号$f$的翻译确实指定了一个函数，即$T’$中存在一个句子，说明我们的翻译确实是一个函数（在$T’$的每个模型中都如此）。</p>
+<p>一个**$L$到$T’$的解释$\pi$*<em>是一个函数，它为$L$的每个参数</em>分配一个$L’$的公式$\pi_{*}$，使得以下要求成立（$free(\varphi)$是$\varphi$的自由变量集）：</p>
+<ol>
+<li>$free(\pi_{\forall}) \subseteq {v_{1}}$，且$T’ \models \exists v_{1}\pi_{\forall}$。</li>
+<li>对于$n$元谓词符号$P$，$free(\pi_{P}) \subseteq {v_{1},…,v_{n}}$。</li>
+<li>对于$n$元函数符号$f$，$free(\pi_{f}) \subseteq {v_{1},…,v_{n},v_{n+1}}$，且$T’ \models \forall v_{1}…\forall v_{n}(\pi_{\forall} \rightarrow \pi_{\forall}(v_{2}) \rightarrow … \rightarrow \pi_{\forall}(v_{n}) \rightarrow \exists x(\pi_{\forall}(x)\land\forall v_{n+1}(\pi_{f}\leftrightarrow v_{n+1}&#x3D;x)))$。</li>
+<li>对于常量符号$c$，$free(\pi_{c}) \subseteq {v_{1}}$，且$T’ \models \exists x(\pi_{\forall}(x)\land\forall v_{1}(\pi_{c}\leftrightarrow v_{1}&#x3D;x))$。</li>
+</ol>
+<p>其中：</p>
+<ul>
+<li>1表示对于$T’$的任何模型$B$，$\pi_{\forall}$定义了$|^{π}B|$的非空子集（我们对$L$的解释中的宇宙）和该子集上的所有$L$的参数，即$^{π}B$是$L$的结构，使得对于$L$的每个公式$\varphi$，我们可以验证它是否在$^{π}B$中的一些$s$：$V\to|^{π}B|$上为真。</li>
+<li>2表示$\pi_{P}$定义了一个$n$元关系（可以进一步限制到1中定义的宇宙中）。</li>
+<li>3表示对于$T’$的任何模型$B$，$\pi_{f}$定义了一个$(n+1)$元关系，使得在1中定义的宇宙中它的限制是一个函数（最后一个元素根据其他所有元素唯一定义）。</li>
+<li>4表示$\pi_{c}$定义了一个$L$的常量，它是在1中定义的宇宙中的元素。</li>
+</ul>
+<h2 id="L-到-T’-解释的正当性"><a href="#L-到-T’-解释的正当性" class="headerlink" title="$L$到$T’$解释的正当性"></a>$L$到$T’$解释的正当性</h2><p>现在我们需要证明任何$L$到$T’$解释的正当性。我们的证明将依赖于两个关键事实：</p>
+<ol>
+<li>对于$L$的每个$\varphi$，$T’ \models \exists v_{1}…\exists v_{k}\pi_{\forall}(v_{1})\land…\land\pi_{\forall}(v_{k}) \rightarrow \pi_{\forall}(\varphi)$。这是因为$L$的每个$\varphi$都是$L$的参数的组合，这一事实在$\pi_{\forall}$的限制下成立。</li>
+<li>对于$L$的每个$\varphi$，$T’ \models \pi_{\forall}(\varphi) \rightarrow \exists v_{1}…\exists v_{k}\pi_{\forall}(v_{1})\land…\land\pi_{\forall}(v_{k})$。这是因为$\pi_{\forall}(\varphi)$是在$L’$中的一个公式，它的参数是$\pi_{\forall}$的限制下的元素，这一事实在$T’$的每个模型下成立。</li>
+</ol>
+<p>有了这两个事实，我们可以证明对于任何$L$的公式$\phi$，$T’ \models \pi_{\forall}(\phi)$。证明是通过对$\phi$的结构进行归纳的，基本情况是原子公式，归纳步骤涵盖了复合公式，包括$\forall$、$\exists$、$\rightarrow$、$\neg$等。对于每一种情况，我们使用1和2，或者2和1，以及归纳假设，来推导所需的结论。</p>
+<h2 id="T’-的强度"><a href="#T’-的强度" class="headerlink" title="$T’$的强度"></a>$T’$的强度</h2><p>最终，我们证明了$T \subseteq \pi^{-1}(T’)$，这意味着$L$中的理论$T$的任何模型都可以被嵌入到$L’$中的理论$T’$的模型中。这意味着$T’$至少与$T$一样强大，如果我们认为$T$是强大的，那么我们也可以认为$T’$是强大的。这种证明方法为我们提供了一种比较不同理论之间强度的方式，通过研究它们之间的解释关系。</p>
+<p>跳过可消去部分。</p>
+<h1 id="Section-2-8-跳过"><a href="#Section-2-8-跳过" class="headerlink" title="Section 2.8 跳过"></a>Section 2.8 跳过</h1><h1 id="Section-3-1"><a href="#Section-3-1" class="headerlink" title="Section 3.1"></a>Section 3.1</h1><p>我们选择数论(而不选择其他理论，比如群论)进行学习是因为:</p>
+<ul>
+<li>我们能证明数论的某个子理论是一个不可判定的句子集．</li>
+<li>我们也能得到，任何一个可满足的理论如果包含数论(例如，完全数论或者集合论)的这个子理论，那么这个理论一定是不可判定的.</li>
+<li>特别地，这样的一个理论不可能既是完全的又是可公理化的.</li>
+</ul>
+<p>为了证明我们所找到的数论的子理论是不可判定的，我们还将证明这个子理论足以表示数字序列、数字序列与数之间的编码运算以及判定过程等．在最后一部分内容中，我们将利用对角线法证明我们所选择的子理论是不可判定的.</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2024/01/10/leetcode%E7%AC%94%E8%AE%B0/"><i class="iconfont iconleft"></i>Leetcode个人笔记-medium</a>
+    <a href="/2023/12/10/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91-note/">NJU-服务端开发-学习笔记<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Mathematical-Introduction-to-Logic%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91-%E6%A8%A1%E5%9E%8B%E8%AE%BA%E8%A7%92%E5%BA%A6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">A Mathematical Introduction to Logic第二章-一阶逻辑(模型论角度)-学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%BE%E6%9C%AC%E7%BA%A0%E9%94%99"><span class="toc-text">课本纠错</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%AE%9A%E4%B9%89-x2F-%E9%87%8D%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-text">一阶逻辑定义&#x2F;重点总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-1-First-Order-Languages"><span class="toc-text">Section 2.1: First-Order Languages</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E7%AC%A6%E5%8F%B7%E6%95%B4%E7%90%86"><span class="toc-text">语言符号整理:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2-x2F-%E7%BC%A9%E5%86%99%E4%B9%A0%E6%83%AF%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-text">转换&#x2F;缩写习惯总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AF%8D%E8%A1%A8"><span class="toc-text">字母表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-2-Truth-and-Models-%E7%9C%9F%E5%80%BC%E4%B8%8E%E6%A8%A1%E5%9E%8B"><span class="toc-text">Section 2.2: Truth and Models 真值与模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Logical-Implication-%E9%80%BB%E8%BE%91%E8%95%B4%E6%B6%B5"><span class="toc-text">Logical Implication 逻辑蕴涵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Homomorphisms-%E5%90%8C%E6%80%81"><span class="toc-text">Homomorphisms 同态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Elementarily-equivalent-structures-%E5%88%9D%E7%AD%89%E7%AD%89%E4%BB%B7"><span class="toc-text">Elementarily equivalent structures 初等等价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%8F%AF%E5%AE%9A%E4%B9%89%E6%80%A7"><span class="toc-text">结构中的可定义性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E7%B1%BB%E7%9A%84%E5%8F%AF%E5%AE%9A%E4%B9%89%E6%80%A7"><span class="toc-text">结构类的可定义性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-3-A-Parsing-Algorithm%E8%A7%A3%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-text">Section 2.3:  A Parsing Algorithm解析算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Terms-%E9%A1%B9"><span class="toc-text">Terms 项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E8%A7%A3%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-text">项解析算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Formulas-%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F"><span class="toc-text">Formulas 合式公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F%E8%A7%A3%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-text">合式公式解析算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-4-A-Deductive-Calculus-%E6%BC%94%E7%BB%8E%E8%AE%A1%E7%AE%97"><span class="toc-text">Section 2.4: A Deductive Calculus 演绎计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deductions-%E6%BC%94%E7%BB%8E"><span class="toc-text">Deductions 演绎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rules-of-Inference-%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="toc-text">Rules of Inference 推理规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="toc-text">其他推理规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-text">推理策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-5-Soundness-and-Completeness-Theorems-%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%92%8C%E5%AE%8C%E5%A4%87%E6%80%A7%E5%AE%9A%E7%90%86"><span class="toc-text">Section 2.5: Soundness and Completeness Theorems 可靠性和完备性定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Soundness-%E5%8F%AF%E9%9D%A0%E6%80%A7"><span class="toc-text">Soundness 可靠性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Completeness-%E5%AE%8C%E5%A4%87%E6%80%A7"><span class="toc-text">Completeness  完备性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decidability-%E5%8F%AF%E5%88%A4%E5%AE%9A%E6%80%A7"><span class="toc-text">Decidability 可判定性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-6-Models-of-Theories-%E7%90%86%E8%AE%BA%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">Section 2.6: Models of Theories 理论的模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Finite-Models-%E6%9C%89%E9%99%90%E6%A8%A1%E5%9E%8B"><span class="toc-text">Finite Models 有限模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Size-of-Models-%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-text">Size of Models 模型的大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Theories-%E7%90%86%E8%AE%BA"><span class="toc-text">Theories 理论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decidability-%E5%8F%AF%E5%88%A4%E5%AE%9A%E6%80%A7-1"><span class="toc-text">Decidability 可判定性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prenex-Normal-Form-%E5%89%8D%E6%9D%9F%E8%8C%83%E5%BC%8F"><span class="toc-text">Prenex Normal Form 前束范式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-7-Theories%E4%B9%8B%E9%97%B4%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-text">Section 2.7: Theories之间的解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">符号表示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E8%A8%80%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="toc-text">语言的解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#L-%E5%88%B0-T%E2%80%99-%E8%A7%A3%E9%87%8A%E7%9A%84%E6%AD%A3%E5%BD%93%E6%80%A7"><span class="toc-text">$L$到$T’$解释的正当性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#T%E2%80%99-%E7%9A%84%E5%BC%BA%E5%BA%A6"><span class="toc-text">$T’$的强度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-2-8-%E8%B7%B3%E8%BF%87"><span class="toc-text">Section 2.8 跳过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Section-3-1"><span class="toc-text">Section 3.1</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

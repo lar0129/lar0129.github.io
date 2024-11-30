@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MacOS使用入门 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 电脑技巧">
+  <meta name="description" content=" MacOS使用入门
+
+
+
+
+image-202407...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">MacOS使用入门</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">MacOS使用入门</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>六月 12, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2535</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p> MacOS使用入门</p></p>
+        
+        <p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191500973.png"><span class="image-caption">image-20240712191500973</span></p>
+<h1 id="WIN远程连接"><a href="#WIN远程连接" class="headerlink" title="WIN远程连接"></a>WIN远程连接</h1><p>内网穿透</p>
+<ul>
+<li>tcp:&#x2F;&#x2F;server.natappfree.cc:45985</li>
+</ul>
+<p>第三方软件</p>
+<ul>
+<li>TODESK</li>
+</ul>
+<h1 id="第三方应用权限"><a href="#第三方应用权限" class="headerlink" title="第三方应用权限"></a>第三方应用权限</h1><ul>
+<li><code>sudo xattr -r -d com.apple.quarantine</code></li>
+<li><a target="_blank" rel="noopener" href="https://www.maczl.com/macOS_Notarization.html">当Mac软件提示损坏时可以绕过公证或者在Mac本地为软件签名 - 苹果Mac版_注册机_安装包 | Mac助理 (maczl.com)</a></li>
+</ul>
+<h1 id="VIM"><a href="#VIM" class="headerlink" title="VIM"></a>VIM</h1><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191440563.png"><span class="image-caption">image-20240712191440563</span></p>
+<p>搜索</p>
+<ol>
+<li><strong>进入命令模式</strong>：在 Normal 模式下，按下 <strong><code>/</code></strong> 键来进入搜索模式。</li>
+<li><strong>输入搜索字符串</strong>：在命令行中输入你想要搜索的字符串，并按下回车键。例如，如果你想要搜索单词 “example”，你就可以输入 <strong><code>/example</code></strong> 然后按下回车键。</li>
+<li><strong>浏览搜索结果</strong>：按下回车键后，Vim 会将光标移动到第一个匹配的位置。你可以使用 <strong><code>n</code></strong> 键来跳转到下一个匹配项，使用 <strong><code>N</code></strong> 键跳转到上一个匹配项。</li>
+<li><strong>退出搜索模式</strong>：你可以按下 <strong><code>Esc</code></strong> 键来退出搜索模式。</li>
+</ol>
+<p>创建新行</p>
+<ol>
+<li>在当前行下方创建新行<ul>
+<li>在 Normal 模式下，按下 <strong><code>o</code></strong> 键（小写字母 o）。这会在当前行的下方插入一个新行，并将光标移动到新行的开头，以便你可以输入内容。</li>
+</ul>
+</li>
+<li>在当前行上方创建新行<ul>
+<li>在 Normal 模式下，按下 <strong><code>O</code></strong> 键（大写字母 O）。这会在当前行的上方插入一个新行，并将光标移动到新行的开头。</li>
+</ul>
+</li>
+<li>在当前行插入一个新行<ul>
+<li>在 Normal 模式下，按下 <strong><code>Shift</code></strong> + **<code>Enter</code>**。这会在当前行插入一个新行，但不会移动光标，你可以继续在当前行输入内容。</li>
+</ul>
+</li>
+</ol>
+<p>撤销操作通常使用 <strong><code>u</code></strong> 键，它代表”undo”</p>
+<p>重做撤销的操作（即取消撤销）使用 <strong><code>Ctrl</code></strong> + <strong><code>r</code></strong> 键</p>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><p>ommand+F3：可以快速显示桌面</p>
+<p><strong>一.修饰键符号</strong></p>
+<p>Command &#x3D;⌘</p>
+<p>Shift &#x3D;⇧</p>
+<p>Option &#x3D;⌥</p>
+<p>Control&#x3D; ⌃</p>
+<p>Caps Lock &#x3D;⇪</p>
+<p>Fn</p>
+<p><strong>二.程序控制</strong></p>
+<p>⌘+Q：退出程序</p>
+<p>⌘+W：关闭窗口</p>
+<p>⌘+M：最小化</p>
+<p>⌘+H：隐藏当前窗口</p>
+<p>⌘+⌥+H：隐藏其他所有窗口</p>
+<p>⌘+Tab：切换应用</p>
+<p><strong>三、终端快捷键</strong></p>
+<p><strong>⌃ + u：清空当前行</strong></p>
+<p><strong>⌃ + a：移动到行首</strong></p>
+<p><strong>⌃ + e：移动到行尾</strong></p>
+<p><strong>⌃ + f：向前移动</strong></p>
+<p>⌃ + b：向后移动</p>
+<p>⌃ + p：上一条命令</p>
+<p>⌃ + n：下一条命令</p>
+<p>⌃ + r：搜索历史命令</p>
+<p>⌃ + y：召回最近用命令删除的文字</p>
+<p>⌃ + h：删除光标之前的字符</p>
+<p>⌃ + d：删除光标所指的字符</p>
+<p><strong>⌃ + w：删除光标之前的单词</strong></p>
+<p><strong>⌃ + k：删除从光标到行尾的内容</strong></p>
+<p>⌃ + t：交换光标和之前的字符</p>
+<p><strong>三.访达 快捷键</strong></p>
+<p>⌘+N：打开新窗口</p>
+<p>⌘ + t：新建标签页</p>
+<p>⌘+E：推出所选磁盘或宗卷</p>
+<p>⇧+⌘+O：打开文稿文件夹</p>
+<p>⇧+⌘+D：打开桌面文件夹</p>
+<p>⌘+Delete：将文件移至废纸篓</p>
+<p><strong>四.浏览器快捷键</strong></p>
+<p>⌘+T：新建标签页</p>
+<p>⇧+⌘+T：恢复关闭的标签页（Chrome）</p>
+<p>⌘+L：快速输入网址</p>
+<p>⌘+R：刷新页面</p>
+<p>⌘++&#x2F;—：放大&#x2F;缩小页面</p>
+<p>⌘+0：恢复默认大小</p>
+<p>⇧+空格键&#x2F;空格键：滚动页面</p>
+<h1 id="brew常用命令"><a href="#brew常用命令" class="headerlink" title="brew常用命令"></a>brew常用命令</h1><h2 id="1、安装卸载软件"><a href="#1、安装卸载软件" class="headerlink" title="1、安装卸载软件"></a>1、安装卸载软件</h2><ol>
+<li><code>brew --version</code> 或者 <code>brew -v</code> 显示brew版本信息</li>
+<li><code>brew install &lt;formula&gt;</code> 安装指定软件</li>
+<li><code>brew uninstall &lt;formula&gt;</code> 卸载指定软件</li>
+<li><code>brew list</code> 显示所有的已安装的软件</li>
+<li><code>brew search text</code> 搜索本地远程仓库的软件，已安装会显示绿色的勾</li>
+<li><code>brew search /text/</code> 使用正则表达式搜软件</li>
+<li><code>brew info &lt;formula&gt;</code> 显示指定软件信息</li>
+<li><code>brew reinstall &lt;formula&gt;</code> 重新安装指定软件，先卸载后安装</li>
+<li><code>brew install &lt;formula&gt; --build-from-source</code> 源码安装指定软件，可以给定指定参数</li>
+<li><code>brew commands</code> 列出所有可用命令</li>
+</ol>
+<h2 id="2、升级软件相关"><a href="#2、升级软件相关" class="headerlink" title="2、升级软件相关"></a>2、升级软件相关</h2><ol>
+<li><code>brew update</code> 自动升级homebrew （从github下载最新版本）</li>
+<li><code>brew outdated</code> 检测已经过时的软件</li>
+<li><code>brew upgrade</code> 升级所有已过时的软件，即列出的以过时软件</li>
+<li><code>brew upgrade &lt;formula&gt;</code> 升级指定的软件</li>
+<li><code>brew pin &lt;formula&gt;</code> 禁止指定软件升级</li>
+<li><code>brew unpin &lt;formula&gt;</code> 解锁禁止升级</li>
+<li><code>brew upgrade --all</code> 升级所有的软件包，包括未清理干净的旧版本的包</li>
+<li><code>brew edit &lt;formula&gt;</code> 编辑软件，不会的情况下慎用</li>
+<li><code>brew tap</code> 列出本地资源仓库，其中 homebrew 是默认仓库，其它都是第三方仓库</li>
+<li><code>brew tap &lt;user/repo&gt;</code> 添加第三方仓库，命名的规则按照github来定的。<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://docs.brew.sh/Taps">使用</a></li>
+<li><code>brew untap &lt;user/repo&gt;</code> 删除仓库</li>
+<li><code>brew deps &lt;formula&gt;</code> 查看指定软件依赖于哪些软件</li>
+<li><code>brew uses &lt;formula&gt;</code> 查看指定软件被哪些软件所依赖</li>
+</ol>
+<h2 id="3、清理相关"><a href="#3、清理相关" class="headerlink" title="3、清理相关"></a>3、清理相关</h2><p>homebrew再升级软件时候不会清理相关的旧版本，在软件升级后我们可以使用如下命令清理</p>
+<ol>
+<li><code>brew cleanup -n</code> 列出需要清理的内容</li>
+<li><code>brew cleanup &lt;formula&gt;</code> 清理指定的软件过时包</li>
+<li><code>brew cleanup</code> 清理所有的过时软件</li>
+<li><code>brew unistall &lt;formula&gt;</code> 卸载指定软件</li>
+<li><code>brew unistall &lt;fromula&gt; --force</code> 彻底卸载指定软件，包括旧版本</li>
+</ol>
+<p>通过brew安装的文件会自动设置环境变量，所以不用担心命令行不能启动的问题。</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/07/10/k8s%E5%85%A5%E9%97%A8/"><i class="iconfont iconleft"></i>k8s概念整合</a>
+    <a href="/2023/02/10/Lecture%2010%20%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81/">计算机组成原理-学习笔记10-数据校验码<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WIN%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-text">WIN远程连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E6%9D%83%E9%99%90"><span class="toc-text">第三方应用权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VIM"><span class="toc-text">VIM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#brew%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">brew常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85%E5%8D%B8%E8%BD%BD%E8%BD%AF%E4%BB%B6"><span class="toc-text">1、安装卸载软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%8D%87%E7%BA%A7%E8%BD%AF%E4%BB%B6%E7%9B%B8%E5%85%B3"><span class="toc-text">2、升级软件相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%B8%85%E7%90%86%E7%9B%B8%E5%85%B3"><span class="toc-text">3、清理相关</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

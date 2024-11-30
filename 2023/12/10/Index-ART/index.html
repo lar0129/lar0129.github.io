@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Adaptive radix tree：高效自适应树状索引结构 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 数据库">
+  <meta name="description" content="文献阅读：The adaptive radix tre...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Adaptive radix tree：高效自适应树状索引结构</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Adaptive radix tree：高效自适应树状索引结构</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6855</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>文献阅读：The adaptive radix tree: ARTful indexing for main-memory databases</p></p>
+        
+        <blockquote>
+<p> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/644667990">高效内存索引：Adaptive Radix Tree - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_11908275/6405376">数据库索引数据结构总结——ART树就是前缀树_11898275的技术博客_51CTO博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35423154/article/details/130119444">高级数据结构与算法 | 自适应基数树（Adaptive Radix Tree）-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617343461">论文阅读: The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><p>我们以每个节点存 2-bits 为例，假设 Trie 中存储了 7, 10, 12，从下图可以看到这三个数的二进制表示。每个节点的值由 0 和 1 组成，同时每个节点包含指向所有子节点的指针，指针为 * 代表该子节点存在，指针为 Ø 代表改子节点不存在。最终由叶子节点指向实际的数据。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-4ab897ae16b3786ebdcbe45d581f74f3_1440w.webp"><span class="image-caption">img</span></p>
+<h1 id="Radix-Trie"><a href="#Radix-Trie" class="headerlink" title="Radix Trie"></a>Radix Trie</h1><p>压缩后的节点需要将路径的前缀存储下来，如下：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-fc40986adca46f26ef480f3e98133e53_1440w.webp"><span class="image-caption">img</span></p>
+<p>前两层的节点都只有一个子节点，将它们折叠到第三层的节点，保存折叠路径的前缀 0000，形成一个新节点，如下所示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fdd41137e2c6622b65a8bea74548941c_1440w.webp"><span class="image-caption">img</span></p>
+<p>查找时，遇到折叠过的节点，要比较前缀是否匹配。经过垂直压缩，减少了节点树和层级树，节约了大量空间，但是依然没有解决空指针浪费的问题。</p>
+<h1 id="AdaptiveRadixTree"><a href="#AdaptiveRadixTree" class="headerlink" title="AdaptiveRadixTree"></a>AdaptiveRadixTree</h1><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><blockquote>
+<p>论文链接：<br><a target="_blank" rel="noopener" href="https://db.in.tum.de/~leis/papers/ART.pdf">The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases</a><br><a target="_blank" rel="noopener" href="https://db.in.tum.de/~leis/papers/artsync.pdf">The ART of Practical Synchronization</a></p>
+</blockquote>
+<p>Adaptive Radix Tree（ART）是由 Phil Bagwell 在 2000 年提出的一种基于 Trie Tree 实现的数据结构，旨在解决 Trie Tree 在空间效率和查找性能方面存在的问题。与其他基于 Trie 的数据结构（如 Radix Tree、Digital Search Tree）相比，其引入了自适应节点，高度压缩等特性，具有更好的空间效率和更快的查找速度。</p>
+<p>相对于传统的基于比较的搜索树（如红黑树、AVL 树、B+ 树），ART 具有以下特点：</p>
+<ul>
+<li>ART 的高度取决于 Key 的长度，而非树中元素的数量。</li>
+<li>ART 不需要平衡操作，且所有插入顺序产生的树都是相同的。</li>
+<li>Key 按照字典序进行存储。</li>
+<li>从根节点到叶子节点的路径代表着其对应的 Key，因此 Key 是隐式存储的，可以通过路径重新构造。</li>
+</ul>
+<p>假设字符串比较操作开销为 O(1)，字符串长度为 k，基于比较的搜索树的查询复杂度为 O(klogn)，而 ART 为 O(k)。</p>
+<p>ART 适用于许多高效查找的应用场景，例如数据库内存索引，路由表等。</p>
+<h3 id="自适应节点"><a href="#自适应节点" class="headerlink" title="自适应节点"></a>自适应节点</h3><p>ART 中包含了两种类型的节点：</p>
+<ul>
+<li><strong>内部节点</strong>：内部节点，将 key 映射到其他节点，用于表示路径。</li>
+<li><strong>叶子节点</strong>：存储实际的 value 数据。</li>
+</ul>
+<h4 id="内部节点"><a href="#内部节点" class="headerlink" title="内部节点"></a>内部节点</h4><p>根据容量不同，ART 内部节点使用了四种不一样的内部结构。</p>
+<ul>
+<li><p><strong>Node4</strong></p>
+<ul>
+<li><p>Node4 是最小的节点类型，其由 4 个 key 以及对应 4 个子指针组成。key 和子指针存储在相同的位置，并以 key 为基准进行排序。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/af7f3dee5c1130e5617cc9c4e078c151.png"><span class="image-caption">img</span></p>
+<p><strong>Node4</strong>，由一个长度为 4 的 byte 数组和长度为 4 的指针数组构成，最多存储 4 个不同的 key 及其对应的子节点指针。一共占用 40（4<em>1 + 4</em>8）bytes。有效指针个数小于等于 4 时，使用这种类型的节点存储如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fdafe53b5a266456b3315a053a563ee8_1440w.webp"><span class="image-caption">img</span></p>
+<p>查找时，需要遍历 byte 数组，判断当前要查找的 key 是否在数组中。由于数据长度小，遍历的开销也就很低。</p>
+</li>
+</ul>
+</li>
+<li><p>Node16</p>
+<ul>
+<li>Node16 是 Node4 的扩容版本，其存储着 16 个 key 和子指针。<img src="https://img-blog.csdnimg.cn/img_convert/0a5a6fa97dd5a6bd8d597958ce4cc970.png"><span class="image-caption">img</span></li>
+</ul>
+</li>
+<li><p>Node48</p>
+<ul>
+<li><p>由于节点中存储的内容增加，遍历 key 数组的开销也随之增加，因此 Node48 采用了另一种存储方式，不再显式存储 key，而是由一个长度为 256 的索引和 48 个指针组成。索引的每个位置正好对应了 <code>unsigned char</code> 类型的 0~255。每个索引的对应位置存储了对应子指针的下标（不存在的始终标记为 0）。这里为了节省空间，带来了间接查询的开销。<img src="https://img-blog.csdnimg.cn/img_convert/c1866f48d7321eefcc587610d8074499.png"><span class="image-caption">img</span></p>
+</li>
+<li><p><img src="https://pic3.zhimg.com/80/v2-d0681f378ca7818b19a92d2df0a76366_1440w.webp"><span class="image-caption">img</span></p>
+<p>由于 byte 数组和指针数组长度不对齐，需要通过一定的方式将它们映射起来：byte 数组的下标表示 key，值表示 key 对应的子节点指针在指针数组的位置。</p>
+<p>查找 Node48 时，我们可以跟据查找的 key 快速定位到其在节点中的位置（key的值便是下标值），获取其对应的子节点指针。时间复杂多为 O(1) ，这是典型的空间换时间做法，但需要多一次内存访问时间。</p>
+</li>
+</ul>
+</li>
+<li><p>Node256</p>
+<ul>
+<li><p>Node256 是一个包含了 256 个指针的数组，相比较与 Node48，其一次查询即可得到结果。由于只存储指针，即使大部分位置为空，也不会过于浪费空间。<img src="https://img-blog.csdnimg.cn/img_convert/6e61c8e4abe1d04433891baae05714f3.png"><span class="image-caption">img</span></p>
+</li>
+<li><p><strong>Node256</strong>，由长度为 256 的指针数组构成，一共占用 2048（256 * 8）bytes。有效指针个数在 49~256 时，使用这种类型的节点存储，如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2d4ce8456363a9ddc230b73b3cd2a2f0_1440w.webp"><span class="image-caption">img</span></p>
+<p>指针数组的下标代表 key，值代表其对应的子节点指针。查找是，可以快速得到子节点指针，时间复杂度为 O(1) 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>每个内部节点中还包含了一个 header，用于存储节点类型、子节点数量和压缩的路径以及 span（标识压缩路径的深度）。</p>
+<h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>除了内部节点存储的路径之外，ART 还需要将 value 存储在叶子节点上。假设只存储唯一 key，叶节点可以使用以下三种不同的结构：</p>
+<ul>
+<li><strong>单值叶节点</strong>：使用额外的叶节点类型存储一个值。</li>
+<li><strong>多值叶节点</strong>：使用四种不同的叶节点类型之一来存储值，这些叶节点类型可以复用内部节点的结构，但存储值而不是指针</li>
+<li><strong>组合指针&#x2F;值 slot</strong>：如果值适合指针，则不需要单独的节点类型。相反，内部节点中的每个指针存储位置可以存储指针或值。每个指针可以使用一个额外的附加位或在指针中做标记来区分。</li>
+</ul>
+<p>单值叶节点是最通用的方法，其允许在一个树中使用不同长度的 key 和 value。但是，由于树高度的增加，每次查找的时候都会有一次额外的指针遍历。</p>
+<p>多值叶节点避免了这种开销，但要求树中的所有 key 具有相同的长度。</p>
+<p>组合指针&#x2F;值 slot 是最高效的，允许存储不同长度的 key。通常情况下都会考虑使用这个，它特别适用于存储元组标识符或与指针相同大小的数据库二级索引。</p>
+<h3 id="与其他数据结构比较"><a href="#与其他数据结构比较" class="headerlink" title="与其他数据结构比较"></a>与其他数据结构比较</h3><p>数据库常用的索引结构有 Hash 索引、B+ Tree 等，那么 ART 对比这些索引有什么优势呢？</p>
+<p>ART 通过路径压缩、自适应节点分配极大的减少了空间浪费。相比 B+ Tree，其内部节点更小，占用空间更少，更适合 cpu cache，在纯内存场景，ART 优势明显。同时 ART 也拥有极佳的点查性能（最坏情况为 O(k) ），也更适合前缀匹配查询。</p>
+<p>B+ Tree 的优势在于树高度小且平衡，更适合作为传统数据库的磁盘索引。B+ Tree 能提供稳定高效的查询性能，且范围查询性能也很突出。因此作为磁盘索引，B+ Tree 更有优势。</p>
+<p><img src="https://s2.51cto.com/images/blog/202305/30103228_6475603cb89ee32978.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=/format,webp/resize,m_fixed,w_1184"><span class="image-caption">数据库索引数据结构总结——ART树就是前缀树_数据库</span></p>
+<p>Hash 索引常常能提供高效的点查性能，但是范围查询、前缀查询性能极差（全扫）。因此，Hash 索引常常用于加速点查，使用比较局限。</p>
+<h3 id="高度压缩"><a href="#高度压缩" class="headerlink" title="高度压缩"></a>高度压缩</h3><p>如下图，为了节省空间，ART 中采用了 Path Compression（路径压缩） 和 Lazy Expansion（惰性拓展） 两种技术来尽可能的减少节点数量，压缩树的高度。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5a8d4e623a326c9adf9469854dd58a45.png"><span class="image-caption">img</span></p>
+<p>Path Compression &amp;&amp; Lazy Expansion</p>
+<h4 id="Path-Compression"><a href="#Path-Compression" class="headerlink" title="Path Compression"></a>Path Compression</h4><p>Path Compression 用于移除只有单个子节点的节点，例如图左侧中，B 节点仅有单个子节点 A，此时会将它们合并为 BA。由于合并后出现了前缀，此时需要在存储结构中将其表述出来，通常有以下两种方式：</p>
+<ul>
+<li><strong>悲观</strong>：每个节点额外使用一个变长 vector 存储前缀，在查找过程中要额外对其进行比较，因此称为悲观。</li>
+<li><strong>乐观</strong>：用一个计数器记录前缀的长度，向下遍历时跳过这个长度，到了叶子节点后在回头进行前缀的比较。</li>
+</ul>
+<p>悲观策略使用更多的空间，同时变长 vector 可能会导致内存碎片。而乐观策略则增加了额外的字符串比较开销。由于两者各有优缺点，在 ART 中会根据使用场景的不同来决定具体的策略。默认使用悲观策略，每个节点最多存储 8 字节的前缀，如果超过这个大小，则切换到乐观策略。</p>
+<h4 id="Lazy-Expansion"><a href="#Lazy-Expansion" class="headerlink" title="Lazy Expansion"></a>Lazy Expansion</h4><p>Lazy Expansion 指的是只有在需要使用内部节点来区分两个叶子节点时，才会创建内部节点。如上图右侧，在 F 路径中只存在 FOO 单个节点，不需要区分，因此两个 O 节点会被删除掉，只有再插入另外一个共享前缀 F 的节点时才会拓展。</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h4 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/7ca14677a1cf65056b2da1ea8a69bf44.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>查找算法</p>
+<p>上图为查找逻辑的伪代码，执行的流程如下：</p>
+<ol>
+<li>判断节点是否为空，如果空则返回，否则继续。</li>
+<li>判断节点是否为叶子节点，如果是叶子节点，则根据节点存储的 key 是否完全相等，判断查询是否成功（乐观策略在这个地方进行）。</li>
+<li>如果当前节点不是叶子节点，则判断当前节点的前缀和需要查找的是否一致，如果不一致则中止匹配（悲观策略在这个地方进行）。</li>
+<li>如果前面几轮判断都没查找到，此时则通过 <code>findChild</code> 找到下一个节点，继续递归下去查询。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/52d022423a27369b11b4340bc26d4762.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>内部节点查找算法</p>
+<p><code>findChild</code> 中主要描述了四种不同的内部节点类型中如何通过 key 找到子节点指针：</p>
+<ul>
+<li>Node4：遍历 key 数组，返回对应的 child。</li>
+<li>Node16：通过 SIMD（不可用时使用二分搜索）来进行数组匹配，找到对应的 child。</li>
+<li>Node48：通过字符序，判断 index 中对应下标存储的 child 数组下标是否为 0，如果不为 0 则根据下标找到对应的 child。</li>
+<li>Node256：直接根据字符序，返回对应下标存储的 child。</li>
+</ul>
+<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/abf453718f36401253c3b5aa4bf5b8d7.png"><span class="image-caption">img</span></p>
+<p>插入算法</p>
+<p>插入的流程如下：</p>
+<ol>
+<li>判断节点是否为空，如果为空则用叶子节点替换掉该节点。</li>
+<li>判断节点是否为叶子节点，如果是则判断 key 是否相同，如果相同则直接返回。如果不同，此时则考虑对 lazy expansion 的拓展操作，将两个节点的公共前缀作为新内部节点的 Key，并将两个节点作为其子节点。</li>
+<li>如果不是叶子节点，则首先比较前缀，如果前缀不相同，此时将生成一个新节点，将两个节点的公共前缀作为该节点的前缀，并将叶子节点节点和原来的老节点（截断公共前缀后）一起插入到这个新节点中。</li>
+<li>如果仍然存在下一个节点，则继续向下递归执行，否则先判断节点是否已满，决定是否要调用 <code>grow</code> 进行节点扩容，再将叶子节点插入。</li>
+</ol>
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p>删除算法的思路与插入的大致相同，为其逆向操作，在这里就不过多赘述。如果删除叶子节点后内部节点过少，则会收缩内部节点的容量，如果只有一个子节点，此时则使用 Path Compression 压缩路径。</p>
+<h4 id="Bulk-loading"><a href="#Bulk-loading" class="headerlink" title="Bulk loading"></a>Bulk loading</h4><p>在存在大量数据时，使用下面的递归算法可以加速索引的构建：</p>
+<ol>
+<li>将每个 key 的第一个字节用于基数分区（分为 256 个），并创建相应类型的内部节点。</li>
+<li>在返回该内部节点之前，通过对每个分区使用下一个字节的 key，来递归加载其子节点。</li>
+<li>重复步骤 2，直到所有的 key&#x2F;value 都被插入树中。</li>
+</ol>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>传统的细粒度锁的拓展性较差（对于现代 CPU），而无锁结构虽然拓展性好，但是其实现又十分复杂、困难，因此在 ART 中采取了另外两种方法，<strong>Optimistic Lock Coupling</strong>（乐观锁耦合）和 <strong>Read-Optimized Write EXclusion</strong>（ROWEX，读优化写排除）。</p>
+<h4 id="乐观锁耦合Optimistic-Lock-Coupling"><a href="#乐观锁耦合Optimistic-Lock-Coupling" class="headerlink" title="乐观锁耦合Optimistic Lock Coupling"></a>乐观锁耦合Optimistic Lock Coupling</h4><p>首先介绍一下什么是<strong>锁耦合（Lock Coupling）</strong>，其是多线程操作树结构时使用的一种同步技术。<strong>其有两个锁，当遍历树时，一个锁住父节点，一个锁住当前的节点</strong>，然后向下行走，重复这个过程，直到完成对节点的操作。（由于很像螃蟹行走的方式，所以有的人称其为蟹形协议）。</p>
+<p>乐观锁耦合就是将乐观锁的思路与锁耦合合并起来，引入了版本号，下面给出悲观锁耦合和乐观锁耦合的对比代码：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2ff5a58e5c2673b0e4fc42442869eca3.png"><span class="image-caption">image-20230409030735775</span><br>这里引入了两个原语</p>
+<ul>
+<li><strong>readLockOrRestart</strong>：不获取锁，等待写锁释放后获取节点当前的版本。</li>
+<li><strong>readUnlockOrRestart</strong>：等待写锁释放，检测版本号，如果版本变更则重启读操作。</li>
+</ul>
+<p>总结一下，其具有以下范式：</p>
+<ol>
+<li>读不会获取锁，但是其会检测版本号，如果版本号变更则从根开始重新读。</li>
+<li>写不会被读阻塞。</li>
+<li>写需要获取锁，且写入后更新版本信息。</li>
+</ol>
+<blockquote>
+<p>上面的算法需要满足以下条件才能正常运行：</p>
+<ol>
+<li>调用 <code>readLockOrRestart</code> 时，读线程可能会看到不一致的中间状态，为了避免无限循环和访问空指针，必须进行版本检查和指针检查。</li>
+<li>删除节点时不能立即进行回收，需要延迟释放——即将节点标记后，等待没有线程引用时再进行回收。</li>
+<li>极端情况下，读可能会被多次重启，为了确保读能够执行，可以限制重启的次数，次数达到限制后采用读写锁。</li>
+</ol>
+</blockquote>
+<h4 id="读优化写排除（ROWEX）-乐观读悲观写"><a href="#读优化写排除（ROWEX）-乐观读悲观写" class="headerlink" title="读优化写排除（ROWEX）(乐观读悲观写)"></a>读优化写排除（ROWEX）(乐观读悲观写)</h4><p>从上面可以看出，当读在进行时，如果有人写入，则会因版本号变更而重启读行为。而如果这种冲突极端严重，则会导致读行为不断重启，甚至可能永远无法执行。因此 ART 通过 ROWEX 来改进这一问题，ROWEX 的核心就是<strong>读取不会被阻塞或者重启</strong>。</p>
+<p>ROWEX 具有以下范式：</p>
+<ol>
+<li>读不需要加锁、阻塞，也不需要检查版本信息，因此其总是成功的。</li>
+<li>每个节点中需要维护一个互斥锁，当进行读操作时获取该锁，该锁仅用于阻塞其他写行为。</li>
+<li>写操作保证同一个节点读一致性，即写操作必须通过原子指令执行。</li>
+</ol>
+<h5 id="适配-ROWEX"><a href="#适配-ROWEX" class="headerlink" title="适配 ROWEX"></a>适配 ROWEX</h5><p>为了适配 ROWEX，ART 的结构需要进行以下变动：</p>
+<ol>
+<li>为了支持并发局部修改，内部节点的 key 和指针需要用 <code>std::atomic</code> 来管理。</li>
+<li>对于线性内部结构（Node4、Node16），为了避免排序，采用仅追加的方式，删除则直接将子指针指向空。（虽然不排序时需要遍历整个数组，但是还可以用 SIMD 进行优化），</li>
+</ol>
+<p>下面以节点替换和路径压缩为例，说明 ART 中 ROWEX 是如何工作的。</p>
+<h5 id="节点替换"><a href="#节点替换" class="headerlink" title="节点替换"></a>节点替换</h5><p>当一个节点容量过大&#x2F;小时，需要替换成其他内部节点类型，此时执行以下流程：</p>
+<ol>
+<li>对该节点和其父节点进行加锁，并创建一个新节点，将旧节点中的数据全部拷贝到新节点中。</li>
+<li>通过原子操作修改父节点的子指针，让其指向新节点。</li>
+<li>解锁旧节点，将其标记为删除。</li>
+</ol>
+<p>任何被阻塞的写操作在检测到该节点被标记后，都会重新开始整个插入&#x2F;删除行为。因此对于读操作来说，读取是始终安全的。</p>
+<h5 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/b3a142d9652bac2b779a5a24b2797db8.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>对于路径压缩来说，情况又更加复杂，这主要是因为<strong>创建节点和更新前缀这两个步骤无法在单个原子操作</strong>中完成，如果不做处理，则读取时可以会读到中间状态。</p>
+<p>例如上图，一开始树中只有 ARE，ART，通过 Path Compression 将 AR 作为公共前缀。此时插入一个新节点 AS，此时会进行以下操作：</p>
+<ol>
+<li>创建一个新的内部节点 A，让根节点将子指针从 AR 指向它，它指向 R 和 S。（创建节点）</li>
+<li>将 R 节点原先的前缀清空（更新前缀）</li>
+</ol>
+<p>由于这两个都是独立的原子操作，当我们在完成第一步后，此时的 R 节点仍然保留着前缀，对于它来说此时存储的路径变为了 ARR，这就导致了当前<strong>状态的不一致</strong>。</p>
+<p>为了解决这个问题，每个节点中都需要增加一个 level 字段（代表存储节点的实际高度，即未被 Compression 前应该处于哪一层），这个字段初始化后就不再变更，其保证了中间状态始终安全。</p>
+<ul>
+<li>如果一个读取操作在某个节点看到了中间状态，它可以通过<strong>检查该节点的 level，判断出该节点的前缀是否已经被截断</strong>。如果前缀已经被截断，则读取操作可以跳过该节点，继续向下搜索。如果前缀没有被截断，则读取操作可以根据该节点的 level 字段，查找出缺失的 key。</li>
+<li>以上图为例，当我们看到蓝色节点的中间状态时，会直接跳过该处的前缀（此时 level 应当为 3，检测到 2 说明为中间状态）。</li>
+</ul>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/12/10/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91-note/"><i class="iconfont iconleft"></i>NJU-服务端开发-学习笔记</a>
+    <a href="/2023/12/10/Index-Learned%20index/">Learned index 综述<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Trie"><span class="toc-text">Trie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Radix-Trie"><span class="toc-text">Radix Trie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AdaptiveRadixTree"><span class="toc-text">AdaptiveRadixTree</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E9%80%82%E5%BA%94%E8%8A%82%E7%82%B9"><span class="toc-text">自适应节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%AF%94%E8%BE%83"><span class="toc-text">与其他数据结构比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%BA%A6%E5%8E%8B%E7%BC%A9"><span class="toc-text">高度压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-text">算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91"><span class="toc-text">并发</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

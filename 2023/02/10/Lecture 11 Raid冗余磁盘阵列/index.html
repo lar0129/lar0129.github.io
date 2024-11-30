@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记11-RAID阵列 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记11-RAID
+
+
+
+
+考前抱...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记11-RAID阵列</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记11-RAID阵列</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1361</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记11-RAID</p></p>
+        
+        <p>考前抱佛脚整理</p>
+<h1 id="Lecture-11-RAID"><a href="#Lecture-11-RAID" class="headerlink" title="Lecture 11 RAID"></a>Lecture 11 RAID</h1><p>• 基本思想<br>    • 将多个独立操作的磁盘按某种方式组织成磁盘阵列， 以<strong>增加容量</strong><br>    • 将数据存储在多个盘体上， 通过这些盘并行工作来<strong>提高数据传输率</strong><br>    • 采用数据冗余来进行错误恢复以<strong>提高系统可靠性</strong></p>
+<p>• 特性<br>    • 由一组物理磁盘驱动器组成， 被视为<strong>单个逻辑</strong>驱动器<br>    • 数据是分布在多个物理磁盘上<br>    • 冗余磁盘容量用于存储校验信息， 保证磁盘万一损坏时能恢复数据  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225232853806.png"><span class="image-caption">image-20230225232853806</span></p>
+<h2 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h2><p>以条带的形式  </p>
+<p>不采用冗余  </p>
+<p>高数据传输率</p>
+<p>高速响应I&#x2F;O请求  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233217161.png"><span class="image-caption">image-20230225233217161</span></p>
+<h2 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h2><p>简单地备份所有数据的方法来实现冗余  </p>
+<p>高速响应I&#x2F;O请求：  高速响应I&#x2F;O请求：</p>
+<p>读请求可以选择寻道时间较小的那个    </p>
+<p>受限于写入较慢的磁盘  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233423898.png"><span class="image-caption">image-20230225233423898</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233454305.png"><span class="image-caption">image-20230225233454305</span></p>
+<p>RAID10 <strong>容错率更高</strong></p>
+<h2 id="RAID-2"><a href="#RAID-2" class="headerlink" title="RAID 2"></a>RAID 2</h2><p>对位于同一条带的各个数据盘上的数据位计算校验码（通常采用海明码）  </p>
+<p>适用于多磁盘易出错环境，对于单个磁盘和磁盘驱动器已经具备高可靠性的情况没有意义<strong>（实际基本弃用）</strong>  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233720023.png"><span class="image-caption">image-20230225233720023</span></p>
+<h2 id="RAID-3"><a href="#RAID-3" class="headerlink" title="RAID 3"></a>RAID 3</h2><p>对所有数据盘上同一位置的数据计算奇偶校验码  </p>
+<p>非常小的数据条带</p>
+<p>当某一磁盘损坏时，可以用于重构数据  </p>
+<p>非常高的数据传输率，对于大量读请求，性能改善特别明显  </p>
+<ul>
+<li><p>并行存取</p>
+<p>四个盘同时读写</p>
+</li>
+</ul>
+<p>次只能执行一个I&#x2F;O请求，在面向多个IO请求时，性能将受损  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233932548.png"><span class="image-caption">image-20230225233932548</span></p>
+<h2 id="RAID-4"><a href="#RAID-4" class="headerlink" title="RAID 4"></a>RAID 4</h2><p>较大的数据条带  </p>
+<p>根据各个数据盘上的数据来逐位计算奇偶校验条带，奇偶校验位存储在奇偶校验盘的对应条带上  </p>
+<p>独立存取阵列更适合与需要高速 IO 请求的应用，而相对较少用于需要高数据传输率的场合。</p>
+<p>当执行较小规模的I&#x2F;O写请求时， RAID 4会遭遇<strong>写损失</strong></p>
+<ul>
+<li>对于每一次写操作， 阵列管理软件不仅要修改用户数据， 而且要修改相应的校验位  </li>
+<li>校验盘会成为瓶颈（实际基本弃用）</li>
+</ul>
+<p>两读两写—— 两次读操作（数据盘、校验盘）、两次写操作（数据盘、校验盘）</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234128783.png"><span class="image-caption">image-20230225234128783</span></p>
+<h2 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h2><p>与RAID 4 组织方式相似<strong>（常用）</strong> </p>
+<p>在所有磁盘上都分布了奇偶校验条带  </p>
+<p>访问时的<strong>“两读两写”</strong>：读在写前，读&#x2F;写不需要并行  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234244516.png"><span class="image-caption">image-20230225234244516</span></p>
+<h2 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h2><p>采用两种不同的校验码，并将校验码以分开的块存于不同的磁盘中  </p>
+<p>提升数据可用性：只有在平均修复时间间隔内3个磁盘都出了故障，才<br>会造成数据丢失  </p>
+<p>写损失：每次写都要影响两个校验块（<strong>读3个写3个磁盘</strong>）  </p>
+<p>三读三写</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>3 和 4 的区别在于，是不是一起转的</p>
+<p> 5 和 6 各有优劣</p>
+<p>123：并行写（1不是同步轴）</p>
+<p>23：并行读写（同步轴）</p>
+<p>45(6?)：不能并行写，能IO并行处理</p>
+<p>可靠性：6&gt; 1 &gt; 2345 &gt; 0</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/02/10/Lecture%2010%20%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记10-数据校验码</a>
+    <a href="/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记12-虚拟存储器<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-11-RAID"><span class="toc-text">Lecture 11 RAID</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-0"><span class="toc-text">RAID 0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-1"><span class="toc-text">RAID 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-2"><span class="toc-text">RAID 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-3"><span class="toc-text">RAID 3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-4"><span class="toc-text">RAID 4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-5"><span class="toc-text">RAID 5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID-6"><span class="toc-text">RAID 6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

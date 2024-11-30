@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记17-IO输入输出 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记17-IO输入输出
+
+
+Lec...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记17-IO输入输出</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记17-IO输入输出</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5668</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记17-IO输入输出</p></p>
+        
+        <h1 id="Lecture-17-IO输入输出"><a href="#Lecture-17-IO输入输出" class="headerlink" title="Lecture 17   IO输入输出"></a>Lecture 17   IO输入输出</h1><ul>
+<li>外围设备：<ul>
+<li>外部设备提供了在外部环境和计算机系统之间的数据交换，通常被称为外围设备（peripheral device），简称为外设（peripheral）。</li>
+</ul>
+</li>
+<li>类型<ul>
+<li>人可读设备：适用于与计算机用户通信<ul>
+<li>显示器， 打印机， ……</li>
+</ul>
+</li>
+<li>机器可读设备：适用于与设备通信<ul>
+<li>磁盘， 磁带， ……</li>
+</ul>
+</li>
+<li>通信设备：适用于与远程设备通信</li>
+</ul>
+</li>
+</ul>
+<h1 id="1-IO模块"><a href="#1-IO模块" class="headerlink" title="1.IO模块"></a>1.IO模块</h1><p>产生背景</p>
+<ul>
+<li>不可以将外设直接连接到系统总线上<ul>
+<li>外设操作方法多种多样</li>
+<li>外设数据传送速度比cpu和存储器慢得多</li>
+<li>某些外设数据传送速度比cpu和存储器快（反正就是不一样）</li>
+<li>数据格式和字长度和cpu不同</li>
+</ul>
+</li>
+</ul>
+<p>IO模块是计算机内部系统和外设之间的桥梁。（仍属于计算机系统的一部分）</p>
+<ul>
+<li>通过系统总线和中央交换器和存储器连接</li>
+<li>通过专用数据线与一个或多个外设连接</li>
+</ul>
+<p>采用统一的接口格式</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230223232738686.png"><span class="image-caption">image-20230223232738686</span></p>
+<ul>
+<li>输入&#x2F;输出模块的接口以<strong>控制、状态和数据</strong>信号的形式出现  </li>
+<li>与设备相关的控制逻辑控制外设的操作，以响应来自输入&#x2F;输出模块的命令</li>
+<li>缓冲器用于缓存输入&#x2F;输出模块和外设之间传送的数据<ul>
+<li>目的：解决IO太快或太慢</li>
+<li>缓冲器的大小一般为8位或16位</li>
+</ul>
+</li>
+<li>转换器：模拟信号与数字信号</li>
+</ul>
+<h2 id="1-1-IO模块的功能"><a href="#1-1-IO模块的功能" class="headerlink" title="1.1.IO模块的功能"></a>1.1.IO模块的功能</h2><p>双向通信</p>
+<ul>
+<li>与处理器通信<ul>
+<li><strong>命令译码：</strong> 输入&#x2F;输出模块接收来自处理器的命令，这些命令一般作为信号发送到<strong>控制总线</strong></li>
+<li><strong>状态报告：</strong> 由于外设速度很慢, 所以知道输入&#x2F;输出模块的状态很重要  </li>
+<li><strong>数据：</strong> 数据是在处理器和输入&#x2F;输出模块之间经由数据总线来交换的  </li>
+<li><strong>地址识别：</strong> 输入&#x2F;输出模块必须能识别它所控制的每个外设的唯一地址</li>
+</ul>
+</li>
+<li>设备通信<ul>
+<li>通信内容包含命令、 状态信息和数据</li>
+</ul>
+</li>
+</ul>
+<p>数据缓冲</p>
+<ul>
+<li>类比银行柜员处理文件，排队</li>
+</ul>
+<p>控制和定时</p>
+<ul>
+<li>原因<ul>
+<li>处理器会非预期的与一个或几个外设进行通信</li>
+<li>一些内部资源， 如主存和系统总线， 是被共享的</li>
+</ul>
+</li>
+</ul>
+<p>检错</p>
+<ul>
+<li>检错并把差错信息报告给处理器</li>
+<li>差错类型<ul>
+<li>设备报告的机械和电路故障</li>
+<li>传输过程中数据位的变化</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-IO模块的结构"><a href="#1-2-IO模块的结构" class="headerlink" title="1.2.IO模块的结构"></a>1.2.IO模块的结构</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230223234124654.png"><span class="image-caption">image-20230223234124654</span></p>
+<p>大图&#x3D;小图逆时针转了90°</p>
+<ul>
+<li><p>左侧：状态&#x2F;控制寄存器用来保存<strong>CPU对外设的命令</strong></p>
+<ul>
+<li>寄存器复用，知道状态才能控制</li>
+</ul>
+</li>
+<li><p>右侧：有多组外部设备</p>
+</li>
+</ul>
+<p>外部接口（上图左右的细化）</p>
+<ul>
+<li>串行（用的多）：只有一根线用于传输数据，每次只传输一位数据<ul>
+<li>传得远，时钟频率高</li>
+</ul>
+</li>
+<li>并行：多根线连接输入&#x2F;输出模块和外设，同时传送多位数据 <ul>
+<li><strong>并行多条线需要保持信息同步</strong>（多人走路）</li>
+<li>当传输速度和总线长度增加时， 总线的时钟频率会受到限制<ul>
+<li>相邻传输间隔时间变长，避免混淆</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230223234912904.png"><span class="image-caption">image-20230223234912904</span></p>
+<ul>
+<li>例子<ul>
+<li>FireWire： IEEE标准1394串行总线</li>
+<li>USB： 通用串行总线（Universal Serial Bus） <ul>
+<li>更主流，更快</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-IO操作技术"><a href="#1-3-IO操作技术" class="headerlink" title="1.3.IO操作技术"></a>1.3.IO操作技术</h2><ul>
+<li><p>编程式I&#x2F;O：<strong>处理器</strong>通过<strong>执行程序</strong>来直接控制I&#x2F;O操作，当处理器发送一条命令到I&#x2F;O模块时，它必须等待，直到I&#x2F;O操作完成</p>
+</li>
+<li><p>中断驱动式 I&#x2F;O： <strong>处理器</strong>发送一条I&#x2F;O命令后，<strong>继续执行其他指令</strong>；并且当I&#x2F;O模<br>块完成其工作后， 才去中断处理器工作  </p>
+</li>
+<li><p>直接存储器读取（Direct Memory Access，DMA） ： I&#x2F;O模块<strong>与主存直接交换</strong>数据， 而<strong>不需要处理器</strong>的干涉</p>
+<ul>
+<li>仅指数据处理不需要cpu。其他可能要用cpu</li>
+</ul>
+</li>
+</ul>
+<h3 id="编程式IO"><a href="#编程式IO" class="headerlink" title="编程式IO"></a>编程式IO</h3><ul>
+<li><p>当处理器在执行过程中遇到一条与I&#x2F;O操作有关的指令时， 它通过发送指令到适当的I&#x2F;O模块来执行这条指令  </p>
+<ul>
+<li>读状态-&gt;未就绪 &#x2F; 就绪 &#x2F; 出错</li>
+<li>若就绪，由IO读取字</li>
+</ul>
+</li>
+<li><p>I&#x2F;O不会中断处理器， 因此<strong>处理器需要周期性地检查I&#x2F;O模块的状态</strong>， 直到发现该操作完成  </p>
+</li>
+<li><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224121950485.png"><span class="image-caption">image-20230224121950485</span></p>
+</li>
+<li><p>CPU全程100%投入</p>
+</li>
+</ul>
+<p><strong>IO命令</strong></p>
+<ul>
+<li>处理器发送一个<strong>指定具体I&#x2F;O模块和外设的地址</strong>， 并发送一条I&#x2F;O命令  </li>
+<li><strong>控制命令：</strong> 激活外设并告诉它要做什么</li>
+<li><strong>测试命令：</strong> 测试I&#x2F;O模块及其外设相关的各种状态条件</li>
+<li><strong>读命令：</strong> 使I&#x2F;O模块从外设获得一个数据， 把它存入内部缓冲区</li>
+<li><strong>写命令：</strong> 使I&#x2F;O模块从数据总线获得一个数据， 把它传入外设</li>
+</ul>
+<p><strong>IO指令</strong></p>
+<ul>
+<li>I&#x2F;O指令很容易映射为I&#x2F;O命令, 并且两者之间通常是简单的<strong>一一对应关系</strong></li>
+<li>编址方式<ul>
+<li>存储器映射式IO：存储单元和I&#x2F;O设备有统一的地址空间  <ul>
+<li>pros：能使用大的指令系统，可进行更有效的编程<br>cons：I&#x2F;O设备占用地址空间</li>
+</ul>
+</li>
+<li>分离式IO：让总线既有存储器的读线和写线，同时也有输入和输出命令线</li>
+</ul>
+</li>
+</ul>
+<h3 id="中断驱动式IO"><a href="#中断驱动式IO" class="headerlink" title="中断驱动式IO"></a>中断驱动式IO</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224124611822.png"><span class="image-caption">image-20230224124611822</span></p>
+<ul>
+<li>处理器发送一个I&#x2F;O命令到模块，然后去处理其它有用的工作</li>
+<li>当I&#x2F;O模块准备和处理器交换数据时，它<strong>中断处理器</strong>以请求服务</li>
+</ul>
+<p><strong>从IO模块角度：</strong></p>
+<ul>
+<li>I&#x2F;O模块接收来自处理器的读命令</li>
+<li>I&#x2F;O模块从相关的<strong>外设中读入数据</strong></li>
+<li>一旦数据进入I&#x2F;O模块的数据寄存器后， 该模块通过<strong>控制总线</strong>给处理器<strong>发送中断信号</strong><ul>
+<li>对应上方1.2 IO模块的结构</li>
+</ul>
+</li>
+<li>I&#x2F;O模块<strong>等待</strong>直到处理器请求该数据时为止<ul>
+<li>CPU可能有更重要的事</li>
+</ul>
+</li>
+<li>当处理器有数据请求时， I&#x2F;O模块把数据传送到数据总线上， 并准备另一个I&#x2F;O操作</li>
+</ul>
+<p>**从处理器的角度来看 **</p>
+<ul>
+<li>处理器发送一个读命令</li>
+<li>处理器离开去做其它的事情， 并在<strong>每个指令周期结束时检查中断</strong></li>
+<li>当来自I&#x2F;O模块的<strong>中断出现</strong>时， 处理器<strong>保存当前程序的现场</strong></li>
+<li>处理器从I&#x2F;O模块读取数据字并保存到主存中</li>
+<li>处理器<strong>恢复</strong>刚才正在运行的<strong>程序的现场</strong>， 并继续运行原来的程序</li>
+</ul>
+<h4 id="两种状态：中断允许-x2F-禁止"><a href="#两种状态：中断允许-x2F-禁止" class="headerlink" title="两种状态：中断允许&#x2F;禁止"></a>两种状态：中断允许&#x2F;禁止</h4><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224125420695.png"><span class="image-caption">image-20230224125420695</span></p>
+<ul>
+<li>有时数据过多，需要传送数据时便设为“中断禁止”</li>
+<li>中断处理时，也是“中断允许”状态<ul>
+<li>可嵌套中断，涉及优先级</li>
+</ul>
+</li>
+</ul>
+<p><strong>响应优先级和处理优先级</strong>  </p>
+<ul>
+<li>例子：公交车上抢座位，<strong>响应优先级</strong>是小伙子腿脚麻利。<strong>处理优先级</strong>是老太太有让座权</li>
+<li>存在两个优先级都高的中断源。而高中断源会屏蔽低中断源，只看到更高中断源</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224130208975.png"><span class="image-caption">image-20230224130208975</span></p>
+<ul>
+<li>掩码字：根据<strong>处理优先级</strong>，表示会不会屏蔽其他中断。1表示屏蔽<ul>
+<li>行屏蔽列</li>
+<li>主程序的优先级可以看作最低的</li>
+</ul>
+</li>
+<li>例子流程：<ul>
+<li>1：主程序</li>
+<li>2：先中断1（响应优先级）<ul>
+<li>中断关闭，处理保存，中断1开始</li>
+</ul>
+</li>
+<li>3：处理完1，恢复主程序（pop栈）</li>
+<li>4：响应3（push栈3）（响应优先级）</li>
+<li>5：中断4抢夺3（push栈4）（处理优先级）（3还没动）</li>
+<li>6：恢复3，对2视而不见（处理优先级）</li>
+<li>7：恢复主程序</li>
+<li>8：push2</li>
+<li>9：恢复主程序</li>
+</ul>
+</li>
+</ul>
+<h4 id="设备识别"><a href="#设备识别" class="headerlink" title="设备识别"></a>设备识别</h4><p>例：设备有多个USB插口</p>
+<ul>
+<li><p>多条中断线： 处理器仅仅<strong>挑选具有最高优先级的中断线</strong></p>
+<ul>
+<li>固定优先级</li>
+<li>即使有多条中断线可用， 每条线上也需要采用其它三种技术中的一种</li>
+</ul>
+</li>
+<li><p>软件轮询： 模块的<strong>轮询次序</strong>就决定了模块的优先级</p>
+<ul>
+<li>轮询顺序决定优先级</li>
+<li>轮询每一个I&#x2F;O模块来确定是哪个模块发生的中断</li>
+</ul>
+</li>
+<li><p>菊花链： 链接模块次序就决定了模块的优先级</p>
+<ul>
+<li>总线结构决定优先级</li>
+<li>所有的I&#x2F;O模块<strong>共享一条中断请求线</strong>， 中断应答线采用菊花链穿过这些中断模块</li>
+</ul>
+</li>
+<li><p>独立请求： 中断控制器决定</p>
+<ul>
+<li>特定的<strong>中断控制器</strong>用于解码和分析优先级</li>
+</ul>
+</li>
+</ul>
+<h3 id="DMA直接存储器存取"><a href="#DMA直接存储器存取" class="headerlink" title="DMA直接存储器存取"></a>DMA直接存储器存取</h3><p>前两种技术的不足</p>
+<ul>
+<li>I&#x2F;O传送速度受<strong>处理器测试和服务设备速度</strong>的限制</li>
+<li>处理器负责管理I&#x2F;O传送，对于每一次I&#x2F;O传送，处理器必须执行很多指令</li>
+</ul>
+<p>DMA：无需经过处理器即可直接访问内存的模块  </p>
+<ul>
+<li><p>解放了CPU，需要另一个硬件去控制</p>
+</li>
+<li><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224155053193.png"><span class="image-caption">image-20230224155053193</span></p>
+</li>
+<li><p>CPU需要通知DMA</p>
+<ul>
+<li>处理器通过发送以下信息向DMA模块发出命令：读&#x2F;写、 I&#x2F;O设备地址、 内存中的起始位置、 字数</li>
+<li>处理器继续进行其他工作</li>
+<li>DMA模块将全部数据块， 每次一个字， <strong>直接将数据传输到存储器</strong>或从存储器读出， 而无需经过处理器</li>
+<li>当传输完成时，DMA模块向处理器发送一个中断信号  </li>
+<li>DMA优先于CPU访问内存，因为IO设备更快</li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224160653238.png"><span class="image-caption">image-20230224160653238</span></li>
+</ul>
+</li>
+</ul>
+<h4 id="DMA访问法"><a href="#DMA访问法" class="headerlink" title="DMA访问法"></a>DMA访问法</h4><ul>
+<li><strong>CPU停止法</strong></li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224161449205.png"><span class="image-caption">image-20230224161449205</span></p>
+<p>优点： 控制简单<br>缺点： 影响CPU，没有充分利用内存<br>适用： 高速I&#x2F;O设备的块传输<strong>（数据连续）</strong></p>
+<ul>
+<li><strong>周期窃取法</strong></li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224161540555.png"><span class="image-caption">image-20230224161540555</span></p>
+<p>优点： <strong>充分利用CPU</strong>和内存，及时响应I&#x2F;O请求<br>缺点： DMA每次都请求总线<br>适用： <strong>I&#x2F;O周期大于存储周期</strong>（一波波数据）</p>
+<ul>
+<li><strong>交替分时访问法</strong>（各占一半）</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224161731176.png"><span class="image-caption">image-20230224161731176</span></p>
+<p>优点： CPU未停止或等待， DMA不请求总线<br>缺点： CPU周期大于存储周期  </p>
+<h4 id="DMA配置"><a href="#DMA配置" class="headerlink" title="DMA配置"></a>DMA配置</h4><p>(以下方式IO聚合度逐渐提高)</p>
+<ul>
+<li>单总线分离DMA  <ul>
+<li>相当于编程式直接分离CPU</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224162052936.png"><span class="image-caption">image-20230224162052936</span></p>
+<ul>
+<li>单总线集合的DMA-I&#x2F;O<ul>
+<li>DMA成为IO的一部分</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224162223050.png"><span class="image-caption">image-20230224162223050</span></p>
+<ul>
+<li>I&#x2F;O 总线 <ul>
+<li>共享DMA</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224162334994.png"><span class="image-caption">image-20230224162334994</span></p>
+<h4 id="DMA总流程"><a href="#DMA总流程" class="headerlink" title="DMA总流程"></a>DMA总流程</h4><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224162507820.png"><span class="image-caption">image-20230224162507820</span></p>
+<p>由此可知：查询传送参数、寻道、查找扇区、校验都需要CPU，DMA只在连续读写发挥作用。</p>
+<h2 id="1-4-IO模块的演变"><a href="#1-4-IO模块的演变" class="headerlink" title="1.4.IO模块的演变"></a>1.4.IO模块的演变</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224163354333.png"><span class="image-caption">image-20230224163354333</span></p>
+<p>发展趋势：效率提高、模块分离。</p>
+<h1 id="2-exam"><a href="#2-exam" class="headerlink" title="2.exam"></a>2.exam</h1><p>4&#x2F;5为重点</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224172337405.png"><span class="image-caption">image-20230224172337405</span></p>
+<p>本质上是寻址题。分辨有几位端口就是2的几次方</p>
+<p>“隐含”并不影响结果</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224172551429.png"><span class="image-caption">image-20230224172551429</span></p>
+<p>知识点：扫描能使缓存清空。扫描间隔必须小于缓冲区存满的时间</p>
+<p>频率（次数） &#x3D; 1 &#x2F; 时间</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224174121224.png"><span class="image-caption">image-20230224174121224</span></p>
+<p>(a)每秒传64kb，中断64x1000&#x2F;8 &#x3D; 8k次，共计 8k * 100μs &#x3D; 800ms，80%</p>
+<ul>
+<li>1秒(s) ＝1000毫秒(ms)<br>1毫秒(ms)＝1000微秒 (μs)<br>1微秒(μs)＝1000纳秒 (ns)<br>1纳秒(ns)＝1000皮秒 (ps)</li>
+</ul>
+<p>(b)</p>
+<ul>
+<li><p>中断处理 ≠ 中断服务</p>
+</li>
+<li><p>中断耗时 &#x3D; 中断处理时间 + 中断服务（题中说“延长”，故增加(16-1)*8μs）</p>
+</li>
+<li><p>处理间隔变长了</p>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230224181938553.png"><span class="image-caption">image-20230224181938553</span></p>
+<p>a)直接查询方式</p>
+<ul>
+<li>夺取总线+交回总线200+200</li>
+<li>IO数据传送与总线数据传送<strong>同时进行</strong><ul>
+<li>故有max(128*500ns，128B&#x2F;400kbs) + 500ns（最后一次一定为总线上）</li>
+<li>ms和ns隔了6次方</li>
+</ul>
+</li>
+<li>0.02ms是从？</li>
+</ul>
+<p>b)周期窃取</p>
+<ul>
+<li><p>仅计算切换时间和总线传输时间。</p>
+</li>
+<li><p>IO传输时间2.56ms&#x2F;128 &#x3D; 0.02ms为什么不计？</p>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225085646829.png"><span class="image-caption">image-20230225085646829</span></p>
+<p>类似题4</p>
+<ul>
+<li>直接查询方式 <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225093908586.png"><span class="image-caption">image-20230225093908586</span><ul>
+<li>1GHz&#x3D;1000MHz &#x3D; 10^9Hz</li>
+<li>比较IO传输时间(20μs)与总线传输时间(1000 * 1ns)，最后加上总线时间1μs</li>
+<li>CPU占用率一定为100%</li>
+</ul>
+</li>
+<li>中断驱动<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225093914432.png"><span class="image-caption">image-20230225093914432</span><ul>
+<li>a)中断 &#x3D; 中断请求 + 中断响应 + 中断执行 &#x3D; 1202周期</li>
+<li>b)每个字节传送时间(<strong>IO-&gt;CPU-&gt;内存</strong>，和cpu处理IO无关) + 处理每次中断时间 &#x3D; 总时间</li>
+</ul>
+</li>
+<li>DMA<ul>
+<li>a)CPU时间只与DMA初始化后处理有关。2000 x 1s x 1000</li>
+<li>b)总时间 &#x3D; 每个字节传送时间 + DMA挪用时间(1000周期) + DMA处理时间(a中时间)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225100033436.png"><span class="image-caption">image-20230225100033436</span></p>
+<p>缓冲区易丢失</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225100115214.png"><span class="image-caption">image-20230225100115214</span></p>
+<p>a)</p>
+<ul>
+<li>用缓冲区大小 + 中断处理次数 * 中断处理时间 <strong>判断能否中断</strong><ul>
+<li>单位时间最小中断次数 &#x3D; 数据传输率 &#x2F; 缓冲区大小</li>
+</ul>
+</li>
+<li>总时间 &#x3D; 最小次数 * 1&#x2F;时钟频率 * 时钟周期数</li>
+</ul>
+<p>b)同比计算</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225100953723.png"><span class="image-caption">image-20230225100953723</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225101024998.png"><span class="image-caption">image-20230225101024998</span></p>
+<p>类似PPT例题</p>
+<ol>
+<li>即使要抢夺，也得先处理响应较快的</li>
+<li>回归后也不会第一时间被抢夺</li>
+<li>被屏蔽的中断，需要等待回归主程序，再抢夺主程序</li>
+</ol>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225101819003.png"><span class="image-caption">image-20230225101819003</span></p>
+<p>a) 直接查询，条件是<strong>查询</strong>间隔时间 &lt; 每个字节IO设备传输率</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225103515327.png"><span class="image-caption">image-20230225103515327</span></p>
+<p>c)中断驱动，条件是<strong>响应中断</strong>间隔时间 &lt; 每个字节IO设备传输率</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/02/10/Lecture%2016%20%E6%8E%A7%E5%88%B6%E5%99%A8/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记16-CPU控制器</a>
+    <a href="/2023/02/10/Lecture%207%20%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记7-存储器<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lecture-17-IO%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-text">Lecture 17   IO输入输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-IO%E6%A8%A1%E5%9D%97"><span class="toc-text">1.IO模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-IO%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-text">1.1.IO模块的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-IO%E6%A8%A1%E5%9D%97%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">1.2.IO模块的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-IO%E6%93%8D%E4%BD%9C%E6%8A%80%E6%9C%AF"><span class="toc-text">1.3.IO操作技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8FIO"><span class="toc-text">编程式IO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E9%A9%B1%E5%8A%A8%E5%BC%8FIO"><span class="toc-text">中断驱动式IO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%82%A8%E5%99%A8%E5%AD%98%E5%8F%96"><span class="toc-text">DMA直接存储器存取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-IO%E6%A8%A1%E5%9D%97%E7%9A%84%E6%BC%94%E5%8F%98"><span class="toc-text">1.4.IO模块的演变</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-exam"><span class="toc-text">2.exam</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

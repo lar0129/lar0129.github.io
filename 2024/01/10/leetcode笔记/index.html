@@ -1,0 +1,1070 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Leetcode个人笔记-medium - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 数据结构与算法">
+  <meta name="description" content="随便刷刷
+
+
+
+
+动态规划动规是由前一个状态推导出来的...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">Leetcode个人笔记-medium</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Leetcode个人笔记-medium</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 10, 2024</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>17918</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>随便刷刷</p></p>
+        
+        <h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><p>动规是由<strong>前一个状态推导</strong>出来的，而贪心是局部直接选最优的</p>
+<p>维数相当于需要的状态的个数？</p>
+<p><strong>对于动态规划问题，我将拆解为如下五步曲</strong></p>
+<ol>
+<li>确定dp数组（dp table）以及下标的含义</li>
+<li>确定递推公式</li>
+<li>dp数组如何初始化</li>
+<li>确定遍历顺序</li>
+<li>举例推导dp数组</li>
+</ol>
+<p>写代码之前</p>
+<ul>
+<li>推导状态转移方程</li>
+<li>把<strong>状态转移</strong>在dp数组的上具体情况模拟一遍，心中有数，确定最后推出的是想要的结果。</li>
+<li>debug: <strong>找问题的最好方式就是把dp数组打印出来，看看究竟是不是按照自己思路推导的！</strong></li>
+</ul>
+<h2 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a><strong>121. 买卖股票的最佳时机</strong></h2><h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a><strong>贪心</strong></h3><p>因为股票就买卖一次，那么贪心的想法很自然就是取最左最小值，取最右最大值，那么得到的差值就是最大利润。</p>
+<p>时间复杂度O()</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; prices.<span class="hljs-built_in">size</span>(); i++) &#123;<br>     low = <span class="hljs-built_in">min</span>(low, prices[i]);  <span class="hljs-comment">// 取最左最小价格</span><br>     result = <span class="hljs-built_in">max</span>(result, prices[i] - low); <span class="hljs-comment">// 直接取最大区间利润</span><br> &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="动态规划-1"><a href="#动态规划-1" class="headerlink" title="动态规划"></a><strong>动态规划</strong></h3><p>动规五部曲分析如下：</p>
+<ol>
+<li>确定dp数组（dp table）以及下标的含义</li>
+</ol>
+<p>dp[i][0] 表示第i天持有股票所得最多现金 ，<strong>这里可能有同学疑惑，本题中只能买卖一次，持有股票之后哪还有现金呢？</strong></p>
+<p>其实一开始现金是0，那么加入第i天买入股票现金就是 -prices[i]， 这是一个负数。</p>
+<p>dp[i][1] 表示第i天不持有股票所得最多现金</p>
+<p><strong>注意这里说的是“持有”，“持有”不代表就是当天“买入”！也有可能是昨天就买入了，今天保持持有的状态</strong></p>
+<p>很多同学把“持有”和“买入”没区分清楚。</p>
+<p>在下面递推公式分析中，我会进一步讲解。</p>
+<ol>
+<li>确定递推公式</li>
+</ol>
+<p>如果第i天持有股票即dp[i][0]， 那么可以由两个状态推出来</p>
+<ul>
+<li>第i-1天就持有股票，那么就保持现状，所得现金就是昨天持有股票的所得现金 即：dp[i - 1][0]</li>
+<li>第i天买入股票，所得现金就是买入今天的股票后所得现金即：-prices[i]</li>
+</ul>
+<p>那么dp[i][0]应该选所得现金最大的，所以dp[i][0] &#x3D; max(dp[i - 1][0], -prices[i]);</p>
+<p>如果第i天不持有股票即dp[i][1]， 也可以由两个状态推出来</p>
+<ul>
+<li>第i-1天就不持有股票，那么就保持现状，所得现金就是昨天不持有股票的所得现金 即：dp[i - 1][1]</li>
+<li>第i天卖出股票，所得现金就是按照今天股票价格卖出后所得现金即：prices[i] + dp[i - 1][0]</li>
+</ul>
+<p>同样dp[i][1]取最大的，dp[i][1] &#x3D; max(dp[i - 1][1], prices[i] + dp[i - 1][0]);</p>
+<p>这样递推公式我们就分析完了</p>
+<ol>
+<li>dp数组如何初始化</li>
+</ol>
+<p>由递推公式 dp[i][0] &#x3D; max(dp[i - 1][0], -prices[i]); 和 dp[i][1] &#x3D; max(dp[i - 1][1], prices[i] + dp[i - 1][0]);可以看出</p>
+<p>其基础都是要从dp[0][0]和dp[0][1]推导出来。</p>
+<p>那么dp[0][0]表示第0天持有股票，此时的持有股票就一定是买入股票了，因为不可能有前一天推出来，所以dp[0][0] -&#x3D; prices[0];</p>
+<p>dp[0][1]表示第0天不持有股票，不持有股票那么现金就是0，所以dp[0][1] &#x3D; 0;</p>
+<ol>
+<li>确定遍历顺序</li>
+</ol>
+<p>从递推公式可以看出dp[i]都是由dp[i - 1]推导出来的，那么一定是从前向后遍历。</p>
+<ol>
+<li>举例推导dp数组</li>
+</ol>
+<p>以示例1，输入：[7,1,5,3,6,4]为例，dp数组状态如下：</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210224225642465.png"><span class="image-caption">image</span></p>
+<h2 id="1997-访问完所有房间的第一天"><a href="#1997-访问完所有房间的第一天" class="headerlink" title="1997. 访问完所有房间的第一天"></a><strong>1997. 访问完所有房间的第一天</strong></h2><h3 id="前缀和优化"><a href="#前缀和优化" class="headerlink" title="前缀和优化"></a>前缀和优化</h3><p>通过前缀和，我们可以把<strong>连续子数组的元素和转换成两个前缀和的差</strong></p>
+<ul>
+<li>前缀和大小比原数组大1</li>
+<li>时间复杂度：初始化 O(n)。其中n为 nums的长度。</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/af358f32-0477-403f-9b05-7ecd9a161f33/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+<h3 id="取mod技巧"><a href="#取mod技巧" class="headerlink" title="取mod技巧"></a>取mod技巧</h3><p>在for中取模，防止爆long</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">x = (x + MOD) % MOD; <span class="hljs-comment">// + MOD 避免算出负数</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70. 爬楼梯"></a><strong>70. 爬楼梯</strong></h2><p>动规五部曲：</p>
+<p>定义一个一维数组来记录不同楼层的状态</p>
+<ol>
+<li>确定dp数组以及下标的含义<ol>
+<li>dp[i]： 爬到第i层楼梯，有dp[i]种方法</li>
+</ol>
+</li>
+<li>确定递推公式<ol>
+<li>所以dp[i] &#x3D; dp[i - 1] + dp[i - 2] 。在推导dp[i]的时候，一定要时刻想着dp[i]的定义，否则容易跑偏。这体现出确定dp数组以及下标的含义的重要性！</li>
+</ol>
+</li>
+<li>初始化<ol>
+<li>不考虑dp[0]如何初始化，只初始化dp[1] &#x3D; 1，dp[2] &#x3D; 2</li>
+</ol>
+</li>
+<li>确定遍历顺序<ol>
+<li><strong>从递推公式dp[i] &#x3D; dp[i - 1] + dp[i - 2];中可以看出</strong>，遍历顺序一定是从前向后遍历的</li>
+</ol>
+</li>
+<li>举例推导dp数组<ol>
+<li>如果代码出问题了，就把dp table 打印出来，看看究竟是不是和自己推导的一样。</li>
+</ol>
+</li>
+</ol>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a><strong>拓展</strong></h3><p>这道题目还可以继续深化，就是一步一个台阶，两个台阶，三个台阶，直到 m个台阶，有多少种方法爬到n阶楼顶。</p>
+<p>这其实是一个完全背包问题</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">climbStairs</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++) &#123; <span class="hljs-comment">// 把m换成2，就可以AC爬楼梯这道题</span><br>                <span class="hljs-keyword">if</span> (i - j &gt;= <span class="hljs-number">0</span>) dp[i] += dp[i - j];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h1 id="0-1背包"><a href="#0-1背包" class="headerlink" title="0-1背包"></a>0-1背包</h1><p>最简单的是推导公式了，推导公式估计看一遍就记下来了</p>
+<ul>
+<li><strong>难在如何初始化</strong></li>
+<li><strong>难在遍历顺序</strong></li>
+</ul>
+<h2 id="代码模版"><a href="#代码模版" class="headerlink" title="代码模版"></a>代码模版</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_2_wei_bag_problem1</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">weight</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>; <span class="hljs-comment">// 存储每件物品所占空间</span><br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">value</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>;  <span class="hljs-comment">// 存储每件物品价值</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>        cin &gt;&gt; weight[i];<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; ++j) &#123;<br>        cin &gt;&gt; value[j];<br>    &#125;<br>    bagweight  = <span class="hljs-built_in">max</span>(weight) <span class="hljs-comment">// 伪代码</span><br>    <span class="hljs-comment">// dp数组, dp[i][j]代表行李箱空间为j的情况下,从下标为[0, i]的物品里面任意取,能达到的最大价值</span><br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(weight.<span class="hljs-built_in">size</span>(), <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(bagweight + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>));<br><br>    <span class="hljs-comment">// 初始化, 因为需要用到dp[i - 1]的值</span><br>    <span class="hljs-comment">// j &lt; weight[0]已在上方被初始化为0</span><br>    <span class="hljs-comment">// j &gt;= weight[0]的值就初始化为value[0]</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = weight[<span class="hljs-number">0</span>]; j &lt;= bagweight; j++) &#123;<br>        dp[<span class="hljs-number">0</span>][j] = value[<span class="hljs-number">0</span>];<br>    &#125;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; weight.<span class="hljs-built_in">size</span>(); i++) &#123; <span class="hljs-comment">// 遍历科研物品</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt;= bagweight; j++) &#123; <span class="hljs-comment">// 遍历行李箱容量</span><br>            <span class="hljs-comment">// 如果装不下这个物品,那么就继承dp[i - 1][j]的值</span><br>            <span class="hljs-keyword">if</span> (j &lt; weight[i]) dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];<br>            <span class="hljs-comment">// 如果能装下,就将值更新为 不装这个物品的最大值 和 装这个物品的最大值 中的 最大值</span><br>            <span class="hljs-comment">// 装这个物品的最大值由容量为j - weight[i]的包任意放入序号为[0, i - 1]的最大值 + 该物品的价值构成</span><br>            <span class="hljs-keyword">else</span> dp[i][j] = <span class="hljs-built_in">max</span>(dp[i - <span class="hljs-number">1</span>][j], dp[i - <span class="hljs-number">1</span>][j - weight[i]] + value[i]);<br>        &#125;<br>    &#125;<br>    cout &lt;&lt; dp[weight.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>][bagweight] &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="遍历方向如何判断？"><a href="#遍历方向如何判断？" class="headerlink" title="遍历方向如何判断？"></a>遍历方向如何判断？</h2><p><strong>要理解递归的本质和递推的方向</strong>。</p>
+<p>dp[i][j] &#x3D; max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]); 递归公式中可以看出dp[i][j]是靠dp[i-1][j]和dp[i - 1][j - weight[i]]推导出来的。</p>
+<p>dp[i-1][j]和dp[i - 1][j - weight[i]] 都在dp[i][j]的左上角方向（包括正上方向），那么先遍历物品，再遍历背包的过程如图所示：</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/202101101032124.png"><span class="image-caption">image</span></p>
+<p>再来看看先遍历背包，再遍历物品呢，如图：</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210110103244701.png"><span class="image-caption">image</span></p>
+<p>可以看出，虽然两个for循环遍历的次序不同，但是<strong>dp[i][j]所需要的数据就是左上角</strong>，根本不影响dp[i][j]公式的推导！</p>
+<ul>
+<li>其他变体，就不一定都行了，得看数据是否在左上角</li>
+</ul>
+<h1 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h1><h1 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h1><h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><p>递归算法的时间复杂度本质上是要看: <strong>递归的次数 * 每次递归中的操作次数</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">function3</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> x;<br><br>    <span class="hljs-keyword">if</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">function3</span>(x, n / <span class="hljs-number">2</span>) * <span class="hljs-built_in">function3</span>(x, n / <span class="hljs-number">2</span>)*x;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">function3</span>(x, n / <span class="hljs-number">2</span>) * <span class="hljs-built_in">function3</span>(x, n / <span class="hljs-number">2</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/d8417409-28e7-4992-bc98-f414ee85a5e1/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+<p>这棵满二叉树的节点数量就是<code>2^3 + 2^2 + 2^1 + 2^0 = 15</code>。<strong>时间复杂度忽略掉常数项<code>-1</code>之后，这个递归算法的时间复杂度依然是O(n)</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">function4</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> x;<br>    <span class="hljs-type">int</span> t = <span class="hljs-built_in">function4</span>(x, n / <span class="hljs-number">2</span>);<span class="hljs-comment">// 这里相对于function3，是把这个递归操作抽取出来</span><br>    <span class="hljs-keyword">if</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> t * t * x;<br>    &#125;<br>    <span class="hljs-keyword">return</span> t * t;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>依然还是看他递归了多少次，可以看到这里仅仅有一个递归调用，且每次都是n&#x2F;2 ，所以这里我们一共调用了log以2为底n的对数次。</p>
+<p>**每次递归了做都是一次乘法操作，这也是一个常数项的操作，那么这个递归算法的时间复杂度才是真正的O(logn)**。</p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><strong>C++中二维数组在地址空间上是连续的</strong>。</p>
+<p>Java的二维数组可能是如下排列的方式：</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20201214111631844.png"><span class="image-caption">image</span></p>
+<h2 id="704-二分查找"><a href="#704-二分查找" class="headerlink" title="704.二分查找"></a>704.二分查找</h2><p><strong>前提是数组为有序数组</strong>，同时题目还强调<strong>数组中无重复元素</strong></p>
+<p>区间的定义这就决定了二分法的代码应该如何写，<strong>因为定义target在[left, right]区间，所以有如下两点：</strong></p>
+<ul>
+<li>while (left &lt;&#x3D; right) 要使用 &lt;&#x3D; ，因为left &#x3D;&#x3D; right是有意义的，所以使用 &lt;&#x3D;</li>
+<li>if (nums[middle] &gt; target) right 要赋值为 middle - 1，因为当前这个nums[middle]一定不是target，那么接下来要查找的左区间结束下标位置就是 middle - 1</li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">int</span> middle = <span class="hljs-built_in">left</span> + ((<span class="hljs-built_in">right</span> - <span class="hljs-built_in">left</span>) / <span class="hljs-number">2</span>);// 防止溢出 等同于(<span class="hljs-built_in">left</span> + <span class="hljs-built_in">right</span>)/<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209.长度最小的子数组"></a><strong>209.长度最小的子数组</strong></h2><p>滑动窗口经典题</p>
+<ul>
+<li>O（N)时间</li>
+</ul>
+<p>所谓滑动窗口，<strong>就是不断的调节子序列的起始位置和终止位置，从而得出我们要想的结果</strong>。</p>
+<ul>
+<li>双指针法的一种</li>
+<li>思考：如果用一个for循环，那么应该表示 滑动窗口的起始位置，还是终止位置。<ul>
+<li>窗口内是什么？</li>
+<li>如何移动窗口的起始位置？</li>
+<li>如何移动窗口的结束位置？</li>
+</ul>
+</li>
+</ul>
+<p>while后不要加分号’;’ ！！！</p>
+<h2 id="54-遍历螺旋矩阵"><a href="#54-遍历螺旋矩阵" class="headerlink" title="54.遍历螺旋矩阵"></a>54.遍历螺旋矩阵</h2><h2 id="59-螺旋矩阵-II"><a href="#59-螺旋矩阵-II" class="headerlink" title="59. 螺旋矩阵 II"></a><strong>59. 螺旋矩阵 II</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// vector前插与后插</span><br>matrix.<span class="hljs-built_in">insert</span>(matrix.<span class="hljs-built_in">begin</span>(),empty1);<br>matrix.<span class="hljs-built_in">push_back</span>(empty2);<br></code></pre></td></tr></table></figure>
+
+<p>思路1：填充0，遇到0则转弯</p>
+<ul>
+<li>容错率高</li>
+</ul>
+<p>思路2：定义当前左右上下边界 <code>l,r,t,b</code>.  四个for循环，每个循环后调整边界</p>
+<ul>
+<li>效率高</li>
+</ul>
+<p>思路3：四个for循环，每个循环后n-2。套圈思维。奇偶分开处理</p>
+<h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><p>处理子串</p>
+<p>处理非顺序数组</p>
+<p>处理区间和</p>
+<h3 id="560-和为-K-的子数组"><a href="#560-和为-K-的子数组" class="headerlink" title="560. 和为 K 的子数组"></a><strong>560. 和为 K 的子数组</strong></h3><p><strong>前缀和 + 哈希表优化</strong></p>
+<ul>
+<li>构建前缀和数组，以快速计算区间和；</li>
+<li>由于只关心次数，不关心具体的解，我们可以使用哈希表加速运算；</li>
+</ul>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><h2 id="203-移除元素"><a href="#203-移除元素" class="headerlink" title="203.移除元素"></a>203.移除元素</h2><p>养成手动清理内存的习惯。</p>
+<ul>
+<li>malloc</li>
+</ul>
+<p>头结点如何移除</p>
+<ul>
+<li>将头结点向后移动一位就可以</li>
+</ul>
+<p>逻辑统一化</p>
+<ul>
+<li>添加虚拟头结点，则不用分类</li>
+<li></li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">```cpp<br>ListNode* dummyHead = new ListNode(<span class="hljs-number">0</span>); <span class="hljs-regexp">//</span> 设置一个虚拟头结点<br>        dummyHead-&gt;<span class="hljs-keyword">next</span> = head; <span class="hljs-regexp">//</span> 将虚拟头结点指向head，这样方便后面做删除操作<br>```<br></code></pre></td></tr></table></figure>
+
+<p>空节点处理</p>
+<ul>
+<li><code>while(fast != NULL &amp;&amp; fast-&gt;next != NULL)</code></li>
+</ul>
+<h2 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.<strong>删除链表的倒数第N个节点</strong></h2><p>双指针法。适用于寻找距离尾部第k个节点、寻找环入口、寻找公共尾部入口等。</p>
+<p>同样可以添加虚拟头结点</p>
+<ul>
+<li>最后 return dummyHead-&gt;next;</li>
+</ul>
+<p>while代替for</p>
+<p>- </p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-string">``</span><span class="hljs-string">`cpp</span><br><span class="hljs-string">while(n-- &amp;&amp; fast != NULL) &#123;</span><br><span class="hljs-string">            fast = fast-&gt;next;</span><br><span class="hljs-string">        &#125;</span><br><span class="hljs-string">`</span><span class="hljs-string">``</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="142-环形链表II"><a href="#142-环形链表II" class="headerlink" title="142.环形链表II"></a><strong>142.环形链表II</strong></h2><p>方法一：哈希表</p>
+<ul>
+<li>一个非常直观的思路是：我们遍历链表中的每个节点，并将它记录下来；一旦遇到了此前遍历过的节点，就可以判定链表中存在环。借助哈希表可以很方便地实现。</li>
+<li>O（n）空间，O(n)速度</li>
+</ul>
+<p>方法二：快慢指针</p>
+<ul>
+<li>我们使用两个指针，它们起始都位于链表的头部。slow指针每次向后移动一个位置，而 fast指针向后移动两个位置。如果链表中存在环，fast指针最终将再次与 slow指针在环中相遇。</li>
+<li>数学计算可知，x&#x3D;z</li>
+<li>O（1）空间，O(n)速度</li>
+</ul>
+<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><ul>
+<li>哈希法是<strong>牺牲了空间换取了时间</strong></li>
+<li>遇到需要判断一个元素是否出现过的场景应该第一时间想到哈希法！</li>
+</ul>
+<p>在C++中，set 和 map 分别提供以下三种数据结构，其底层实现以及优劣如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>底层实现</th>
+<th>是否有序</th>
+<th>数值是否可以重复</th>
+<th>能否更改数值</th>
+<th>查询效率</th>
+<th>增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>std::set</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>否</td>
+<td>否</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::multiset</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>是</td>
+<td>否</td>
+<td>O(logn)</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>std::unordered_set</td>
+<td>哈希表</td>
+<td>无序</td>
+<td>否</td>
+<td>否</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p>std::unordered_set底层实现为哈希表，std::set 和std::multiset 的底层实现是红黑树，红黑树是一种平衡二叉搜索树，所以key值是有序的，但key不可以修改，改动key值会导致整棵树的错乱，所以只能删除和增加。</p>
+<table>
+<thead>
+<tr>
+<th>映射</th>
+<th>底层实现</th>
+<th>是否有序</th>
+<th>数值是否可以重复</th>
+<th>能否更改数值</th>
+<th>查询效率</th>
+<th>增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>std::map</td>
+<td>红黑树</td>
+<td>key有序</td>
+<td>key不可重复</td>
+<td>key不可修改</td>
+<td>O(logn)</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>std::multimap</td>
+<td>红黑树</td>
+<td>key有序</td>
+<td>key可重复</td>
+<td>key不可修改</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::unordered_map</td>
+<td>哈希表</td>
+<td>key无序</td>
+<td>key不可重复</td>
+<td>key不可修改</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p>std::unordered_map 底层实现为哈希表，std::map 和std::multimap 的底层实现是红黑树。同理，std::map 和std::multimap 的key也是有序的（这个问题也经常作为面试题，考察对语言容器底层的理解）。</p>
+<p>当我们要使用集合来解决哈希问题的时候，<strong>优先使用unordered_set</strong>，因为它的查询和增删效率是最优的，如果需要集合是有序的，那么就用set，如果要求不仅有序还要有重复数据的话，那么就用multiset。</p>
+<h2 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242.有效的字母异位词"></a><strong>242.有效的字母异位词</strong></h2><p>判断字符个数，可以映射字符到26长度的数组（即哈希表）</p>
+<ul>
+<li>也可使用unordered_map</li>
+</ul>
+<h2 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><strong>1. 两数之和</strong></h2><p>本题其实有四个重点：</p>
+<ul>
+<li>为什么会想到用哈希表</li>
+<li>哈希表为什么用map</li>
+<li>本题map是用来存什么的<ul>
+<li>访问过的数组</li>
+</ul>
+</li>
+<li>map中的key和value用来存什么的<ul>
+<li>方便查下标</li>
+</ul>
+</li>
+</ul>
+<p><strong>什么时候使用哈希法</strong></p>
+<ul>
+<li>当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法。</li>
+</ul>
+<p>两数之和这道题目，不仅要判断y是否存在而且还要记录y的下标位置，因为要返回x 和 y的下标。所以set 也不能用。map最合适</p>
+<ul>
+<li>数组的大小是受限制的，而set元素很少，哈希值太大会造成内存空间的浪费。</li>
+<li><strong>这道题目中并不需要key有序，选择std::unordered_map 效率更高！</strong></li>
+</ul>
+<h2 id="15-三数之和"><a href="#15-三数之和" class="headerlink" title="15. 三数之和"></a><strong>15. 三数之和</strong></h2><p>排序，方便去重</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(),nums.<span class="hljs-built_in">end</span>());<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使用哈希法，N^2可行。但最大问题在于去重细节多</li>
+<li>使用双指针法，同样N^2，但更容易去重，原因是排序后指针的移动非常方便。而哈希需要单独判断，并且b和c元素的顺序混乱</li>
+<li></li>
+</ul>
+<p><strong>防止越界</strong></p>
+<ul>
+<li>数组迭代去重，尽量使用num[i-1]而不是i+1</li>
+<li>所有取数组操作前&#x2F;<strong>对索引加减后</strong>，都判断是否越界（如nums[right+1]前，判断right!&#x3D;len-1）</li>
+</ul>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="344-反转字符串"><a href="#344-反转字符串" class="headerlink" title="344.反转字符串"></a><strong>344.反转字符串</strong></h2><ul>
+<li>双指针法</li>
+</ul>
+<p><strong>如果题目关键的部分直接用库函数就可以解决，建议不要使用库函数。</strong></p>
+<ul>
+<li>不了解库函数时间复杂度</li>
+</ul>
+<p><strong>如果库函数仅仅是 解题过程中的一小部分，并且你已经很清楚这个库函数的内部实现原理的话，可以考虑使用库函数。</strong></p>
+<h2 id="541-反转字符串II"><a href="#541-反转字符串II" class="headerlink" title="541. 反转字符串II"></a><strong>541. 反转字符串II</strong></h2><ul>
+<li>固定规律，用for</li>
+</ul>
+<p>当需要<strong>固定规律</strong>一段一段去处理字符串的时候，可以在for循环的表达式上做做文章。</p>
+<h2 id="151-翻转字符串里的单词"><a href="#151-翻转字符串里的单词" class="headerlink" title="151.翻转字符串里的单词"></a><strong>151.翻转字符串里的单词</strong></h2><p><strong>学会分解步骤</strong></p>
+<p>O(1)空间法</p>
+<ul>
+<li>移除多余空格<ul>
+<li>双指针法，把fast的字符移到slow前端，手动添加空格。最后resize(slow)</li>
+</ul>
+</li>
+<li>将整个字符串反转</li>
+<li>将每个单词反转</li>
+</ul>
+<p>双指针法：</p>
+<ul>
+<li>移除多余空格</li>
+<li>从最后开始扫描单词</li>
+<li>遇到空格，调整指针添加新字符串</li>
+</ul>
+<h2 id="28-实现strStr"><a href="#28-实现strStr" class="headerlink" title="28.实现strStr()"></a>28.实现strStr()</h2><ul>
+<li>所以整个KMP算法的时间复杂度是O(n+m)的。其中n为文本串长度，m为模式串长度，因为在匹配的过程中，根据前缀表不断调整匹配的位置，可以看出匹配的过程是O(n)，不需要回退。之前还要单独生成next数组，时间复杂度是O(m)。</li>
+<li>暴力的解法因为每次都要回退，是O(n × m)，所以<strong>KMP在字符串匹配中极大地提高了搜索的效率。</strong></li>
+</ul>
+<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><ul>
+<li>KMP主要应用在字符串匹配上。</li>
+</ul>
+<p>KMP的主要思想是<strong>当出现字符串不匹配时，可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配了。</strong></p>
+<ul>
+<li>如何记录已经匹配的文本内容，是KMP的重点：next数组</li>
+</ul>
+<p>next数组就是一个<strong>前缀表（prefix table</strong>）。</p>
+<ul>
+<li><p>前缀表是用来回退的，它记录了模式串与主串(文本串)不匹配的时候，模式串应该从哪里开始重新匹配。</p>
+</li>
+<li><p>前缀表</p>
+<p>记录下标i之前（包括i）的字符串中，有多大长度的最长公共前后缀</p>
+<ul>
+<li>最长公共前后缀定义：长度为前1个字符的子串<code>a</code>，最长相同前后缀的长度为0。长度为前2个字符的子串<code>aa</code>，最长相同前后缀的长度为1。长度为前3个字符的子串<code>aab</code>，最长相同前后缀的长度为0。</li>
+</ul>
+</li>
+</ul>
+<p>本质上：当不匹配时，待匹配串回到前缀末端，匹配串继续前行（后缀已与公共前缀匹配）</p>
+<p>举一个例子：</p>
+<ul>
+<li><p>要在文本串：aabaabaafa 中查找是否出现过一个模式串：aabaaf。</p>
+</li>
+<li><p>下标5之前这部分的字符串（也就是字符串aabaa）的最长相等的前缀 和 后缀字符串是 子字符串aa ，因为找到了最长相等的前缀和后缀，匹配失败的位置是后缀子串的后面，那么我们<strong>找到与其相同的前缀</strong>的后面重新匹配就可以了。</p>
+<p><img src="https://code-thinking.cdn.bcebos.com/gifs/KMP%E7%B2%BE%E8%AE%B22.gif"><span class="image-caption">image</span></p>
+</li>
+<li><p>找到的不匹配的位置， 那么此时我们要看它的前一个字符的前缀表的数值是多少。</p>
+</li>
+<li><p>前一个字符的前缀表的数值是2， 所以把下标移动到下标2的位置继续比配。 可以再反复看一下上面的动画。</p>
+</li>
+</ul>
+<p><strong>next数组的构建</strong></p>
+<ul>
+<li><p>构建和匹配非常相似，</p>
+<p>本质上都是当不匹配时待匹配串回到前缀末端，匹配串继续前行（后缀已与公共前缀匹配）</p>
+<ul>
+<li>求next过程实际上是dp（动态规划），<strong>只与前一个状态有关</strong>：</li>
+<li>若不匹配，一直往前退到0或匹配为止</li>
+<li>若匹配，则将之前的结果<strong>传递</strong>：</li>
+<li>因为之前的结果不为0时，前后缀有相等的部分，所以next[j]所指的实际是与当前值相等的前缀，可视为将前缀从前面拖了过来，就不必将指针从初始开始匹配了，所以之前的结果是可以传递的。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">getNext</span><span class="hljs-params">(<span class="hljs-type">int</span>* next, <span class="hljs-type">const</span> string&amp; s)</span> </span>&#123;<br>       <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>;<br>       next[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>       <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i++) &#123;<br>           <span class="hljs-keyword">while</span> (j &gt; <span class="hljs-number">0</span> &amp;&amp; s[i] != s[j]) &#123; <span class="hljs-comment">// j要保证大于0，因为下面有取j-1作为数组下标的操作</span><br>               j = next[j - <span class="hljs-number">1</span>]; <span class="hljs-comment">// 注意这里，是要找前一位的对应的回退位置了</span><br>           &#125;<br>           <span class="hljs-keyword">if</span> (s[i] == s[j]) &#123;<br>               j++;<br>           &#125;<br>           next[i] = j;<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>模式串匹配文本串的整体代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> j = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; haystack.<span class="hljs-built_in">size</span>(); i++) &#123;<br>    <span class="hljs-keyword">while</span>(j &gt; <span class="hljs-number">0</span> &amp;&amp; haystack[i] != needle[j]) &#123;<br>        j = next[j - <span class="hljs-number">1</span>];<br>    &#125;<br>    <span class="hljs-keyword">if</span> (haystack[i] == needle[j]) &#123;<br>        j++;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (j == needle.<span class="hljs-built_in">size</span>() ) &#123;<br>        <span class="hljs-keyword">return</span> (i - needle.<span class="hljs-built_in">size</span>() + <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>while 是为了 回退直到前后缀一致</li>
+</ul>
+<h2 id="459-判断重复字符子串"><a href="#459-判断重复字符子串" class="headerlink" title="459.判断重复字符子串"></a>459.判断重复字符子串</h2><p>解法1：字符串复制，判断新字符串内是否存在原字符串</p>
+<ul>
+<li><strong>等价转化思维</strong></li>
+<li>判断新字符串内是否存在原字符串时，可使用KMP,或是find函数</li>
+</ul>
+<p>解法2：构造next公共前后缀表</p>
+<ul>
+<li><p>若next[len-1]不为0，且公共前缀能被len整除，说明存在重复子串</p>
+</li>
+<li><h2 id="等价转化思维。证明用到string位置间的相等转化"><a href="#等价转化思维。证明用到string位置间的相等转化" class="headerlink" title="等价转化思维。证明用到string位置间的相等转化"></a>等价转化思维。证明用到<strong>string位置间的相等转化</strong></h2><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/ec0a8b69-5c65-475d-8b54-e3effb9ef8c8/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+</li>
+</ul>
+<h1 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h1><p><strong>两个指针在一个for循环下完成两个for循环的工作</strong></p>
+<p>形式多样</p>
+<ul>
+<li>快慢指针</li>
+<li>正向指针 负向指针</li>
+</ul>
+<p>除了链表一些题目一定要使用双指针，其他题目都是使用双指针来提高效率，一般是将O(n^2)的时间复杂度，降为O(n)</p>
+<h1 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h1><p>队列是先进先出，栈是先进后出。</p>
+<p>常用方法：</p>
+<ul>
+<li>栈</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 栈：</span><br>stack&lt;<span class="hljs-type">int</span>&gt; s;<br>s.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);<br>s.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);<br><br>s.<span class="hljs-built_in">pop</span>(); <span class="hljs-comment">// 2 被弹出</span><br><br><span class="hljs-type">int</span> top_element = s.<span class="hljs-built_in">top</span>(); <span class="hljs-comment">// top_element = 1</span><br><br><span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">empty</span>()) &#123;<br>  <span class="hljs-comment">// 栈为空</span><br>&#125;<br><br><span class="hljs-type">size_t</span> size = s.<span class="hljs-built_in">size</span>(); <span class="hljs-comment">// size = 1</span><br><br>stack&lt;<span class="hljs-type">int</span>&gt; s1, s2;<br>s1.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);<br>s1.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);<br>s2.<span class="hljs-built_in">push</span>(<span class="hljs-number">3</span>);<br>s2.<span class="hljs-built_in">push</span>(<span class="hljs-number">4</span>);<br><br>s1.<span class="hljs-built_in">swap</span>(s2); <span class="hljs-comment">// 交换</span><br><br><span class="hljs-comment">// 现在 s1 中包含元素 3 和 4，s2 中包含元素 1 和 2</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><h2 id="队列：先进先出"><a href="#队列：先进先出" class="headerlink" title="队列：先进先出"></a>队列：先进先出</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp">queue&lt;<span class="hljs-type">int</span>&gt; q;<br>q.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);<br>q.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);<br><br>q.<span class="hljs-built_in">pop</span>(); <span class="hljs-comment">// 1 被弹出</span><br><br><span class="hljs-comment">// 3. front(): 返回队列首部元素，但不弹出。</span><br><span class="hljs-type">int</span> front_element = q.<span class="hljs-built_in">front</span>(); <span class="hljs-comment">// front_element = 1</span><br><br><span class="hljs-comment">// 4. back(): 返回队列尾部元素，但不弹出。</span><br><span class="hljs-type">int</span> back_element = q.<span class="hljs-built_in">back</span>(); <span class="hljs-comment">// back_element = 2</span><br><br><span class="hljs-keyword">if</span> (q.<span class="hljs-built_in">empty</span>()) &#123;<br>  <span class="hljs-comment">// 队列为空</span><br>&#125;<br><br><span class="hljs-type">size_t</span> size = q.<span class="hljs-built_in">size</span>(); <span class="hljs-comment">// size = 1</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>底层：</p>
+<ul>
+<li>队列、栈是以底层容器完成其所有的工作，对外提供统一的接口<ul>
+<li>底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）。</li>
+</ul>
+</li>
+<li>所以STL中栈往往不被归类为容器，而被归类为<strong>container adapter（容器适配器</strong>）。</li>
+<li></li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">![Untitled](&lt;https:<span class="hljs-regexp">//</span>prod-files-secure.s3.us-west-<span class="hljs-number">2</span>.amazonaws.com<span class="hljs-regexp">/56ceba07-d0ed-41cb-8031-a7aca0da9c79/</span><span class="hljs-number">86</span>e838ef-c64f-<span class="hljs-number">4</span>fad-b638-c1aaf8971e6a/Untitled.png)&gt;)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>默认是deque。我们也可以指定vector为栈的底层实现，初始化语句如下：<ul>
+<li><code>std::stack&lt;int, std::vector&lt;int&gt; &gt; third;  // 使用vector为底层容器的栈</code></li>
+<li><code>std::queue&lt;int, std::list&lt;int&gt;&gt; third; // 定义以list为底层容器的队列</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="232-用栈实现队列"><a href="#232-用栈实现队列" class="headerlink" title="232. 用栈实现队列"></a><strong>232. 用栈实现队列</strong></h2><p>双栈模拟，in与out栈</p>
+<ul>
+<li>本质：每次倒腾，顺序相反，考虑push做文章</li>
+<li>关键：保持顺序。<ul>
+<li>关键在于<strong>把数据从输入栈倒入输出栈的条件是输出栈为空</strong>，这样就维持了输出栈顶是队列开头的定义，pop与peek不会出错</li>
+</ul>
+</li>
+</ul>
+<p>bug:</p>
+<ul>
+<li><code>while (!inStack.empty()) 而不是for(int i=0;i&lt;in.size();)</code></li>
+<li><code>//size是动态的，不建议用</code></li>
+</ul>
+<h2 id="225-用队列实现栈"><a href="#225-用队列实现栈" class="headerlink" title="225. 用队列实现栈"></a><strong>225. 用队列实现栈</strong></h2><ul>
+<li>本质：每次倒腾，顺序不变。所以考虑pop做文章</li>
+<li>解法：一个队列在模拟栈弹出元素的时候只要将<strong>队列头部的元素（除了最后一个元素外） 重新添加到队列尾部</strong>，此时再去弹出元素就是栈的顺序了。</li>
+</ul>
+<h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a><strong>20. 有效的括号</strong></h2><p><strong>分析很重要，代码要囊括所有情况：</strong>有哪几种不匹配的情况</p>
+<ol>
+<li><p>第一种情况，字符串里左方向的括号多余了 ，所以不匹配。</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/2020080915505387.png"><span class="image-caption">image</span></p>
+</li>
+<li><p>第二种情况，括号没有多余，但是 括号的类型没有匹配上。</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20200809155107397.png"><span class="image-caption">image</span></p>
+</li>
+<li><p>第三种情况，字符串里右方向的括号多余了，所以不匹配。</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20200809155115779.png"><span class="image-caption">image</span></p>
+</li>
+</ol>
+<h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><h2 id="739-每日温度"><a href="#739-每日温度" class="headerlink" title="739. 每日温度"></a><strong>739. 每日温度</strong></h2><ul>
+<li>压栈可以压index，不一定压数据。map&lt;int,int&gt;的替代方案</li>
+</ul>
+<p>我怎么能想到用单调栈呢？ 什么时候用单调栈呢？</p>
+<ul>
+<li><strong>通常是一维数组，要寻找任一个元素的右边或者左边第一个比自己大或者小的元素的位置，此时我们就要想到可以用单调栈了</strong>。时间复杂度为O(n)。</li>
+<li><strong>单调栈的本质是空间换时间</strong>，因为在遍历的过程中需要用一个栈来记录右边第一个比当前元素高的元素，</li>
+</ul>
+<p>在使用单调栈的时候首先要明确如下几点：</p>
+<ol>
+<li>单调栈里存放的元素是什么？</li>
+</ol>
+<ul>
+<li>单调栈里<strong>只需要存放元素的下标i</strong>就可以了，如果需要使用对应的元素，直接T[i]就可以获取。</li>
+</ul>
+<ol>
+<li>单调栈里元素是递增呢？ 还是递减呢？(<strong>顺序的描述为 从栈头到栈底的顺序</strong>)</li>
+</ol>
+<ul>
+<li>如果求一个元素右边第一个更大元素，单调栈就是递增的，如果求一个元素右边第一个更小元素，单调栈就是递减的。</li>
+<li></li>
+</ul>
+<p>加入T[6]，需要将栈里的T[5]，T[2]弹出</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/2021021912483374.jpg"><span class="image-caption">image</span></p>
+<hr>
+<p>同理，继续弹出</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/2021021912490098.jpg"><span class="image-caption">image</span></p>
+<h2 id="496-下一个更大元素-I"><a href="#496-下一个更大元素-I" class="headerlink" title="496.下一个更大元素 I"></a><strong>496.下一个更大元素 I</strong></h2><ol>
+<li>没有重复元素，我们就可以用map哈希表来做映射了</li>
+<li>求每个元素下一个比当前元素大的元素的位置，用单调栈。</li>
+</ol>
+<p>push索引下标和值都可以。看输出要求。</p>
+<ul>
+<li>索引更通用，但会慢</li>
+</ul>
+<p>时间复杂度: O(m＋n)，其中 m是nums1的长度，n是nums2的长度。我们需要遍历nums2以计算nums2中每个元素右边的第一个更大的值;需要遍历nums1以生成查询结果。</p>
+<h2 id="503-下一个更大元素II"><a href="#503-下一个更大元素II" class="headerlink" title="503.下一个更大元素II"></a><strong>503.下一个更大元素II</strong></h2><p>单调栈思路一样。</p>
+<p>本篇我侧重说一说如何处理循环数组。</p>
+<ul>
+<li>法1：更优雅<ul>
+<li><code>for (int i = 1; i &lt; nums.size() * 2; i++)</code>  之后的i都变成<code>i % nums.size()</code></li>
+</ul>
+</li>
+<li>法2：似乎更快<ul>
+<li>作标志位判断。只用取余count次</li>
+</ul>
+</li>
+</ul>
+<h2 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42. 接雨水"></a><strong>42. 接雨水</strong></h2><p>自己写   过了！</p>
+<p>暴力解法：</p>
+<ul>
+<li><p>按列计算。雨水高度为min(lHeight, rHeight) - height。</p>
+<ul>
+<li>注意lHeight和rHeight是最远的，不是最近的</li>
+<li>每一列sum+&#x3D;雨水高度-height</li>
+</ul>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/ca53edfd-3c6e-409a-b86f-f80588603dcc/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+</li>
+</ul>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/66a728d1-15de-4425-9954-e8f2dd5bf0b6/20210402091208445.png"><span class="image-caption">20210402091208445.png)</span>)</p>
+<h3 id="单调栈-1"><a href="#单调栈-1" class="headerlink" title="单调栈"></a>单调栈</h3><p>为什么用？</p>
+<ul>
+<li>与<strong>左右找第一个最小&#x2F;最大</strong>有关，找每个柱子左右两边第一个大于该柱子高度</li>
+</ul>
+<p><strong>1.判断单调顺序</strong></p>
+<ul>
+<li>从栈头（元素从栈头弹出）到栈底的顺序应该是从小到大的顺序。因为一旦发现添加的柱子高度大于栈头元素了，此时就出现凹槽了<ul>
+<li>如果从大到小，只能判断出突出山峰在哪儿</li>
+</ul>
+</li>
+<li>栈头元素就是凹槽底部的柱子，栈头第二个元素就是凹槽左边的柱子，而添加的元素就是凹槽右边的柱子。</li>
+</ul>
+<p><strong>2.考虑相同处理</strong></p>
+<ul>
+<li>如果遇到相同高度的柱子，需要使用最右边的柱子来计算宽度。</li>
+</ul>
+<p><strong>3.栈里要保存什么数值</strong></p>
+<p>使用单调栈，也是通过 长 * 宽 , <strong>按行来计算</strong>雨水面积的。</p>
+<ul>
+<li>长就是通过柱子的高度来计算，宽是通过柱子之间的下标来计算，</li>
+<li>栈里就存放下标就行，想要知道对应的高度，通过height[stack.top()] 就知道弹出的下标对应的高度了。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span> (!st.<span class="hljs-built_in">empty</span>() &amp;&amp; height[i] &gt; height[st.<span class="hljs-built_in">top</span>()]) &#123; <span class="hljs-comment">// 这里是while,往回计算行直到找到更高的</span><br>    <span class="hljs-type">int</span> mid = st.<span class="hljs-built_in">top</span>(); <span class="hljs-comment">// 最低点。处理涉及栈中前两个元素和栈外一个元素</span><br>    st.<span class="hljs-built_in">pop</span>();<br>    <span class="hljs-keyword">if</span> (!st.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-type">int</span> h = <span class="hljs-built_in">min</span>(height[st.<span class="hljs-built_in">top</span>()], height[i]) - height[mid];<br>        <span class="hljs-type">int</span> w = i - st.<span class="hljs-built_in">top</span>() - <span class="hljs-number">1</span>; <span class="hljs-comment">// 注意减一，只求中间宽度</span><br>        sum += h * w;<br>    &#125;<br>&#125;<br>st.<span class="hljs-built_in">push</span>(i);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/3551b413-ac19-4ec6-9325-e6392066ecd4/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+<h3 id="双指针-1"><a href="#双指针-1" class="headerlink" title="双指针"></a>双指针</h3><p>每到一个柱子都向两边遍历一遍，这其实是有重复计算的。</p>
+<ul>
+<li>我们把每一个位置的左边最高高度<strong>记录在一个数组上</strong>（maxLeft），右边最高高度记录在一个数组上（maxRight），这样就避免了重复计算。</li>
+</ul>
+<p><strong>区分：找最远的max还是最近的max</strong></p>
+<p>- </p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs excel">```cpp<br>      for(<span class="hljs-built_in">int</span> i=<span class="hljs-number">1</span>;i&lt;<span class="hljs-built_in">len</span>;i++)&#123;<br>          <span class="hljs-built_in">int</span> <span class="hljs-built_in">left</span> = i-<span class="hljs-number">1</span>;<br>          while(<span class="hljs-built_in">left</span>&gt;=<span class="hljs-number">0</span> &amp;&amp; height[<span class="hljs-built_in">left</span>]&lt;=height[i])&#123;<br>              <span class="hljs-built_in">left</span> = maxLeft[<span class="hljs-built_in">left</span>];<br>          &#125;<br>          maxLeft[i] = <span class="hljs-built_in">left</span>; //跳跃找最近的<span class="hljs-built_in">max</span><br>      &#125;<br><br>      <br>      for(<span class="hljs-built_in">int</span> i=<span class="hljs-number">1</span>;i&lt;<span class="hljs-built_in">len</span>;i++)&#123;<br>          <span class="hljs-built_in">int</span> <span class="hljs-built_in">left</span> = i-<span class="hljs-number">1</span>;<br>          maxLeft[i] = <span class="hljs-built_in">max</span>(maxLeft[<span class="hljs-built_in">left</span>],height[i]); // 找最远的<span class="hljs-built_in">max</span><br>      &#125;<br>```<br></code></pre></td></tr></table></figure>
+
+<h2 id="84-柱状图中最大的矩形"><a href="#84-柱状图中最大的矩形" class="headerlink" title="84. 柱状图中最大的矩形"></a><strong>84. 柱状图中最大的矩形</strong></h2><p>暴力解法：以单个矩形为基准，暴力向两边延伸</p>
+<ul>
+<li>可以先写暴力找思路</li>
+<li>看到时间复杂度为 O(N2) 和空间复杂度为 O(1)的组合，就可以考虑怎么空间换时间</li>
+</ul>
+<h3 id="双指针-2"><a href="#双指针-2" class="headerlink" title="双指针"></a>双指针</h3><p>双指针解法：同样思路的优化</p>
+<ul>
+<li>两层for —&gt; <strong>先记录后计算</strong></li>
+<li>同样两层for，但向左遍历时跳跃，速度极大加快<ul>
+<li>必须记录在数组，才能跳跃</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//记录每一个柱子，向左的 第一个更小 的下标</span><br>minLeft[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>; <span class="hljs-comment">// 哨兵</span><br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;len;i++)&#123;<br>    <span class="hljs-type">int</span> left = i<span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">while</span>(left&gt;=<span class="hljs-number">0</span> &amp;&amp; heights[left]&gt;=heights[i])&#123;<br>        left = minLeft[left];<span class="hljs-comment">//跳着找，更快。类似KMP</span><br>    &#125;<br>    minLeft[i] = left;<br>&#125;<br><br><span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)&#123;<br>    res = <span class="hljs-built_in">max</span>(res,heights[i]*(minRight[i]-minLeft[i]<span class="hljs-number">-1</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="单调栈-2"><a href="#单调栈-2" class="headerlink" title="单调栈"></a>单调栈</h3><p>暴力解法的优化，</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://programmercarl.com/0042.%E6%8E%A5%E9%9B%A8%E6%B0%B4.html"><strong>42. 接雨水 (opens new window)</strong></a>是找每个柱子左右两边第一个大于该柱子高度的柱子，而本题是找每个柱子左右两边第一个小于该柱子的柱子。所以从栈头（元素从栈头弹出）到栈底的顺序应该是从大到小的顺序！</li>
+</ul>
+<p><strong>为什么用单调栈</strong></p>
+<ul>
+<li><p>任何一个长方体，要满足</p>
+<p>向左右不能再延伸</p>
+<p>的条件，即左右矩形要更小</p>
+<ul>
+<li>与左右最大&#x2F;最小值有关</li>
+<li>在缓存数据的时候是从左向右缓存的，计算出一个结果的顺序是从右向左的，并且<strong>计算完成以后我们就不再需要</strong>了，符合<strong>后进先出的特点</strong>。因此，我们需要的这个作为缓存的数据结构就是<strong>栈</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>怎么求</p>
+<ul>
+<li>栈顶和栈顶的下一个元素以及要入栈的三个元素组成了我们要求最大面积的高度和宽度</li>
+<li></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span> (!st.<span class="hljs-built_in">empty</span>() &amp;&amp; heights[i] &lt; heights[st.<span class="hljs-built_in">top</span>()]) &#123; <span class="hljs-comment">// 注意while，遍历某一右边界对应的所有左边界。i++为调整右边界</span><br>    <span class="hljs-type">int</span> mid = st.<span class="hljs-built_in">top</span>(); <span class="hljs-comment">// 中间的最小高度</span><br>    st.<span class="hljs-built_in">pop</span>();<br>    <span class="hljs-keyword">if</span> (!st.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-type">int</span> left = st.<span class="hljs-built_in">top</span>();<br>        <span class="hljs-type">int</span> right = i;<br>        <span class="hljs-type">int</span> w = right - left - <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> h = heights[mid];<br>        result = <span class="hljs-built_in">max</span>(result, w * h);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h3><p>考虑两种特殊的情况：</p>
+<ul>
+<li>弹栈的时候，栈为空；</li>
+<li>遍历完成以后，栈中还有元素；</li>
+</ul>
+<p>为此可以我们可以在输入数组的两端加上两个高度为 0 （或者是 0.5，只要比 1 严格小都行）的柱形，可以回避上面这两种分类讨论。这两个站在两边的柱形有一个很形象的名词，叫做<strong>哨兵（Sentinel）</strong>。</p>
+<blockquote>
+<p>如果数组本身是降序的，例如 [8,6,4,2]，在 8 入栈后，6 开始与8 进行比较，此时我们得到 mid（8），rigt（6），但是得不到 left。</p>
+</blockquote>
+<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h2 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><strong>215. 数组中的第K个最大元素</strong></h2><h3 id="堆解法"><a href="#堆解法" class="headerlink" title="堆解法"></a>堆解法</h3><p>时间复杂度：O(nlog⁡n)</p>
+<ul>
+<li><p>建堆的时间代价是 O(n)</p>
+<ul>
+<li>复杂度分析并不是简单相乘：<a target="_blank" rel="noopener" href="https://www.hello-algo.com/chapter_heap/build_heap/#823">8.2  建堆操作 - Hello 算法 (hello-algo.com)</a></li>
+<li></li>
+</ul>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/9bb9ce05-294e-42d3-8e51-39344e345cc5/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+</li>
+<li><p>删除的总代价是 O(klog⁡n)</p>
+</li>
+<li><p>因为 k&lt;n，故渐进时间复杂为 O(n+klog⁡n)&#x3D;O(nlog⁡n)</p>
+</li>
+</ul>
+<p>空间复杂度：O(log⁡n)O(\log n)O(logn)，即递归使用栈空间的空间代价。</p>
+<p><strong>建堆</strong></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/82fd7db0-68ae-4cdc-91dc-e1b5d06df179/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">maxHeapify</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; a, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> heapSize)</span> </span>&#123;<br>        <span class="hljs-type">int</span> l = i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>, r = i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>, largest = i;<br>        <span class="hljs-keyword">if</span> (l &lt; heapSize &amp;&amp; a[l] &gt; a[largest]) &#123;<br>            largest = l;<br>        &#125; <br>        <span class="hljs-keyword">if</span> (r &lt; heapSize &amp;&amp; a[r] &gt; a[largest]) &#123;<br>            largest = r;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (largest != i) &#123;<br>            <span class="hljs-built_in">swap</span>(a[i], a[largest]);<br>            <span class="hljs-built_in">maxHeapify</span>(a, largest, heapSize); <span class="hljs-comment">//向子节点递归</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">buildMaxHeap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; a, <span class="hljs-type">int</span> heapSize)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = heapSize / <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>            <span class="hljs-built_in">maxHeapify</span>(a, i, heapSize); <span class="hljs-comment">// 处理i个元素与其子女为大根堆</span><br>        &#125; <br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>删除堆顶</strong></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/56ceba07-d0ed-41cb-8031-a7aca0da9c79/8de0a18f-359e-4995-8e29-31416d77bda1/Untitled.png"><span class="image-caption">Untitled</span>)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>    <span class="hljs-type">int</span> heapSize = nums.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-built_in">buildMaxHeap</span>(nums, heapSize);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; i &gt;= nums.<span class="hljs-built_in">size</span>() - k + <span class="hljs-number">1</span>; --i) &#123;<br>        <span class="hljs-built_in">swap</span>(nums[<span class="hljs-number">0</span>], nums[i]); <span class="hljs-comment">//除堆顶</span><br>        --heapSize;<br>        <span class="hljs-built_in">maxHeapify</span>(nums, <span class="hljs-number">0</span>, heapSize); <span class="hljs-comment">// 递归重排</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="桶排序解法"><a href="#桶排序解法" class="headerlink" title="桶排序解法"></a>桶排序解法</h3><p>复杂度O(n)，要求数字值不能太大</p>
+<blockquote>
+<p>在一般情况下，桶排序的时间复杂度为O(N + K)，具体解释如下：</p>
+<ol>
+<li><strong>桶的创建和元素分配（线性时间复杂度）</strong>：创建桶数组的时间复杂度为O(K)，遍历输入数组将元素分配到各个桶中的时间复杂度为O(N)。</li>
+<li><strong>桶内排序（线性时间复杂度）</strong>：对每个非空的桶进行排序的时间复杂度取决于桶内元素的个数和所使用的排序算法。如果桶内元素个数较少，可以使用简单且具有线性时间复杂度的排序算法（如插入排序）。因此，桶内排序的时间复杂度可以视为O(1)。</li>
+<li><strong>桶之间的合并（线性时间复杂度）</strong>：将各个桶中的元素按照顺序合并起来的时间复杂度为O(K)。</li>
+</ol>
+<p>综上所述，桶排序的时间复杂度为O(N + K)，其中N是元素的数量，K是桶的数量。需要注意的是，当K接近N时，桶排序的时间复杂度接近O(N)，因此，桶的数量的选择对于桶排序的性能具有一定的影响。通常情况下，<strong>选择一个合适的桶的数量</strong>可以使得桶排序具有较好的性能。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">findKthLargest</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> k)</span> </span>&#123;<br>        <span class="hljs-type">int</span> buckets[<span class="hljs-number">20001</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i++) &#123;<br>            buckets[nums[i] + <span class="hljs-number">10000</span>]++; <span class="hljs-comment">//记录有几个大值</span><br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">20000</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            k = k - buckets[i];<br>            <span class="hljs-keyword">if</span> (k &lt;= <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> i - <span class="hljs-number">10000</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2023/12/11/%E6%95%B0%E7%90%86%E9%80%BB%E8%BE%91/">数理逻辑-一阶逻辑(模型论角度)-学习笔记<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA"><span class="toc-text">121. 买卖股票的最佳时机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83"><span class="toc-text">贪心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-1"><span class="toc-text">动态规划</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1997-%E8%AE%BF%E9%97%AE%E5%AE%8C%E6%89%80%E6%9C%89%E6%88%BF%E9%97%B4%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9"><span class="toc-text">1997. 访问完所有房间的第一天</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C%E4%BC%98%E5%8C%96"><span class="toc-text">前缀和优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96mod%E6%8A%80%E5%B7%A7"><span class="toc-text">取mod技巧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#70-%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="toc-text">70. 爬楼梯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-text">拓展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0-1%E8%83%8C%E5%8C%85"><span class="toc-text">0-1背包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%A8%A1%E7%89%88"><span class="toc-text">代码模版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E5%90%91%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%EF%BC%9F"><span class="toc-text">遍历方向如何判断？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85"><span class="toc-text">完全背包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85"><span class="toc-text">多重背包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="toc-text">704.二分查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"><span class="toc-text">209.长度最小的子数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#54-%E9%81%8D%E5%8E%86%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5"><span class="toc-text">54.遍历螺旋矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#59-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5-II"><span class="toc-text">59. 螺旋矩阵 II</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-text">前缀和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#560-%E5%92%8C%E4%B8%BA-K-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"><span class="toc-text">560. 和为 K 的子数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#203-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-text">203.移除元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="toc-text">19.删除链表的倒数第N个节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II"><span class="toc-text">142.环形链表II</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">哈希表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#242-%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D"><span class="toc-text">242.有效的字母异位词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">1. 两数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-text">15. 三数之和</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#344-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">344.反转字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#541-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II"><span class="toc-text">541. 反转字符串II</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D"><span class="toc-text">151.翻转字符串里的单词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-%E5%AE%9E%E7%8E%B0strStr"><span class="toc-text">28.实现strStr()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="toc-text">KMP算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#459-%E5%88%A4%E6%96%AD%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E5%AD%90%E4%B8%B2"><span class="toc-text">459.判断重复字符子串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%89%E4%BB%B7%E8%BD%AC%E5%8C%96%E6%80%9D%E7%BB%B4%E3%80%82%E8%AF%81%E6%98%8E%E7%94%A8%E5%88%B0string%E4%BD%8D%E7%BD%AE%E9%97%B4%E7%9A%84%E7%9B%B8%E7%AD%89%E8%BD%AC%E5%8C%96"><span class="toc-text">等价转化思维。证明用到string位置间的相等转化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="toc-text">双指针</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97"><span class="toc-text">栈与队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%9F%E5%88%97%EF%BC%9A%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA"><span class="toc-text">队列：先进先出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="toc-text">232. 用栈实现队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="toc-text">225. 用队列实现栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7"><span class="toc-text">20. 有效的括号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="toc-text">单调栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6"><span class="toc-text">739. 每日温度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#496-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0-I"><span class="toc-text">496.下一个更大元素 I</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#503-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0II"><span class="toc-text">503.下一个更大元素II</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#42-%E6%8E%A5%E9%9B%A8%E6%B0%B4"><span class="toc-text">42. 接雨水</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88-1"><span class="toc-text">单调栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88-1"><span class="toc-text">双指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2"><span class="toc-text">84. 柱状图中最大的矩形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88-2"><span class="toc-text">双指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88-2"><span class="toc-text">单调栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%A8%E5%85%B5"><span class="toc-text">哨兵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A0%86"><span class="toc-text">堆</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="toc-text">215. 数组中的第K个最大元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E8%A7%A3%E6%B3%95"><span class="toc-text">堆解法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F%E8%A7%A3%E6%B3%95"><span class="toc-text">桶排序解法</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

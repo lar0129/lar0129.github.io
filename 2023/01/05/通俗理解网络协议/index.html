@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>通俗理解网络协议 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 计算机网络">
+  <meta name="description" content="通俗理解网络协议
+
+
+
+
+1.五层模型1.1.实体层(...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">通俗理解网络协议</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">通俗理解网络协议</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 05, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5793</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>通俗理解网络协议</p></p>
+        
+        <h2 id="1-五层模型"><a href="#1-五层模型" class="headerlink" title="1.五层模型"></a>1.五层模型</h2><h3 id="1-1-实体层-物理层"><a href="#1-1-实体层-物理层" class="headerlink" title="1.1.实体层(物理层)"></a>1.1.实体层(物理层)</h3><p>把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号。</p>
+<h3 id="1-2-链接层-数据链路层"><a href="#1-2-链接层-数据链路层" class="headerlink" title="1.2.链接层(数据链路层)"></a>1.2.链接层(数据链路层)</h3><ul>
+<li>定义<ul>
+<li>单纯的0和1没有任何意义，必须规定解读方式：多少个电信号算一组？每个信号位有何意义？</li>
+<li>这就是”链接层”的功能，它在”实体层”的上方，确定了0和1的分组方式。</li>
+</ul>
+</li>
+<li>以太网协议<ul>
+<li>逐渐地，一种叫做”以太网”（Ethernet）的协议，占据了主导地位。</li>
+<li>以太网规定，一组电信号构成一个数据包，叫做**”帧”（Frame）<strong>。每一帧分成两个部分：</strong>标头（Head）和数据（Data）**。</li>
+<li>“标头”包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。<ul>
+<li>“标头”的长度，固定为18字节。”数据”的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>MAC地址<ul>
+<li>以太网规定，连入网络的所有设备，都必须具有”网卡”接口。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。</li>
+<li>每块网卡出厂的时候，都有一个<strong>全世界独一无二</strong>的MAC地址，长度是48个二进制位，通常用<strong>12个十六进制数</strong>表示。</li>
+</ul>
+</li>
+<li>广播<ul>
+<li>一块网卡怎么会知道另一块网卡的MAC地址？<br> 回答是有一种ARP协议，可以解决这个问题。</li>
+<li>就算有了MAC地址，系统怎样才能把数据包准确送到接收方？<br> 回答是以太网采用了一种很”原始”的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。这就是<strong>广播</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-网络层"><a href="#1-3-网络层" class="headerlink" title="1.3.网络层"></a>1.3.网络层</h3><p>以太网采用广播方式发送数据包，所有成员人手一”包”，不仅效率低，而且局限在发送者所在的子网络。也就是说，如果两台计算机不在同一个子网络，广播是传不过去的。这种设计是不合理的，否则互联网上每一台计算机都会收到所有包，那会引起效率灾难。</p>
+<p>这就导致了”网络层”的诞生。它的作用是引进一套新的地址，使得我们能够区分不同的计算机是否属于同一个子网络。这套地址就叫做”网络地址”，简称”网址”。</p>
+<p> 于是，”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，<strong>MAC地址是绑定在网卡上的，网络地址则是管理员分配的</strong>，它们只是随机组合在一起。</p>
+<p> 网络地址帮助我们确定计算机所在的子网络，MAC地址则将数据包送到该子网络中的目标网卡。因此，从逻辑上可以推断，必定是<strong>先处理网络地址，然后再处理MAC地址。</strong></p>
+<ul>
+<li><p>IP协议（v4)</p>
+<ul>
+<li>互联网上的每一台计算机，都会分配到一个IP地址。这个地址分成两个部分，前一部分代表网络，后一部分代表主机。</li>
+<li>怎样才能从IP地址，判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数”子网掩码”（subnet mask）。所谓”子网掩码”，就是表示子网络特征的一个参数。它在形式上等同于IP地址</li>
+<li>总结一下，IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</li>
+</ul>
+</li>
+<li><p>IP数据包</p>
+<ul>
+<li>根据IP协议发送的数据，就叫做IP数据包。我们可以把IP数据包直接放进以太网数据包的”数据”部分，因此完全不用修改以太网的规格。这就是互联网分层结构的好处：上层的变动完全不涉及下层的结构。</li>
+<li><img src="http://www.52im.net/data/attachment/forum/201811/01/151007ibebhdrudjqof1qp.jpg"><span class="image-caption">网络编程懒人入门(一)：快速理解网络通信协议（上篇）_10.jpg</span></li>
+<li>IP数据包的”标头”部分的长度为20到60字节，整个数据包的总长度最大为65,535字节。因此，理论上，一个IP数据包的”数据”部分，最长为65,515字节。前面说过，以太网数据包的”数据”部分，最长只有1500字节。因此，<strong>如果IP数据包超过了1500字节，它就需要分割成几个以太网数据包，分开发送了</strong></li>
+</ul>
+</li>
+<li><p>ARP协议</p>
+<ul>
+<li><p>因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的（后文会解释），但是我们不知道它的MAC地址。 所以，我们需要一种机制，能够从IP地址得到MAC地址。</p>
+</li>
+<li><p><strong>1）第一种情况：</strong>如果两台主机不在同一个子网络，那么事实上没有办法得到对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”（gateway），<strong>让网关去处理</strong>；</p>
+<p><strong>2）第二种情况：</strong>如果两台主机在同一个子网络，那么我们可以用ARP协议，得到对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询主机的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。<strong>它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，</strong>向对方报告自己的MAC地址，否则就丢弃这个包。</p>
+</li>
+<li><p><strong>1号电脑把数据包发到网关A，必须知道网关A的MAC地址。所以，数据包的目标地址，实际上分成两种情况：</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>场景</strong></th>
+<th><strong>数据包地址</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同一个子网络</td>
+<td>对方的MAC地址，对方的IP地址</td>
+</tr>
+<tr>
+<td>非同一个子网络</td>
+<td>网关的MAC地址，对方的IP地址</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="1-4-传输层"><a href="#1-4-传输层" class="headerlink" title="1.4.传输层"></a>1.4.传输层</h3><ul>
+<li><p>目的</p>
+<ul>
+<li>有了MAC地址和IP地址，我们已经可以在互联网上任意两台主机上建立通信。 接下来的问题是，同一台主机上有许多程序都需要用到网络。</li>
+<li>也就是说，我们还需要一个参数，表示这个数据包到底供哪个程序（进程）使用。这个参数就叫做”端口”（port），它其实是每一个使用网卡的程序的编号。<strong>每个数据包都发到主机的特定端口，所以不同的程序就能取到自己所需要的数据。</strong></li>
+<li>端口”是0到65535之间的一个整数，正好16个二进制位。0到1023的端口被系统占用，<strong>用户只能选用大于1023的端口</strong>。不管是浏览网页还是在线聊天，<strong>应用程序会随机选用一个端口</strong>，然后与服务器的相应端口联系。</li>
+<li><strong>“传输层”的功能，就是建立”端口到端口”的通信。</strong>相比之下，”网络层”的功能是建立”主机到主机”的通信。只要确定主机和端口，我们就能实现程序之间的交流。因此，<strong>Unix系统就把主机+端口，叫做”套接字”（socket）</strong>。有了它，就可以进行网络应用程序开发了。</li>
+</ul>
+</li>
+<li><p>UDP协议</p>
+<ul>
+<li>“标头”部分主要定义了发出端口和接收端口，”数据”部分就是具体的内容。然后，把整个UDP数据包放入IP数据包的”数据”部分，而前面说过，IP数据包又是放在以太网数据包之中的，所以整个以太网数据包现在变成了下面这样：</li>
+<li><img src="http://www.52im.net/data/attachment/forum/201811/01/153041d3j4w47j4b3t4ddj.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_1.jpg</span></li>
+<li>“标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</li>
+</ul>
+</li>
+<li><p>TCP协议</p>
+<ul>
+<li><strong>UDP协议的优点是比较简单，容易实现，但是缺点是可靠性较差</strong>，一旦数据包发出，无法知道对方是否收到。为了解决这个问题，提高网络可靠性，TCP协议就诞生了。这个协议非常复杂，它就是有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。因此，TCP协议能够确保数据不会遗失。它的缺点是<strong>过程复杂、实现困难、消耗较多的资源</strong>。 </li>
+<li>TCP数据包和UDP数据包一样，都是内嵌在IP数据包的”数据”部分。TCP数据包没有长度限制，理论上可以无限长，但是为了保证网络的效率，<strong>通常TCP数据包的长度不会超过IP数据包的长度</strong>，以确保单个TCP数据包不必再分割。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-5应用层"><a href="#1-5应用层" class="headerlink" title="1.5应用层"></a>1.5应用层</h3><h3 id="1-6-用户角度实例"><a href="#1-6-用户角度实例" class="headerlink" title="1.6.用户角度实例"></a>1.6.用户角度实例</h3><p><strong>通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了：</strong></p>
+<ul>
+<li><p>基本设置</p>
+<ul>
+<li>本机的IP地址；</li>
+<li>子网掩码；</li>
+<li>网关的IP地址；</li>
+<li>DNS的IP地址。</li>
+</ul>
+</li>
+<li><p>如果一台电脑的IP地址保持不变，其他电脑就不能使用这个地址，不够灵活。出于这两个原因，大多数用户使用”<strong>动态</strong>IP地址上网”。</p>
+<ul>
+<li>所谓”动态IP地址”，指计算机开机后，会自动分配到一个IP地址，不用人为设定。它使用的协议叫做DHCP协议。</li>
+</ul>
+</li>
+<li><p>DHCP协议</p>
+<ul>
+<li><p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做”DHCP服务器”。新的计算机加入网络，必须向”DHCP服务器”发送一个”DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
+</li>
+<li><p><strong>首先，它是一种应用层协议，建立在UDP协议之上，所以整个数据包是这样的：</strong></p>
+<p><img src="http://www.52im.net/data/attachment/forum/201811/01/153032wppxuuvdmupaqiy6.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_5.jpg</span></p>
+<ul>
+<li><strong>1）最前面的”以太网标头”：</strong>设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。</li>
+<li><strong>2）后面的”IP标头”：</strong>设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。</li>
+<li><strong>3）最后的”UDP标头”：</strong>设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</li>
+</ul>
+</li>
+<li><p>以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的<strong>MAC地址是FF-FF-FF-FF-FF-FF</strong>，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。**当看到发出方IP地址是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器知道”这个包是发给我的”**，而其他计算机就可以丢弃这个包。</p>
+<p> 接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出方）和255.255.255.255（接收方），UDP标头的端口是67（发出方）和68（接收方），<strong>分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</strong></p>
+<p> 新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="访问网页实例"><a href="#访问网页实例" class="headerlink" title="访问网页实例"></a>访问网页实例</h4><p>这个例子经过了简化，它大致上反映了互联网协议的整个通信过程。</p>
+<ul>
+<li><p>本机参数</p>
+<ul>
+<li><p>本机的IP地址：192.168.1.100；</p>
+<p>子网掩码：255.255.255.0；</p>
+<p>网关的IP地址：192.168.1.1；</p>
+<p>DNS的IP地址：8.8.8.8。</p>
+<p>浏览器要向Google发送一个网页请求的数据包。</p>
+</li>
+</ul>
+</li>
+<li><p>DNS协议</p>
+<ul>
+<li>DNS协议可以帮助我们，将这个网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。</li>
+<li>然后，DNS服务器做出响应，告诉我们Google的IP地址是172.194.72.105。于是，我们知道了对方的IP地址。</li>
+</ul>
+</li>
+<li><p>子网掩码</p>
+<ul>
+<li>接下来，我们要判断，这个IP地址是不是在同一个子网络，这就要用到子网掩码。</li>
+<li>已知子网掩码是255.255.255.0，本机用它对自己的IP地址192.168.1.100，做一个二进制的AND运算，结论是，Google与本机不在同一个子网络。</li>
+<li>因此，我们要向Google发送数据包，必须通过网关192.168.1.1转发，也就是说，接收方的MAC地址将是网关的MAC地址。</li>
+</ul>
+</li>
+<li><p>HTTP协议</p>
+<ul>
+<li><p><img src="http://www.52im.net/data/attachment/forum/201811/01/152959qwuepu61p36qpu5l.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_8.jpg</span></p>
+</li>
+<li><p><strong>HTTP部分的内容，类似于下面这样,假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>[url=http://www.google.com]www.google.com[/url]<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>keep-alive<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 6.1) ......<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip,deflate,sdch<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.8<br><span class="hljs-attribute">Accept-Charset</span><span class="hljs-punctuation">: </span>GBK,utf-8;q=0.7,*;q=0.3<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>... ...<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>TCP协议</p>
+<ul>
+<li>TCP数据包需要<strong>设置端口</strong>，接收方（Google）的HTTP端口默认是80，发送方（本机）的端口是一个随机生成的1024-65535之间的整数，假定为51775。TCP数据包的标头长度为20字节，加上嵌入HTTP的数据包，<strong>总长度变为4980字节</strong>。</li>
+</ul>
+</li>
+<li><p>IP协议</p>
+<ul>
+<li>然后，TCP数据包再嵌入IP数据包。IP数据包需要<strong>设置双方的IP地址</strong>，这是已知的，发送方是192.168.1.100（本机），接收方是172.194.72.105（Google）。IP数据包的标头长度为20字节，加上嵌入的TCP数据包，<strong>总长度变为5000字节</strong>。</li>
+</ul>
+</li>
+<li><p>以太网协议</p>
+<ul>
+<li>最后，IP数据包嵌入以太网数据包。<strong>以太网数据包需要设置双方的MAC地址</strong>，发送方为本机的网卡MAC地址，接收方为网关192.168.1.1的MAC地址（通过ARP协议得到）。</li>
+<li>以太网数据包的数据部分，最大长度为1500字节，而现在的IP数据包长度为5000字节。因此，IP数据包必须分割成四个包。因为<strong>每个包都有自己的IP标头（20字节）</strong>，所以四个包的IP数据包的长度分别为1500、1500、1500、560。（1480*3+540 &#x3D; 4980）</li>
+</ul>
+</li>
+<li><p>服务器响应</p>
+</li>
+<li><p>经过多个网关的转发，Google的服务器172.194.72.105，收到了这四个以太网数据包。根据IP标头的序号，Google将四个包拼起来，取出完整的TCP数据包，然后读出里面的”HTTP请求”，接着<strong>做出”HTTP响应”，</strong>再用TCP协议发回来。</p>
+</li>
+<li><p>本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。</p>
+</li>
+</ul>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><p>侵删</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/01/10/algorithm-Lecture%208%20%E5%9B%BE/"><i class="iconfont iconleft"></i>数据结构-图-学习笔记</a>
+    <a href="/2022/09/07/%E5%8F%8B%E9%93%BE/">友链<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%94%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-text">1.五层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%9E%E4%BD%93%E5%B1%82-%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-text">1.1.实体层(物理层)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%93%BE%E6%8E%A5%E5%B1%82-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="toc-text">1.2.链接层(数据链路层)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-text">1.3.网络层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-text">1.4.传输层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-text">1.5应用层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E7%94%A8%E6%88%B7%E8%A7%92%E5%BA%A6%E5%AE%9E%E4%BE%8B"><span class="toc-text">1.6.用户角度实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-text">参考资料：</span></a>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记15-指令流水线 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记15-指令流水线
+
+
+
+
+1....">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记15-指令流水线</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记15-指令流水线</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3429</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记15-指令流水线</p></p>
+        
+        <h1 id="1-指令周期"><a href="#1-指令周期" class="headerlink" title="1. 指令周期"></a>1. 指令周期</h1><h2 id="1-0指令周期纵观"><a href="#1-0指令周期纵观" class="headerlink" title="1.0指令周期纵观"></a>1.0<strong>指令周期纵观</strong></h2><ul>
+<li><p>定义：处理单个指令的过程</p>
+</li>
+<li><p>分为取指周期、执行周期</p>
+</li>
+</ul>
+<p><img src="/C:/Users/lar/AppData/Roaming/Typora/typora-user-images/image-20221208163611041.png"><span class="image-caption">image-20221208163611041</span></p>
+<p>并非所有指令的周期都一样</p>
+<h3 id="带中断的指令周期"><a href="#带中断的指令周期" class="headerlink" title="带中断的指令周期"></a>带中断的指令周期</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114423694.png"><span class="image-caption">image-20230210114423694</span></p>
+<h3 id="间址周期"><a href="#间址周期" class="headerlink" title="间址周期"></a>间址周期</h3><p>把间接地址的读取看成是一个额外的指令子周期  </p>
+<p>提出目的：与数据流，指令流水线有关</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114806911.png"><span class="image-caption">image-20230210114806911</span></p>
+<h3 id="在指令周期中的CPU"><a href="#在指令周期中的CPU" class="headerlink" title="在指令周期中的CPU"></a>在指令周期中的CPU</h3><ul>
+<li><p>任务</p>
+<ul>
+<li><strong>取指令：</strong> CPU必须从存储器（寄存器、 cache、 主存） 读取指令  </li>
+<li><strong>解释指令：</strong> 必须对指令进行译码， 以确定所要求的动作  </li>
+<li><strong>取数据：</strong> 指令的执行可能要求从存储器或输入&#x2F;输出（I&#x2F;O） 模块中读取数据  </li>
+<li><strong>处理数据</strong>： 指令的执行可能要求对数据完成某些算术或逻辑运算  </li>
+<li><strong>写数据：</strong> 执行的结果可能要求写数据到存储器或I&#x2F;O模块</li>
+</ul>
+</li>
+<li><p>需求：寄存器</p>
+<ul>
+<li>临时保存指令数据</li>
+<li>记录当前指令位置</li>
+<li>（需要小容量的内部储存器）</li>
+<li>假定CPU已有的寄存器<ul>
+<li>MAR存储地址</li>
+<li>MBR存储缓冲&#x2F;MDR存储数据</li>
+<li>IR指令寄存器</li>
+<li>PC程序计数器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-1取指周期"><a href="#1-1取指周期" class="headerlink" title="1.1取指周期"></a>1.1取指周期</h2><p>流程：</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115704765.png"><span class="image-caption">image-20230210115704765</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115825621.png"><span class="image-caption">image-20230210115825621</span></p>
+<ol>
+<li>PC-&gt;MAR-&gt;地址总线</li>
+<li>控制器通过控制线通知存储器地址就绪</li>
+<li>存储器读取地址 地址总线-&gt;存储器  </li>
+<li>存储器通过数据总线将（指令）数据发送给MBR-&gt;IR</li>
+<li>如果是异步总线，存储器提供反馈 ，告知准备好了</li>
+<li>指令取回来后， PC+“1”  （未画出,为控制器-&gt;PC）</li>
+</ol>
+<h2 id="1-2间址周期"><a href="#1-2间址周期" class="headerlink" title="1.2间址周期"></a>1.2间址周期</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120043533.png"><span class="image-caption">image-20230210120043533</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120208616.png"><span class="image-caption">image-20230210120208616</span></p>
+<ol>
+<li>将MBR缓存中的地址引用送入MAR得到地址（MAR可认为与地址总线绑定，MBR可认为与数据总线绑定）</li>
+<li>MAR将地址传入地址总线</li>
+<li>控制器通知存储器取地址  </li>
+<li>存储器通过数据总线将有效地址发送给MBR</li>
+</ol>
+<p><strong>实际上间址周期取回的是一个有效地址，不是操作数本身</strong>。取操作数在执行周期</p>
+<h2 id="1-3中断周期"><a href="#1-3中断周期" class="headerlink" title="1.3中断周期"></a>1.3中断周期</h2><p>中断周期的任务：处理中断请求。需保存旧地址和旧地址内容</p>
+<p>假设程序断点存入堆栈中，并用SP指示栈顶地址,进栈操作是先修改栈顶指针，后存入数据。</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120613987.png"><span class="image-caption">image-20230210120613987</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210122314159.png"><br><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120925912.png"></p>
+<p>箭头往右，说明都是写的操作</p>
+<ol>
+<li>处理中断前，将<strong>下一条指令</strong>放到MBR中，再放到数据总线上 （以告知下一条指令需要返回到哪）（存入断点）</li>
+<li>控制器将<strong>下一条指令的取值地址</strong>通过MAR放到地址总线上  </li>
+<li>控制器通知存储器获得数据</li>
+<li>存储器从地址线获得地址</li>
+<li>存储器从数据线获得数据，并将数据写入到获得的地址</li>
+</ol>
+<h1 id="2-指令流水线"><a href="#2-指令流水线" class="headerlink" title="2.指令流水线"></a>2.指令流水线</h1><ul>
+<li>流水处理（pipelining）<ul>
+<li>如果一个产品要经过几个制作步骤，通过把制作过程安排在一条装配线上，多个产品能在各个阶段同时被加工</li>
+</ul>
+</li>
+<li>指令流水线：一条指令的处理过程分成若干个阶段，每个阶段由相应的功能部<br>件完成  <ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210152420723.png"><span class="image-caption">image-20230210152420723</span></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-1两阶段方法"><a href="#2-1两阶段方法" class="headerlink" title="2.1两阶段方法"></a>2.1两阶段方法</h2><ul>
+<li>将指令处理分成两个阶段：取指令和执行指令</li>
+<li>在当前指令的执行期间取下一条指令</li>
+<li>问题： 执行时间一般要长于取指时间  <ul>
+<li>性能瓶颈，工作量分配不均匀</li>
+<li>主存访问冲突</li>
+<li><strong>条件分支指令</strong>使下一条指令的地址是未知的（导致原指令作废，执行指令需等待）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-2六阶段方法"><a href="#2-2六阶段方法" class="headerlink" title="2.2六阶段方法"></a>2.2六阶段方法</h2><p>为了进一步的加速，流水线必须有更多的阶段</p>
+<ul>
+<li>取指令（Fetch instruction， FI）： 读下一条预期的指令到缓冲器</li>
+<li>译码指令（Decode instruction， DI）： 确定操作码和操作数指定符</li>
+<li>计算操作数（Calculate operands， CO）： 计算每个源操作数的有效地址</li>
+<li>取操作数（Fetch operands， FO）： 从存储器取出每个操作数，寄存器中的操作不需要取</li>
+<li>执行指令（Execute instruction， EI）： 完成指定的操作。若有指定的目的操作数位置，则将结果写入此位置</li>
+<li>写操作数（Write operand， WO）： 将结果存入存储器</li>
+</ul>
+<p>各个阶段所需要的时间几乎是相等的 。</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154320143.png"><span class="image-caption">image-20230210154320143</span></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>不是所有指令都包含6个阶段<ul>
+<li>例：一条LOAD指令不需要WO阶段</li>
+<li>为了简化流水线硬件设计，在<strong>假定每条指令都要求这6个阶段</strong>的基础上来建立时序</li>
+</ul>
+</li>
+<li>不是所有的阶段都能并行完成<ul>
+<li>例： FI、 FO和 WO都涉及存储器访问</li>
+</ul>
+</li>
+<li>若6个阶段不全是相等的时间，则会在各个流水阶段涉及某种等待<ul>
+<li>以最长的为基准</li>
+</ul>
+</li>
+</ul>
+<p><strong>条件转移指令损失图解</strong></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154624695.png"><span class="image-caption">image-20230210154624695</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155033296.png"><span class="image-caption">image-20230210155033296</span></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155042586.png"><span class="image-caption">image-20230210155042586</span></p>
+<p>本质：转移指令需要清空流水线造成的损失</p>
+<h2 id="2-3流水线性能"><a href="#2-3流水线性能" class="headerlink" title="2.3流水线性能"></a>2.3流水线性能</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155218162.png"><span class="image-caption">image-20230210155218162</span></p>
+<p>𝑡𝑚 &#x3D; max [𝑡𝑖]</p>
+<p><strong>单周期时间</strong>：𝑡 &#x3D; max [𝑡𝑖] + 𝑑 &#x3D; 𝑡𝑚 + 𝑑  </p>
+<p><strong>总时间：</strong>𝑇𝑘,𝑛 &#x3D; [𝑘 + 𝑛 - 1] 𝑡（理想情况） </p>
+<p><strong>加速比</strong> &#x3D;  没有使用流水线 &#x2F; 使用流水线  &gt;  1 </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155433099.png"><span class="image-caption">image-20230210155433099</span></p>
+<p>根据公式推导加速</p>
+<ul>
+<li>误解<ul>
+<li>流水线中的阶段数越多，执行速度越快</li>
+</ul>
+</li>
+<li>原因  <ul>
+<li>将数据从一个缓冲区移动到另一个缓冲区以及执行各种准备和传递功能都涉及一些开销（比如<strong>锁存延时</strong>）</li>
+<li>处理内存和寄存器依赖以及优化管道使用所需的<strong>控制逻辑数量</strong>随着阶段的增加而急剧增加</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-冒险"><a href="#3-冒险" class="headerlink" title="3.冒险"></a>3.冒险</h1><p>定义：在某些情况下，指令流水线会阻塞或停顿（stall），导致后续指令无法正确执行  </p>
+<p>类型：</p>
+<ul>
+<li>结构冒险（Structure hazard） &#x2F; 硬件资源冲突<ul>
+<li>不同指令同时使用相同的硬件资源，比如访存</li>
+</ul>
+</li>
+<li>数据冒险（Data hazard） &#x2F; 数据依赖性<ul>
+<li>有些数据要等前序计算完成</li>
+</ul>
+</li>
+<li>控制冒险（Control hazard） <ul>
+<li>比如条件转移</li>
+</ul>
+</li>
+</ul>
+<h2 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h2><ul>
+<li><p>原因： 已进入流水线的不同指令在同一时刻访问相同的硬件资源</p>
+</li>
+<li><p>解决</p>
+<ul>
+<li>使用多个不同的硬件资源</li>
+<li>或者分时使用同一个硬件资源 （分时复用）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160237237.png"><span class="image-caption">image-20230210160237237</span></p>
+<h2 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h2><p>原因：未生成指令所需要的数据  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160554784.png"><span class="image-caption">image-20230210160554784</span></p>
+<p>解决1：插入nop（啥都不做）</p>
+<p>解决2：插入bubble </p>
+<p>（都有时间开销）</p>
+<p><strong>解决3：转发（forwarding） &#x2F; 旁路（bypassing）</strong>  </p>
+<p>从ALU（或ALU后的步骤）直接提前打听R1</p>
+<p>什么时候失效：非计算指令时（如load)</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160712506.png"><span class="image-caption">image-20230210160712506</span></p>
+<p><strong>解决方案4：交换指令顺序</strong>  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210161010109.png"><span class="image-caption">image-20230210161010109</span></p>
+<h2 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h2><ul>
+<li>原因：指令的执行顺序被更改<ul>
+<li>转移（Transfer） : 分支（branch） , 循环（loop） , …</li>
+<li>中断（Interrupt）</li>
+<li>异常（Exception）</li>
+<li>调用 &#x2F; 返回（Call &#x2F; return）</li>
+</ul>
+</li>
+</ul>
+<p><strong>解决方案1：取多条指令</strong></p>
+<ul>
+<li>多个指令流： 复制流水线的开始部分， 并允许流水线同时取这两条指令，  使用两个指令流</li>
+<li>预取分支目标： 识别出一个条件分支指令时， 除了取此分支指令之后的指<br>令外， 分支目标处的指令也被取来</li>
+</ul>
+<p>缺点：指令膨胀</p>
+<ul>
+<li>循环缓冲器： 由流水线指令取指含有 n 条最近顺序取来的指令</li>
+</ul>
+<p>多线程终究有效率损害，于是有了预测</p>
+<p><strong>解决方案2：分支预测</strong></p>
+<ul>
+<li>静态预测（规则不变）<ul>
+<li>预测绝不发生跳转</li>
+<li>预测总是发生跳转（到目标地址取指令 ）</li>
+<li>依操作码预测</li>
+</ul>
+</li>
+<li>动态预测（规则变化）<ul>
+<li>发生 &#x2F; 不发生切换</li>
+<li>转移历史表</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支动态预测"><a href="#分支动态预测" class="headerlink" title="分支动态预测"></a>分支动态预测</h3><p><strong>方法一：发生 &#x2F; 不发生切换</strong>  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164601006.png"><span class="image-caption">image-20230210164601006</span></p>
+<p>初始状态-&gt;两次错误时改变状态</p>
+<p>假设：状态的连贯性</p>
+<p><strong>方法二：转移历史表</strong>  </p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164736260.png"><span class="image-caption">image-20230210164736260</span></p>
+<p>未命中时记录转移历史，查表来预测</p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/02/10/Lecture%2014%20%E6%8C%87%E4%BB%A4%E9%9B%86/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记14-指令集</a>
+    <a href="/2023/02/10/Lecture%2016%20%E6%8E%A7%E5%88%B6%E5%99%A8/">计算机组成原理-学习笔记16-CPU控制器<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F"><span class="toc-text">1. 指令周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F%E7%BA%B5%E8%A7%82"><span class="toc-text">1.0指令周期纵观</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E4%B8%AD%E6%96%AD%E7%9A%84%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F"><span class="toc-text">带中断的指令周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%B4%E5%9D%80%E5%91%A8%E6%9C%9F"><span class="toc-text">间址周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F%E4%B8%AD%E7%9A%84CPU"><span class="toc-text">在指令周期中的CPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1%E5%8F%96%E6%8C%87%E5%91%A8%E6%9C%9F"><span class="toc-text">1.1取指周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2%E9%97%B4%E5%9D%80%E5%91%A8%E6%9C%9F"><span class="toc-text">1.2间址周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3%E4%B8%AD%E6%96%AD%E5%91%A8%E6%9C%9F"><span class="toc-text">1.3中断周期</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-text">2.指令流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%96%B9%E6%B3%95"><span class="toc-text">2.1两阶段方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E5%85%AD%E9%98%B6%E6%AE%B5%E6%96%B9%E6%B3%95"><span class="toc-text">2.2六阶段方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD"><span class="toc-text">2.3流水线性能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%86%92%E9%99%A9"><span class="toc-text">3.冒险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%86%92%E9%99%A9"><span class="toc-text">结构冒险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9"><span class="toc-text">数据冒险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%86%92%E9%99%A9"><span class="toc-text">控制冒险</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E5%8A%A8%E6%80%81%E9%A2%84%E6%B5%8B"><span class="toc-text">分支动态预测</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

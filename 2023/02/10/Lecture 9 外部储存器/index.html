@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算机组成原理-学习笔记9-外部存储器 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 学习笔记">
+  <meta name="description" content="计算机组成原理-学习笔记9-外部存储器
+
+
+
+
+lec...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">计算机组成原理-学习笔记9-外部存储器</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">计算机组成原理-学习笔记9-外部存储器</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3882</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>计算机组成原理-学习笔记9-外部存储器</p></p>
+        
+        <h1 id="lecture-9-互连及输入输出组织"><a href="#lecture-9-互连及输入输出组织" class="headerlink" title="lecture 9 互连及输入输出组织"></a>lecture 9 互连及输入输出组织</h1><p>金字塔的下半部分</p>
+<h2 id="外部存储设备"><a href="#外部存储设备" class="headerlink" title="外部存储设备"></a>外部存储设备</h2><ul>
+<li>特性<ul>
+<li>储存不常使用的 数据量较大的信息</li>
+<li>非易失</li>
+</ul>
+</li>
+<li>类型<ul>
+<li>磁盘储存器</li>
+<li>光储存器</li>
+<li>磁带</li>
+<li>U盘 固态硬盘</li>
+</ul>
+</li>
+</ul>
+<h1 id="磁盘存储器"><a href="#磁盘存储器" class="headerlink" title="磁盘存储器"></a>磁盘存储器</h1><ul>
+<li>磁盘是由涂有<strong>可磁化材料</strong>的<strong>非磁性材料</strong>（基材）构成的圆形盘片<ul>
+<li>基材：铝、铝合金、<strong>玻璃</strong>……</li>
+<li><strong>玻璃基材的优势（稳定可靠、为存储更多信息提供基础）</strong><ul>
+<li>改善磁膜表面的均匀性，提高磁盘的可靠性</li>
+<li>显著减少整体表面瑕疵，以帮助减少读写错误</li>
+<li>能够支持（磁头）较低的<strong>飞行高度</strong>（更强的磁信号）<ul>
+<li>磁头飞行在磁盘上面，其实是利用微空气动力学，磁盘高速旋转带来了高速的气流，附的气体磁头提供了升力。</li>
+</ul>
+</li>
+<li>更高的硬度，使磁盘转动时更加稳定</li>
+<li>更强的抗冲击和抗损伤能力</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>类型：硬盘、软盘</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109143209663.png"><span class="image-caption">image-20221109143209663</span></p>
+<ul>
+<li>轴逆时针转</li>
+<li>每个盘片有一个读写磁头，通过机械方式固定的同时移动</li>
+<li>任何时候，所有磁头都等距离位于磁道上</li>
+</ul>
+<p>磁头：</p>
+<ul>
+<li><p>对盘片进行<strong>读写操作</strong>的装置叫做磁头</p>
+<ul>
+<li><p>磁头产生&#x2F;感应电磁场</p>
+</li>
+<li><p>磁头越窄，<strong>电磁感应能力</strong>越弱，离盘片的距离越近</p>
+</li>
+<li><p>更高的<strong>数据密度</strong>需要更窄的磁头和更窄的磁道，这将导致更高的出错风险</p>
+</li>
+<li><p>硬盘必须密封</p>
+</li>
+<li><p><strong>温彻斯特磁头</strong>（Winchester head）</p>
+<p>• 一个空气动力箔片，当磁盘静止时，它轻轻地停留在盘片的表面上</p>
+<p>• 旋转圆盘时产生的空气压力足以使箔片上升到盘片表面上方</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="磁头读写机制"><a href="#磁头读写机制" class="headerlink" title="磁头读写机制"></a>磁头读写机制</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144837544.png"><span class="image-caption">image-20221109144837544</span></p>
+<ul>
+<li>读或写期间，磁头静止，盘片在下方旋转</li>
+<li>磁头数量<ul>
+<li>单磁头：读写公用（软盘&#x2F;早期硬盘）</li>
+<li>双磁头：单独的读写（当代硬盘）</li>
+</ul>
+</li>
+</ul>
+<h3 id="写入机制"><a href="#写入机制" class="headerlink" title="写入机制"></a>写入机制</h3><ul>
+<li>电流脉冲被发送到写入磁头</li>
+<li>变化的电流发出磁场</li>
+<li><strong>磁性图案（磁针）</strong>被记录在下方盘片<ul>
+<li>反转电流方向，则记录介质上的磁化方向也会反转</li>
+<li>感应<strong>电流稳定需要时间</strong></li>
+<li><strong>单磁头时，不加电流可以读</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="读取机制"><a href="#读取机制" class="headerlink" title="读取机制"></a>读取机制</h3><ul>
+<li>由部分屏蔽（为了精准获取下方）的<strong>磁阻（MR）敏感器</strong>组成，其电阻取决于<strong>下方介质的磁化方向</strong></li>
+<li>恒定电流通过MR敏感器时，通过电压检测电阻变化（U&#x3D; IR）</li>
+<li>MR敏感器允许更高频率的操作，实现更高的存储密度和更快的操作速度<ul>
+<li>电压改变比电流更快（<strong>读比写更快</strong>）</li>
+<li>比单磁头对磁性介质的要求低</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据组织（结构）"><a href="#数据组织（结构）" class="headerlink" title="数据组织（结构）"></a>数据组织（结构）</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144933827.png"><span class="image-caption">image-20221109144933827</span></p>
+<ul>
+<li>一组同心圆环，称为<strong>磁道</strong></li>
+<li>数据以<strong>扇区</strong>的形式传输或传出到磁盘<ul>
+<li>默认512B</li>
+</ul>
+</li>
+<li>磁道间有间隙</li>
+<li>从外往里编号递增，磁头停止时在磁道0外侧</li>
+</ul>
+<h3 id="扇区划分"><a href="#扇区划分" class="headerlink" title="扇区划分"></a>扇区划分</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109151721899.png"><span class="image-caption">image-20221109151721899</span></p>
+<ul>
+<li>恒定角速度<ul>
+<li>增大信息位区隔，使得磁盘能够以恒定的速度扫描信息，即<strong>恒定的数据传输率</strong></li>
+<li>优点：能直接从<strong>磁道号和扇区号寻址</strong>数据块</li>
+<li>缺点：磁盘储存容量受到最内层磁道的最大记录密度的限制</li>
+</ul>
+</li>
+<li>多带式记录&#x2F;多重区域记录<ul>
+<li>距离中心较远的分区包含的扇区数多于距离中心较近的分区</li>
+<li><strong>优点：</strong>提升存储容量</li>
+<li><strong>缺点：</strong>需要更复杂的电路</li>
+</ul>
+</li>
+<li><strong>所有盘片上处于相同的相对位置的一组磁道被称为柱面(cylinder)</strong></li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130001959538.png"><span class="image-caption">image-20221130001959538</span></li>
+</ul>
+<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109152855187.png"><span class="image-caption">image-20221109152855187</span></p>
+<ul>
+<li><p>低级格式化&#x2F;<strong>物理格式化</strong></p>
+<ul>
+<li>清除数据</li>
+<li>有损：是一种损伤性操作，它对硬盘寿命有影响</li>
+<li>建议场景：硬盘受到外部强磁体、强磁场的影响而受到物理性损伤的情况</li>
+</ul>
+</li>
+<li><p><strong>高级格式化&#x2F;逻辑格式化</strong></p>
+<ul>
+<li><p>在磁盘的特定区域写入特定数据，以达到初始化磁盘或磁盘分区、清除原磁盘或磁盘分区中所有文件的一个操作</p>
+<ul>
+<li><p><strong>快速格式化</strong>：会删除目标磁盘上原有的<strong>文件分配表和根目录</strong>，不检测坏道，</p>
+<p>不备份数据，它格式化的速度很快，但不是很稳定。</p>
+</li>
+<li><p><strong>一般&#x2F;完全格式化</strong>：会清除目标磁盘上的所有的数据。重新生成引导信息、初始化文件分配表、标注逻辑坏道，一样不备份数据。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="IO访问时间"><a href="#IO访问时间" class="headerlink" title="IO访问时间"></a>IO访问时间</h2><ul>
+<li>寻道时间：<ul>
+<li>磁头定位到所需移动到的磁道所花费的时间。<ul>
+<li>初始启动时间:跨越若干磁道所用的时间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>旋转延迟<ul>
+<li>等待响应扇区的起始处到达磁头所需的时间</li>
+<li>通常是磁道旋转半周所需的时间1&#x2F;2r</li>
+</ul>
+</li>
+<li>传送时间<ul>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083624412.png"></li>
+</ul>
+</li>
+</ul>
+<p>T &#x3D; 秒&#x2F;每转 * 圈数b&#x2F;N</p>
+<ul>
+<li><p>平均访问时间</p>
+<ul>
+<li><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083839385.png"><span class="image-caption">image-20221130083839385</span></p>
+</li>
+<li><p>对于每个磁道都需要考虑旋转延迟</p>
+</li>
+<li><p><strong>通常</strong>只需要考虑第一个磁道的寻道时间，但在明确知道跨越每个磁道</p>
+<p>需要的时间时需要考虑</p>
+</li>
+</ul>
+</li>
+<li><p>1 &#x2F;(15000rpm) &#x3D; 4ms</p>
+<ul>
+<li>rpm &#x3D; 转 每60s</li>
+</ul>
+</li>
+</ul>
+<h2 id="磁头寻道算法"><a href="#磁头寻道算法" class="headerlink" title="磁头寻道算法"></a>磁头寻道算法</h2><p>• 目标：<strong>当有 多个访问磁盘任务 时，使得 平均寻道时间最小</strong></p>
+<p>• 常见的磁头寻道&#x2F;磁盘<strong>调度算法</strong></p>
+<p>​	• 先来先服务（First Come First Service，FCFS）</p>
+<p>​	• 最短寻道时间优先（Shortest Seek Time First，SSTF）</p>
+<p>​	• 扫描&#x2F;电梯（SCAN）</p>
+<p>​	• 循环扫描（C-SCAN）</p>
+<p>​	• LOOK</p>
+<p>​	• C-LOOK</p>
+<h3 id="先来先服务（FCFS"><a href="#先来先服务（FCFS" class="headerlink" title="先来先服务（FCFS)"></a>先来先服务（FCFS)</h3><ul>
+<li><p><strong>按照请求访问磁盘的先后次序进行处理</strong></p>
+</li>
+<li><p><strong>优点：</strong>公平简单</p>
+</li>
+<li><p><strong>缺点：</strong>如果有大量访问磁盘的任务，且请求<strong>访问的磁道很分散，则性</strong></p>
+<p><strong>能上很差</strong>，寻道时间长</p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153724164.png"><span class="image-caption">image-20221130153724164</span></p>
+</li>
+</ul>
+<h3 id="最短寻道时间优先（-SSTF-）"><a href="#最短寻道时间优先（-SSTF-）" class="headerlink" title="最短寻道时间优先（ SSTF ）"></a><strong>最短寻道时间优先（</strong> <strong>SSTF</strong> <strong>）</strong></h3><ul>
+<li>优先处理起始位置<strong>与当前磁头位置最接近</strong>的读写任务<ul>
+<li><strong>优点</strong>：每次的寻道时间最短（局部最优），平均寻道时间缩短</li>
+<li><strong>缺点</strong>：可能产生<strong>饥饿现象</strong>，尤其是位于两端的磁道请求</li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153804668.png"><span class="image-caption">image-20221130153804668</span></li>
+</ul>
+</li>
+</ul>
+<h3 id="扫描-x2F-电梯（SCAN）"><a href="#扫描-x2F-电梯（SCAN）" class="headerlink" title="扫描&#x2F;电梯（SCAN）"></a>扫描&#x2F;电梯（SCAN）</h3><ul>
+<li><p><strong>总是按照一个方向进行磁盘调度，直到该方向上的边缘，然后改变方向</strong></p>
+<ul>
+<li>优点：<strong>性能较好，平均寻道时间短，不会产生饥饿现象</strong></li>
+<li>缺点：只有到最边上的磁道才能改变磁头的移动方向，对于各个位置磁</li>
+</ul>
+<p>道<strong>响应频率不平均</strong></p>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154209832.png"><span class="image-caption">image-20221130154209832</span></p>
+</li>
+</ul>
+<h3 id="循环扫描（-C-SCAN-）"><a href="#循环扫描（-C-SCAN-）" class="headerlink" title="循环扫描（ C-SCAN ）"></a><strong>循环扫描（</strong> <strong>C-SCAN</strong> <strong>）</strong></h3><ul>
+<li><strong>只有磁头朝某个方向移动时才会响应请求，移动到边缘后立即让磁头返</strong> <strong>回起点，返回途中不做任何处理</strong><ul>
+<li>优点：<strong>与SCAN算法相比，对于各位置磁道的响应频率平均</strong></li>
+<li>缺点：与SCAN算法相比，平均寻道时间更长</li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154312152.png"><span class="image-caption">image-20221130154312152</span></li>
+</ul>
+</li>
+</ul>
+<h3 id="LOOK算法"><a href="#LOOK算法" class="headerlink" title="LOOK算法"></a>LOOK算法</h3><ul>
+<li><strong>SCAN算法的升级</strong>，只要磁头移动方向上不再有请求就<strong>立即改变磁头的方向</strong></li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154533757.png"><span class="image-caption">image-20221130154533757</span></li>
+</ul>
+<h2 id="C-LOOK算法"><a href="#C-LOOK算法" class="headerlink" title="C-LOOK算法"></a>C-LOOK算法</h2><ul>
+<li><strong>C-SCAN算法的改进</strong>，只要在磁头移动方向上不再有请求，就立即让磁头返回起点</li>
+<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154604440.png"><span class="image-caption">image-20221130154604440</span></li>
+</ul>
+<h1 id="光储存器"><a href="#光储存器" class="headerlink" title="光储存器"></a>光储存器</h1><ul>
+<li><p>类型</p>
+<ul>
+<li><p>光盘（Compact disk CD）</p>
+</li>
+<li><p>光盘只读存储器（CD read-only memory，CD-ROM）</p>
+</li>
+<li><p>可刻录光盘（CD recordable，CD-R）</p>
+</li>
+<li><p>可重写光盘（CD rewritable，CD-RW）</p>
+</li>
+<li><p>数字多功能光盘（digital versatile disk，DVD）</p>
+</li>
+<li><p>可刻录DVD（DVD recordable，DVD-R）</p>
+<p>• 可重写DVD（DVD rewritable，DVD-RW）</p>
+<p>• 高清晰视频光盘（High definition video disk，Blu-Ray DVD）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="CD和CD-ROM"><a href="#CD和CD-ROM" class="headerlink" title="CD和CD-ROM"></a>CD和CD-ROM</h3><p>CD-ROM更加耐用且有纠错功能</p>
+<ul>
+<li>制作过程<ul>
+<li>用精密聚焦的高强度激光束制造一个母盘</li>
+<li>以母盘作为模板压印出<strong>聚碳酸酯的复制品</strong></li>
+<li>在<strong>凹坑</strong>表面上镀上一层高反射材料</li>
+<li>使用<strong>丙烯酸树脂</strong>保护高反射材料</li>
+<li>在丙烯酸树脂层上用<strong>丝网印刷术印制个性化标签</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110163431534.png"><span class="image-caption">image-20221110163431534</span></p>
+<ul>
+<li><p>读取</p>
+<ul>
+<li><p>通过安装在光盘播放器或驱动装置内的<strong>低强度激光束</strong>从CD或CD-ROM处读</p>
+<p>取信息</p>
+<ul>
+<li><p>如果激光束照在<strong>凹坑（pit）</strong>上，由于凹坑表面有些不平，因此光被散</p>
+<p>射，反射回<strong>低强度</strong>的激光</p>
+<p>如果激光束照在<strong>台（land）</strong>上，台的表面光滑平坦，反射回来的是高</p>
+<p>强度的<strong>激光</strong></p>
+</li>
+</ul>
+</li>
+<li><p>盘片上包含一条<strong>单螺旋</strong>的轨道，轨道上<strong>所有扇区长度相同</strong></p>
+<ul>
+<li>轨道由内向外转，角速度变小</li>
+<li>凹坑被激光以<strong>恒定线速度</strong>读出（扇区长度相同）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>优点</p>
+<ul>
+<li>大规模廉价复制</li>
+<li>光盘可更换</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>只读的不可更改</li>
+<li>存取时间比磁盘长的多</li>
+</ul>
+</li>
+</ul>
+<h3 id="CD-R和CD-RW"><a href="#CD-R和CD-RW" class="headerlink" title="CD-R和CD-RW"></a>CD-R和CD-RW</h3><p>反射率可改变</p>
+<p>材料老化最终会永久失去相位可变的特性，当前的材料可用于50万次到100万次的擦除  </p>
+<h3 id="DVD"><a href="#DVD" class="headerlink" title="DVD"></a>DVD</h3><p>组装更紧密</p>
+<p>有多层结构，有半反射层， 可<strong>调整焦距</strong>读取每一层</p>
+<p>DVD-ROM 可以用两面记录数据  </p>
+<h3 id="高清晰光盘"><a href="#高清晰光盘" class="headerlink" title="高清晰光盘"></a>高清晰光盘</h3><ul>
+<li>使用更短波长的激光（在蓝-紫光范围），可以实现更高的位密度（数据凹坑相对更小）</li>
+<li>和衍射公式相关</li>
+</ul>
+<h3 id="磁带"><a href="#磁带" class="headerlink" title="磁带"></a>磁带</h3><p>和磁盘类似的记录和读取技术</p>
+<ul>
+<li><strong>记录</strong><ul>
+<li>介质是柔韧的<strong>聚酯薄膜带</strong>，外涂磁性材料</li>
+</ul>
+</li>
+<li><strong>读取</strong><ul>
+<li>磁带：<strong>顺序读取</strong>（sequential-access）</li>
+<li>磁盘：<strong>直接读取</strong>（direct-access）(能寻道)</li>
+<li>并行记录 （图b）vs. 串行记录（蛇形记录图a）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110170609076.png"><span class="image-caption">image-20221110170609076</span></p>
+<h3 id="U盘和固态硬盘"><a href="#U盘和固态硬盘" class="headerlink" title="U盘和固态硬盘"></a>U盘和固态硬盘</h3><ul>
+<li>U盘<ul>
+<li>采用了<strong>快闪存储器</strong>，属于非易失性半导体存储器</li>
+<li>相比于软盘和光盘：体积小，容量大，携带方便，寿命长达数年</li>
+</ul>
+</li>
+<li>固态硬盘<ul>
+<li>与U盘没有本质区别：容量更大，存储性能更好</li>
+<li>与硬磁盘存储器相比：抗振性好，无噪声，能耗低，发热量低</li>
+</ul>
+</li>
+</ul>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/02/10/Lecture%208%20cache/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记8-cache</a>
+    <a href="/2023/02/09/c++-OOP%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">C++高级程序设计-学习笔记-OOP<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#lecture-9-%E4%BA%92%E8%BF%9E%E5%8F%8A%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%BB%84%E7%BB%87"><span class="toc-text">lecture 9 互连及输入输出组织</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87"><span class="toc-text">外部存储设备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">磁盘存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E5%A4%B4%E8%AF%BB%E5%86%99%E6%9C%BA%E5%88%B6"><span class="toc-text">磁头读写机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">写入机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%9C%BA%E5%88%B6"><span class="toc-text">读取机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%EF%BC%88%E7%BB%93%E6%9E%84%EF%BC%89"><span class="toc-text">数据组织（结构）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%87%E5%8C%BA%E5%88%92%E5%88%86"><span class="toc-text">扇区划分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">格式化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4"><span class="toc-text">IO访问时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A3%81%E5%A4%B4%E5%AF%BB%E9%81%93%E7%AE%97%E6%B3%95"><span class="toc-text">磁头寻道算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS"><span class="toc-text">先来先服务（FCFS)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E5%AF%BB%E9%81%93%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%EF%BC%88-SSTF-%EF%BC%89"><span class="toc-text">最短寻道时间优先（ SSTF ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F-x2F-%E7%94%B5%E6%A2%AF%EF%BC%88SCAN%EF%BC%89"><span class="toc-text">扫描&#x2F;电梯（SCAN）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E6%89%AB%E6%8F%8F%EF%BC%88-C-SCAN-%EF%BC%89"><span class="toc-text">循环扫描（ C-SCAN ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LOOK%E7%AE%97%E6%B3%95"><span class="toc-text">LOOK算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-LOOK%E7%AE%97%E6%B3%95"><span class="toc-text">C-LOOK算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%89%E5%82%A8%E5%AD%98%E5%99%A8"><span class="toc-text">光储存器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CD%E5%92%8CCD-ROM"><span class="toc-text">CD和CD-ROM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CD-R%E5%92%8CCD-RW"><span class="toc-text">CD-R和CD-RW</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DVD"><span class="toc-text">DVD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%B8%85%E6%99%B0%E5%85%89%E7%9B%98"><span class="toc-text">高清晰光盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E5%B8%A6"><span class="toc-text">磁带</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U%E7%9B%98%E5%92%8C%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98"><span class="toc-text">U盘和固态硬盘</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:211250127@smail.nju.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2024</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
