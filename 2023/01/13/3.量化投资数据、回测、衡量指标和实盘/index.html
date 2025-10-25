@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>量化投资入门3：如何开展量化投资研究 - 安然无恙</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content=", 量化交易">
+  <meta name="description" content="整体把握开发一个挣钱策略的思路
+
+
+【第三讲：如何开展...">
+  <meta name="author" content="Anran Liang">
+  <link rel="icon" href="/images/icons/icon-16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/icon-60@3x.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/icon-1024.png" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/icon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: false,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: false,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: true
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: 'Intellectual curiosity',
+          typing: true,
+          api: '',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'image',
+        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: 'search.xml'
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">量化投资入门3：如何开展量化投资研究</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 文章</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于我</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2025</div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">量化投资入门3：如何开展量化投资研究</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 13, 2023</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7729</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+          <p><p>整体把握开发一个挣钱策略的思路</p></p>
+        
+        <h1 id="【第三讲：如何开展量化投资研究？】"><a href="#【第三讲：如何开展量化投资研究？】" class="headerlink" title="【第三讲：如何开展量化投资研究？】"></a>【第三讲：如何开展量化投资研究？】</h1><p><strong>目录</strong></p>
+<p> 1、需要哪些数据？——巧妇难为无米之炊</p>
+<p> 2、怎样测量策略的性能？——搭建回测系统</p>
+<p> 3、怎样衡量量化策略的好坏？——一箩筐统计指标</p>
+<p> 4、开始挣钱！——从回测到实盘</p>
+<p>现在市面上出现了很多供大家进行量化投资研究的网站，比如<a href="https://link.zhihu.com/?target=https://uqer.io">优矿 - 大数据时代的量化投资 - 通联量化实验室</a>、<a href="https://link.zhihu.com/?target=https://www.joinquant.com">JoinQuant聚宽量化交易平台</a>、<a href="https://link.zhihu.com/?target=https://bigquant.com">BigQuant - 人工智能量化投资平台</a>、<a href="https://link.zhihu.com/?target=https://www.ricequant.com">RiceQuant米筐量化交易平台</a>)等，几乎清一色地在底层使用Jupyter Notebook环境来供大家进行量化投资研究。这些网站通常都为大家提供一些基本的量化投资所需要的数据，教大家使用一些基本的量化模型，并且提供封装好的数据接口、回测接口，甚至模拟盘和实盘接口。</p>
+<ul>
+<li>突然发现京东也开始做量化投研了，跑去看了一下，大公司做的至少示例代码至少比其他家的规范。链接<a href="%5B%E5%A4%9A%E5%BF%AB%E5%A5%BD%E7%9C%81%EF%BC%8C%E8%B4%AD%E7%89%A9%E4%B8%8A%E4%BA%AC%E4%B8%9C%EF%BC%81%5D(https://link.zhihu.com/?target=https://quant.jd.com)">JD Quant</a>。（更新，好像据说京东的这个要凉凉了？）</li>
+</ul>
+<p>在这些网站上进行量化投资的研究可以帮助大家很快速的了解量化投资的过程，把大家从繁琐的数据清洗、系统搭建中解放出来，能把更多的精力投入到策略的开发上来。但是其坏处就是，数据和回测等的封装让大家很难去了解到量化投资的工作细节，但是如果要想真正真枪实弹去市场上挣钱，除了有很好的想法之外，拼的就是这些细节。<strong>因此，要想严肃地来做量化投资研究，肯定还是需要自己对于这些底层的细节进行一定的了解。</strong></p>
+<p>个人并不反对在上面列举的这些第三方量化投研网站上面进行研究，不过这里主要讲一下如何自己在本地开展量化投资的研究。</p>
+<p>量化投资的开发流程一般是：回测-模拟盘-实盘测试-实盘运行，我们这里主要讲第一个。</p>
+<h1 id="1-需要哪些数据？——巧妇难为无米之炊"><a href="#1-需要哪些数据？——巧妇难为无米之炊" class="headerlink" title="1.需要哪些数据？——巧妇难为无米之炊"></a>1.<strong>需要哪些数据？——巧妇难为无米之炊</strong></h1><p>首先，讲一下我们可能用到的数据类型有哪些。可能用到的主要有以下几类数据： </p>
+<p>1、历史日行情数据：即提供历史上每天每只股票的高开低收等价格信息以及成交量相关的信息，这也是量化中最基础的数据。通常能提供历史日行情数据的，几乎都能在当天交易日收盘之后提供更新的数据，因此也是实时更新的日行情数据。 </p>
+<p>2、历史日内行情数据：即能提供历史上每一天中间更为细节的价量信息，通常为5分钟一个数据点，也有一分钟甚至半秒频率的数据。每个数据点的形式一般为该数据点代表时间段内的一个价量综合统计，包含高开低收和成交量信息。 </p>
+<p>3、历史分笔数据：即历史上每一笔交易的明细，每一个数据点是一笔交易，记录了每一笔成交的价格、数量、时间等信息，是记录<strong>实际成交信息</strong>最为细致的数据。 </p>
+<p>4、历史限价委托薄数据：记录了历史上每一个时刻限价委托薄的快照，每一个数据点代表一个时刻，每个数据点之间的间隔通常较小，比如0.5秒。每个数据点包含该时刻十档（或者五档）报价和挂单量等数据。限价委托薄数据是市面上反映<strong>盘口信息</strong>最为细致的数据。 </p>
+<p>5、历史财务报表数据：提供各个公司所发布的财务报表数据，用于计算一些<strong>基本面因子</strong>。 </p>
+<p>6、历史日度因子数据：提供历史上计算好的一些基本面和技术面因子，第三方提供的基本面和技术面因子通常都是一些<strong>市面上公开的因子</strong>。 </p>
+<p>7、其他辅助数据：包括指数数据、指数成分数据、行业板块概念分类数据、个股基本信息等。 </p>
+<p>8、其他特色数据：包括公告数据、新闻舆情热度数据、宏观经济数据等。 </p>
+<p>如果只是做回测，使用以上的数据就足够了，但是如果策略开发进行到了模拟盘甚至实盘的步骤，除了需要一个交易接口供你发出下单指令之外，你还需要以上<strong>数据的实时接口</strong>。因此，以上数据都对应相应的实时版本，这里不再一一介绍。需要注意的是，真正的实时分笔数据和实时限价委托簿数据好像交易所是不让分发的，大家看到的一般是延迟过后的数据。虽然以上很多数据都能找到免费的来源，但当你真正想要实盘的时候，还是<strong>建议去购买相应的数据</strong>，毕竟要是数据出了问题导致亏了钱，也是很心痛的。</p>
+<p>下面介绍一些数据的来源。</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=http://tushare.org">Tushare -财经数据接口包</a>：是一个免费、开源的Python接口，提供准实时和历史的行情，对于使用Python来开发的同学来说，使用起来比较方便。其工作原理是从本地出发抓取新浪财经的数据，因此延时较大。有几家量化投研网站的支持，数据源应该不会用一段时间就没了。提供除了上面3、4、6之外的数据。</li>
+<li><a href="https://link.zhihu.com/?target=https://github.com/shidenggui/easyquotation">Github: easyquotation</a>：和上一个类似，是Github上面一个开源的Python工具，在本地抓取新浪财经、腾讯财经等数据源的数据。我没有用过。</li>
+<li><a href="https://link.zhihu.com/?target=http://www.wind.com.cn">万得资讯</a>：万得资讯也叫做wind，是业界认可度比较高的一家行情数据提供商，提供的数据也很全。好像有学生试用版，不过要是购买正式版的话还是很贵的。使用Wind可以把数据下载到本地再进行研究，也可以直接调用它提供的接口，我记得有Excel、C++和Python的接口。</li>
+<li><a href="https://link.zhihu.com/?target=http://www.gildata.com">恒生聚源</a>：与万得资讯类似，也是收费的。数据库很全面。</li>
+<li><a href="https://link.zhihu.com/?target=http://www.gtarsc.com/Home/Index">国泰安</a>：与万得资讯类似，也是收费的。个人没用过，不过看了一下，感觉数据很全面。</li>
+<li><a href="https://link.zhihu.com/?target=https://mall.datayes.com/dashboard?lang=zh">通联数据</a>：特点在于除了提供基本的行情和财务信息之外，还提供很多它自己计算好的因子数据。通联数据商城中有些数据是免费的或者免费试用的，不过还有很多数据是需要购买的。</li>
+<li>有些第三方的量化投研网站是没有禁止你把相关数据下载下来的，你可以直接从上面下载。</li>
+</ul>
+<h1 id="2-怎样测量策略的性能？——搭建回测系统"><a href="#2-怎样测量策略的性能？——搭建回测系统" class="headerlink" title="2.怎样测量策略的性能？——搭建回测系统"></a><strong>2.怎样测量策略的性能？——搭建回测系统</strong></h1><p>有了数据之后，当然下一步是计算因子、建立模型并且设计交易策略了。因子、模型和策略这么重要的东西当然不会放在这一讲里面了(^o^)&#x2F;~。在经过这些步骤之后就能够进行回测了，概括起来流程如下图所示。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/ba3ff2a6-9493-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p>在这里，<strong>因子</strong>指的是利用数据构建的另一些可以<strong>直接用于模型的输入的数据</strong>；<strong>模型</strong>指的是利用算出来的因子和&#x2F;或一些原始数据来得到一个<strong>对于个股&#x2F;时间点进行的评分</strong>，即输入是因子&#x2F;数据，输出是评分；<strong>策略</strong>指的是根据模型输出的结果，来优化<strong>决策形成资产组合的配置</strong>。</p>
+<p>股票市场的量化中，最为常见的就是每周调仓（或者说每几天调仓），在这种情况下，模型的目标就是每天选出五日期望收益率比较高的股票，策略的目标就是给出是的收益最大化的买卖股票列表和相应的数量。举个例子来说，模型的输入通常是这样的一堆数据 </p>
+<p><img src="https://pic4.zhimg.com/v2-bae8a154c9c24e0f270b905866166947_b.jpg"><span class="image-caption">img</span></p>
+<p>模型的输出通常是这样的数据，同时这样的数据也是策略的输入</p>
+<p><img src="https://pic3.zhimg.com/v2-1929896d10c40db8e3f0671b7c68d136_b.jpg"><span class="image-caption">img</span></p>
+<p>策略的输出是这样的数据</p>
+<p><img src="https://pic2.zhimg.com/v2-fb2f2021375cd87e75eda5943cb249a9_b.jpg"><span class="image-caption">img</span></p>
+<p>当有了策略的输出之后，下一步就是看一看回测效果如何。当然，如果策略是由模型输出简单生成的，我们也可以直接把模型的输出当做回测程序的输入。</p>
+<p>最简单的回测程序一般就直接把每一期选出来的资产组合的权重向量<strong>w</strong><em>i</em>和这一期到下一期之间每只股票的收益向量<strong>r</strong><em>i</em>相乘即可，即，每一期投资组合的收益<strong>r</strong>P*,<em>i</em>&#x3D;<strong>w</strong><em>T**i</em>⋅<strong>r</strong><em>i</em> 。但是这样简单的回测方式只能用于大致观察模型或者策略的效果，由于其得到结果的精度较差，无法用于对于模型和策略的定量分析。要想准确地测模型和策略的表现，就需要搭建一个比较完善的回测系统。</p>
+<p>一个较为完善的回测系统需要满足以下的一些需求。</p>
+<p>1、能够指定股票池选股（比如选股范围可以为沪深300、中证500、中证800或者全市场选股，前三个可以分别使用000300、000905、000906成分股作为股票池） </p>
+<p>2、能够指定选择或者剔除ST股票 </p>
+<p>3、处理停牌和退市：停牌期间该部分股票不能交易，退市之后按照退市规定处理手中相应的股票 </p>
+<p>4、处理涨跌停：涨停不能买入、跌停不能卖出，指定能不能涨停卖出、跌停买入 </p>
+<p>5、指定使用当日的哪一个价格来交易：twap、vwap、open还是close </p>
+<p>6、计算交易成本（印花税、手续费、冲击成本） </p>
+<p>7、每个调仓日股票先卖出再买入，每个交易日进行资产结算（仓位一般按照该日收盘价结算） </p>
+<p>8、如果输入是策略的输出，即已经指定好了目标持仓的配比，那么就根据往以该持仓为目标去进行模拟交易；如果给定的输入是模型的输出，通常先把该交易日模型预测出来的得分进行排序，然后选择排名靠前的股票来做多（也可以选排名靠后的做空） </p>
+<p>9、回测程序输出净值曲线、交易明细、每日持仓明细，净值曲线是回测最重要的输出，后两者是为了具体地查看最后生成策略的细节 </p>
+<p>看了这么多是不是手痒痒了，快自己写一个回测程序吧。</p>
+<h1 id="3-怎样衡量量化策略的好坏？——一箩筐统计指标"><a href="#3-怎样衡量量化策略的好坏？——一箩筐统计指标" class="headerlink" title="3.怎样衡量量化策略的好坏？——一箩筐统计指标"></a>3.<strong>怎样衡量量化策略的好坏？——一箩筐统计指标</strong></h1><p>前面讲到量化的初步流程依次有因子计算、模型、策略、回测，最后输出了净值曲线。为了衡量整个流程的好坏，通常可以由净值曲线计算得到一些统计量，通过这些统计量来衡量整个量化流程的好坏。</p>
+<p><strong>策略收益</strong>（Total Portfolio Return） 对于一个策略来说最重要的衡量指标就是该策略的盈利能力，策略收益是最为直接的反映策略绝对盈利能力的指标。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/85896342-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span> 其中Pi是策略最初的资产总量（包括股票总价值加上现金)；Pf是策略最后的资产总量。</p>
+<p><strong>策略年化收益</strong>（Annualized Portfolio Return） 策略A的净值十年翻了一倍，策略B的净值一年就翻了一倍，但是他们的策略收益是一样的。这样比较显然不公平。换句话说，对于不同回测区间长度上的回测来说，需要在同一个尺度上比较，即看一看他们折合下来一年能赚多少。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/8b38fd34-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span> 其中n是回测期间的交易日天数，250是一年的交易日天数。</p>
+<p><strong>策略年化波动率</strong>（Annualized Portfolio Volatility） 衡量策略的波动，定义为策略每年的收益率的波动范围 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/93d97504-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中，Rp表示策略的收益率序列，Rp,i表示收益率序列中的每一个分量，R¯p表示收益率序列的平均值，n是回测期间的交易日天数。</p>
+<p><strong>策略年化下行波动率</strong>（Annualized Downside Portfolio Volatility） 对于我们做做量化投资来说，如果收益率“往上”波动，其实我们并不介意，谁会介意多挣点钱呢？我们真正担心的“风险”其实是是下行风险，即收益率“往下”波动的情形。因此我们使用策略年化下行波动率来衡量下行风险。</p>
+<p><img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/995d5ac2-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p>其中指示函数 I(x)&#x3D;{1x is True 0x is False</p>
+<p><strong>基准收益</strong>（Total Benchmark Return） 除了直接比较策略的绝对收益之外，我们通常也关心在回测的这回测区间中整体的市场环境，即使用基准收益来衡量整体的市场环境。通常选用这个时期中某一个成分指数来作为基准，成分指数通常可以选择沪深300指数、中证500指数、中证800指数等，当然也可以选择这些成分指数对应的股指期货净值来计算。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/9e31a260-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中Ii是回测开始时的基准（指数或者股指期货净值）；Pf是回测结束时的基准。</p>
+<p><strong>基准年化收益</strong>（Annualized Benchmark Return） 类似地，有基准年化收益 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/a24f50c2-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p><strong>基准年化波动率</strong>（Annualized Benchmark Volatility） 类似地，有基准年化波动率 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/a6d10dac-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中，RM表示基准的收益率序列，σ(⋅)函数的定义和前面相同，n是回测期间的交易日天数。</p>
+<p><strong>相对年化收益</strong>（Annualized Hedged Return） 策略A测量的是2015年上半年，策略B测量的是2015下半年。在2015年上半年就算是瞎猜也能赚到不少钱，但是在2015年下半年如果能保持净值就算是十分优秀的策略了。因此单纯比较它们的年化收益也是不公平的，我们需要把整体市场的因素剔除之后再对它们进行比较，这时我们就需要使用对冲年化收益来衡量策略的好坏了。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/abe315ce-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p><strong>相对年化波动率</strong>（Annualized Hedged Volatility） 相应的，有相对年化波动率 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/b1b0cbe0-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p>其中 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/bbc02f54-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span> 是相对收益率序列，σ(⋅)函数的定义和前面相同。</p>
+<p><strong><u>贝塔</u><strong>（Beta） 反映</strong>策略净值与市场波动的关联性</strong>，也是前面讲到CAPM中的β。加入一个策略β&#x3D;0.5，说明当市场总体上涨1%的时候，市场带给策略的收益率会有+0.5%；当市场总体下跌1%的时候，市场带给策略的收益率会有-0.5%。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/c3185e48-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中Rp表示策略收益率序列，RM表示相应的市场基准收益率序列（比如如果选择沪深300作为市场收益率基准，那么RM就是沪深300指数的百分比增量序列)。这里大写字母表示是一个序列而不是一个数字。</p>
+<p>当Beta&lt;0时表明策略走向常常和市场方向相反，比如空头组合；Beta&#x3D;0表明策略的收益与市场关联不大，比如固定收益类；0&lt;Beta&lt;1表明策略收益走向与市场相同，但是相较市场来说波动更小、风险更小；类似地Beta≥1表明策略收益相较市场来说风向相差不多或者风险更大。</p>
+<p><u><strong>阿尔法</strong></u>（Alpha） 其作用类似于前面讲的对冲年化收益，都反映的是扣除市场大环境之后的收益率。只不过这里阿尔法的计算以CAPM模型为基础。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/c9978d2a-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中rf为无风险利率，实际计算过程中可以把它当做定期存款利率或者把它当做零。</p>
+<p><strong><u>夏普比率</u><strong>（Sharpe） 反映的是每承担一个单位的风险能够获得多少超额收益，是一个</strong>综合风险和收益的衡量指标</strong>。通常希望这个指标越大越好，这个指标也是量化策略评价中最为重要的一个指标。我们希望这个数值越大越好。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/ce215510-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> <strong>信息比率</strong>（Information Ratio） 夏普比率衡量的是策略绝对收益的收益风险特征，信息比率衡量的是策略<strong>相对收益</strong>的收益风险特征。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/d2703a32-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span> </p>
+<p><strong>无风险利率</strong></p>
+<p>一般用国债利率衡量。</p>
+<p><strong>索提诺比率</strong>（Sortino） 表示每承担一个单位的下行风险能够获得多少超额收益。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/d7154956-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span> **<u>最大回撤</u>**（Max Drawdown） 反映策略极端情况下的最大亏损 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/da7c5260-957b-11e8-bfc5-0242ac140002"><span class="image-caption">图片注释</span> 其中P表示净值序列，它可以由收益率序列计算出来 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/dea38700-957b-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p><strong>胜率</strong>（Winning Rate） 反映策略交易一次能够盈利的概率</p>
+<p>WinningRate&#x3D;策略交易盈利次数&#x2F;策略交易总次数 </p>
+<p>当然前面讲的这些是对于整个流程的衡量方法，整个流程的效果是其中每一个步骤的加和。有时候我们还需要分别对于每一个步骤进行分析，希望看看到底是哪一个步骤制约了整体策略的性能。这时候就需要分别对于各个步骤进行性能的测量。</p>
+<p>对于因子的计算来说，我们一般通过以下一些指标来衡量因子计算的好坏</p>
+<p><strong><u>信息系数（Information Correlation，IC）</u></strong> 即在每一个横截面上计算因子数值和收益率之间的相关系数，相关系数的计算方法有两种，分别是pearsonr和spearmanr。注意到，<strong>信息系数是对于每一个时间截面都计算出来一个数值</strong>，因此会产生一个IC的时间序列，我们一般对这个时间序列计算均值，这个数值是研报中提到的IC。IC的<strong>绝对数值</strong>越大，相应的因子越好。很多研报里面为了区别这两种计算方式，又把后一种计算出来的信息系数成为<strong>rank IC</strong>。</p>
+<p><strong><u>信息比率</u><strong>（Information Ratio，IR或者ICIR） 只计算IC序列的均值可能出现的问题是，有些表现</strong>不稳定的因子IC的均值也可能绝对值较大</strong>。为了综合考虑因子IC稳定性，可以通过ICIR指标来衡量。ICIR&#x3D;mean(IC)&#x2F;std(IC)，公式中IC指的是IC序列。</p>
+<p>对于模型来说，也可以使用IC和ICIR来衡量模型的好坏，只需要把以上计算中因子的数值替换为模型输出的评分即可。</p>
+<p>当然，对于流程中各个步骤的评判来说，也可以使用控制变量法来进行评判。即，只改变流程中的某一个步骤，同时控制流程中的其他步骤，直接观察整个流程的评价指标的变化。</p>
+<p><strong>总结</strong></p>
+<p> 看了这么多统计指标，头大。我们来总结一下，其中加黑的部分是需要重点关注的指标。</p>
+<p><img src="https://pic2.zhimg.com/v2-246940eb93d2a7f2d95c51420cc066e9_b.jpg"><span class="image-caption">img</span></p>
+<h1 id="4-开始挣钱——从回测到实盘"><a href="#4-开始挣钱——从回测到实盘" class="headerlink" title="4.开始挣钱——从回测到实盘"></a>4.开始挣钱——从回测到实盘</h1><p>这一部分虽然写的不长，但其实这一步并不容易。经常出现的是回测中有很好的效果，但是一放到模拟交易或者实盘交易中表现就不如回测了。产生这种现象主要有两种常见的原因。</p>
+<p><strong><u>第一种原因是未来信息</u><strong>。在因子的构造、模型的计算、策略的组合以及回测中，都不能利用未来的信息来做决定。这种浅显的道理一说出来大家都明白，但是</strong>对于未来信息的利用有时候是十分隐蔽的</strong>，如果不仔细看很多时候难以发现。拿模型计算来说，最基本的防止对于未来信息的利用就是不能在未来的数据上进行参数拟合，然后把模型再用到过去的预测中。有些时候对于未来信息的利用会更为隐蔽，比如在回测的时候如果我们指定了沪深300成分股中选股，我们需要使用”那一时刻”的沪深300成分股，而不是“未来时刻”的沪深300成分股。再比如，对于ST股票的提出，我们需要使用“那一时刻”的ST股票。再比如，在因子计算过程中有时会利用到财报数据，很多时候财报在第一次公布的时候数据并不准确，<strong>上市公司会在之后的某个时刻修正之前已经公布的财报的数据</strong>。因子的计算就不能够使用这些看似更为准确的财报数据。</p>
+<p><strong><u>第二种原因是过拟合</u><strong>（overfitting）。我们前面提到，不能在未来的数据上拟合模型的参数，然后把它用于过去的决策。而过拟合其实是一种更为隐蔽的对于未来信息的利用，即在总的数据上调整模型中的超参数，然后人为选出使得策略效果最好的超参数，最后</strong>这样的超参数实际上又用于了过去的决策。</strong>虽然从某种程度上来说，过拟合也是一种隐式的利用未来信息，但是避免过拟合并不能像未来信息那样从源头上杜绝它。</p>
+<p>模型中的超参数只有经过一定的调整才能真正反映模型的性能。举个例子，你想比较一辆兰博基尼和一辆奔驰，你肯定需要把这两辆车的发动机、轮胎、悬挂都调教好了再去比较。而调整的方法就是让车在路上跑一跑看看有没有调整好。汽车本身就像量化策略，而它们的发动机、轮胎等就好比是策略的超参数。 <img src="http://storage-uqer.datayes.com/564aee87f9f06c4446b4829b/10735bf2-957c-11e8-8cfa-0242ac140002"><span class="image-caption">图片注释</span></p>
+<p>那**<u>怎么避免过拟合呢</u><strong>？方法就是把</strong>训练的数据分为两段<strong>，在一段独立的数据上面进行超参数的调整，调整好了之后再再另一段数据集上面进行测试。在前一段数据上调整好之后，再把模型放到后一段数据上评价，</strong>后一段数据上面的评价尽可能不要反馈到模型**中，同时尽量减少在后一段数据上测试的次数。</p>
+<p>当策略回测能够达到预期的效果，并且也尽力避免了未来信息和过拟合之后，我们就可以进行模拟交易的测试了。模拟交易的数据是股市最新的实时数据，这些数据是百分之百的样本外数据。如果策略能在这些数据上也表现仍然不错的话，也从结果上说明了之前的模型没有受到未来信息和过拟合的影响。</p>
+<p>下一步我们就可以考虑实盘了。对于一些频率比较低的策略，比如一些月度调仓的策略，可以由策略生成结果之后，人工来完成相关的交易。但是稍微高频一些的策略则需要使用程序来自动完成，比如一些按周调仓的策略可能需要某一天以均价买入一定数量的某只股票，通过程序来实现底层的“以vwap&#x2F;twap交易“使得交易的结果更有保障。相关的这些程序如何来编写又是一个比较大的topic了，以后有时间再来细讲。</p>
+<p>最后放一些<strong>开源的交易接口</strong>供参考。</p>
+<p><a target="_blank" rel="noopener" href="http://www.vnpy.org/">vn.py</a>：是一个基于Python的开源实时交易接口</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/QuantBox/QuantBox_XAPI">Quant Box</a>：基于C、C++、C#的开源交易接口</p>
+<p>本文改编学习自<a target="_blank" rel="noopener" href="http://sealzhang.tk/">张楚珩的仓库</a></p>
+      </section>
+      <section class="extra">
+        
+        
+        
+        
+  <nav class="nav">
+    <a href="/2023/01/14/4.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9C%A8%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E7%9A%84%E5%BA%94%E7%94%A8/"><i class="iconfont iconleft"></i>量化投资入门4：机器学习如何与量化投资结合</a>
+    <a href="/2023/01/12/2.%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/">量化投资入门2：量化投资概念和基本模型<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "PpvhPeJzC7vUJ6njgvlVg8fG-gzGzoHsz",
+        app_key: "M2Wo3xv2VtfNl7ttQQ8csMPT",
+        placeholder: "畅所欲言！",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9A%E5%A6%82%E4%BD%95%E5%BC%80%E5%B1%95%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E7%A0%94%E7%A9%B6%EF%BC%9F%E3%80%91"><span class="toc-text">【第三讲：如何开展量化投资研究？】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%9C%80%E8%A6%81%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%EF%BC%9F%E2%80%94%E2%80%94%E5%B7%A7%E5%A6%87%E9%9A%BE%E4%B8%BA%E6%97%A0%E7%B1%B3%E4%B9%8B%E7%82%8A"><span class="toc-text">1.需要哪些数据？——巧妇难为无米之炊</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%80%8E%E6%A0%B7%E6%B5%8B%E9%87%8F%E7%AD%96%E7%95%A5%E7%9A%84%E6%80%A7%E8%83%BD%EF%BC%9F%E2%80%94%E2%80%94%E6%90%AD%E5%BB%BA%E5%9B%9E%E6%B5%8B%E7%B3%BB%E7%BB%9F"><span class="toc-text">2.怎样测量策略的性能？——搭建回测系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%80%8E%E6%A0%B7%E8%A1%A1%E9%87%8F%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E7%9A%84%E5%A5%BD%E5%9D%8F%EF%BC%9F%E2%80%94%E2%80%94%E4%B8%80%E7%AE%A9%E7%AD%90%E7%BB%9F%E8%AE%A1%E6%8C%87%E6%A0%87"><span class="toc-text">3.怎样衡量量化策略的好坏？——一箩筐统计指标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%BC%80%E5%A7%8B%E6%8C%A3%E9%92%B1%E2%80%94%E2%80%94%E4%BB%8E%E5%9B%9E%E6%B5%8B%E5%88%B0%E5%AE%9E%E7%9B%98"><span class="toc-text">4.开始挣钱——从回测到实盘</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=1538618464 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/liang_anran/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/lar0129/lar0129.github.io "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:anran.liang@sjtu.edu.cn "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail "></i>
+      </a></div>
+  
+    <div class="footer-copyright">Created by Anran with 💗 <br> <p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p> @2022-2025</div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
