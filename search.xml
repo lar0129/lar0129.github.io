@@ -8019,7 +8019,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
   <entry>
     <title>这是一个什么网站</title>
     <url>/2099/01/01/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BB%80%E4%B9%88%E7%BD%91%E7%AB%99/</url>
-    <content><![CDATA[<p>学术主页见<a href="www.lianganran.top/scholar">lianganran.top&#x2F;scholar</a></p>
+    <content><![CDATA[<p>学术主页见<a href="/scholar">lianganran.top&#x2F;scholar</a></p>
 <span id="more"></span>
 
 <p>#意义#</p>
