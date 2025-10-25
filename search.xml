@@ -8019,14 +8019,11 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
   <entry>
     <title>这是一个什么网站</title>
     <url>/2099/01/01/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BB%80%E4%B9%88%E7%BD%91%E7%AB%99/</url>
-    <content><![CDATA[<p>学术主页见<a href="lianganran.top/scholar">lianganran.top&#x2F;scholar</a></p>
+    <content><![CDATA[<p>学术主页见<a href="www.lianganran.top/scholar">lianganran.top&#x2F;scholar</a></p>
 <span id="more"></span>
 
 <p>#意义#</p>
-<p>这是一个lar的个人网站。记录一些学习笔记（计算机、数学），一些随想，一些帮助我理清思绪的文字，一些照片。</p>
-<ul>
-<li>学术主页见<a href="lianganran.top/scholar">lianganran.top&#x2F;scholar</a></li>
-</ul>
+<p>这是一个lar的个人向网站。记录一些学习笔记（计算机、数学），一些随想，一些帮助我理清思绪的文字，一些照片。</p>
 <p>右上角进入菜单。随时可能关闭，也可能一直开下去。</p>
 <hr>
 <h2 id="向内探索与向外输出"><a href="#向内探索与向外输出" class="headerlink" title="向内探索与向外输出"></a>向内探索与向外输出</h2><p>一直是一个分享欲寡淡的人，极少在网络上输出自己的观点与想法。一是因为厌倦争论和讨论的效率过低，二是因为学疏才浅怕真正有学识的人在背后偷笑。</p>
