@@ -108,7 +108,7 @@ Lecture 4 Tree1. ...">
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -197,7 +197,7 @@ Lecture 4 Tree1. ...">
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">数据结构-树-学习笔记</h1>
     <div class="head-info">
@@ -288,7 +288,7 @@ Lecture 4 Tree1. ...">
 <h3 id="2-4-2-链表实现二叉树"><a href="#2-4-2-链表实现二叉树" class="headerlink" title="2.4.2. 链表实现二叉树"></a>2.4.2. 链表实现二叉树</h3><ol>
 <li>Linked representation( also called L-R linked storage) 也被称为L-R链表存储。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/1.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/1.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/1.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/1.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>二叉树节点</li>
 </ol>
@@ -336,7 +336,7 @@ Lecture 4 Tree1. ...">
 </ul>
 </li>
 </ol>
-<h3 id="2-5-1-例子"><a href="#2-5-1-例子" class="headerlink" title="2.5.1. 例子"></a>2.5.1. 例子</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/2.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/2.png"><span class="image-caption">img</span></a></p>
+<h3 id="2-5-1-例子"><a href="#2-5-1-例子" class="headerlink" title="2.5.1. 例子"></a>2.5.1. 例子</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/2.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/2.png"><span class="image-caption">img</span></a></p>
 <h3 id="2-5-2-先序遍历"><a href="#2-5-2-先序遍历" class="headerlink" title="2.5.2. 先序遍历"></a>2.5.2. 先序遍历</h3><ol>
 <li>VLR</li>
 </ol>
@@ -355,7 +355,7 @@ Lecture 4 Tree1. ...">
 </ol>
 <h2 id="链表实现"><a href="#链表实现" class="headerlink" title="链表实现"></a>链表实现</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs scss">template&lt;class T&gt; void <span class="hljs-built_in">LevelOrder</span>(BinaryNode&lt;T&gt;* t) &#123;<br>    LinkedQueue&lt;BinaryNode&lt;T&gt;*&gt; <span class="hljs-selector-tag">Q</span>;<br>    <span class="hljs-built_in">while</span>(t)&#123;<br>        <span class="hljs-built_in">visit</span>(t);<span class="hljs-comment">//visit t</span><br>        <span class="hljs-built_in">if</span>(t-&gt;Left) <span class="hljs-selector-tag">Q</span><span class="hljs-selector-class">.Add</span>(t-&gt;Left);<br>        <span class="hljs-built_in">if</span>(t-&gt;Right) <span class="hljs-selector-tag">Q</span><span class="hljs-selector-class">.Add</span>(t-&gt;Right);<br>        try&#123;<span class="hljs-selector-tag">Q</span><span class="hljs-selector-class">.Delete</span>(t);&#125;<span class="hljs-built_in">catch</span>(OutOfBounds)&#123;return;&#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">//每次出队列一个数据，就会从队列中压进去之后的数组</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="2-6-建立二叉树"><a href="#2-6-建立二叉树" class="headerlink" title="2.6. 建立二叉树"></a>2.6. 建立二叉树</h2><h3 id="2-6-1-利用MakeTree函数"><a href="#2-6-1-利用MakeTree函数" class="headerlink" title="2.6.1. 利用MakeTree函数"></a>2.6.1. 利用MakeTree函数</h3><h3 id="2-6-2-利用先序、中序唯一的构造一颗二叉树"><a href="#2-6-2-利用先序、中序唯一的构造一颗二叉树" class="headerlink" title="2.6.2. 利用先序、中序唯一的构造一颗二叉树"></a>2.6.2. 利用先序、中序唯一的构造一颗二叉树</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/3.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/3.png"><span class="image-caption">img</span></a></p>
+<h2 id="2-6-建立二叉树"><a href="#2-6-建立二叉树" class="headerlink" title="2.6. 建立二叉树"></a>2.6. 建立二叉树</h2><h3 id="2-6-1-利用MakeTree函数"><a href="#2-6-1-利用MakeTree函数" class="headerlink" title="2.6.1. 利用MakeTree函数"></a>2.6.1. 利用MakeTree函数</h3><h3 id="2-6-2-利用先序、中序唯一的构造一颗二叉树"><a href="#2-6-2-利用先序、中序唯一的构造一颗二叉树" class="headerlink" title="2.6.2. 利用先序、中序唯一的构造一颗二叉树"></a>2.6.2. 利用先序、中序唯一的构造一颗二叉树</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/3.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/3.png"><span class="image-caption">img</span></a></p>
 <h3 id="2-6-3-利用二叉树的中序、后序遍历确定一颗二叉树"><a href="#2-6-3-利用二叉树的中序、后序遍历确定一颗二叉树" class="headerlink" title="2.6.3. 利用二叉树的中序、后序遍历确定一颗二叉树"></a>2.6.3. 利用二叉树的中序、后序遍历确定一颗二叉树</h3><p>后序的最后是根节点，根据中序进行划分</p>
 <h3 id="2-6-4-利用二叉树的广义表来构造一颗二叉树"><a href="#2-6-4-利用二叉树的广义表来构造一颗二叉树" class="headerlink" title="2.6.4. 利用二叉树的广义表来构造一颗二叉树"></a>2.6.4. 利用二叉树的广义表来构造一颗二叉树</h3><h3 id="2-6-5-利用二叉树的后缀表示来构造一颗二叉树"><a href="#2-6-5-利用二叉树的后缀表示来构造一颗二叉树" class="headerlink" title="2.6.5. 利用二叉树的后缀表示来构造一颗二叉树"></a>2.6.5. 利用二叉树的后缀表示来构造一颗二叉树</h3><h3 id="2-6-6-利用二叉树的后缀表示来构造一颗二叉树"><a href="#2-6-6-利用二叉树的后缀表示来构造一颗二叉树" class="headerlink" title="2.6.6. 利用二叉树的后缀表示来构造一颗二叉树"></a>2.6.6. 利用二叉树的后缀表示来构造一颗二叉树</h3><h1 id="3-精讲-利用先序、中序唯一的构造一颗二叉树-string"><a href="#3-精讲-利用先序、中序唯一的构造一颗二叉树-string" class="headerlink" title="3. 精讲:利用先序、中序唯一的构造一颗二叉树(string)"></a>3. 精讲:利用先序、中序唯一的构造一颗二叉树(string)</h1><ol>
 <li>字符串(简称串)的定义以及一些术语<ul>
@@ -404,27 +404,27 @@ Lecture 4 Tree1. ...">
 <p>!(img&#x2F;cpt5&#x2F;4.png)</p>
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs xl"><span class="hljs-comment">//左子女——右兄弟表示法</span><br>class TreeNode:<br>    T <span class="hljs-keyword">data</span>;<br>    TreeNode *firstchild, *nextsibling;<br><br>class Tree:<br>    TreeNode * root,  *current;<br><br>template &lt;class T&gt; void Tree &lt;T&gt;::Insertchild(T value) &#123;<br>    TreeNode&lt;T&gt;*newnode = new TreeNode&lt;T&gt;(value);<br>    <span class="hljs-function"><span class="hljs-title">if</span>(current-&gt;</span>firstchild == NULL) <br>        <span class="hljs-function"><span class="hljs-title">current</span>-&gt;</span>firstchild = newnode;<br>    <span class="hljs-keyword">else</span> &#123;<br>        T<span class="hljs-function"><span class="hljs-title">reeNode</span>&lt;T&gt;*p = current-&gt;</span>firstchild;<br>        <span class="hljs-function"><span class="hljs-title">while</span> ( p-&gt;</span>nextsibling!=NULL)<br>            <span class="hljs-function"><span class="hljs-title">p</span> = p-&gt;</span>nextsibling;<br>        <span class="hljs-function"><span class="hljs-title">p</span>-&gt;</span>nextsibling = newnode;<br>    &#125;<br>&#125; <br></code></pre></td></tr></table></figure>
 
-<h3 id="3-7-2-将森林转换成二叉树"><a href="#3-7-2-将森林转换成二叉树" class="headerlink" title="3.7.2. 将森林转换成二叉树"></a>3.7.2. 将森林转换成二叉树</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/5.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/5.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/6.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/6.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/7.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/7.png"><span class="image-caption">img</span></a></p>
-<h2 id="3-8-树的遍历"><a href="#3-8-树的遍历" class="headerlink" title="3.8. 树的遍历"></a>3.8. 树的遍历</h2><h3 id="3-8-1-深度优先遍历-DFS"><a href="#3-8-1-深度优先遍历-DFS" class="headerlink" title="3.8.1. 深度优先遍历(DFS)"></a>3.8.1. 深度优先遍历(DFS)</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/8.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/8.png"><span class="image-caption">img</span></a></p>
-<h3 id="3-8-2-广度优先遍历"><a href="#3-8-2-广度优先遍历" class="headerlink" title="3.8.2. 广度优先遍历"></a>3.8.2. 广度优先遍历</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/9.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/9.png"><span class="image-caption">img</span></a></p>
+<h3 id="3-7-2-将森林转换成二叉树"><a href="#3-7-2-将森林转换成二叉树" class="headerlink" title="3.7.2. 将森林转换成二叉树"></a>3.7.2. 将森林转换成二叉树</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/5.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/5.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/6.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/6.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/7.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/7.png"><span class="image-caption">img</span></a></p>
+<h2 id="3-8-树的遍历"><a href="#3-8-树的遍历" class="headerlink" title="3.8. 树的遍历"></a>3.8. 树的遍历</h2><h3 id="3-8-1-深度优先遍历-DFS"><a href="#3-8-1-深度优先遍历-DFS" class="headerlink" title="3.8.1. 深度优先遍历(DFS)"></a>3.8.1. 深度优先遍历(DFS)</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/8.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/8.png"><span class="image-caption">img</span></a></p>
+<h3 id="3-8-2-广度优先遍历"><a href="#3-8-2-广度优先遍历" class="headerlink" title="3.8.2. 广度优先遍历"></a>3.8.2. 广度优先遍历</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/9.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/9.png"><span class="image-caption">img</span></a></p>
 <h2 id="3-9-森林的遍历"><a href="#3-9-森林的遍历" class="headerlink" title="3.9. 森林的遍历"></a>3.9. 森林的遍历</h2><ol>
 <li>应用左子女-右兄弟的二叉树进行遍历</li>
 </ol>
-<h3 id="3-9-1-深度优先遍历"><a href="#3-9-1-深度优先遍历" class="headerlink" title="3.9.1. 深度优先遍历"></a>3.9.1. 深度优先遍历</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/10.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/10.png"><span class="image-caption">img</span></a></p>
+<h3 id="3-9-1-深度优先遍历"><a href="#3-9-1-深度优先遍历" class="headerlink" title="3.9.1. 深度优先遍历"></a>3.9.1. 深度优先遍历</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/10.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/10.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>Eg.</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/11.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/11.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/11.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/11.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>生成左子女-右兄弟二叉树后正常遍历即可</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/12.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/12.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/12.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/12.png"><span class="image-caption">img</span></a></p>
 <h1 id="4-线索二叉树"><a href="#4-线索二叉树" class="headerlink" title="4. 线索二叉树"></a>4. 线索二叉树</h1><ol>
 <li>目的:让二叉树遍历的速度更快</li>
 <li>特点:在树的节点中加入一个指针(比如指向下一个节点)</li>
 <li>n个结点的二叉树有2n个链域，其中真正有用的是n–1个，其它n+1个都是空域(null)。为了充分利用结点中的空域，使得对某些运算更快，如前驱或后继等运算。</li>
 </ol>
-<h2 id="4-1-例子"><a href="#4-1-例子" class="headerlink" title="4.1. 例子"></a>4.1. 例子</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/13.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/13.png"><span class="image-caption">img</span></a></p>
+<h2 id="4-1-例子"><a href="#4-1-例子" class="headerlink" title="4.1. 例子"></a>4.1. 例子</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/13.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/13.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>虚线是本身被置为NULL的部分</li>
 <li>使用左指针指向中序遍历前项，使用右指针指向中序遍历的后项。<ul>
@@ -433,7 +433,7 @@ Lecture 4 Tree1. ...">
 </li>
 <li>整个树只会有两个空指针</li>
 </ol>
-<h2 id="4-2-线索二叉树的结点的数据结构"><a href="#4-2-线索二叉树的结点的数据结构" class="headerlink" title="4.2. 线索二叉树的结点的数据结构"></a>4.2. 线索二叉树的结点的数据结构</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/14.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/14.png"><span class="image-caption">img</span></a></p>
+<h2 id="4-2-线索二叉树的结点的数据结构"><a href="#4-2-线索二叉树的结点的数据结构" class="headerlink" title="4.2. 线索二叉树的结点的数据结构"></a>4.2. 线索二叉树的结点的数据结构</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/14.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/14.png"><span class="image-caption">img</span></a></p>
 <h2 id="4-3-线索二叉树类的实现"><a href="#4-3-线索二叉树类的实现" class="headerlink" title="4.3. 线索二叉树类的实现"></a>4.3. 线索二叉树类的实现</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs fortran">template&lt; <span class="hljs-keyword">class</span> <span class="hljs-keyword">Type</span>&gt; <span class="hljs-keyword">class</span> ThreadNode &#123;<br>    friend <span class="hljs-keyword">class</span> ThreadTree;<br>    <span class="hljs-keyword">private</span>:<br>        <span class="hljs-built_in">int</span> leftThread, rightThread; <br>        ThreadNode&lt;<span class="hljs-keyword">Type</span>&gt;* leftchild, *rightchild;<br>        <span class="hljs-keyword">Type</span> <span class="hljs-keyword">data</span>;<br>    <span class="hljs-keyword">public</span>:<br>        ThreadNode(const <span class="hljs-keyword">Type</span> item):<span class="hljs-keyword">data</span>(item), leftchild(<span class="hljs-number">0</span>), rihgtchild(<span class="hljs-number">0</span>), leftThread(<span class="hljs-number">0</span>), rightThread(<span class="hljs-number">0</span>) &#123;&#125;//<span class="hljs-keyword">data</span>初始化为item...<br>&#125;;<br><br>template&lt; <span class="hljs-keyword">class</span> <span class="hljs-keyword">Type</span>&gt; <span class="hljs-keyword">class</span> ThreadTree &#123; <br>    <span class="hljs-keyword">public</span>:<br>        //线索二叉树的公共操作<br>    <span class="hljs-keyword">private</span>:<br>        ThreadNode&lt;<span class="hljs-keyword">Type</span>&gt; * root; <br>        ThreadNode&lt;<span class="hljs-keyword">Type</span>&gt; *current<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <h2 id="4-4-中序遍历已有的中序线索二叉树"><a href="#4-4-中序遍历已有的中序线索二叉树" class="headerlink" title="4.4. 中序遍历已有的中序线索二叉树"></a>4.4. 中序遍历已有的中序线索二叉树</h2><ol>
@@ -468,10 +468,10 @@ Lecture 4 Tree1. ...">
 </li>
 <li>Eg.</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/15.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/15.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/15.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/15.png"><span class="image-caption">img</span></a></p>
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs xl">Void Inthread(threadNode&lt;T&gt; * T) &#123;<br>    stack &lt;threadNode &lt;T&gt;*&gt; s(<span class="hljs-number">10</span>)<br>    ThreadNode &lt;T&gt; *p = T ;<br>    ThreadNode &lt;T&gt; *pre = NULL;<br>    <span class="hljs-keyword">for</span> (;;) &#123;<br>        <span class="hljs-comment">//查找到最左下部分的</span><br>        <span class="hljs-keyword">while</span> (p!=NULL) &#123;<br>            s.push(p);<br>            <span class="hljs-function"><span class="hljs-title">p</span> = p -&gt;</span>leftchild;<br>        &#125;<br>        <span class="hljs-comment">//开始弹出栈</span><br>        <span class="hljs-keyword">if</span> (!s.IsEmpty())&#123;<br>            p = s.pop;<br>            <span class="hljs-keyword">if</span> (pre != NULL) &#123;<br>                <span class="hljs-comment">//添加的代码，在这时候处理pre</span><br>                <span class="hljs-function"><span class="hljs-title">if</span> (pre -&gt;</span>rightchild == NULL)&#123;<br>                    <span class="hljs-function"><span class="hljs-title">pre</span> -&gt;</span>rightchild = p;  <br>                    <span class="hljs-function"><span class="hljs-title">pre</span> -&gt;</span>rightthread = <span class="hljs-number">1</span>;<br>                &#125;<br>                <span class="hljs-comment">//处理p</span><br>                <span class="hljs-function"><span class="hljs-title">if</span>( p -&gt;</span> leftchild == NULL) &#123;<br>                    <span class="hljs-function"><span class="hljs-title">p</span> -&gt;</span> leftchild = pre;<br>                    <span class="hljs-function"><span class="hljs-title">p</span> -&gt;</span>leftthread = <span class="hljs-number">1</span>;<br>                &#125;<span class="hljs-comment">//添加的代码</span><br>            &#125;<br>            pre = p ;<br>            <span class="hljs-function"><span class="hljs-title">p</span> = p -&gt;</span> rightchild ;<br>        &#125;<br>        <span class="hljs-keyword">else</span> return;<br>    &#125;<span class="hljs-comment">//for </span><br>&#125;<span class="hljs-comment">//建议把pre和p存储成全局变量</span><br></code></pre></td></tr></table></figure>
 
-<h1 id="5-树的应用"><a href="#5-树的应用" class="headerlink" title="5. 树的应用"></a>5. 树的应用</h1><h2 id="5-1-哈夫曼树-Huffman-Tree"><a href="#5-1-哈夫曼树-Huffman-Tree" class="headerlink" title="5.1. 哈夫曼树(Huffman Tree)"></a>5.1. 哈夫曼树(Huffman Tree)</h2><h3 id="5-1-1-一些概念"><a href="#5-1-1-一些概念" class="headerlink" title="5.1.1. 一些概念"></a>5.1.1. 一些概念</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/16.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/16.png"><span class="image-caption">img</span></a></p>
+<h1 id="5-树的应用"><a href="#5-树的应用" class="headerlink" title="5. 树的应用"></a>5. 树的应用</h1><h2 id="5-1-哈夫曼树-Huffman-Tree"><a href="#5-1-哈夫曼树-Huffman-Tree" class="headerlink" title="5.1. 哈夫曼树(Huffman Tree)"></a>5.1. 哈夫曼树(Huffman Tree)</h2><h3 id="5-1-1-一些概念"><a href="#5-1-1-一些概念" class="headerlink" title="5.1.1. 一些概念"></a>5.1.1. 一些概念</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/16.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/16.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li><p>增长树(使得原来的树的每一个度数都为2)</p>
 <ul>
@@ -503,9 +503,9 @@ Lecture 4 Tree1. ...">
 <li><p>带权的内路径长度：各非叶结点的带权路径长度之和。</p>
 </li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/17.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/17.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/17.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/17.png"><span class="image-caption">img</span></a></p>
 <p>例子如下</p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/18.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/18.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/18.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/18.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>从形状上来讲，二叉树有以上三种大致形状。</li>
 </ol>
@@ -513,7 +513,7 @@ Lecture 4 Tree1. ...">
 <li>思想：权大的外结点靠近根，权小的远离根。</li>
 <li>算法：从m个权值中找出两个最小值W1，W2构成</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/19.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/19.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/19.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/19.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>就是把计算结果放进去和其他节点一起选出两个，进行迭代</li>
 <li>所以我们就是把数字比较大的挂到距离根比较近的地方</li>
@@ -527,11 +527,11 @@ Lecture 4 Tree1. ...">
 </li>
 <li>根据树情况，我们知道编码是不具有二义性的，必然唯一对应，一个叶节点就一个结果</li>
 </ol>
-<h1 id="6-考研例题"><a href="#6-考研例题" class="headerlink" title="6. 考研例题"></a>6. 考研例题</h1><h2 id="6-1-2019年"><a href="#6-1-2019年" class="headerlink" title="6.1. 2019年"></a>6.1. 2019年</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/25.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/25.png"><span class="image-caption">img</span></a></p>
+<h1 id="6-考研例题"><a href="#6-考研例题" class="headerlink" title="6. 考研例题"></a>6. 考研例题</h1><h2 id="6-1-2019年"><a href="#6-1-2019年" class="headerlink" title="6.1. 2019年"></a>6.1. 2019年</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/25.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/25.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>D</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/26.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/26.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/26.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/26.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>4题:C 第七层48+前六层63(第六层:8个叶节点+24个根节点)</li>
 <li>5题:B 左子女右兄弟，枚举法，v有四种情况，按照左子女右兄弟即可<ul>
@@ -542,11 +542,11 @@ Lecture 4 Tree1. ...">
 </ul>
 </li>
 </ol>
-<h2 id="6-2-2020年"><a href="#6-2-2020年" class="headerlink" title="6.2. 2020年"></a>6.2. 2020年</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/27.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/27.png"><span class="image-caption">img</span></a></p>
+<h2 id="6-2-2020年"><a href="#6-2-2020年" class="headerlink" title="6.2. 2020年"></a>6.2. 2020年</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/27.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/27.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>3题:D</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/28.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/28.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/28.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/28.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>5题:B<ul>
 <li>总结点数:（20*4+10*3+1*2+10*1+1）-(20+10+1+10)&#x3D;82 所有节点-有子节点</li>
@@ -583,13 +583,13 @@ Lecture 4 Tree1. ...">
 <li>可共享,如E中B为E,D所共享</li>
 <li>各种广义表都可用一种示意图来表示,用圆表示表元素, 用长方形表示原子</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/20.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/20.png"><span class="image-caption">img</span></a></p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/21.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/21.png"><span class="image-caption">img</span></a></p>
-<h2 id="7-4-广义表的操作"><a href="#7-4-广义表的操作" class="headerlink" title="7.4. 广义表的操作"></a>7.4. 广义表的操作</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/22.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/22.png"><span class="image-caption">img</span></a></p>
-<h2 id="7-5-广义表的实现"><a href="#7-5-广义表的实现" class="headerlink" title="7.5. 广义表的实现"></a>7.5. 广义表的实现</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/23.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/23.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/20.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/20.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/21.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/21.png"><span class="image-caption">img</span></a></p>
+<h2 id="7-4-广义表的操作"><a href="#7-4-广义表的操作" class="headerlink" title="7.4. 广义表的操作"></a>7.4. 广义表的操作</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/22.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/22.png"><span class="image-caption">img</span></a></p>
+<h2 id="7-5-广义表的实现"><a href="#7-5-广义表的实现" class="headerlink" title="7.5. 广义表的实现"></a>7.5. 广义表的实现</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/23.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/23.png"><span class="image-caption">img</span></a></p>
 <h2 id="7-6-广义表的类声明"><a href="#7-6-广义表的类声明" class="headerlink" title="7.6. 广义表的类声明"></a>7.6. 广义表的类声明</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> HEAD 0</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> INTGR 1</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> CH 2</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> LST 3</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenList</span>;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenListNode</span> &#123;<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GenList</span>;<br>    <span class="hljs-keyword">private</span>:<br>        <span class="hljs-type">int</span> utype;<br>        GenListNode * tlink;<br>        <span class="hljs-keyword">union</span> &#123;<br>            <span class="hljs-type">int</span> ref;<br>            <span class="hljs-type">int</span> intgrinfo;<br>            <span class="hljs-type">char</span> charinfo;<br>        GenListNode * hlink;<br>        &#125; value;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function">GenListNode &amp; <span class="hljs-title">info</span> <span class="hljs-params">(GenListNode * elem)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">nodetype</span> <span class="hljs-params">(GenListNode * elem)</span> </span>&#123;<span class="hljs-keyword">return</span> elem-&gt;utype;&#125;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setinfo</span> <span class="hljs-params">(GenListNode * elem,GenListNode &amp; x)</span></span>;<br>    &#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenList</span> &#123;<br>    <span class="hljs-keyword">private</span>:<br>        GenListNode * first;<br>        <span class="hljs-function">GenListNode * <span class="hljs-title">Copy</span> <span class="hljs-params">(GenListNode * ls)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">depth</span> <span class="hljs-params">(GenListnode * ls)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">equal</span> <span class="hljs-params">(GenlistNode * s, Genlistnode * t)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Remove</span> <span class="hljs-params">(GenlistNode * ls)</span></span>;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">GenList</span> ( );<br>        ~<span class="hljs-built_in">GenList</span> ( );<br>        <span class="hljs-function">GenListNode &amp; <span class="hljs-title">Head</span> <span class="hljs-params">( )</span></span>;<br>        <span class="hljs-function">GenListNode * <span class="hljs-title">Tail</span> <span class="hljs-params">( )</span></span>;<br>        <span class="hljs-function">GenlistNode * <span class="hljs-title">First</span> <span class="hljs-params">( )</span></span>;<br>        <span class="hljs-function">GenlistNode * <span class="hljs-title">Next</span> <span class="hljs-params">(GenListNode * elem)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Push</span> <span class="hljs-params">(GenListNode &amp; x)</span></span>;<br>        <span class="hljs-function">GenList &amp; <span class="hljs-title">Addon</span> <span class="hljs-params">( GenList &amp; list, GenListNode  &amp; x)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setHead</span> <span class="hljs-params">(GenListNode  &amp; x)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setNext</span> <span class="hljs-params">(GenlistNode  * elem1, GenlistNode  * elem2)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">setTail</span><span class="hljs-params">(GenList &amp; list)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Copy</span> <span class="hljs-params">(<span class="hljs-type">const</span> GenList &amp; l)</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">depth</span> <span class="hljs-params">( )</span></span>;<br>        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Createlist</span> <span class="hljs-params">(GenListNode  * ls, <span class="hljs-type">char</span> * s)</span></span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="7-7-广义表的实现"><a href="#7-7-广义表的实现" class="headerlink" title="7.7. 广义表的实现"></a>7.7. 广义表的实现</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/24.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt5/24.png"><span class="image-caption">img</span></a></p>
+<h2 id="7-7-广义表的实现"><a href="#7-7-广义表的实现" class="headerlink" title="7.7. 广义表的实现"></a>7.7. 广义表的实现</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt5/24.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt5/24.png"><span class="image-caption">img</span></a></p>
 <h3 id="7-7-1-求解广义表深度"><a href="#7-7-1-求解广义表深度" class="headerlink" title="7.7.1. 求解广义表深度"></a>7.7.1. 求解广义表深度</h3><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs zephir"><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> GenList::depth( ) &#123; <br>        <span class="hljs-keyword">return</span> depth(first);<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> GenList::depth(GenListNode*ls) &#123;<br>        <span class="hljs-keyword">if</span>( ls--&gt;tlink==NULL) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        GenListNode*temp=ls--&gt;tlink;<br>        <span class="hljs-keyword">int</span> m=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>( temp!=NULL) &#123;<br>            <span class="hljs-keyword">if</span>( temp--&gt;utype==LST) &#123;<br>                <span class="hljs-keyword">int</span> n=depth(temp--&gt;value.hlink);<br>                <span class="hljs-keyword">if</span>(m&lt;n)m=n;<br>            &#125;<br>            temp=temp--&gt;tlink;<br>        &#125;<br>    <span class="hljs-keyword">return</span> m+<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="7-7-2-判断两个广义表的相等关系"><a href="#7-7-2-判断两个广义表的相等关系" class="headerlink" title="7.7.2. 判断两个广义表的相等关系"></a>7.7.2. 判断两个广义表的相等关系</h3><ol>
@@ -648,11 +648,11 @@ Lecture 4 Tree1. ...">
 <li>An indexed binary search tree is derived from an ordinary binary  search tree by adding the field  leftSize to each tree node.  索引二叉搜索树是通过将字段leftSize添加到每个树节点，从普通二叉搜索树派生而来的。</li>
 <li>Value in Leftsize field&#x3D;number of the elements in the node’s left subtree +1(leftsize &#x3D; 左子树大小 + 1)</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/2.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/2.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/2.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/2.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>Eg.</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/3.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/3.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/3.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/3.png"><span class="image-caption">img</span></a></p>
 <h1 id="2-AVL-Tree-自平衡的二叉搜索树"><a href="#2-AVL-Tree-自平衡的二叉搜索树" class="headerlink" title="2. AVL Tree(自平衡的二叉搜索树)"></a>2. AVL Tree(自平衡的二叉搜索树)</h1><ol>
 <li>目的:the AVL tree was introduced to increase the efficiency of  searching a binary search tree, and to decrease the average search  length. AVL树是一个用来增加二叉搜索树的平衡性并且<strong>减小平均搜索高度</strong></li>
 <li>AVL的高度是O(log2 n)的，所以对应的算法复杂度也是这样的。</li>
@@ -666,7 +666,7 @@ Lecture 4 Tree1. ...">
 <li>AVL树高:the longest path from the root to each leaf node(从根节点到每一个叶节点之间的所有路径的最长的一条)</li>
 <li>Balance factor bf(x) of a node x : height of right subtree of x – height of left subtree of x 节点x的<strong>平衡因子</strong> &#x3D; x的右树的高度-x的左树的高度</li>
 </ol>
-<h2 id="2-3-AVL树的结点的实现"><a href="#2-3-AVL树的结点的实现" class="headerlink" title="2.3. AVL树的结点的实现"></a>2.3. AVL树的结点的实现</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/4.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/4.png"><span class="image-caption">img</span></a></p>
+<h2 id="2-3-AVL树的结点的实现"><a href="#2-3-AVL树的结点的实现" class="headerlink" title="2.3. AVL树的结点的实现"></a>2.3. AVL树的结点的实现</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/4.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/4.png"><span class="image-caption">img</span></a></p>
 <h2 id="2-4-AVL树的实现"><a href="#2-4-AVL树的实现" class="headerlink" title="2.4. AVL树的实现"></a>2.4. AVL树的实现</h2><ol>
 <li>这个例子里每个结点中存储着树高</li>
 <li>树高之差就是平衡因子</li>
@@ -674,21 +674,21 @@ Lecture 4 Tree1. ...">
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">class</span> <span class="hljs-built_in">AVLNode</span> &#123;<br>    <span class="hljs-built_in">AVLNode</span>(Comparable theElement) &#123;<br>        <span class="hljs-variable language_">this</span>( theElement, null, null);<br>    &#125;<br>    <span class="hljs-built_in">AVLNode</span>(Compalable theElement, <span class="hljs-built_in">AVLNode</span> lt, <span class="hljs-built_in">AVLNode</span> rt) &#123;<br>        element = theElement;<br>        left = lt;<br>        right = rt;<br>        height = <span class="hljs-number">0</span>;<br>    &#125;<br>    Comparable element;<br>    <span class="hljs-built_in">AVLNode</span> left;<br>    <span class="hljs-built_in">AVLNode</span> right;<br>    <span class="hljs-type">int</span> height;<br>&#125;<br>private <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> height( <span class="hljs-built_in">AVLNode</span> t ) &#123;   <br>    <span class="hljs-keyword">return</span> t =s= null ? –<span class="hljs-number">1</span> : t. height;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="2-5-AVL树的基本操作"><a href="#2-5-AVL树的基本操作" class="headerlink" title="2.5. AVL树的基本操作"></a>2.5. AVL树的基本操作</h2><h3 id="2-5-1-AVL树的查询"><a href="#2-5-1-AVL树的查询" class="headerlink" title="2.5.1. AVL树的查询"></a>2.5.1. AVL树的查询</h3><p>查询过程和正常的二叉搜索树是相同的，其算法复杂度和正常二叉搜索树的搜索算法的复杂度是相同的。</p>
-<h3 id="2-5-2-AVL树的插入"><a href="#2-5-2-AVL树的插入" class="headerlink" title="2.5.2. AVL树的插入"></a>2.5.2. AVL树的插入</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/5.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/5.png"><span class="image-caption">img</span></a></p>
+<h3 id="2-5-2-AVL树的插入"><a href="#2-5-2-AVL树的插入" class="headerlink" title="2.5.2. AVL树的插入"></a>2.5.2. AVL树的插入</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/5.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/5.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>简单来看，<strong>每一个子树都可以被看为如上的图</strong></li>
 <li>算法流程:是递归<strong>从下向上</strong>进行旋转处理，先看子树。</li>
 </ol>
-<h2 id="插入C的右子树E-外侧结点"><a href="#插入C的右子树E-外侧结点" class="headerlink" title="插入C的右子树E(外侧结点)"></a>插入C的右子树E(外侧结点)</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/6.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/6.png"><span class="image-caption">img</span></a></p>
+<h2 id="插入C的右子树E-外侧结点"><a href="#插入C的右子树E-外侧结点" class="headerlink" title="插入C的右子树E(外侧结点)"></a>插入C的右子树E(外侧结点)</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/6.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/6.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>只需要进行一次左单旋转即可</li>
 <li>左单旋转过程如上</li>
 </ol>
-<h2 id="插入C的左子树D-内侧结点"><a href="#插入C的左子树D-内侧结点" class="headerlink" title="插入C的左子树D(内侧结点)"></a>插入C的左子树D(内侧结点)</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/7.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/7.png"><span class="image-caption">img</span></a></p>
+<h2 id="插入C的左子树D-内侧结点"><a href="#插入C的左子树D-内侧结点" class="headerlink" title="插入C的左子树D(内侧结点)"></a>插入C的左子树D(内侧结点)</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/7.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/7.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>需要进行一次双旋转(先右后左)</li>
 </ol>
-<h2 id="插入其他地方，树不需要转"><a href="#插入其他地方，树不需要转" class="headerlink" title="插入其他地方，树不需要转"></a>插入其他地方，树不需要转</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/8.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/8.png"><span class="image-caption">img</span></a></p>
+<h2 id="插入其他地方，树不需要转"><a href="#插入其他地方，树不需要转" class="headerlink" title="插入其他地方，树不需要转"></a>插入其他地方，树不需要转</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/8.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/8.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>一直到5的时候，树的平衡性才受到影响</li>
 <li>插入后，树的平衡性没有被破坏显然不用旋转</li>
@@ -702,10 +702,10 @@ Lecture 4 Tree1. ...">
 <li>单旋转：<strong>外侧</strong>—从不平衡结点沿刚才回溯的路径取直接下两层如果三个结点处于一直线A，C，E</li>
 <li>双旋转：<strong>内侧</strong>—从不平衡结点沿刚才回溯的路径取直接下两层如果三个结点处于一折线A，C，D</li>
 <li>以上以右外侧，右内侧为例，左外侧，左内侧是对称的。与前面对称的情况：左外侧，左内侧 左外侧<ul>
-<li>右下旋 <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/9.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/9.png"><span class="image-caption">img</span></a></li>
-<li>左下旋 <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/26.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/26.png"><span class="image-caption">img</span></a></li>
-<li>右内侧 <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/27.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/27.png"><span class="image-caption">img</span></a></li>
-<li>左内侧 <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/10.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/10.png"><span class="image-caption">img</span></a></li>
+<li>右下旋 <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/9.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/9.png"><span class="image-caption">img</span></a></li>
+<li>左下旋 <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/26.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/26.png"><span class="image-caption">img</span></a></li>
+<li>右内侧 <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/27.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/27.png"><span class="image-caption">img</span></a></li>
+<li>左内侧 <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/10.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/10.png"><span class="image-caption">img</span></a></li>
 </ul>
 </li>
 <li>插入:<ol>
@@ -716,52 +716,52 @@ Lecture 4 Tree1. ...">
 </ol>
 </li>
 </ol>
-<h2 id="例子-从空的AVL树建树的算法"><a href="#例子-从空的AVL树建树的算法" class="headerlink" title="例子(从空的AVL树建树的算法)"></a>例子(从空的AVL树建树的算法)</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/11.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/11.png"><span class="image-caption">img</span></a></p>
+<h2 id="例子-从空的AVL树建树的算法"><a href="#例子-从空的AVL树建树的算法" class="headerlink" title="例子(从空的AVL树建树的算法)"></a>例子(从空的AVL树建树的算法)</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/11.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/11.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>右双旋转：先变成ACZ，再把AC旋转下去。</li>
 <li>左子树的左子树是左外侧，左子树的右子树是左外侧，右子树的左子树是右内侧，右子树的右子树是右外侧<ul>
-<li>判断内侧外侧只从被破坏根节点向下2层。<br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/12.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/12.png"><span class="image-caption">img</span></a></li>
+<li>判断内侧外侧只从被破坏根节点向下2层。<br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/12.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/12.png"><span class="image-caption">img</span></a></li>
 </ul>
 </li>
 </ol>
 <h2 id="插入算法代码"><a href="#插入算法代码" class="headerlink" title="插入算法代码"></a>插入算法代码</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span> AVLNode insert( Comparable x, AVLNode t ) &#123;<br>    <span class="hljs-keyword">if</span> (t<span class="hljs-operator"> == </span>null)<br>        t = <span class="hljs-keyword">new</span> <span class="hljs-constructor">AVLNode( <span class="hljs-params">x</span>, <span class="hljs-params">null</span>, <span class="hljs-params">null</span> )</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( x.compare<span class="hljs-constructor">To(<span class="hljs-params">t</span>.<span class="hljs-params">element</span>)</span> &lt; <span class="hljs-number">0</span> )&#123;<br>        t.left = insert(x, t.left);<span class="hljs-comment">//不仅x插入左子树，而其左子树已经调平衡了，也就会子树已经旋转过了</span><br>        <span class="hljs-keyword">if</span>(height(t.left) – height(t.right)<span class="hljs-operator"> == </span><span class="hljs-number">2</span> )<br>            <span class="hljs-keyword">if</span>(x.compare<span class="hljs-constructor">To(<span class="hljs-params">t</span>.<span class="hljs-params">left</span>.<span class="hljs-params">element</span>)</span>&lt;<span class="hljs-number">0</span>)<br>                <span class="hljs-comment">//根据大小进行调整</span><br>                t = rotateWithLeftChild (t);<span class="hljs-comment">//左子树的左子树，只要做一次左向单旋</span><br>            <span class="hljs-keyword">else</span> t = double<span class="hljs-constructor">WithLeftChild(<span class="hljs-params">t</span>)</span>;<span class="hljs-comment">//左子树的右子树，需要做一次左向双选</span><br>    <span class="hljs-comment">//下面是对称的插入在右子树上</span><br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x.compare<span class="hljs-constructor">To(<span class="hljs-params">t</span>.<span class="hljs-params">element</span>)</span>&gt;<span class="hljs-number">0</span>) &#123; <br>        t.right = insert(x, t.right );<br>        <span class="hljs-keyword">if</span>( height(t.right)–height(t.left)== <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">if</span>(x.compare<span class="hljs-constructor">To(<span class="hljs-params">t</span>.<span class="hljs-params">right</span>.<span class="hljs-params">element</span>)</span>&gt;<span class="hljs-number">0</span>)<br>                t = rotate<span class="hljs-constructor">WithRightChild(<span class="hljs-params">t</span>)</span>;<br>            <span class="hljs-keyword">else</span> t = double<span class="hljs-constructor">WithRightChild(<span class="hljs-params">t</span>)</span><br>    &#125;<span class="hljs-keyword">else</span>;<br>    t.height = max(height(t.left), height(t.right)) + <span class="hljs-number">1</span>;<br>    return t;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>右下旋</p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/9.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/9.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/9.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/9.png"><span class="image-caption">img</span></a></p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">private static AVLNode rotateWithLeftChild( AVLNode <span class="hljs-built_in">k2</span> ) &#123;<br>    AVLNode <span class="hljs-built_in">k1</span> = <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>left<span class="hljs-comment">;//k1持有k2的左子树</span><br>    <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>left = <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>right<span class="hljs-comment">;//k1的右子树挂到k2的左子树上</span><br>    <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>right = <span class="hljs-built_in">k2</span><span class="hljs-comment">;//把k2自己挂到k1的右子树上</span><br>    <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>height = max(height(<span class="hljs-built_in">k2</span><span class="hljs-number">.</span>left), height(<span class="hljs-built_in">k2</span><span class="hljs-number">.</span>right)) + <span class="hljs-number">1</span> <span class="hljs-comment">;</span><br>    <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>height = max(height(<span class="hljs-built_in">k1</span><span class="hljs-number">.</span>left), <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>height) + <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>    return <span class="hljs-built_in">k1</span><span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>左下旋</p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/26.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/26.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/26.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/26.png"><span class="image-caption">img</span></a></p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">private static AVLNode rotateWithRightChild(AVLNode <span class="hljs-built_in">k2</span>)&#123;<br>    AVLNode <span class="hljs-built_in">k1</span> = <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>right<span class="hljs-comment">;//k1持有k2的右子树</span><br>    <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>right = <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>left<span class="hljs-comment">;//k2的右子树挂到k1的左子树上</span><br>    <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>left = <span class="hljs-built_in">k2</span><span class="hljs-comment">;//把k2自己挂到k1的左子树上</span><br>    <span class="hljs-built_in">k2</span><span class="hljs-number">.</span>height = max(height(<span class="hljs-built_in">k2</span><span class="hljs-number">.</span>left),height(<span class="hljs-built_in">k2</span><span class="hljs-number">.</span>right)) + <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>    <span class="hljs-built_in">k1</span><span class="hljs-number">.</span>height = max(<span class="hljs-built_in">k2</span><span class="hljs-number">.</span>height,<span class="hljs-built_in">k1</span><span class="hljs-number">.</span>right) + <span class="hljs-number">1</span><span class="hljs-comment">;</span><br>    return <span class="hljs-built_in">k1</span><span class="hljs-comment">;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>右内侧</p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/27.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/27.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/27.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/27.png"><span class="image-caption">img</span></a></p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span>  static AVLNode double<span class="hljs-constructor">WithLeftChild( AVLNode <span class="hljs-params">k3</span> )</span> &#123;<br>    k3.left = rotate<span class="hljs-constructor">WithRightChild(<span class="hljs-params">k3</span>.<span class="hljs-params">left</span>)</span>;<br>    return rotate<span class="hljs-constructor">WithLeftChild( <span class="hljs-params">k3</span> )</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>左内侧</p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/10.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/10.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/10.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/10.png"><span class="image-caption">img</span></a></p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">private</span> static AVLNode double<span class="hljs-constructor">WithRightChild(AVLNode <span class="hljs-params">k3</span>)</span>&#123;<br>    k3.right = rotate<span class="hljs-constructor">WithLeftChild(<span class="hljs-params">k3</span>.<span class="hljs-params">right</span>)</span>;<br>    return rotate<span class="hljs-constructor">WithRightChild( <span class="hljs-params">k3</span> )</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="2-5-3-AVL树的删除"><a href="#2-5-3-AVL树的删除" class="headerlink" title="2.5.3. AVL树的删除"></a>2.5.3. AVL树的删除</h3><ol>
 <li>方法和二叉搜索树的删除方法一样</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/13.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/13.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/13.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/13.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>需要找到被删除顶点的中序后继。</li>
 <li>等待再看一下。</li>
 </ol>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/14.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/14.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/15.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/15.png"><span class="image-caption">img</span></a></p>
-<h3 id="2-5-4-算法复杂度分析-不做要求"><a href="#2-5-4-算法复杂度分析-不做要求" class="headerlink" title="2.5.4. 算法复杂度分析(不做要求)"></a>2.5.4. 算法复杂度分析(不做要求)</h3><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/16.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/16.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/17.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/17.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/18.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/18.png"><span class="image-caption">img</span></a></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/14.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/14.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/15.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/15.png"><span class="image-caption">img</span></a></p>
+<h3 id="2-5-4-算法复杂度分析-不做要求"><a href="#2-5-4-算法复杂度分析-不做要求" class="headerlink" title="2.5.4. 算法复杂度分析(不做要求)"></a>2.5.4. 算法复杂度分析(不做要求)</h3><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/16.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/16.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/17.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/17.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/18.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/18.png"><span class="image-caption">img</span></a></p>
 <h1 id="3-B-TREES"><a href="#3-B-TREES" class="headerlink" title="3. B-TREES"></a>3. B-TREES</h1><h2 id="3-1-m叉搜索树"><a href="#3-1-m叉搜索树" class="headerlink" title="3.1. m叉搜索树"></a>3.1. m叉搜索树</h2><h3 id="3-1-1-m叉搜索树的定义"><a href="#3-1-1-m叉搜索树的定义" class="headerlink" title="3.1.1. m叉搜索树的定义"></a>3.1.1. m叉搜索树的定义</h3><ol>
 <li><p>Definition: An m-way search tree may be empty. If it is not empty,  it is a tree that satisfies the following properties:  m-way搜索树可能为空。如果是一个非空的树，则为满足以下属性的树：</p>
 <ol>
 <li>In the corresponding extended search tree(obtained by replacing zero pointer with external nodes), each internal node has up to <strong>m children</strong>  and between <strong>1 and m-1  elements</strong>.(在相应的扩展搜索树(用外部节点替换零指针获得)中，每个内部节点最多有m个子节点，在1和m-1元素之间。)</li>
 <li>Every node with p elements has exactly p+1 children.(每个具有p元素的节点正好有p+1子节点。)</li>
-<li>Consider any node with p elements:<a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/19.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/19.png"><span class="image-caption">img</span></a> k1 &lt; k2 &lt;……&lt; kp,  c0,c1,……,cp be the p+1 children of the node 假设任何节点都有p个元素，那么C0 - Cp是他们对应的p+1个子元素。</li>
+<li>Consider any node with p elements:<a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/19.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/19.png"><span class="image-caption">img</span></a> k1 &lt; k2 &lt;……&lt; kp,  c0,c1,……,cp be the p+1 children of the node 假设任何节点都有p个元素，那么C0 - Cp是他们对应的p+1个子元素。</li>
 </ol>
 </li>
 <li><p>对于</p>
-<p><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/19.png"><span class="image-caption">img</span></p>
+<p><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/19.png"><span class="image-caption">img</span></p>
 <p>中的节点:</p>
 <ul>
 <li>C0: The elements in the subtree with root c0 have  keys smaller than k1(在以C0为根的所有子树中的结点的值都小于k1)</li>
@@ -772,7 +772,7 @@ Lecture 4 Tree1. ...">
 <li><p>m叉搜索树的例子:</p>
 </li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/21.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/21.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/21.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/21.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>m叉搜索树是可以存入磁盘的。</li>
 </ol>
@@ -781,14 +781,14 @@ Lecture 4 Tree1. ...">
 <li>如果这一层已经满了，那么在下一层进行插入。</li>
 <li>例子</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/39.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/39.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/40.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/40.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/41.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/41.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/39.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/39.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/40.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/40.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/41.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/41.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>注:n叉搜索树，每一层一个结点最多有n-1个元素</li>
 </ol>
 <h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><ol>
 <li>删除元素不会影响树的叉数，物理层次影响叉数。</li>
-<li>类型一:同一层还有节点，直接删除没有影响<br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/42.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/42.png"><span class="image-caption">img</span></a></li>
-<li>类型二:本层删除后没有节点，所以需要把底下能合适的最大(最小)的进行提升<br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/43.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/43.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/44.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/44.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/45.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/45.png"><span class="image-caption">img</span></a></li>
+<li>类型一:同一层还有节点，直接删除没有影响<br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/42.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/42.png"><span class="image-caption">img</span></a></li>
+<li>类型二:本层删除后没有节点，所以需要把底下能合适的最大(最小)的进行提升<br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/43.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/43.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/44.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/44.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/45.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/45.png"><span class="image-caption">img</span></a></li>
 </ol>
 <h2 id="查找m叉搜索树的行高"><a href="#查找m叉搜索树的行高" class="headerlink" title="查找m叉搜索树的行高"></a>查找m叉搜索树的行高</h2><ol>
 <li>Height of an m-way search tree(m叉二叉树的行高)<ol>
@@ -807,13 +807,13 @@ Lecture 4 Tree1. ...">
 </li>
 <li>Eg.</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/22.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/22.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/22.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/22.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>早一点的数据库用的是B树，现在大数据数据库是B+树。</li>
 <li>Eg1. In a Btree of order 2, each internal node has at least 2  children, and all external nodes must be on the same level, so a Btree  of order 2 is full binary trees  (在二阶B树中，每一个内部节点都有至少2个子女，并且所有的外部节点都必须在同一级上，所以2阶B树是满阶二叉树)</li>
 <li>Eg2. In a Btree of order 3(sometimes also called 2-3 tree), each  internal node has 2 or 3 children(在三阶B树中(通常被我们叫做2-3树)，每一个内部节点有2个或者3个子女)</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/23.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/23.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/23.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/23.png"><span class="image-caption">img</span></a></p>
 <h3 id="3-2-1-B树性质"><a href="#3-2-1-B树性质" class="headerlink" title="3.2.1. B树性质"></a>3.2.1. B树性质</h3><ol>
 <li>外节点个数是总共的k值加一</li>
 <li>all external nodes are on the same level(所有的外部结点都有相同的层数)</li>
@@ -831,11 +831,11 @@ Lecture 4 Tree1. ...">
 </ul>
 </li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/24.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/24.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/24.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/24.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>考虑最坏情况下的B树的搜索算法</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/25.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/25.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/25.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/25.png"><span class="image-caption">img</span></a></p>
 <h3 id="3-2-3-B树插入算法"><a href="#3-2-3-B树插入算法" class="headerlink" title="3.2.3. B树插入算法"></a>3.2.3. B树插入算法</h3><ol>
 <li>B树的插入问题经常发生在外部结点的上一层</li>
 </ol>
@@ -847,8 +847,8 @@ Lecture 4 Tree1. ...">
 </li>
 <li>Insert into a node with m children (also called a full node), like  insert 25 into the BTree in the last example, the full node is split  into two nodes.(插入到一个有m个子结点的节点中，比如25插入上面那个例子中，满了的节点会分裂成两个节点,就是把<strong>中间的提升，将剩下的裂开</strong>)</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/31.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/31.png"><span class="image-caption">img</span></a></p>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/32.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/32.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/31.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/31.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/32.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/32.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>A new pointer will be added to the parent of the full node.(一个新的指针会被添加指向满了的结点的父结点)</li>
 <li>Because km&#x2F;2(向上取整) is inserted into parent node, it may cause new split. If the root is split,the height of the tree will increased by 1.(因为km&#x2F;2(向上取整))</li>
@@ -877,18 +877,18 @@ Lecture 4 Tree1. ...">
 <p>向邻居借关键码，347 -&gt; 353,353 -&gt; 下面</p>
 </li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/29.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/29.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/29.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/29.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>删除后两部分合并的例子:</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/33.png"><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/33.png"><span class="image-caption">img</span></a></p>
-<h2 id="3-3-B树的实现"><a href="#3-3-B树的实现" class="headerlink" title="3.3. B树的实现"></a>3.3. B树的实现</h2><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/30.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/30.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/33.png"><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/images/migrated/spricoder/2019-Data-Structure/img/cpt6/33.png"><span class="image-caption">img</span></a></p>
+<h2 id="3-3-B树的实现"><a href="#3-3-B树的实现" class="headerlink" title="3.3. B树的实现"></a>3.3. B树的实现</h2><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/30.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/30.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>S is the number of elements in the node(是节点的元素的个数)</li>
 <li>ei are the elements in ascending order of key(将元素按照键值升序排列)</li>
 <li>ci are children pointers(子树结点)</li>
 </ol>
-<h1 id="4-B-tree"><a href="#4-B-tree" class="headerlink" title="4. B+ tree"></a>4. B+ tree</h1><p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/34.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/34.png"><span class="image-caption">img</span></a></p>
+<h1 id="4-B-tree"><a href="#4-B-tree" class="headerlink" title="4. B+ tree"></a>4. B+ tree</h1><p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/34.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/34.png"><span class="image-caption">img</span></a></p>
 <ol>
 <li>和B树不同的地方:<ol>
 <li>关键码的分布，<strong>只分布在叶结点</strong>上</li>
@@ -916,12 +916,12 @@ Lecture 4 Tree1. ...">
 <li>仅在叶结点上进行。每插入一关键码，判别子树棵树＞m1，如果大于，则将该结点分裂：((m1+1)&#x2F;2)(向上取整)，((m1+1)&#x2F;2)(向上取整)</li>
 <li>问题变为传递到索引结点上可能的分裂，这时上限以m来确定(同B-树)</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/35.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/35.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/36.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/36.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/35.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/35.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/36.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/36.png"><span class="image-caption">img</span></a></p>
 <h2 id="删除算法-1"><a href="#删除算法-1" class="headerlink" title="删除算法"></a>删除算法</h2><ol>
 <li>在叶结点上删除一个关键码后要保证结点中的子树棵数仍然不小 于(m1&#x2F;2)(向上取整).</li>
 <li>删除操作与B树类似，但<strong>上层索引中的关键码可保留，作为引导搜索的”分界关键码”的作用.</strong></li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/37.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/37.png"><span class="image-caption">img</span></a><br> <a target="_blank" rel="noopener" href="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/38.png"><img src="https://spricoder.oss-cn-shanghai.aliyuncs.com/2019-Data-Structure/img/cpt6/38.png"><span class="image-caption">img</span></a></p>
+<p><a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/37.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/37.png"><span class="image-caption">img</span></a><br> <a href="../images/migrated/spricoder/2019-Data-Structure/img/cpt6/38.png"><img src="/../images/migrated/spricoder/2019-Data-Structure/img/cpt6/38.png"><span class="image-caption">img</span></a></p>
 <h1 id="5-题目"><a href="#5-题目" class="headerlink" title="5. 题目"></a>5. 题目</h1><ol>
 <li>第9题:<ul>
 <li>邻居的60及它左侧的55被一同借过去</li>

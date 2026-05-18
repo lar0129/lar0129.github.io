@@ -105,7 +105,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -194,7 +194,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">k8s概念整合</h1>
     <div class="head-info">
@@ -247,7 +247,7 @@
 <li>简化部署和管理：通过Namespace可以将相关的资源组织到一起，从而简化资源的部署和管理。管理员可以通过Namespace来自动部署和管理相关的应用程序和服务，使得资源的管理更加高效和可靠。</li>
 </ol>
 <p>需要注意的是，<strong>不同的Namespace中的资源可以通过Service</strong>和Ingress等对象进行访问和通信。同时，Kubernetes中还有一些默认的Namespace，例如default、kube-system和kube-public等，分别用于存储默认的资源和集群级别的资源。</p>
-<h1 id="2-k8s架构"><a href="#2-k8s架构" class="headerlink" title="2.k8s架构"></a>2.k8s架构</h1><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230630142727042.png"><span class="image-caption">image-20230630142727042</span></p>
+<h1 id="2-k8s架构"><a href="#2-k8s架构" class="headerlink" title="2.k8s架构"></a>2.k8s架构</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230630142727042.png"><span class="image-caption">image-20230630142727042</span></p>
 <h1 id="3-yaml文件例"><a href="#3-yaml文件例" class="headerlink" title="3.yaml文件例"></a>3.yaml文件例</h1><p>以部署一个Pod的yaml文件为例，简单介绍部署所需的关键信息</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">apiVersion: v1<br>kind: Pod<br>metadata:<br>  name: memory-demo<br>  namespace: mem-example<br>spec:<br>  containers:<br>  - name: memory-demo-ctr<br>    image: polinux/stress<br>    resources:<br>      limits:<br>        memory: &quot;200Mi&quot;<br>      requests:<br>        memory: &quot;100Mi&quot;<br>    command: [&quot;stress&quot;]<br>    args: [&quot;--vm&quot;, &quot;1&quot;, &quot;--vm-bytes&quot;, &quot;150M&quot;, &quot;--vm-hang&quot;, &quot;1&quot;]<br>    volumeMounts:<br>    - name: redis-storage<br>      mountPath: /data/redis<br>  volumes:<br>  - name: redis-storage<br>    emptyDir: &#123;&#125;<br></code></pre></td></tr></table></figure>
 
@@ -270,7 +270,7 @@
 <li>Service监控某一Deployment（并转发其中的端口），进而监控Deployment内部的Container</li>
 </ul>
 <p><img src="https://pic1.zhimg.com/80/v2-e31e74d4893707f7537113b075df62c4_1440w.webp"><span class="image-caption">img</span></p>
-<h2 id="Cluster的访问权限"><a href="#Cluster的访问权限" class="headerlink" title="Cluster的访问权限"></a>Cluster的访问权限<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230705114203865.png"><span class="image-caption">image-20230705114203865</span></h2><h2 id="不同Port的类型"><a href="#不同Port的类型" class="headerlink" title="不同Port的类型"></a>不同Port的类型</h2><p><img src="https://pic4.zhimg.com/80/v2-62bfa253308a9676f26bbb8beb4b3baf_1440w.webp"><span class="image-caption">img</span></p>
+<h2 id="Cluster的访问权限"><a href="#Cluster的访问权限" class="headerlink" title="Cluster的访问权限"></a>Cluster的访问权限<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230705114203865.png"><span class="image-caption">image-20230705114203865</span></h2><h2 id="不同Port的类型"><a href="#不同Port的类型" class="headerlink" title="不同Port的类型"></a>不同Port的类型</h2><p><img src="https://pic4.zhimg.com/80/v2-62bfa253308a9676f26bbb8beb4b3baf_1440w.webp"><span class="image-caption">img</span></p>
 <p><strong>port</strong></p>
 <ul>
 <li>nodePort： 使用nodeIp：nodePort 从外部访问请求某个service</li>

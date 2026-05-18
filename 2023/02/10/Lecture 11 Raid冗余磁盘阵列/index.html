@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记11-RAID阵列</h1>
     <div class="head-info">
@@ -217,22 +217,22 @@
         <p>考前抱佛脚整理</p>
 <h1 id="Lecture-11-RAID"><a href="#Lecture-11-RAID" class="headerlink" title="Lecture 11 RAID"></a>Lecture 11 RAID</h1><p>• 基本思想<br>    • 将多个独立操作的磁盘按某种方式组织成磁盘阵列， 以<strong>增加容量</strong><br>    • 将数据存储在多个盘体上， 通过这些盘并行工作来<strong>提高数据传输率</strong><br>    • 采用数据冗余来进行错误恢复以<strong>提高系统可靠性</strong></p>
 <p>• 特性<br>    • 由一组物理磁盘驱动器组成， 被视为<strong>单个逻辑</strong>驱动器<br>    • 数据是分布在多个物理磁盘上<br>    • 冗余磁盘容量用于存储校验信息， 保证磁盘万一损坏时能恢复数据  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225232853806.png"><span class="image-caption">image-20230225232853806</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225232853806.png"><span class="image-caption">image-20230225232853806</span></p>
 <h2 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h2><p>以条带的形式  </p>
 <p>不采用冗余  </p>
 <p>高数据传输率</p>
 <p>高速响应I&#x2F;O请求  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233217161.png"><span class="image-caption">image-20230225233217161</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233217161.png"><span class="image-caption">image-20230225233217161</span></p>
 <h2 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h2><p>简单地备份所有数据的方法来实现冗余  </p>
 <p>高速响应I&#x2F;O请求：  高速响应I&#x2F;O请求：</p>
 <p>读请求可以选择寻道时间较小的那个    </p>
 <p>受限于写入较慢的磁盘  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233423898.png"><span class="image-caption">image-20230225233423898</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233454305.png"><span class="image-caption">image-20230225233454305</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233423898.png"><span class="image-caption">image-20230225233423898</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233454305.png"><span class="image-caption">image-20230225233454305</span></p>
 <p>RAID10 <strong>容错率更高</strong></p>
 <h2 id="RAID-2"><a href="#RAID-2" class="headerlink" title="RAID 2"></a>RAID 2</h2><p>对位于同一条带的各个数据盘上的数据位计算校验码（通常采用海明码）  </p>
 <p>适用于多磁盘易出错环境，对于单个磁盘和磁盘驱动器已经具备高可靠性的情况没有意义<strong>（实际基本弃用）</strong>  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233720023.png"><span class="image-caption">image-20230225233720023</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233720023.png"><span class="image-caption">image-20230225233720023</span></p>
 <h2 id="RAID-3"><a href="#RAID-3" class="headerlink" title="RAID 3"></a>RAID 3</h2><p>对所有数据盘上同一位置的数据计算奇偶校验码  </p>
 <p>非常小的数据条带</p>
 <p>当某一磁盘损坏时，可以用于重构数据  </p>
@@ -243,7 +243,7 @@
 </li>
 </ul>
 <p>次只能执行一个I&#x2F;O请求，在面向多个IO请求时，性能将受损  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233932548.png"><span class="image-caption">image-20230225233932548</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233932548.png"><span class="image-caption">image-20230225233932548</span></p>
 <h2 id="RAID-4"><a href="#RAID-4" class="headerlink" title="RAID 4"></a>RAID 4</h2><p>较大的数据条带  </p>
 <p>根据各个数据盘上的数据来逐位计算奇偶校验条带，奇偶校验位存储在奇偶校验盘的对应条带上  </p>
 <p>独立存取阵列更适合与需要高速 IO 请求的应用，而相对较少用于需要高数据传输率的场合。</p>
@@ -253,11 +253,11 @@
 <li>校验盘会成为瓶颈（实际基本弃用）</li>
 </ul>
 <p>两读两写—— 两次读操作（数据盘、校验盘）、两次写操作（数据盘、校验盘）</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234128783.png"><span class="image-caption">image-20230225234128783</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234128783.png"><span class="image-caption">image-20230225234128783</span></p>
 <h2 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h2><p>与RAID 4 组织方式相似<strong>（常用）</strong> </p>
 <p>在所有磁盘上都分布了奇偶校验条带  </p>
 <p>访问时的<strong>“两读两写”</strong>：读在写前，读&#x2F;写不需要并行  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234244516.png"><span class="image-caption">image-20230225234244516</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234244516.png"><span class="image-caption">image-20230225234244516</span></p>
 <h2 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h2><p>采用两种不同的校验码，并将校验码以分开的块存于不同的磁盘中  </p>
 <p>提升数据可用性：只有在平均修复时间间隔内3个磁盘都出了故障，才<br>会造成数据丢失  </p>
 <p>写损失：每次写都要影响两个校验块（<strong>读3个写3个磁盘</strong>）  </p>

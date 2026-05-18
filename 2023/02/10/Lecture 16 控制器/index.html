@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记16-CPU控制器</h1>
     <div class="head-info">
@@ -215,7 +215,7 @@
           <p><p>计算机组成原理-学习笔记16-CPU控制器</p></p>
         
         <h1 id="1-处理器的结构"><a href="#1-处理器的结构" class="headerlink" title="1.处理器的结构"></a>1.处理器的结构</h1><p>CPU的进一步分解：</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210165711708.png"><span class="image-caption">image-20230210165711708</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210165711708.png"><span class="image-caption">image-20230210165711708</span></p>
 <p>细黑线：CPU内部总线</p>
 <p>灰线：控制通路</p>
 <h2 id="1-1寄存器分类"><a href="#1-1寄存器分类" class="headerlink" title="1.1寄存器分类"></a>1.1寄存器分类</h2><p>上节偏重逻辑，这节偏重硬件</p>
@@ -341,7 +341,7 @@
 <p>子周期：取指周期、间址周期、执行、中断  </p>
 <p>本节：如何控制各种组件完成数据流功能</p>
 <p><strong>定义：</strong>每个子周期由一系列涉及CPU寄存器操作的更小步骤组成，这些步骤称为微操作  </p>
-<h2 id="2-1-取指周期微操作"><a href="#2-1-取指周期微操作" class="headerlink" title="2.1 取指周期微操作"></a>2.1 取指周期微操作</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210173811498.png"><span class="image-caption">image-20230210173811498</span></p>
+<h2 id="2-1-取指周期微操作"><a href="#2-1-取指周期微操作" class="headerlink" title="2.1 取指周期微操作"></a>2.1 取指周期微操作</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210173811498.png"><span class="image-caption">image-20230210173811498</span></p>
 <p>PC-&gt;MAR是指令地址</p>
 <p>Mem-&gt;MBR-&gt;IR是指令内容</p>
 <ul>
@@ -363,27 +363,27 @@
 </ul>
 </li>
 </ul>
-<h2 id="2-2-间址周期微操作"><a href="#2-2-间址周期微操作" class="headerlink" title="2.2 间址周期微操作"></a>2.2 间址周期微操作</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181035586.png"><span class="image-caption">image-20230210181035586</span></p>
+<h2 id="2-2-间址周期微操作"><a href="#2-2-间址周期微操作" class="headerlink" title="2.2 间址周期微操作"></a>2.2 间址周期微操作</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181035586.png"><span class="image-caption">image-20230210181035586</span></p>
 <p>t1:取数据地址</p>
 <p>t2:取数据</p>
 <p>t1和t2不能调换</p>
-<h2 id="2-3-执行周期"><a href="#2-3-执行周期" class="headerlink" title="2.3 执行周期"></a>2.3 执行周期</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181148727.png"><span class="image-caption">image-20230210181148727</span></p>
+<h2 id="2-3-执行周期"><a href="#2-3-执行周期" class="headerlink" title="2.3 执行周期"></a>2.3 执行周期</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181148727.png"><span class="image-caption">image-20230210181148727</span></p>
 <p>都不能再压缩</p>
 <p>ADD:取操作数X，与R1加</p>
 <p>BSA:存原地址到MBRhe1Mem,取新地址到MAR和PC</p>
-<h2 id="2-4中断周期"><a href="#2-4中断周期" class="headerlink" title="2.4中断周期"></a>2.4中断周期</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181944789.png"><span class="image-caption">image-20230210181944789</span></p>
+<h2 id="2-4中断周期"><a href="#2-4中断周期" class="headerlink" title="2.4中断周期"></a>2.4中断周期</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210181944789.png"><span class="image-caption">image-20230210181944789</span></p>
 <p><strong>中断周期的任务：处理中断请求。需保存旧地址和旧地址内容</strong></p>
 <p>存旧地址到主存和MAR，旧地址内容到MBR，新地址到PC</p>
 <h2 id="2-5-指令周期代码（把微操作连起来）"><a href="#2-5-指令周期代码（把微操作连起来）" class="headerlink" title="2.5 指令周期代码（把微操作连起来）"></a>2.5 指令周期代码（把微操作连起来）</h2><p>取指、间址、中断周期各有一个微操作序列，执行周期则对于每个操作码有一个微操作序列  </p>
 <p><strong>指令周期代码ICC：</strong></p>
 <p>假设一个2位的ICC寄存器，明确CPU处于指令周期哪个阶段 </p>
 <p>刚好4种状态</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210182613175.png"><span class="image-caption">image-20230210182613175</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210182613175.png"><span class="image-caption">image-20230210182613175</span></p>
 <p>间接周期、执行周期、中断周期都类似上图。</p>
 <h1 id="3-CPU内部控制"><a href="#3-CPU内部控制" class="headerlink" title="3.CPU内部控制"></a>3.CPU内部控制</h1><h2 id="3-1-门管理实例"><a href="#3-1-门管理实例" class="headerlink" title="3.1 门管理实例"></a>3.1 门管理实例</h2><p>ALU和寄存器都连接到CPU内部总线上</p>
 <p>内部总线和寄存器之间有门和控制信号 </p>
 <p>控制线控制着数据和系统总线（外部）的交换以及ALU的操作  </p>
-<p>例子：<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210202037860.png"><span class="image-caption">image-20230210202037860</span></p>
+<p>例子：<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210202037860.png"><span class="image-caption">image-20230210202037860</span></p>
 <p>Y、Z用来暂存，因为总线不能同时传两个数据。</p>
 <p><strong>每次开两个门（一入一出）</strong></p>
 <h2 id="3-2-控制CPU的功能需求"><a href="#3-2-控制CPU的功能需求" class="headerlink" title="3.2 控制CPU的功能需求"></a>3.2 控制CPU的功能需求</h2><ul>
@@ -401,7 +401,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="3-3-控制器的输入输出"><a href="#3-3-控制器的输入输出" class="headerlink" title="3.3 控制器的输入输出"></a>3.3 控制器的输入输出</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210203112589.png"><span class="image-caption">image-20230210203112589</span></p>
+<h2 id="3-3-控制器的输入输出"><a href="#3-3-控制器的输入输出" class="headerlink" title="3.3 控制器的输入输出"></a>3.3 控制器的输入输出</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210203112589.png"><span class="image-caption">image-20230210203112589</span></p>
 <p><strong>输入：</strong></p>
 <ul>
 <li>指令寄存器： 当前指令的寻址方式（决定有无间址周期）和操作码（决定微操作）</li>
@@ -428,9 +428,9 @@
 </ul>
 <p><strong>所有的控制信号最终作为二进制输入量（0&#x2F;1）直接输入到各个逻辑门上</strong>  </p>
 <h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><p><strong>取指周期</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210204128417.png"><span class="image-caption">image-20230210204128417</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210204128417.png"><span class="image-caption">image-20230210204128417</span></p>
 <p><strong>间接取指、中断</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210204200945.png"><span class="image-caption">image-20230210204200945</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210204200945.png"><span class="image-caption">image-20230210204200945</span></p>
 <h2 id="3-4-控制器的细节实现"><a href="#3-4-控制器的细节实现" class="headerlink" title="3.4 控制器的细节实现"></a>3.4 控制器的细节实现</h2><p><strong>控制器的最小特性 ：</strong></p>
 <ul>
 <li>它只需要知道将被执行的指令和算术、逻辑运算结果的<strong>性质（如正负、溢出等）</strong>，而不需要知道正被处理的数据或得到的实际结果具体是什么（交由ALU）</li>
@@ -449,18 +449,18 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205002992.png"><span class="image-caption">image-20230210205002992</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205002992.png"><span class="image-caption">image-20230210205002992</span></p>
 </li>
 <li><p>时钟</p>
 <ul>
 <li>在一个指令周期（子周期）内，控制器要在不同时间单位发送不同的控制信号</li>
 <li>使用一个定时器作为控制器的输入，并且控制器在指令周期（或子周期）结束时必须通知定时器以使其重新开始计数</li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205421295.png"><span class="image-caption">image-20230210205421295</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205421295.png"><span class="image-caption">image-20230210205421295</span></p>
 </li>
 </ul>
 <p><strong>硬布线控制的逻辑本质：为每个输出的控制信号设计一个关于控制器输入的布尔表达式</strong>  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205450049.png"><span class="image-caption">image-20230210205450049</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210205450049.png"><span class="image-caption">image-20230210205450049</span></p>
 <h3 id="微程序-固件-实现（microprogrammed-implementation）："><a href="#微程序-固件-实现（microprogrammed-implementation）：" class="headerlink" title="微程序(固件)实现（microprogrammed implementation）："></a><strong>微程序(固件)实现（microprogrammed implementation）：</strong></h3><p><strong>基本概念：</strong></p>
 <ul>
 <li>控制逻辑是<strong>微程序</strong>指定的，控制器是一个<strong>相对简单的逻辑电路</strong>，通过执行每条<strong>微指令</strong>来产生控制信号 </li>
@@ -486,10 +486,10 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210210755662.png"><span class="image-caption">image-20230210210755662</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210210755662.png"><span class="image-caption">image-20230210210755662</span></p>
 <p>（长短表示控制字种类多少）</p>
 <p><strong>微程序宏观执行：</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210211308771.png"><span class="image-caption">image-20230210211308771</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210211308771.png"><span class="image-caption">image-20230210211308771</span></p>
 <p><strong>任务：</strong></p>
 <ul>
 <li>定序（microinstruction sequencing）  <ul>
@@ -510,11 +510,11 @@
 </li>
 </ul>
 <h4 id="定序细节"><a href="#定序细节" class="headerlink" title="定序细节"></a>定序细节</h4><p><strong>多种地址格式：</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212031773.png"><span class="image-caption">image-20230210212031773</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212031773.png"><span class="image-caption">image-20230210212031773</span></p>
 <p>单地址较常用。</p>
 <p><strong>定序逻辑构成细节：</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212057060.png"><span class="image-caption">image-20230210212057060</span></p>
-<h4 id="微程序控制流程"><a href="#微程序控制流程" class="headerlink" title="微程序控制流程"></a>微程序控制流程</h4><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212734243.png"><span class="image-caption">image-20230210212734243</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212057060.png"><span class="image-caption">image-20230210212057060</span></p>
+<h4 id="微程序控制流程"><a href="#微程序控制流程" class="headerlink" title="微程序控制流程"></a>微程序控制流程</h4><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210212734243.png"><span class="image-caption">image-20230210212734243</span></p>
 <ul>
 <li>生成新地址的三个选择 ：<ul>
 <li>取顺序下一条微指令：加1到控制地址寄存器</li>
@@ -523,7 +523,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210230355597.png"><span class="image-caption">image-20230210230355597</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210230355597.png"><span class="image-caption">image-20230210230355597</span></p>
 <p><strong>微程序设计优缺点：</strong></p>
 <ul>
 <li>简化了控制器的设计任务</li>

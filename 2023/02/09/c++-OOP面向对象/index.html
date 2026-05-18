@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">C++高级程序设计-学习笔记-OOP</h1>
     <div class="head-info">
@@ -317,7 +317,7 @@
 <p>​	默认调用成员对象的拷贝构造函数，逐个成员拷贝(member-wise initialization)</p>
 <p>自定义拷贝构造函数：</p>
 <p>​	默认调用成员对象的默认构造函数（不拷贝了，让程序员指导）</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/image-20221103120849361.png"><span class="image-caption">image-20221103120849361</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103120849361.png"><span class="image-caption">image-20221103120849361</span></p>
 <p> 此例子中，调用了自定义拷贝构造函数</p>
 <p>若删去红色，则为蓝色结果。</p>
 <h3 id="移动构造函数（待深入）"><a href="#移动构造函数（待深入）" class="headerlink" title="移动构造函数（待深入）"></a>移动构造函数（待深入）</h3><p>定义：A(A&amp; &amp;)</p>
@@ -478,7 +478,7 @@ class A&#123;
 <li><p>匹配不上是不会去别的名空间进行匹配(也就是不会去student那里去匹配)</p>
 </li>
 </ul>
-<h3 id="友元和protected"><a href="#友元和protected" class="headerlink" title="友元和protected"></a>友元和protected</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221115153645995.png"><span class="image-caption">image-20221115153645995</span></p>
+<h3 id="友元和protected"><a href="#友元和protected" class="headerlink" title="友元和protected"></a>友元和protected</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221115153645995.png"><span class="image-caption">image-20221115153645995</span></p>
 <p>友元只能访问当前子类，不能通过派生类访问基类</p>
 <ul>
 <li>否则protect与public无区别</li>
@@ -508,10 +508,10 @@ class A&#123;
 </li>
 <li>拷贝构造函数同理，需在派生类构造函数的成员初始化表中指出基类所选构造函数</li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221115154419191.png"><span class="image-caption">image-20221115154419191</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221115154419191.png"><span class="image-caption">image-20221115154419191</span></p>
 <h2 id="2-虚函数"><a href="#2-虚函数" class="headerlink" title="2.虚函数"></a>2.虚函数</h2><h3 id="静态绑定"><a href="#静态绑定" class="headerlink" title="静态绑定"></a>静态绑定</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs axapta">A a;<br>B b;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A<br>a = b 合法，因为b是a的子类<br>对象的身份发生变化<br>属于派生类的属性已不存在<br><br>B* pb;  A* pa = pb; 	   	<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A <br>B  b; 	   A &amp;a=b; 	<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A <br>对象身份没有发生变化<br>基类的引用或指针可以引用或指向派生类对象，不严谨的说，可以说让父类指向子类<br><br><span class="hljs-comment">//测试切片调用</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br>    <span class="hljs-built_in">int</span> x,y;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-keyword">void</span> f();<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A&#123;<br>    <span class="hljs-built_in">int</span> z;<br>    <span class="hljs-keyword">public</span>:<br>	    <span class="hljs-keyword">void</span> f();<br>	    <span class="hljs-keyword">void</span> g();<br>&#125;;<br><span class="hljs-comment">//把派生类对象赋值给基类对象</span><br>A a;<br>B b;<br>a = b;     <span class="hljs-comment">//OK, </span><br>b = a;     <span class="hljs-comment">//Error</span><br>a.f();     <span class="hljs-comment">//A::f()</span><br><br><span class="hljs-comment">//基类的引用或指针可以引用或指向派生类对象</span><br>A &amp;r_a = b;     <span class="hljs-comment">//OK</span><br>A *p_a = &amp;b;    <span class="hljs-comment">//OK</span><br><br>B &amp;r_b = a;     <span class="hljs-comment">//Error</span><br>B *p_b = &amp;a；   <span class="hljs-comment">//Error</span><br><span class="hljs-comment">//以下两个部分基本是一致的</span><br>func1(A&amp; a)&#123;a.f();&#125;<br>func2(A *pa)&#123;pa-&gt;f();&#125;<br>func1(b);<span class="hljs-comment">//A::f</span><br>func2(&amp;b); <span class="hljs-comment">// B::f??</span><br><span class="hljs-comment">//  func1(b):为什么是A的呢？</span><br>    对于B，A的版本的对应函数被隐藏<br>    静态绑定只看形参类型<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122103525109.png"><span class="image-caption">image-20221122103525109</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122103525109.png"><span class="image-caption">image-20221122103525109</span></p>
 <p>子不可变父（丢失信息），父可变子</p>
 <p>以上均为<strong>前期绑定</strong></p>
 <ul>
@@ -535,7 +535,7 @@ class A&#123;
 </ul>
 </li>
 </ul>
-<h3 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122112207356.png"><span class="image-caption">image-20221122112207356</span>虚函数表的原理：指针偏移</p>
+<h3 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122112207356.png"><span class="image-caption">image-20221122112207356</span>虚函数表的原理：指针偏移</p>
 <p>c++类定义<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%99%9A%E5%87%BD%E6%95%B0&spm=1001.2101.3001.7020">虚函数</a>后，会生成一个void**类型的指针（_vfptr），指向虚函数表的第一个虚函数。同一个类的不同实例共用同一份虚函数表, 它们都通过一个所谓的虚函数表指针vfptr指向该虚函数表。定义类对象时, 编译器自动将类对象的vfptr指向这个虚函数表。</p>
 <p>**((char *）p-4）(p)：调用A::f(this)</p>
 <ul>
@@ -556,7 +556,7 @@ class A&#123;
 <li><strong>不能用于创建对象</strong>:抽象类类似一个接口，提供一个框架</li>
 <li>为派生类提供框架，派生类提供抽象基类的所有成员函数的实现</li>
 </ol>
-<h3 id="多个函数"><a href="#多个函数" class="headerlink" title="多个函数"></a>多个函数</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122113450228.png"><span class="image-caption">image-20221122113450228</span></p>
+<h3 id="多个函数"><a href="#多个函数" class="headerlink" title="多个函数"></a>多个函数</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221122113450228.png"><span class="image-caption">image-20221122113450228</span></p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>&#123;<br>    <span class="hljs-keyword">public</span>:<br>	    A() &#123; f();&#125;<br>	    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f</span>()</span>;<br>	    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span>()</span>;<br>		<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">h</span>()</span>&#123;<br>            f();<br>            g();<br>        &#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title">B</span>: <span class="hljs-title">public</span> <span class="hljs-title">A</span><br>&#123;   <span class="hljs-keyword">public</span>:<br>	    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span>()</span>;<br>	    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span>()</span>;<br>&#125;;	<br><span class="hljs-comment">//直到构造函数返回之后，对象方可正常使用</span><br><span class="hljs-comment">//函数调用顺序，重要考试题，依据虚函数表</span><br>B b;      <span class="hljs-comment">// A::A()，A::f, B::B()</span><br><span class="hljs-comment">//为什么调用A的f而不是B的？因为名空间以及B没有构造。 </span><br>A *p= &amp;b;<br>p-&gt;f();   <span class="hljs-comment">//B::f,根据构造函数名确定</span><br>p-&gt;g();   <span class="hljs-comment">//A::g，g是静态绑定，根据引用对象名确定</span><br>p-&gt;h();   <span class="hljs-comment">//A::h, B::f, A::g</span><br></code></pre></td></tr></table></figure>
 
 <ul>

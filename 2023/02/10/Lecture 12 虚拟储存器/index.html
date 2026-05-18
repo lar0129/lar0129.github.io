@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记12-虚拟存储器</h1>
     <div class="head-info">
@@ -215,7 +215,7 @@
           <p><p>计算机组成原理-学习笔记12-虚拟存储器</p></p>
         
         <p>作业已写，考前抱佛脚整理</p>
-<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
+<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
 <p>主存中包含操作系统和若干个用户程序  </p>
 <p>在多道程序系统中， 主存需要进一步划分给多个任务， 划分的任务由<strong>操作系统动态执行</strong>  </p>
 <p>不区分“进程” 和“任务  </p>
@@ -233,18 +233,18 @@
 <li><p>可变长分区<br>• 用户区按每个任务所需要的内存大小进行分配<br>• 优点：提高了主存的利用率<br>• 缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
 <p><strong>帧 &#x2F; 页帧 &#x2F; 页框</strong> —— <strong>存储器</strong>分成相当小的、相等的固定长度的存储块，每个存储块被成为页帧、帧 </p>
 <p>页 —— 每个进程划分为小的固定长的程序块，程序的每个程序块成为页 </p>
 <p>页表 —— 记录了进程每页的帧地址 </p>
 <p>逻辑地址 —— 页号和页中相对地址 </p>
 <p>物理地址 —— 帧号和相对地址 </p>
 <p>进程和主存划分的块的大小相同</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
 <ul>
 <li>优点<br>• 在不扩大物理内存的前提下，可以载入更多的任务<br>• 编写程序时<strong>不需要考虑可用物理内存</strong>的状态<br>• 程序员认为可以独享一个连续的、很大的内存<br>• 可以在<strong>大于物理内存</strong>的逻辑地址空间中编程</li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
 <h2 id="分页式"><a href="#分页式" class="headerlink" title="分页式"></a>分页式</h2><ul>
 <li>页表<ul>
 <li>页表中包含了所有虚拟页的信息， 包括虚拟页的存放位置、 装入位（valid） 、修改位（dirty） 、 存取权限位等等  </li>
@@ -253,15 +253,15 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
 <p><img src="/C:/Users/lar/AppData/Roaming/Typora/typora-user-images/image-20230226001538018.png"><span class="image-caption">image-20230226001538018</span></p>
 <p><strong>快表</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
-<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
+<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
 <p>4：page 1次，cache miss 1次</p>
-<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
-<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
+<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
+<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
 <p><strong>段号 + 页号 + 页内偏移量</strong>  </p>
       </section>
       <section class="extra">

@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记15-指令流水线</h1>
     <div class="head-info">
@@ -222,10 +222,10 @@
 </ul>
 <p><img src="/C:/Users/lar/AppData/Roaming/Typora/typora-user-images/image-20221208163611041.png"><span class="image-caption">image-20221208163611041</span></p>
 <p>并非所有指令的周期都一样</p>
-<h3 id="带中断的指令周期"><a href="#带中断的指令周期" class="headerlink" title="带中断的指令周期"></a>带中断的指令周期</h3><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114423694.png"><span class="image-caption">image-20230210114423694</span></p>
+<h3 id="带中断的指令周期"><a href="#带中断的指令周期" class="headerlink" title="带中断的指令周期"></a>带中断的指令周期</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114423694.png"><span class="image-caption">image-20230210114423694</span></p>
 <h3 id="间址周期"><a href="#间址周期" class="headerlink" title="间址周期"></a>间址周期</h3><p>把间接地址的读取看成是一个额外的指令子周期  </p>
 <p>提出目的：与数据流，指令流水线有关</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114806911.png"><span class="image-caption">image-20230210114806911</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114806911.png"><span class="image-caption">image-20230210114806911</span></p>
 <h3 id="在指令周期中的CPU"><a href="#在指令周期中的CPU" class="headerlink" title="在指令周期中的CPU"></a>在指令周期中的CPU</h3><ul>
 <li><p>任务</p>
 <ul>
@@ -252,8 +252,8 @@
 </li>
 </ul>
 <h2 id="1-1取指周期"><a href="#1-1取指周期" class="headerlink" title="1.1取指周期"></a>1.1取指周期</h2><p>流程：</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115704765.png"><span class="image-caption">image-20230210115704765</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115825621.png"><span class="image-caption">image-20230210115825621</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115704765.png"><span class="image-caption">image-20230210115704765</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115825621.png"><span class="image-caption">image-20230210115825621</span></p>
 <ol>
 <li>PC-&gt;MAR-&gt;地址总线</li>
 <li>控制器通过控制线通知存储器地址就绪</li>
@@ -262,8 +262,8 @@
 <li>如果是异步总线，存储器提供反馈 ，告知准备好了</li>
 <li>指令取回来后， PC+“1”  （未画出,为控制器-&gt;PC）</li>
 </ol>
-<h2 id="1-2间址周期"><a href="#1-2间址周期" class="headerlink" title="1.2间址周期"></a>1.2间址周期</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120043533.png"><span class="image-caption">image-20230210120043533</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120208616.png"><span class="image-caption">image-20230210120208616</span></p>
+<h2 id="1-2间址周期"><a href="#1-2间址周期" class="headerlink" title="1.2间址周期"></a>1.2间址周期</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120043533.png"><span class="image-caption">image-20230210120043533</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120208616.png"><span class="image-caption">image-20230210120208616</span></p>
 <ol>
 <li>将MBR缓存中的地址引用送入MAR得到地址（MAR可认为与地址总线绑定，MBR可认为与数据总线绑定）</li>
 <li>MAR将地址传入地址总线</li>
@@ -273,8 +273,8 @@
 <p><strong>实际上间址周期取回的是一个有效地址，不是操作数本身</strong>。取操作数在执行周期</p>
 <h2 id="1-3中断周期"><a href="#1-3中断周期" class="headerlink" title="1.3中断周期"></a>1.3中断周期</h2><p>中断周期的任务：处理中断请求。需保存旧地址和旧地址内容</p>
 <p>假设程序断点存入堆栈中，并用SP指示栈顶地址,进栈操作是先修改栈顶指针，后存入数据。</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120613987.png"><span class="image-caption">image-20230210120613987</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210122314159.png"><br><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120925912.png"></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120613987.png"><span class="image-caption">image-20230210120613987</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210122314159.png"><br><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120925912.png"></p>
 <p>箭头往右，说明都是写的操作</p>
 <ol>
 <li>处理中断前，将<strong>下一条指令</strong>放到MBR中，再放到数据总线上 （以告知下一条指令需要返回到哪）（存入断点）</li>
@@ -289,7 +289,7 @@
 </ul>
 </li>
 <li>指令流水线：一条指令的处理过程分成若干个阶段，每个阶段由相应的功能部<br>件完成  <ul>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210152420723.png"><span class="image-caption">image-20230210152420723</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210152420723.png"><span class="image-caption">image-20230210152420723</span></li>
 </ul>
 </li>
 </ul>
@@ -313,7 +313,7 @@
 <li>写操作数（Write operand， WO）： 将结果存入存储器</li>
 </ul>
 <p>各个阶段所需要的时间几乎是相等的 。</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154320143.png"><span class="image-caption">image-20230210154320143</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154320143.png"><span class="image-caption">image-20230210154320143</span></p>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
 <li>不是所有指令都包含6个阶段<ul>
 <li>例：一条LOAD指令不需要WO阶段</li>
@@ -330,16 +330,16 @@
 </li>
 </ul>
 <p><strong>条件转移指令损失图解</strong></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154624695.png"><span class="image-caption">image-20230210154624695</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155033296.png"><span class="image-caption">image-20230210155033296</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155042586.png"><span class="image-caption">image-20230210155042586</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154624695.png"><span class="image-caption">image-20230210154624695</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155033296.png"><span class="image-caption">image-20230210155033296</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155042586.png"><span class="image-caption">image-20230210155042586</span></p>
 <p>本质：转移指令需要清空流水线造成的损失</p>
-<h2 id="2-3流水线性能"><a href="#2-3流水线性能" class="headerlink" title="2.3流水线性能"></a>2.3流水线性能</h2><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155218162.png"><span class="image-caption">image-20230210155218162</span></p>
+<h2 id="2-3流水线性能"><a href="#2-3流水线性能" class="headerlink" title="2.3流水线性能"></a>2.3流水线性能</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155218162.png"><span class="image-caption">image-20230210155218162</span></p>
 <p>𝑡𝑚 &#x3D; max [𝑡𝑖]</p>
 <p><strong>单周期时间</strong>：𝑡 &#x3D; max [𝑡𝑖] + 𝑑 &#x3D; 𝑡𝑚 + 𝑑  </p>
 <p><strong>总时间：</strong>𝑇𝑘,𝑛 &#x3D; [𝑘 + 𝑛 - 1] 𝑡（理想情况） </p>
 <p><strong>加速比</strong> &#x3D;  没有使用流水线 &#x2F; 使用流水线  &gt;  1 </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155433099.png"><span class="image-caption">image-20230210155433099</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155433099.png"><span class="image-caption">image-20230210155433099</span></p>
 <p>根据公式推导加速</p>
 <ul>
 <li>误解<ul>
@@ -378,18 +378,18 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160237237.png"><span class="image-caption">image-20230210160237237</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160237237.png"><span class="image-caption">image-20230210160237237</span></p>
 <h2 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h2><p>原因：未生成指令所需要的数据  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160554784.png"><span class="image-caption">image-20230210160554784</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160554784.png"><span class="image-caption">image-20230210160554784</span></p>
 <p>解决1：插入nop（啥都不做）</p>
 <p>解决2：插入bubble </p>
 <p>（都有时间开销）</p>
 <p><strong>解决3：转发（forwarding） &#x2F; 旁路（bypassing）</strong>  </p>
 <p>从ALU（或ALU后的步骤）直接提前打听R1</p>
 <p>什么时候失效：非计算指令时（如load)</p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160712506.png"><span class="image-caption">image-20230210160712506</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160712506.png"><span class="image-caption">image-20230210160712506</span></p>
 <p><strong>解决方案4：交换指令顺序</strong>  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210161010109.png"><span class="image-caption">image-20230210161010109</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210161010109.png"><span class="image-caption">image-20230210161010109</span></p>
 <h2 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h2><ul>
 <li>原因：指令的执行顺序被更改<ul>
 <li>转移（Transfer） : 分支（branch） , 循环（loop） , …</li>
@@ -424,11 +424,11 @@
 </li>
 </ul>
 <h3 id="分支动态预测"><a href="#分支动态预测" class="headerlink" title="分支动态预测"></a>分支动态预测</h3><p><strong>方法一：发生 &#x2F; 不发生切换</strong>  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164601006.png"><span class="image-caption">image-20230210164601006</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164601006.png"><span class="image-caption">image-20230210164601006</span></p>
 <p>初始状态-&gt;两次错误时改变状态</p>
 <p>假设：状态的连贯性</p>
 <p><strong>方法二：转移历史表</strong>  </p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164736260.png"><span class="image-caption">image-20230210164736260</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164736260.png"><span class="image-caption">image-20230210164736260</span></p>
 <p>未命中时记录转移历史，查表来预测</p>
       </section>
       <section class="extra">

@@ -110,7 +110,7 @@
       qrcode: {
         enable: true,
         type: 'image',
-        image: 'https://lar-blog.oss-cn-nanjing.aliyuncs.com/page/vx.JPG',
+        image: 'https://lar-main.oss-cn-shanghai.aliyuncs.com/page/vx.JPG',
       },
       toc: {
         enable: true
@@ -199,7 +199,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记13-总线</h1>
     <div class="head-info">
@@ -282,7 +282,7 @@
 <h3 id="仲裁方案"><a href="#仲裁方案" class="headerlink" title="仲裁方案"></a>仲裁方案</h3><ul>
 <li><p><strong>集中式（centralized</strong>）：由仲裁器（arbiter）或总线控制器（bus controller）负责分配总线使用权</p>
 <ul>
-<li><p><strong>链式查询 &#x2F; 菊花链</strong>（daisy chain）<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174524495.png"><span class="image-caption">image-20221129174524495</span></p>
+<li><p><strong>链式查询 &#x2F; 菊花链</strong>（daisy chain）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174524495.png"><span class="image-caption">image-20221129174524495</span></p>
 <ul>
 <li><p>串行连接，将允许信号从优先级最高的设备下发到优先级</p>
 <p>最低的设备</p>
@@ -295,7 +295,7 @@
 </li>
 </ul>
 </li>
-<li><p><strong>计数器查询</strong>（query by a counter）<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174517949.png"><span class="image-caption">image-20221129174517949</span></p>
+<li><p><strong>计数器查询</strong>（query by a counter）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174517949.png"><span class="image-caption">image-20221129174517949</span></p>
 <ul>
 <li><p>将总线允许线替换为设备ID（地址）线</p>
 </li>
@@ -310,7 +310,7 @@
 </li>
 </ul>
 </li>
-<li><p><strong>独立请求</strong>（independently request）<img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174509347.png"><span class="image-caption">image-20221129174509347</span></p>
+<li><p><strong>独立请求</strong>（independently request）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174509347.png"><span class="image-caption">image-20221129174509347</span></p>
 <ul>
 <li>每个设备都有自己的总线请求线和总线允许线</li>
 <li>总线仲裁器决定哪个设备可以使用总线<ul>
@@ -328,7 +328,7 @@
 <li><strong>自举式（self selection）</strong><ul>
 <li>固定优先级</li>
 <li>每个设备自行判断自己是否在请求总线的设备中优先级最高（3最高）</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174500223.png"><span class="image-caption">image-20221129174500223</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174500223.png"><span class="image-caption">image-20221129174500223</span></li>
 </ul>
 </li>
 <li><strong>冲突检测（collision detection)</strong><ul>
@@ -354,12 +354,12 @@
 <li><p>同步时序(时钟信号)：时钟信号来同步</p>
 <ul>
 <li>共享同一个时钟（快受慢拖累）</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204225949092.png"><span class="image-caption">image-20221204225949092</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204225949092.png"><span class="image-caption">image-20221204225949092</span></li>
 </ul>
 </li>
 <li><p>异步时序(顺序)：一个事件的发生取决于前一个事件的发生</p>
 <ul>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204230401684.png"><span class="image-caption">image-20221204230401684</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204230401684.png"><span class="image-caption">image-20221204230401684</span></li>
 <li>Ready提供数据，ack接收</li>
 <li>1.均为上升沿</li>
 <li>2.Ready下降沿,否则ready不知道ack收到</li>
@@ -367,7 +367,7 @@
 <li>（1开始后开始传输，即设置到数据&#x2F;地址线上）</li>
 <li>（读完后2开始握手通知）</li>
 <li>（3开始后收回悬置，即释放数据&#x2F;地址线）</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204231730077.png"><span class="image-caption">image-20221204231730077</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204231730077.png"><span class="image-caption">image-20221204231730077</span></li>
 <li>123和567：三次握手。4：释放和过渡</li>
 </ul>
 </li>
@@ -381,7 +381,7 @@
 <ul>
 <li>即在4时利用总线，将一个总线事件分离为两个过程</li>
 <li>缺点：增加了每个总线事件的时间</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204233008616.png"><span class="image-caption">image-20221204233008616</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204233008616.png"><span class="image-caption">image-20221204233008616</span></li>
 </ul>
 </li>
 </ul>
@@ -411,22 +411,22 @@
 </li>
 <li><p>同步总线</p>
 <ul>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234131244.png"><span class="image-caption">image-20221204234131244</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234131244.png"><span class="image-caption">image-20221204234131244</span></li>
 <li><strong>记住：准备数据【上取整】，一个时钟周期只能做一件事</strong></li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234347579.png"><span class="image-caption">image-20221204234347579</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234347579.png"><span class="image-caption">image-20221204234347579</span></li>
 </ul>
 </li>
 <li><p>异步总线</p>
 <ul>
 <li>第一次握手后开始准备数据</li>
 <li>数据准备后才能开始传输</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234032663.png"><span class="image-caption">image-20221204234032663</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234032663.png"><span class="image-caption">image-20221204234032663</span></li>
 </ul>
 </li>
 </ul>
-<h4 id="复杂例子"><a href="#复杂例子" class="headerlink" title="复杂例子"></a>复杂例子</h4><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235521515.png"><span class="image-caption">image-20221204235521515</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235530559.png"><span class="image-caption">image-20221204235530559</span></p>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235556052.png"><span class="image-caption">image-20221204235556052</span></p>
+<h4 id="复杂例子"><a href="#复杂例子" class="headerlink" title="复杂例子"></a>复杂例子</h4><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235521515.png"><span class="image-caption">image-20221204235521515</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235530559.png"><span class="image-caption">image-20221204235530559</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235556052.png"><span class="image-caption">image-20221204235556052</span></p>
 <ul>
 <li>每次读 &#x3D;&#x3D; 每次总线时间</li>
 <li>需要考虑最后一次空闲</li>
@@ -477,25 +477,25 @@
 <li>降低I&#x2F;O对总线的负担</li>
 </ul>
 </li>
-<li><p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205000947107.png"><span class="image-caption">image-20221205000947107</span></p>
+<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205000947107.png"><span class="image-caption">image-20221205000947107</span></p>
 </li>
 <li><p>多总线结构1</p>
 <ul>
 <li>增加一个 本地总线（<strong>local bus</strong>）来连接 CPU 和 cache</li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001159332.png"><span class="image-caption">image-20221205001159332</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001159332.png"><span class="image-caption">image-20221205001159332</span></li>
 </ul>
 </li>
 <li><p><strong>多总线结构2</strong></p>
 <ul>
 <li>将系统总线分为存储器总线、I&#x2F;O 总线和 <strong>DMA</strong> <strong>总线</strong></li>
-<li><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001149715.png"><span class="image-caption">image-20221205001149715</span></li>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001149715.png"><span class="image-caption">image-20221205001149715</span></li>
 </ul>
 </li>
 <li><p><strong>多总线结构3</strong></p>
 <ul>
 <li>增加一个 <strong>高速</strong> <strong>I&#x2F;O</strong> <strong>总线</strong> 来连接高速设备</li>
 </ul>
-<p><img src="https://lar-blog.oss-cn-nanjing.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001315388.png"><span class="image-caption">image-20221205001315388</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001315388.png"><span class="image-caption">image-20221205001315388</span></p>
 </li>
 </ul>
       </section>
