@@ -32,6 +32,10 @@
 
 
   
+<link rel="stylesheet" href="/lib/katex/katex.min.css">
+
+
+  
     
 <link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
@@ -205,7 +209,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4623</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4620</span>
     </div>
   </div>
 </section>
@@ -276,7 +280,7 @@
 <h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
 <p>good: 增大了命中率𝑝</p>
 <p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
-<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C**(M为块的数量)**</p>
+<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C<strong>（M 为块的数量）</strong></p>
 <p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
 <p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
 <p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>

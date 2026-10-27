@@ -1612,6 +1612,17 @@ body input {
 .article .wrap .main .content img {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+.article .wrap .main .content .katex {
+  line-height: normal;
+  text-indent: 0;
+}
+.article .wrap .main .content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
 }
 .article .wrap .main .content .image-caption {
   display: block;
@@ -1630,6 +1641,8 @@ body input {
   margin: 10px auto;
   min-width: 100%;
   text-align: center;
+  display: block;
+  overflow-x: auto;
 }
 .article .wrap .main .content table,
 .article .wrap .main .content table td,
@@ -1662,6 +1675,10 @@ body input {
   margin: 0;
   text-align: left;
   border: 0;
+}
+.article .wrap .main .content figure table {
+  display: table;
+  overflow: visible;
 }
 .article .wrap .main .content blockquote {
   margin: 0 0 1em;

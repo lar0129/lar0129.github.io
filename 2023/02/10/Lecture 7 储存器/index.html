@@ -30,6 +30,10 @@ Lecture...">
 
 
   
+<link rel="stylesheet" href="/lib/katex/katex.min.css">
+
+
+  
     
 <link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
@@ -203,7 +207,7 @@ Lecture...">
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>二月 10, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2336</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2653</span>
     </div>
   </div>
 </section>
@@ -239,8 +243,52 @@ Lecture...">
 <p>• 它们能够被读取（read）来获得状态信息</p>
 </li>
 </ul>
-<p><img src="/C:/Users\lar\AppData\Roaming\Typora\typora-user-images\image-20221020162749697.png"><span class="image-caption">image-20221020162749697</span></p>
-<p><img src="/C:/Users\lar\AppData\Roaming\Typora\typora-user-images\image-20221020162924146.png"><span class="image-caption">image-20221020162924146</span></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>写入方式</th>
+<th>断电后数据</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SRAM</td>
+<td>电信号读写，无需刷新</td>
+<td>丢失</td>
+<td>Cache</td>
+</tr>
+<tr>
+<td>DRAM</td>
+<td>电信号读写，需要周期刷新</td>
+<td>丢失</td>
+<td>主存</td>
+</tr>
+<tr>
+<td>ROM</td>
+<td>制造时写入</td>
+<td>保留</td>
+<td>固定程序</td>
+</tr>
+<tr>
+<td>PROM</td>
+<td>用户一次性编程</td>
+<td>保留</td>
+<td>固定配置</td>
+</tr>
+<tr>
+<td>EPROM</td>
+<td>紫外线擦除后重新编程</td>
+<td>保留</td>
+<td>可更新固件</td>
+</tr>
+<tr>
+<td>EEPROM &#x2F; Flash</td>
+<td>电擦除后重新编程</td>
+<td>保留</td>
+<td>固件、非易失存储</td>
+</tr>
+</tbody></table>
 <p>RAM的写、擦除效率相对EPROM最高</p>
 <h3 id="3-1-RAM-Random-Access-Memory"><a href="#3-1-RAM-Random-Access-Memory" class="headerlink" title="3.1 RAM Random-Access Memory"></a>3.1 RAM Random-Access Memory</h3><ul>
 <li>Random 随机访问：对存储器中任意数据访问花费时间  与数据所在位置无关</li>
@@ -251,18 +299,51 @@ Lecture...">
 </li>
 <li>类型：SRAM &#x2F; DRAM 静态 &#x2F; 动态</li>
 </ul>
-<h4 id="SRAM"><a href="#SRAM" class="headerlink" title="SRAM"></a><strong>SRAM</strong></h4><p><img src="/C:/Users\lar\AppData\Roaming\Typora\typora-user-images\image-20221020164747124.png"><span class="image-caption">image-20221020164747124</span></p>
+<h4 id="SRAM"><a href="#SRAM" class="headerlink" title="SRAM"></a><strong>SRAM</strong></h4><p>SRAM 通过双稳态电路保存一位数据，只要持续供电就能保持状态，不需要周期刷新。</p>
 <ul>
 <li>RS触发器：即锁存器。储存一个1&#x2F;0。</li>
-<li>T1 T2为1时联通，T3 T4为0时连通</li>
+<li>典型的 6T SRAM 单元包含两个交叉耦合的反相器和两个访问晶体管，由字线控制与位线之间的数据读写。</li>
 </ul>
 <p>读：CS&#x3D;0 RW &#x3D; 1</p>
 <p>写：CS&#x3D;1 RW &#x3D; 0</p>
 <p>WL始终为1，BL由CS、RW决定</p>
 <p>一个SRAM位元，共需要6个晶体管,成本较高。</p>
-<h4 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a><strong>DRAM</strong></h4><p><img src="/C:/Users\lar\AppData\Roaming\Typora\typora-user-images\image-20221020165342433.png"><span class="image-caption">image-20221020165342433</span></p>
+<h4 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a><strong>DRAM</strong></h4><p>典型的 DRAM 单元由一个晶体管和一个电容组成，通过电容中的电荷表示数据。电荷会泄漏，因此需要周期刷新；读取后也需要恢复电荷。</p>
 <p>放大器补充电荷</p>
-<h4 id="SRAM和DRAM对比"><a href="#SRAM和DRAM对比" class="headerlink" title="SRAM和DRAM对比"></a>SRAM和DRAM对比</h4><p><img src="/C:/Users\lar\AppData\Roaming\Typora\typora-user-images\image-20221020165629786.png"><span class="image-caption">image-20221020165629786</span></p>
+<h4 id="SRAM和DRAM对比"><a href="#SRAM和DRAM对比" class="headerlink" title="SRAM和DRAM对比"></a>SRAM和DRAM对比</h4><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>SRAM</th>
+<th>DRAM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储单元</td>
+<td>典型为 6 个晶体管</td>
+<td>典型为 1 个晶体管和 1 个电容</td>
+</tr>
+<tr>
+<td>刷新</td>
+<td>不需要</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>访问速度</td>
+<td>较快</td>
+<td>较慢</td>
+</tr>
+<tr>
+<td>集成密度</td>
+<td>较低</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>单位容量成本</td>
+<td>较高</td>
+<td>较低</td>
+</tr>
+</tbody></table>
 <p>根据优缺点<strong>应用</strong>：SRAM常用于Cache, DRAM常用于内存条</p>
 <h3 id="3-2-ROM与PROM-只读存储器"><a href="#3-2-ROM与PROM-只读存储器" class="headerlink" title="3.2 ROM与PROM 只读存储器"></a>3.2 ROM与PROM 只读存储器</h3><p>Read Only。</p>
 <p><strong>ROM</strong></p>
@@ -359,7 +440,7 @@ Lecture...">
         
         
   <nav class="nav">
-    <a href="/2023/02/10/Lecture%2016%20%E6%8E%A7%E5%88%B6%E5%99%A8/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记16-CPU控制器</a>
+    <a href="/2023/02/10/Lecture%2017%20IO%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记17-IO输入输出</a>
     <a href="/2023/02/10/Lecture%209%20%E5%A4%96%E9%83%A8%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记9-外部存储器<i class="iconfont iconright"></i></a>
   </nav>
 

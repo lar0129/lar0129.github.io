@@ -27,6 +27,10 @@
 
 
   
+<link rel="stylesheet" href="/lib/katex/katex.min.css">
+
+
+  
     
 <link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
@@ -200,7 +204,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 10, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3740</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3736</span>
     </div>
   </div>
 </section>
@@ -222,7 +226,7 @@
 <li><img src="https://pic3.zhimg.com/80/v2-d2880255d25a566195e734fb28d8726a_1440w.webp"><span class="image-caption">img</span></li>
 </ul>
 <h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>Node即节点，对应一个物理节点（物理机或者虚拟机），运行和管理Pod的生命周期，以及其他属于节点上的资源对象。</p>
-<h2 id="Volume-数据卷"><a href="#Volume-数据卷" class="headerlink" title="Volume 数据卷"></a><strong>Volume 数据卷</strong></h2><p>K8S 支持很多类型的 volume 数据卷挂载，具体请参见**<a href="https://link.zhihu.com/?target=https://kubernetes.io/zh/docs/concepts/storage/volumes/">K8S 卷</a><strong>。前文就“如何理解 volume”提到：“</strong>需要手动 mount 的磁盘<strong>”，此外，有一点可以帮助理解：</strong>数据卷 volume 是 Pod 内部的磁盘资源**。</p>
+<h2 id="Volume-数据卷"><a href="#Volume-数据卷" class="headerlink" title="Volume 数据卷"></a><strong>Volume 数据卷</strong></h2><p>K8S 支持很多类型的 volume 数据卷挂载，具体请参见<strong><a href="https://link.zhihu.com/?target=https://kubernetes.io/zh/docs/concepts/storage/volumes/">K8S 卷</a></strong>。前文就“如何理解 volume”提到：“<strong>需要手动 mount 的磁盘</strong>”，此外，有一点可以帮助理解：<strong>数据卷 volume 是 Pod 内部的磁盘资源</strong>。</p>
 <p><strong>volume 是 K8S 的对象，对应一个实体的数据卷；而 volumeMounts 只是 container 的挂载点，对应 container 的其中一个参数</strong>。但是，<strong>volumeMounts 依赖于 volume</strong>，只有当 Pod 内有 volume 资源的时候，该 Pod 内部的 container 才可能有 volumeMounts。</p>
 <h2 id="Container-容器"><a href="#Container-容器" class="headerlink" title="Container 容器"></a><strong>Container 容器</strong></h2><p>本文中提到的镜像 Image、容器 Container，都指代了 Pod 下的一个<code>container</code>。关于 K8S 中的容器，在 2.1Pod 章节都已经交代了，这里无非再啰嗦一句：<strong>一个 Pod 内可以有多个容器 container</strong>。</p>
 <p>在 Pod 中，容器也有分类，对这个感兴趣的同学欢迎自行阅读更多资料：</p>
@@ -289,7 +293,7 @@
         
         
   <nav class="nav">
-    <a href="/2023/12/10/Index-Masstree/"><i class="iconfont iconleft"></i>Masstree：A cache-friendly mashup of tries and B-trees</a>
+    <a href="/2023/12/10/Index-Learned%20index/"><i class="iconfont iconleft"></i>Learned index 综述</a>
     <a href="/2023/06/12/mac%E6%8C%87%E5%8D%97/">MacOS使用入门<i class="iconfont iconright"></i></a>
   </nav>
 

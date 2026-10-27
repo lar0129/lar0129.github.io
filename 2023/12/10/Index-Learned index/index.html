@@ -32,6 +32,10 @@
 
 
   
+<link rel="stylesheet" href="/lib/katex/katex.min.css">
+
+
+  
     
 <link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
@@ -205,7 +209,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>十二月 10, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3141</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3144</span>
     </div>
   </div>
 </section>
@@ -237,7 +241,7 @@
 <li>因为 x 是排序过的, 所以 f 实际上是在给数据的 CDF 建模 [4]. 下图是学习索引的一个示例.</li>
 </ul>
 <p><img src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
-<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给$x_i$求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
+<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
 <p>同时<strong>为了提高模型的准确率, 使用层级模型</strong>. 损失函数如下所示</p>
 <p><img src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
 <p>模型架构如下所示:</p>
@@ -277,8 +281,8 @@
         
         
   <nav class="nav">
-    <a href="/2023/12/10/Index-ART/"><i class="iconfont iconleft"></i>Adaptive radix tree：高效自适应树状索引结构</a>
-    <a href="/2023/12/10/Index-HOT/">HOT：A Height Optimized Trie Index<i class="iconfont iconright"></i></a>
+    <a href="/2023/12/10/Index-Masstree/"><i class="iconfont iconleft"></i>Masstree：A cache-friendly mashup of tries and B-trees</a>
+    <a href="/2023/07/10/k8s%E5%85%A5%E9%97%A8/">k8s概念整合<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
