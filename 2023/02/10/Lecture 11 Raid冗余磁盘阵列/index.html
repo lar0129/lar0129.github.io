@@ -28,22 +28,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记11-RAID阵列</h1>
     <div class="head-info">
@@ -221,22 +221,22 @@
         <p>考前抱佛脚整理</p>
 <h1 id="Lecture-11-RAID"><a href="#Lecture-11-RAID" class="headerlink" title="Lecture 11 RAID"></a>Lecture 11 RAID</h1><p>• 基本思想<br>    • 将多个独立操作的磁盘按某种方式组织成磁盘阵列， 以<strong>增加容量</strong><br>    • 将数据存储在多个盘体上， 通过这些盘并行工作来<strong>提高数据传输率</strong><br>    • 采用数据冗余来进行错误恢复以<strong>提高系统可靠性</strong></p>
 <p>• 特性<br>    • 由一组物理磁盘驱动器组成， 被视为<strong>单个逻辑</strong>驱动器<br>    • 数据是分布在多个物理磁盘上<br>    • 冗余磁盘容量用于存储校验信息， 保证磁盘万一损坏时能恢复数据  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225232853806.png"><span class="image-caption">image-20230225232853806</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225232853806.png"><span class="image-caption">image-20230225232853806</span></p>
 <h2 id="RAID-0"><a href="#RAID-0" class="headerlink" title="RAID 0"></a>RAID 0</h2><p>以条带的形式  </p>
 <p>不采用冗余  </p>
 <p>高数据传输率</p>
 <p>高速响应I&#x2F;O请求  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233217161.png"><span class="image-caption">image-20230225233217161</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233217161.png"><span class="image-caption">image-20230225233217161</span></p>
 <h2 id="RAID-1"><a href="#RAID-1" class="headerlink" title="RAID 1"></a>RAID 1</h2><p>简单地备份所有数据的方法来实现冗余  </p>
 <p>高速响应I&#x2F;O请求：  高速响应I&#x2F;O请求：</p>
 <p>读请求可以选择寻道时间较小的那个    </p>
 <p>受限于写入较慢的磁盘  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233423898.png"><span class="image-caption">image-20230225233423898</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233454305.png"><span class="image-caption">image-20230225233454305</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233423898.png"><span class="image-caption">image-20230225233423898</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233454305.png"><span class="image-caption">image-20230225233454305</span></p>
 <p>RAID10 <strong>容错率更高</strong></p>
 <h2 id="RAID-2"><a href="#RAID-2" class="headerlink" title="RAID 2"></a>RAID 2</h2><p>对位于同一条带的各个数据盘上的数据位计算校验码（通常采用海明码）  </p>
 <p>适用于多磁盘易出错环境，对于单个磁盘和磁盘驱动器已经具备高可靠性的情况没有意义<strong>（实际基本弃用）</strong>  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233720023.png"><span class="image-caption">image-20230225233720023</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233720023.png"><span class="image-caption">image-20230225233720023</span></p>
 <h2 id="RAID-3"><a href="#RAID-3" class="headerlink" title="RAID 3"></a>RAID 3</h2><p>对所有数据盘上同一位置的数据计算奇偶校验码  </p>
 <p>非常小的数据条带</p>
 <p>当某一磁盘损坏时，可以用于重构数据  </p>
@@ -247,7 +247,7 @@
 </li>
 </ul>
 <p>次只能执行一个I&#x2F;O请求，在面向多个IO请求时，性能将受损  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233932548.png"><span class="image-caption">image-20230225233932548</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225233932548.png"><span class="image-caption">image-20230225233932548</span></p>
 <h2 id="RAID-4"><a href="#RAID-4" class="headerlink" title="RAID 4"></a>RAID 4</h2><p>较大的数据条带  </p>
 <p>根据各个数据盘上的数据来逐位计算奇偶校验条带，奇偶校验位存储在奇偶校验盘的对应条带上  </p>
 <p>独立存取阵列更适合与需要高速 IO 请求的应用，而相对较少用于需要高数据传输率的场合。</p>
@@ -257,11 +257,11 @@
 <li>校验盘会成为瓶颈（实际基本弃用）</li>
 </ul>
 <p>两读两写—— 两次读操作（数据盘、校验盘）、两次写操作（数据盘、校验盘）</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234128783.png"><span class="image-caption">image-20230225234128783</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234128783.png"><span class="image-caption">image-20230225234128783</span></p>
 <h2 id="RAID-5"><a href="#RAID-5" class="headerlink" title="RAID 5"></a>RAID 5</h2><p>与RAID 4 组织方式相似<strong>（常用）</strong> </p>
 <p>在所有磁盘上都分布了奇偶校验条带  </p>
 <p>访问时的<strong>“两读两写”</strong>：读在写前，读&#x2F;写不需要并行  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234244516.png"><span class="image-caption">image-20230225234244516</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225234244516.png"><span class="image-caption">image-20230225234244516</span></p>
 <h2 id="RAID-6"><a href="#RAID-6" class="headerlink" title="RAID 6"></a>RAID 6</h2><p>采用两种不同的校验码，并将校验码以分开的块存于不同的磁盘中  </p>
 <p>提升数据可用性：只有在平均修复时间间隔内3个磁盘都出了故障，才<br>会造成数据丢失  </p>
 <p>写损失：每次写都要影响两个校验块（<strong>读3个写3个磁盘</strong>）  </p>
@@ -279,8 +279,8 @@
         
         
   <nav class="nav">
-    <a href="/2023/06/12/mac%E6%8C%87%E5%8D%97/"><i class="iconfont iconleft"></i>MacOS使用入门</a>
-    <a href="/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记12-虚拟存储器<i class="iconfont iconright"></i></a>
+    <a href="/2023/02/10/Lecture%2010%20%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记10-数据校验码</a>
+    <a href="/2023/02/10/Lecture%2013%20%E6%80%BB%E7%BA%BF/">计算机组成原理-学习笔记13-总线<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -290,48 +290,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -423,36 +448,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -472,6 +481,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

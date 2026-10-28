@@ -23,22 +23,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -47,12 +47,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -69,7 +69,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -137,8 +137,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -198,7 +198,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">HOT：A Height Optimized Trie Index</h1>
     <div class="head-info">
@@ -226,7 +226,7 @@
 <p>多线程同步：用的ROWEX算法</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/speedskater/hot">项目</a></p>
 <h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><p>Trie树已经证明了在内存数据库上比b-tree性能更好。之前的研究都是如何降低树的高度。下面来看一下在binary trie上进行的优化。</p>
-<p><img src="/images/posts/hot/01.webp"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/01.webp"></p>
 <p>如图，一共有13个key插入到了一个binary trie(a)中</p>
 <ul>
 <li>路径压缩：一个简单的优化就是将路径中没有分支(区分)的节点进行合并，也就是Radix Tree(b)，合并之后的树就是一个满二叉树了。</li>
@@ -249,16 +249,16 @@
 </ul>
 <p>HOT的两个特性：基于数据的span和固定的fanout k。</p>
 <h2 id="准备：-k-约束-Trie"><a href="#准备：-k-约束-Trie" class="headerlink" title="准备： k-约束 Trie"></a>准备： k-约束 Trie</h2><p>HOT的每个节点都代表一个fanout最大为k的<strong>binary radix tree</strong>。一个节点最多存k-1个内部节点BiNode和k个叶子(指针)。</p>
-<p><img src="/images/posts/hot/02.webp"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/02.webp"></p>
 <p>有多种节点组合方式，k&#x3D;3，3（a）的划分节点少，3(b)的划分高度低。</p>
 <ul>
 <li>两种partition方案，右侧就比左侧要好，因为树高更低。</li>
 </ul>
 <p>高度是定义的一个节点的属性</p>
-<p><img src="/images/posts/hot/03.webp"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/03.webp"></p>
 <p>最小化树高创建k-约束的节点 类似于 划分一个满二叉树成不相交的子树（使从根节点到叶子节点路径分区的分区数 最小)。下面在插入时具体讲。</p>
 <h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>与B树类似，一般情况下只影响插入的那个节点，其他情况需要对树的结构进行调整。</p>
-<p><img src="/images/posts/hot/04.webp"><span class="image-caption">img</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/04.webp"><span class="image-caption">img</span></p>
 <p>首先，规定两个术语:复合节点叫Node，内部的节点叫BiNode。下文统一是采用的这两个术语。</p>
 <p>插入过程一共包含以下四种case:</p>
 <ul>
@@ -279,7 +279,7 @@
 </blockquote>
 <p>主要思想是<strong>把k-约束的trie线性化为一个紧凑的能使用SIMD并行查找的bit String</strong>。为此，把区分的bits连续存储。</p>
 <p>根据每个Compound Node的结构和作用，其中<strong>必须要存储的是数据的特征点以及特征点的位置</strong>。如下图9，共有7个Key。右图红框中标出的是所有特征点的位置，{3, 4, 6, 8, 9}。Bit Positions列标出该条路径(根节点到叶节点)上的特征点位置；Partial Key(dense)列基于所有特征点位置得出的具体特征点；Partial Key(sparse)基于具体路径上的特征点Bit Positions位置标识出来的特征点，不在该路径上的其他点标识0，表示未定义的状态。</p>
-<p><img src="/images/posts/hot/05.webp"><span class="image-caption">img</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/05.webp"><span class="image-caption">img</span></p>
 <p>图5a包含7个key，区分bits位是{3,4,6,8,9}。把每个key这5个区分位组成了partial key(dense)。<strong>把Partial key连续存储就能用SIMD进行并行查找所有key</strong>，而不用再遍历相应的Trie。但是为了插入的简化，事实上节点内用的并不是这个dense partial key，而用的是sparse partial key，下面插入会讲。</p>
 <p>最大fanout设为32，对CPU Cache够大，对快速更新够小。一个node最多有31个区分bit positions（足够区分32个key，想想最坏的情况，32bit从第0位到第32位依次为1，其余为0）。为了SIMD操作，Partial key需要对齐。在物理层面上，Partial key有三种存储表示，8-bit, 16-bit和32-bit数组。对每个节点总选最小的。</p>
 <p>除了partial key，每个节点还需要存bit positions(存哪些位能用来区分不同的key)。最简单的方法就是存到一个数组中(图5(c)(I)，把34689存了起来)，但是比较慢，因为在进行数据并行的key比较前需要<strong>从search key中先提取bit positions相应的数据形成comparison key，</strong>再和Partial key进行比较。</p>
@@ -288,7 +288,7 @@
 <p>（PEXT指令就是A通过B指定的掩码把A中相应的比特位传输到C的低比特位中）</p>
 </blockquote>
 <p>到这里，node的layout有两个需要自适应调整的地方，第一是Partial keys，有8bit, 16bit和32bit的数组可选，选择的依据是区分bits的个数(如需要15位bit来区分这32个key，就选择16bit的partial keys;最好的情况是用5bit区分，选8bit partial key；最坏的情况需要31位，选32bit Partial key)；第二是单掩码和多掩码的区别，选择的依据是最小bit position和最大bit position之间的距离，小于64用单掩码，多余64用多掩码。</p>
-<h2 id="物理节点的layout"><a href="#物理节点的layout" class="headerlink" title="物理节点的layout"></a>物理节点的layout</h2><p><img src="/images/posts/hot/06.webp"><span class="image-caption">img</span></p>
+<h2 id="物理节点的layout"><a href="#物理节点的layout" class="headerlink" title="物理节点的layout"></a>物理节点的layout</h2><p><img decoding="async" loading="lazy" src="/images/posts/hot/06.webp"><span class="image-caption">img</span></p>
 <p>一个节点包含四部分内容，头文件、bit positions、Partial key和value<br>头文件中包含的信息有子树的高度，描述used entries的位掩码(这是什么)和同步版本的锁</p>
 <p>bit Positions部分包含offset和掩码。offset记录的是位掩码开始的地址。</p>
 <p>总是用最小的节点。对于一个节点存了n个entries，就分配n个partial keys和n个values，当需要修改节点的时候用copy-on-write。value中存的是指针还是tid，用最高有效位进行区分。</p>
@@ -307,7 +307,7 @@
 <li><p>写需要保证任何时候数据结构都是合法的</p>
 </li>
 </ul>
-<p><img src="/images/posts/hot/07.webp"><span class="image-caption">img</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/hot/07.webp"><span class="image-caption">img</span></p>
 <p>修改操作（插入与删除）分成五步：</p>
 <ol>
 <li>遍历的时候决定哪些节点需要修改，放到栈里，这些节点称作受影响节点；</li>
@@ -330,7 +330,7 @@
         
   <nav class="nav">
     <a href="/2023/12/10/Index-ART/"><i class="iconfont iconleft"></i>Adaptive radix tree：高效自适应树状索引结构</a>
-    <a href="/2023/12/10/Index-Masstree/">Masstree：A cache-friendly mashup of tries and B-trees<i class="iconfont iconright"></i></a>
+    <a href="/2023/12/10/Index-Learned%20index/">Learned index 综述<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -340,48 +340,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -473,36 +498,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -522,6 +531,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

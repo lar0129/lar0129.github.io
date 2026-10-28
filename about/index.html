@@ -23,22 +23,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -47,12 +47,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -69,7 +69,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -137,8 +137,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -198,13 +198,13 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/fix-dir/lar/Desktop/2025/06/08/23-16-12-3155a6ef2e3163256fa6bf935ed598ea-360MoveData-Users-lar-Desktop-lar3-e6e97d.jpg" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/fix-dir/lar/Desktop/2025/06/08/23-16-12-3155a6ef2e3163256fa6bf935ed598ea-360MoveData-Users-lar-Desktop-lar3-e6e97d.jpg" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">关于我</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>十月 27, 2026</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>398</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>397</span>
     </div>
   </div>
 </section>
@@ -216,7 +216,7 @@
 <p>INTP</p>
 <p>2023 update: 观测世界与迭代自我ing  ：)</p>
 <p>2024 update: 身体查出各种问题+入院多次，承认自己是个脆皮的事实，自救中。<br>最重大的决策：放弃出国读phd</p>
-<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#97;&#97;&#x72;&#111;&#x6e;&#x2e;&#97;&#110;&#x72;&#x61;&#110;&#108;&#105;&#x61;&#110;&#103;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#97;&#97;&#x72;&#111;&#x6e;&#x2e;&#97;&#110;&#x72;&#x61;&#110;&#108;&#105;&#x61;&#110;&#103;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<h1 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h1><p>E-Mail: <a href="mailto:&#97;&#x61;&#114;&#x6f;&#x6e;&#46;&#97;&#x6e;&#114;&#x61;&#x6e;&#x6c;&#105;&#97;&#x6e;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#97;&#x61;&#114;&#x6f;&#x6e;&#46;&#97;&#x6e;&#114;&#x61;&#x6e;&#x6c;&#105;&#97;&#x6e;&#103;&#64;&#103;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
 <p>GitHub: <a target="_blank" rel="noopener" href="https://github.com/lar0129">@lar0129</a></p>
 <p>instagram: <a target="_blank" rel="noopener" href="https://www.instagram.com/aaron_lianganran/">@aaron_lianganran</a></p>
 <p>bilibili: <a target="_blank" rel="noopener" href="https://space.bilibili.com/4832275">@byebyeschoolboy</a></p>
@@ -237,48 +237,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -370,36 +395,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -419,6 +428,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

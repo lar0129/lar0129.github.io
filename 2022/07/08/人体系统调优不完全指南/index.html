@@ -26,22 +26,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -50,12 +50,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -72,7 +72,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -140,8 +140,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -201,7 +201,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">人体神经网络调参不完全指南</h1>
     <div class="head-info">
@@ -498,48 +498,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -631,36 +656,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -680,6 +689,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

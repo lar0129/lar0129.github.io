@@ -28,22 +28,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">通俗理解网络协议</h1>
     <div class="head-info">
@@ -260,7 +260,7 @@
 <li><p>IP数据包</p>
 <ul>
 <li>根据IP协议发送的数据，就叫做IP数据包。我们可以把IP数据包直接放进以太网数据包的”数据”部分，因此完全不用修改以太网的规格。这就是互联网分层结构的好处：上层的变动完全不涉及下层的结构。</li>
-<li><img src="/images/posts/repaired/151007ibebhdrudjqof1qp.jpg"><span class="image-caption">网络编程懒人入门(一)：快速理解网络通信协议（上篇）_10.jpg</span></li>
+<li><img decoding="async" loading="lazy" src="/images/posts/repaired/151007ibebhdrudjqof1qp.jpg"><span class="image-caption">网络编程懒人入门(一)：快速理解网络通信协议（上篇）_10.jpg</span></li>
 <li>IP数据包的”标头”部分的长度为20到60字节，整个数据包的总长度最大为65,535字节。因此，理论上，一个IP数据包的”数据”部分，最长为65,515字节。前面说过，以太网数据包的”数据”部分，最长只有1500字节。因此，<strong>如果IP数据包超过了1500字节，它就需要分割成几个以太网数据包，分开发送了</strong></li>
 </ul>
 </li>
@@ -304,7 +304,7 @@
 <li><p>UDP协议</p>
 <ul>
 <li>“标头”部分主要定义了发出端口和接收端口，”数据”部分就是具体的内容。然后，把整个UDP数据包放入IP数据包的”数据”部分，而前面说过，IP数据包又是放在以太网数据包之中的，所以整个以太网数据包现在变成了下面这样：</li>
-<li><img src="/images/posts/repaired/153041d3j4w47j4b3t4ddj.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_1.jpg</span></li>
+<li><img decoding="async" loading="lazy" src="/images/posts/repaired/153041d3j4w47j4b3t4ddj.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_1.jpg</span></li>
 <li>“标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</li>
 </ul>
 </li>
@@ -335,7 +335,7 @@
 <li><p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做”DHCP服务器”。新的计算机加入网络，必须向”DHCP服务器”发送一个”DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
 </li>
 <li><p><strong>首先，它是一种应用层协议，建立在UDP协议之上，所以整个数据包是这样的：</strong></p>
-<p><img src="/images/posts/repaired/153032wppxuuvdmupaqiy6.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_5.jpg</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/153032wppxuuvdmupaqiy6.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_5.jpg</span></p>
 <ul>
 <li><strong>1）最前面的”以太网标头”：</strong>设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。</li>
 <li><strong>2）后面的”IP标头”：</strong>设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。</li>
@@ -376,7 +376,7 @@
 </li>
 <li><p>HTTP协议</p>
 <ul>
-<li><p><img src="/images/posts/repaired/152959qwuepu61p36qpu5l.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_8.jpg</span></p>
+<li><p><img decoding="async" loading="lazy" src="/images/posts/repaired/152959qwuepu61p36qpu5l.jpg"><span class="image-caption">网络编程懒人入门(二)：快速理解网络通信协议（下篇）_8.jpg</span></p>
 </li>
 <li><p><strong>HTTP部分的内容，类似于下面这样,假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。</strong></p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>[url=http://www.google.com]www.google.com[/url]<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>keep-alive<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 6.1) ......<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip,deflate,sdch<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh;q=0.8<br><span class="hljs-attribute">Accept-Charset</span><span class="hljs-punctuation">: </span>GBK,utf-8;q=0.7,*;q=0.3<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>... ...<br></code></pre></td></tr></table></figure></li>
@@ -424,48 +424,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -557,36 +582,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -606,6 +615,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

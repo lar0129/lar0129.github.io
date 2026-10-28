@@ -28,22 +28,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记13-总线</h1>
     <div class="head-info">
@@ -286,7 +286,7 @@
 <h3 id="仲裁方案"><a href="#仲裁方案" class="headerlink" title="仲裁方案"></a>仲裁方案</h3><ul>
 <li><p><strong>集中式（centralized</strong>）：由仲裁器（arbiter）或总线控制器（bus controller）负责分配总线使用权</p>
 <ul>
-<li><p><strong>链式查询 &#x2F; 菊花链</strong>（daisy chain）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174524495.png"><span class="image-caption">image-20221129174524495</span></p>
+<li><p><strong>链式查询 &#x2F; 菊花链</strong>（daisy chain）<img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174524495.png"><span class="image-caption">image-20221129174524495</span></p>
 <ul>
 <li><p>串行连接，将允许信号从优先级最高的设备下发到优先级</p>
 <p>最低的设备</p>
@@ -299,7 +299,7 @@
 </li>
 </ul>
 </li>
-<li><p><strong>计数器查询</strong>（query by a counter）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174517949.png"><span class="image-caption">image-20221129174517949</span></p>
+<li><p><strong>计数器查询</strong>（query by a counter）<img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174517949.png"><span class="image-caption">image-20221129174517949</span></p>
 <ul>
 <li><p>将总线允许线替换为设备ID（地址）线</p>
 </li>
@@ -314,7 +314,7 @@
 </li>
 </ul>
 </li>
-<li><p><strong>独立请求</strong>（independently request）<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174509347.png"><span class="image-caption">image-20221129174509347</span></p>
+<li><p><strong>独立请求</strong>（independently request）<img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174509347.png"><span class="image-caption">image-20221129174509347</span></p>
 <ul>
 <li>每个设备都有自己的总线请求线和总线允许线</li>
 <li>总线仲裁器决定哪个设备可以使用总线<ul>
@@ -332,7 +332,7 @@
 <li><strong>自举式（self selection）</strong><ul>
 <li>固定优先级</li>
 <li>每个设备自行判断自己是否在请求总线的设备中优先级最高（3最高）</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174500223.png"><span class="image-caption">image-20221129174500223</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221129174500223.png"><span class="image-caption">image-20221129174500223</span></li>
 </ul>
 </li>
 <li><strong>冲突检测（collision detection)</strong><ul>
@@ -358,12 +358,12 @@
 <li><p>同步时序(时钟信号)：时钟信号来同步</p>
 <ul>
 <li>共享同一个时钟（快受慢拖累）</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204225949092.png"><span class="image-caption">image-20221204225949092</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204225949092.png"><span class="image-caption">image-20221204225949092</span></li>
 </ul>
 </li>
 <li><p>异步时序(顺序)：一个事件的发生取决于前一个事件的发生</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204230401684.png"><span class="image-caption">image-20221204230401684</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204230401684.png"><span class="image-caption">image-20221204230401684</span></li>
 <li>Ready提供数据，ack接收</li>
 <li>1.均为上升沿</li>
 <li>2.Ready下降沿,否则ready不知道ack收到</li>
@@ -371,7 +371,7 @@
 <li>（1开始后开始传输，即设置到数据&#x2F;地址线上）</li>
 <li>（读完后2开始握手通知）</li>
 <li>（3开始后收回悬置，即释放数据&#x2F;地址线）</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204231730077.png"><span class="image-caption">image-20221204231730077</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204231730077.png"><span class="image-caption">image-20221204231730077</span></li>
 <li>123和567：三次握手。4：释放和过渡</li>
 </ul>
 </li>
@@ -385,7 +385,7 @@
 <ul>
 <li>即在4时利用总线，将一个总线事件分离为两个过程</li>
 <li>缺点：增加了每个总线事件的时间</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204233008616.png"><span class="image-caption">image-20221204233008616</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204233008616.png"><span class="image-caption">image-20221204233008616</span></li>
 </ul>
 </li>
 </ul>
@@ -415,22 +415,22 @@
 </li>
 <li><p>同步总线</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234131244.png"><span class="image-caption">image-20221204234131244</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234131244.png"><span class="image-caption">image-20221204234131244</span></li>
 <li><strong>记住：准备数据【上取整】，一个时钟周期只能做一件事</strong></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234347579.png"><span class="image-caption">image-20221204234347579</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234347579.png"><span class="image-caption">image-20221204234347579</span></li>
 </ul>
 </li>
 <li><p>异步总线</p>
 <ul>
 <li>第一次握手后开始准备数据</li>
 <li>数据准备后才能开始传输</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234032663.png"><span class="image-caption">image-20221204234032663</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204234032663.png"><span class="image-caption">image-20221204234032663</span></li>
 </ul>
 </li>
 </ul>
-<h4 id="复杂例子"><a href="#复杂例子" class="headerlink" title="复杂例子"></a>复杂例子</h4><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235521515.png"><span class="image-caption">image-20221204235521515</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235530559.png"><span class="image-caption">image-20221204235530559</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235556052.png"><span class="image-caption">image-20221204235556052</span></p>
+<h4 id="复杂例子"><a href="#复杂例子" class="headerlink" title="复杂例子"></a>复杂例子</h4><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235521515.png"><span class="image-caption">image-20221204235521515</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235530559.png"><span class="image-caption">image-20221204235530559</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221204235556052.png"><span class="image-caption">image-20221204235556052</span></p>
 <ul>
 <li>每次读 &#x3D;&#x3D; 每次总线时间</li>
 <li>需要考虑最后一次空闲</li>
@@ -481,25 +481,25 @@
 <li>降低I&#x2F;O对总线的负担</li>
 </ul>
 </li>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205000947107.png"><span class="image-caption">image-20221205000947107</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205000947107.png"><span class="image-caption">image-20221205000947107</span></p>
 </li>
 <li><p>多总线结构1</p>
 <ul>
 <li>增加一个 本地总线（<strong>local bus</strong>）来连接 CPU 和 cache</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001159332.png"><span class="image-caption">image-20221205001159332</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001159332.png"><span class="image-caption">image-20221205001159332</span></li>
 </ul>
 </li>
 <li><p><strong>多总线结构2</strong></p>
 <ul>
 <li>将系统总线分为存储器总线、I&#x2F;O 总线和 <strong>DMA</strong> <strong>总线</strong></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001149715.png"><span class="image-caption">image-20221205001149715</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001149715.png"><span class="image-caption">image-20221205001149715</span></li>
 </ul>
 </li>
 <li><p><strong>多总线结构3</strong></p>
 <ul>
 <li>增加一个 <strong>高速</strong> <strong>I&#x2F;O</strong> <strong>总线</strong> 来连接高速设备</li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001315388.png"><span class="image-caption">image-20221205001315388</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221205001315388.png"><span class="image-caption">image-20221205001315388</span></p>
 </li>
 </ul>
       </section>
@@ -509,8 +509,8 @@
         
         
   <nav class="nav">
-    <a href="/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记12-虚拟存储器</a>
-    <a href="/2023/02/10/Lecture%2010%20%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81/">计算机组成原理-学习笔记10-数据校验码<i class="iconfont iconright"></i></a>
+    <a href="/2023/02/10/Lecture%2011%20Raid%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97/"><i class="iconfont iconleft"></i>计算机组成原理-学习笔记11-RAID阵列</a>
+    <a href="/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/">计算机组成原理-学习笔记12-虚拟存储器<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -520,48 +520,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -653,36 +678,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -702,6 +711,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

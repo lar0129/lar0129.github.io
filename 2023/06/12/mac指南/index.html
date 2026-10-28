@@ -28,22 +28,22 @@ image-202407...">
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@ image-202407...">
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@ image-202407...">
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@ image-202407...">
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@ image-202407...">
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">MacOS使用入门</h1>
     <div class="head-info">
@@ -218,7 +218,7 @@ image-202407...">
         
           <p><p> MacOS使用入门</p></p>
         
-        <p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191500973.png"><span class="image-caption">image-20240712191500973</span></p>
+        <p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191500973.png"><span class="image-caption">image-20240712191500973</span></p>
 <h1 id="WIN远程连接"><a href="#WIN远程连接" class="headerlink" title="WIN远程连接"></a>WIN远程连接</h1><p>内网穿透</p>
 <ul>
 <li>tcp:&#x2F;&#x2F;server.natappfree.cc:45985</li>
@@ -231,7 +231,7 @@ image-202407...">
 <li><code>sudo xattr -r -d com.apple.quarantine</code></li>
 <li><a target="_blank" rel="noopener" href="https://www.maczl.com/macOS_Notarization.html">当Mac软件提示损坏时可以绕过公证或者在Mac本地为软件签名 - 苹果Mac版_注册机_安装包 | Mac助理 (maczl.com)</a></li>
 </ul>
-<h1 id="VIM"><a href="#VIM" class="headerlink" title="VIM"></a>VIM</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191440563.png"><span class="image-caption">image-20240712191440563</span></p>
+<h1 id="VIM"><a href="#VIM" class="headerlink" title="VIM"></a>VIM</h1><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20240712191440563.png"><span class="image-caption">image-20240712191440563</span></p>
 <p>搜索</p>
 <ol>
 <li><strong>进入命令模式</strong>：在 Normal 模式下，按下 <strong><code>/</code></strong> 键来进入搜索模式。</li>
@@ -345,7 +345,7 @@ image-202407...">
         
   <nav class="nav">
     <a href="/2023/07/10/k8s%E5%85%A5%E9%97%A8/"><i class="iconfont iconleft"></i>k8s概念整合</a>
-    <a href="/2023/02/10/Lecture%2011%20Raid%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97/">计算机组成原理-学习笔记11-RAID阵列<i class="iconfont iconright"></i></a>
+    <a href="/2023/02/10/Lecture%2010%20%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C%E7%A0%81/">计算机组成原理-学习笔记10-数据校验码<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -355,48 +355,73 @@ image-202407...">
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -488,36 +513,20 @@ image-202407...">
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -537,6 +546,7 @@ image-202407...">
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

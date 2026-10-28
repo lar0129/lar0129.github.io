@@ -23,22 +23,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -47,12 +47,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -69,7 +69,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -137,8 +137,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -198,7 +198,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">k8s概念整合</h1>
     <div class="head-info">
@@ -223,7 +223,7 @@
 <li>即容器组，是 Kubernetes 集群中最小的操作单元，如创建、调度、管理、销毁等<br>一个 Pod 包含一个或多个紧密相关的容器，并共享命名空间、网络和存储卷等</li>
 <li>隔离container</li>
 <li>每个 Pod 都有一个独立IP</li>
-<li><img src="https://pic3.zhimg.com/80/v2-d2880255d25a566195e734fb28d8726a_1440w.webp"><span class="image-caption">img</span></li>
+<li><img decoding="async" loading="lazy" src="https://pic3.zhimg.com/80/v2-d2880255d25a566195e734fb28d8726a_1440w.webp"><span class="image-caption">img</span></li>
 </ul>
 <h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p>Node即节点，对应一个物理节点（物理机或者虚拟机），运行和管理Pod的生命周期，以及其他属于节点上的资源对象。</p>
 <h2 id="Volume-数据卷"><a href="#Volume-数据卷" class="headerlink" title="Volume 数据卷"></a><strong>Volume 数据卷</strong></h2><p>K8S 支持很多类型的 volume 数据卷挂载，具体请参见<strong><a href="https://link.zhihu.com/?target=https://kubernetes.io/zh/docs/concepts/storage/volumes/">K8S 卷</a></strong>。前文就“如何理解 volume”提到：“<strong>需要手动 mount 的磁盘</strong>”，此外，有一点可以帮助理解：<strong>数据卷 volume 是 Pod 内部的磁盘资源</strong>。</p>
@@ -241,7 +241,7 @@
 <blockquote>
 <p>ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。</p>
 </blockquote>
-<p><img src="https://pic3.zhimg.com/80/v2-7b1633cfca5e301706ffdaa064f38296_1440w.webp"><span class="image-caption">img</span></p>
+<p><img decoding="async" loading="lazy" src="https://pic3.zhimg.com/80/v2-7b1633cfca5e301706ffdaa064f38296_1440w.webp"><span class="image-caption">img</span></p>
 <h2 id="NameSpace"><a href="#NameSpace" class="headerlink" title="NameSpace"></a>NameSpace</h2><p>在Kubernetes中，Namespace（命名空间）是用于<strong>隔离和管理Kubernetes资源</strong>的一种机制。它可以将Kubernetes集群划分为多个虚拟的集群，每个Namespace中的资源互相隔离，从而实现多租户和多组织之间的资源共享和管理。</p>
 <p>Namespace的主要作用包括：</p>
 <ol>
@@ -251,7 +251,7 @@
 <li>简化部署和管理：通过Namespace可以将相关的资源组织到一起，从而简化资源的部署和管理。管理员可以通过Namespace来自动部署和管理相关的应用程序和服务，使得资源的管理更加高效和可靠。</li>
 </ol>
 <p>需要注意的是，<strong>不同的Namespace中的资源可以通过Service</strong>和Ingress等对象进行访问和通信。同时，Kubernetes中还有一些默认的Namespace，例如default、kube-system和kube-public等，分别用于存储默认的资源和集群级别的资源。</p>
-<h1 id="2-k8s架构"><a href="#2-k8s架构" class="headerlink" title="2.k8s架构"></a>2.k8s架构</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230630142727042.png"><span class="image-caption">image-20230630142727042</span></p>
+<h1 id="2-k8s架构"><a href="#2-k8s架构" class="headerlink" title="2.k8s架构"></a>2.k8s架构</h1><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230630142727042.png"><span class="image-caption">image-20230630142727042</span></p>
 <h1 id="3-yaml文件例"><a href="#3-yaml文件例" class="headerlink" title="3.yaml文件例"></a>3.yaml文件例</h1><p>以部署一个Pod的yaml文件为例，简单介绍部署所需的关键信息</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs text">apiVersion: v1<br>kind: Pod<br>metadata:<br>  name: memory-demo<br>  namespace: mem-example<br>spec:<br>  containers:<br>  - name: memory-demo-ctr<br>    image: polinux/stress<br>    resources:<br>      limits:<br>        memory: &quot;200Mi&quot;<br>      requests:<br>        memory: &quot;100Mi&quot;<br>    command: [&quot;stress&quot;]<br>    args: [&quot;--vm&quot;, &quot;1&quot;, &quot;--vm-bytes&quot;, &quot;150M&quot;, &quot;--vm-hang&quot;, &quot;1&quot;]<br>    volumeMounts:<br>    - name: redis-storage<br>      mountPath: /data/redis<br>  volumes:<br>  - name: redis-storage<br>    emptyDir: &#123;&#125;<br></code></pre></td></tr></table></figure>
 
@@ -273,8 +273,8 @@
 <h1 id="4-其他混乱概念"><a href="#4-其他混乱概念" class="headerlink" title="4.其他混乱概念"></a>4.其他混乱概念</h1><h2 id="Service和Deployment"><a href="#Service和Deployment" class="headerlink" title="Service和Deployment"></a>Service和Deployment</h2><ul>
 <li>Service监控某一Deployment（并转发其中的端口），进而监控Deployment内部的Container</li>
 </ul>
-<p><img src="https://pic1.zhimg.com/80/v2-e31e74d4893707f7537113b075df62c4_1440w.webp"><span class="image-caption">img</span></p>
-<h2 id="Cluster的访问权限"><a href="#Cluster的访问权限" class="headerlink" title="Cluster的访问权限"></a>Cluster的访问权限<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230705114203865.png"><span class="image-caption">image-20230705114203865</span></h2><h2 id="不同Port的类型"><a href="#不同Port的类型" class="headerlink" title="不同Port的类型"></a>不同Port的类型</h2><p><img src="https://pic4.zhimg.com/80/v2-62bfa253308a9676f26bbb8beb4b3baf_1440w.webp"><span class="image-caption">img</span></p>
+<p><img decoding="async" loading="lazy" src="https://pic1.zhimg.com/80/v2-e31e74d4893707f7537113b075df62c4_1440w.webp"><span class="image-caption">img</span></p>
+<h2 id="Cluster的访问权限"><a href="#Cluster的访问权限" class="headerlink" title="Cluster的访问权限"></a>Cluster的访问权限<img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230705114203865.png"><span class="image-caption">image-20230705114203865</span></h2><h2 id="不同Port的类型"><a href="#不同Port的类型" class="headerlink" title="不同Port的类型"></a>不同Port的类型</h2><p><img decoding="async" loading="lazy" src="https://pic4.zhimg.com/80/v2-62bfa253308a9676f26bbb8beb4b3baf_1440w.webp"><span class="image-caption">img</span></p>
 <p><strong>port</strong></p>
 <ul>
 <li>nodePort： 使用nodeIp：nodePort 从外部访问请求某个service</li>
@@ -293,7 +293,7 @@
         
         
   <nav class="nav">
-    <a href="/2023/12/10/Index-Learned%20index/"><i class="iconfont iconleft"></i>Learned index 综述</a>
+    <a href="/2023/12/10/Index-Masstree/"><i class="iconfont iconleft"></i>Masstree：A cache-friendly mashup of tries and B-trees</a>
     <a href="/2023/06/12/mac%E6%8C%87%E5%8D%97/">MacOS使用入门<i class="iconfont iconright"></i></a>
   </nav>
 
@@ -304,48 +304,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -437,36 +462,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -486,6 +495,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

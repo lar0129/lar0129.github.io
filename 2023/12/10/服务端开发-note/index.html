@@ -23,22 +23,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -47,12 +47,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -69,7 +69,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -137,8 +137,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -198,7 +198,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">NJU-服务端开发-学习笔记</h1>
     <div class="head-info">
@@ -246,13 +246,13 @@
 </li>
 </ul>
 </li>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914185655677.png"><span class="image-caption">image-20230914185655677</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914185655677.png"><span class="image-caption">image-20230914185655677</span></p>
 </li>
 </ul>
 <h2 id="三种配置Bean方式"><a href="#三种配置Bean方式" class="headerlink" title="三种配置Bean方式"></a>三种配置Bean方式</h2><ul>
 <li><p>顺便配置Bean间的依赖关系</p>
 </li>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914185947340.png"><span class="image-caption">image-20230914185947340</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914185947340.png"><span class="image-caption">image-20230914185947340</span></p>
 </li>
 </ul>
 <h2 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h2><ul>
@@ -297,7 +297,7 @@
 </li>
 </ul>
 </li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914193437131.png"><span class="image-caption">image-20230914193437131</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914193437131.png"><span class="image-caption">image-20230914193437131</span></li>
 </ul>
 </li>
 </ul>
@@ -331,7 +331,7 @@
 </ul>
 <p>混合配置类例子：</p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914205612870.png"><span class="image-caption">image-20230914205612870</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230914205612870.png"><span class="image-caption">image-20230914205612870</span></p>
 </li>
 <li><p>@Configuration</p>
 <p>@Import(xxx.class)</p>
@@ -390,7 +390,7 @@
 </ul>
 <h1 id="Lecture-3-AOP切面编程"><a href="#Lecture-3-AOP切面编程" class="headerlink" title="Lecture 3 AOP切面编程"></a>Lecture 3 AOP切面编程</h1><h2 id="横切关注点（cross-cutting-concern）"><a href="#横切关注点（cross-cutting-concern）" class="headerlink" title="横切关注点（cross-cutting concern）"></a>横切关注点（cross-cutting concern）</h2><ul>
 <li>关注共有的可以抽象出来的操作<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921192144754.png"><span class="image-caption">image-20230921192144754</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921192144754.png"><span class="image-caption">image-20230921192144754</span></li>
 </ul>
 </li>
 <li>举例：<ul>
@@ -435,15 +435,15 @@
 <li>joinPoint.proceed()  调用切面方法</li>
 </ul>
 </li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921201439967.png"><span class="image-caption">image-20230921201439967</span><ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194712381.png"><span class="image-caption">image-20230921194712381</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194937329.png"><span class="image-caption">image-20230921194937329</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194952447.png"><span class="image-caption">image-20230921194952447</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921201439967.png"><span class="image-caption">image-20230921201439967</span><ul>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194712381.png"><span class="image-caption">image-20230921194712381</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194937329.png"><span class="image-caption">image-20230921194937329</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921194952447.png"><span class="image-caption">image-20230921194952447</span></li>
 </ul>
 </li>
 <li>原理:Proxy代理<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921201906728.png"><span class="image-caption">image-20230921201906728</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921200647533.png"><span class="image-caption">image-20230921200647533</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921201906728.png"><span class="image-caption">image-20230921201906728</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921200647533.png"><span class="image-caption">image-20230921200647533</span></li>
 </ul>
 </li>
 </ul>
@@ -460,12 +460,12 @@
 <p>多代理类注入</p>
 <ul>
 <li>增强Bean。在不改变原类的前提下，利用切面新增方法</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921212102249.png"><span class="image-caption">image-20230921212102249</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921212516346.png"><span class="image-caption">image-20230921212516346</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921212102249.png"><span class="image-caption">image-20230921212102249</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230921212516346.png"><span class="image-caption">image-20230921212516346</span></li>
 </ul>
 <h1 id="Lecture-4-spring-MVC"><a href="#Lecture-4-spring-MVC" class="headerlink" title="Lecture 4 spring MVC"></a>Lecture 4 spring MVC</h1><h2 id="model-view-control"><a href="#model-view-control" class="headerlink" title="model -view-control"></a>model -view-control</h2><ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230930002053524.png"><span class="image-caption">image-20230930002053524</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231007183839364.png" style="zoom:200%;"><span class="image-caption">image-20231007183839364</span>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20230930002053524.png"><span class="image-caption">image-20230930002053524</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231007183839364.png" style="zoom:200%;"><span class="image-caption">image-20231007183839364</span>
 * 1.必经servlet
 * 2.映射路径
 * 3.获取参数，映射到controller
@@ -517,7 +517,7 @@
 <p>SpringMVC获取参数的方式 、Converter </p>
 <ul>
 <li>Converter 负责将前端传来String格式的表单，转换成Ingredient</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231007184128914.png"><span class="image-caption">image-20231007184128914</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231007184128914.png"><span class="image-caption">image-20231007184128914</span></li>
 </ul>
 <p>校验</p>
 <ul>
@@ -528,7 +528,7 @@
 <li>如果一个控制器非常简单，不需要填充模型或处理输入</li>
 <li>继承接口WebMvcConfigurer，用于配置 </li>
 <li>简单的从请求URL到视图 registry.addViewController(“&#x2F;“).setViewName(“home”); &#x2F;&#x2F;GET请求</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231001123912054.png"><span class="image-caption">image-20231001123912054</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231001123912054.png"><span class="image-caption">image-20231001123912054</span></li>
 </ul>
 <p>@data</p>
 <ul>
@@ -557,7 +557,7 @@
 <li>JdbcTemplate是Spring Framework提供的一个用于简化JDBC（Java Database Connectivity）操作的类库。它封装了JDBC的底层细节，提供了一组简单而强大的方法来执行SQL查询、更新和批处理等操作。</li>
 <li>JdbcTemplate简化了JDBC的使用，减少了样板代码的编写，并提供了异常处理和资源管理等功能。它是Spring框架中数据访问对象（DAO）模式的核心组件之一，用于与关系型数据库进行交互。</li>
 <li>H2数据库是一个基于Java的嵌入式关系型数据库管理系统（RDBMS）。它提供了一个轻量级、快速、可嵌入的数据库解决方案，适用于开发和测试环境。H2数据库支持标准SQL语法和JDBC API，可以通过内存模式或嵌入式模式在应用程序中嵌入和使用。<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008142847877.png"><span class="image-caption">image-20231008142847877</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008142847877.png"><span class="image-caption">image-20231008142847877</span></li>
 </ul>
 </li>
 </ul>
@@ -622,8 +622,8 @@
 </ul>
 <h3 id="repository查询方法"><a href="#repository查询方法" class="headerlink" title="repository查询方法"></a>repository查询方法</h3><p>继承CRUD</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008164713521.png"><span class="image-caption">image-20231008164713521</span></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008164834610.png"><span class="image-caption">image-20231008164834610</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008164713521.png"><span class="image-caption">image-20231008164713521</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231008164834610.png"><span class="image-caption">image-20231008164834610</span></li>
 </ul>
 <p>定义查询方法，无需实现</p>
 <ul>
@@ -647,7 +647,7 @@
 <h1 id="Lecture-6-非关系数据库"><a href="#Lecture-6-非关系数据库" class="headerlink" title="Lecture 6 非关系数据库"></a>Lecture 6 非关系数据库</h1><h2 id="MongeDB"><a href="#MongeDB" class="headerlink" title="MongeDB"></a>MongeDB</h2><ul>
 <li>分布式</li>
 <li>类json格式</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231012185636855.png"><span class="image-caption">image-20231012185636855</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231012185636855.png"><span class="image-caption">image-20231012185636855</span></li>
 </ul>
 <ol>
 <li>基本的CRUD操作：<ul>
@@ -711,7 +711,7 @@
 </li>
 <li><p>序列化是必须的</p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231012205511018.png"><span class="image-caption">image-20231012205511018</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231012205511018.png"><span class="image-caption">image-20231012205511018</span></p>
 </li>
 <li><pre><code class="java">redis.setKeySerializer(new StringRedisSerializer());
 redis.setValueSerializer(new Jackson2JsonRedisSerializer&lt;Product&gt;(Product.class));
@@ -770,8 +770,8 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 </li>
 </ul>
-<h2 id="单双向验证（考试略）"><a href="#单双向验证（考试略）" class="headerlink" title="单双向验证（考试略）"></a>单双向验证（考试略）</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026200525305.png"><span class="image-caption">image-20231026200525305</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026200936146.png"><span class="image-caption">image-20231026200936146</span></p>
+<h2 id="单双向验证（考试略）"><a href="#单双向验证（考试略）" class="headerlink" title="单双向验证（考试略）"></a>单双向验证（考试略）</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026200525305.png"><span class="image-caption">image-20231026200525305</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026200936146.png"><span class="image-caption">image-20231026200936146</span></p>
 <h2 id="秘钥配置（考试略）"><a href="#秘钥配置（考试略）" class="headerlink" title="秘钥配置（考试略）"></a>秘钥配置（考试略）</h2><p>生成密钥库</p>
 <ul>
 <li>keytool -genkey -alias tomcat -keyalg RSA -storetype PKCS12 -storepass letmein -keystore  mykeys.p12</li>
@@ -788,7 +788,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>打印证书信息<br>keytool -printcert -file证书文件名.cer</li>
 <li>导入证书到库<br>keytool -import -v -file证书文件名.cer -keystore库文件名.p12</li>
 </ul>
-<h2 id="SSL配置（考试略）"><a href="#SSL配置（考试略）" class="headerlink" title="SSL配置（考试略）"></a>SSL配置（考试略）</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026214759577.png"><span class="image-caption">image-20231026214759577</span>启用 SSL（Secure Sockets Layer)协议来加密和保护应用程序的通信。下面是对配置中各个属性的解释：</p>
+<h2 id="SSL配置（考试略）"><a href="#SSL配置（考试略）" class="headerlink" title="SSL配置（考试略）"></a>SSL配置（考试略）</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231026214759577.png"><span class="image-caption">image-20231026214759577</span>启用 SSL（Secure Sockets Layer)协议来加密和保护应用程序的通信。下面是对配置中各个属性的解释：</p>
 <ul>
 <li><code>server.port: 8443</code>: 指定应用程序的端口号为 8443。这是应用程序监听的 HTTPS 连接的端口号。</li>
 <li><code>ssl.key-store: classpath:mykeys.p12</code>: 指定使用的密钥库文件的路径和名称。<code>classpath:</code> 前缀表示从类路径中加载密钥库文件，即在应用程序的资源目录下。</li>
@@ -838,7 +838,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <h2 id="Actuator"><a href="#Actuator" class="headerlink" title="Actuator"></a>Actuator</h2><p>Spring Boot Actuator是Spring Boot提供的一个功能强大的模块，用于监控和管理Spring Boot应用程序。它提供了一组内置的RESTful端点（endpoints），可以用于获取关于应用程序运行时的各种信息，例如健康状况、度量指标、配置属性、日志记录等。</p>
 <ul>
 <li>Spring Boot Actuator的主要目标是帮助开发人员和运维人员更好地理解和管理应用程序的运行状态和行为，以便监测和调试应用程序，进行性能优化和故障排查。</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102185612299.png"><span class="image-caption">image-20231102185612299</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102185612299.png"><span class="image-caption">image-20231102185612299</span></li>
 </ul>
 <p>下面是一些Spring Boot Actuator提供的常用端点：</p>
 <ol>
@@ -849,7 +849,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li><code>/loggers</code>：用于管理和配置日志记录器，包括查看日志级别、修改日志级别等。</li>
 <li><code>/trace</code>：提供最近的HTTP请求追踪信息，包括请求路径、处理时间等。</li>
 </ol>
-<h1 id="Lecture-9-RESTful-API"><a href="#Lecture-9-RESTful-API" class="headerlink" title="Lecture 9 RESTful API"></a>Lecture 9 RESTful API</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102191853434.png"><span class="image-caption">image-20231102191853434</span></p>
+<h1 id="Lecture-9-RESTful-API"><a href="#Lecture-9-RESTful-API" class="headerlink" title="Lecture 9 RESTful API"></a>Lecture 9 RESTful API</h1><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102191853434.png"><span class="image-caption">image-20231102191853434</span></p>
 <h2 id="K8s"><a href="#K8s" class="headerlink" title="K8s"></a>K8s</h2><p>部署多个pod</p>
 <h2 id="REST原则（重要"><a href="#REST原则（重要" class="headerlink" title="REST原则（重要"></a>REST原则（重要</h2><ul>
 <li>REST：Representational State Transfer：表现层状态转移 </li>
@@ -871,7 +871,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 <h2 id="前端vue"><a href="#前端vue" class="headerlink" title="前端vue"></a>前端vue</h2><p>vue作为桥梁的作用</p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102191932611.png"><span class="image-caption">image-20231102191932611</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102191932611.png"><span class="image-caption">image-20231102191932611</span></p>
 </li>
 <li><p>Vue所关注的核心是MVC模式中的视图层，同时， 它也能方便地获取数据更新，并通过组件内部特定的方法实现视图与模型的交互</p>
 </li>
@@ -930,7 +930,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>User-Agent：生成请求的浏览器类型 </li>
 <li><strong>Accept</strong>：客户端可识别的响应内容类型列表；星号* 用于按范围将类型分组。*&#x2F;*表示可接受全部类型，type&#x2F;*表示可接受 type 类型的 所有子类型。<ul>
 <li>application&#x2F;json常用</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102200252323.png"><span class="image-caption">image-20231102200252323</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102200252323.png"><span class="image-caption">image-20231102200252323</span></li>
 </ul>
 </li>
 <li>Accept-Language: 客户端可接受的自然语言</li>
@@ -1057,7 +1057,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <ul>
 <li><p>@Data<br>@Entity<br>@RestResource(rel&#x3D;”tacos”, path&#x3D;”tacos”)</p>
 </li>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102211936578.png"><span class="image-caption">image-20231102211936578</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102211936578.png"><span class="image-caption">image-20231102211936578</span></p>
 </li>
 </ul>
 <h2 id="RestTemplate（不考"><a href="#RestTemplate（不考" class="headerlink" title="RestTemplate（不考"></a>RestTemplate（不考</h2><p>目的</p>
@@ -1075,12 +1075,12 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>delete:执行HTTP DELETE请求,用于资源删除。</li>
 <li>execute:执行任意HTTP请求但不解析响应体,返回Response。</li>
 <li>exchange:执行任意HTTP请求,返回ResponseEntity对象,包含请求响应全过程的数据。</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102214752049.png"><span class="image-caption">image-20231102214752049</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102214752049.png"><span class="image-caption">image-20231102214752049</span></li>
 </ul>
 <h2 id="Feign（不考"><a href="#Feign（不考" class="headerlink" title="Feign（不考"></a>Feign（不考</h2><p>分布式使用</p>
 <p>远程调用RestAPI</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102211737197.png"><span class="image-caption">image-20231102211737197</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231102211737197.png"><span class="image-caption">image-20231102211737197</span></li>
 </ul>
 <h1 id="Lecture-10-OAuth2"><a href="#Lecture-10-OAuth2" class="headerlink" title="Lecture 10 OAuth2"></a>Lecture 10 OAuth2</h1><ul>
 <li><p>OAuth2，一个专门为 API创建的授权规范。</p>
@@ -1090,7 +1090,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li><p>统一认证和授权，专心业务</p>
 </li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111094840312.png"><span class="image-caption">image-20231111094840312</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111094840312.png"><span class="image-caption">image-20231111094840312</span></p>
 <ul>
 <li><p>非常重要的图！考试必考</p>
 </li>
@@ -1102,7 +1102,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </li>
 <li><p>3.新的url（资源服务器）让用户提供consent</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111102642798.png"><span class="image-caption">image-20231111102642798</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111102642798.png"><span class="image-caption">image-20231111102642798</span></li>
 </ul>
 </li>
 <li><p>4.用户确认授权consent</p>
@@ -1112,7 +1112,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li><p>6.Client获取auth code 后再向授权服务器获取token（不能直接获取吗？）</p>
 <ul>
 <li>减少明文密码在浏览器出现的次数，转化为authcode。避免被第三方软件劫持</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111112405718.png"><span class="image-caption">image-20231111112405718</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111112405718.png"><span class="image-caption">image-20231111112405718</span></li>
 </ul>
 </li>
 <li><p>7.用户带着token 去资源服务器请求资源</p>
@@ -1155,22 +1155,22 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </li>
 <li>JWT提供了一种安全传输和验证信息的标准化格式，而JWK用于描述和传输用于JWT签名和验证的密钥对。通过使用JWK，可以验证JWT的真实性和完整性</li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111101635688.png"><span class="image-caption">image-20231111101635688</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111101635688.png"><span class="image-caption">image-20231111101635688</span></p>
 <ul>
 <li>解码例子 ↑</li>
 </ul>
 <h2 id="授权服务器"><a href="#授权服务器" class="headerlink" title="授权服务器"></a>授权服务器</h2><p>1.<br>2. 开发Spring Security User实体，接入数据库。</p>
 <ol>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111631218.png"><span class="image-caption">image-20231111111631218</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111631218.png"><span class="image-caption">image-20231111111631218</span></li>
 </ol>
 <h2 id="资源服务器"><a href="#资源服务器" class="headerlink" title="资源服务器"></a>资源服务器</h2><ol>
 <li>添加OAuth2  pom依赖</li>
 <li>添加SCOPE权限控制 &#x2F; 开启调用API前的过滤器：<ol>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111518116.png"><span class="image-caption">image-20231111111518116</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111518116.png"><span class="image-caption">image-20231111111518116</span></li>
 </ol>
 </li>
 <li>指定授权服务器地址，目的是获得公钥<ol>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111539864.png"><span class="image-caption">image-20231111111539864</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111111539864.png"><span class="image-caption">image-20231111111539864</span></li>
 </ol>
 </li>
 </ol>
@@ -1178,12 +1178,12 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>添加Oauth2-client专用的pom依赖</li>
 <li>代码配置<ol>
 <li>定义第2步的重定向</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111113701029.png"><span class="image-caption">image-20231111113701029</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111113701029.png"><span class="image-caption">image-20231111113701029</span></li>
 </ol>
 </li>
 <li>属性配置<ol>
 <li>配置获取token的重定向地址</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111113709321.png"><span class="image-caption">image-20231111113709321</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231111113709321.png"><span class="image-caption">image-20231111113709321</span></li>
 </ol>
 </li>
 </ol>
@@ -1213,7 +1213,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <ul>
 <li>SimpleMessageConverter：实现String与TextMessage的相互转换、字节数组与BytesMessage的相互转换、Map与MapMessage的相互转换，以及Serializable对象与ObjectMessage的相互转换 </li>
 <li>MappingJackson2MessageConverter：使用Jackson 2 JSON库实现消息与JSON格式的互转</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231116204313985.png"><span class="image-caption">image-20231116204313985</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231116204313985.png"><span class="image-caption">image-20231116204313985</span></li>
 </ul>
 </li>
 </ul>
@@ -1243,9 +1243,9 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>Binding:绑定关系,它将Exchange和Queue绑定起来。</li>
 <li>Routing Key:路由键,Exchange根据该键与Binding的binding key匹配将消息路由到对应的Queue。</li>
 <li>Binding key:Binding中的键,它将Exchange和Queue关联起来。</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231116203552518.png"><span class="image-caption">image-20231116203552518</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231116203552518.png"><span class="image-caption">image-20231116203552518</span></li>
 </ul>
-<h1 id="Lecture-12-spring-integration"><a href="#Lecture-12-spring-integration" class="headerlink" title="Lecture 12 spring integration"></a>Lecture 12 spring integration</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123205551218.png"><span class="image-caption">image-20231123205551218</span></p>
+<h1 id="Lecture-12-spring-integration"><a href="#Lecture-12-spring-integration" class="headerlink" title="Lecture 12 spring integration"></a>Lecture 12 spring integration</h1><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123205551218.png"><span class="image-caption">image-20231123205551218</span></p>
 <ul>
 <li>本节课做的：③Email Server</li>
 </ul>
@@ -1256,35 +1256,35 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>使用DSL的Java配置</li>
 </ul>
 <h2 id="最简集成流的五个部分"><a href="#最简集成流的五个部分" class="headerlink" title="最简集成流的五个部分"></a>最简集成流的五个部分</h2><ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123205532037.png"><span class="image-caption">image-20231123205532037</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123205532037.png"><span class="image-caption">image-20231123205532037</span></li>
 <li>消息分为Header和Payload</li>
 </ul>
 <h2 id="集成流的组件"><a href="#集成流的组件" class="headerlink" title="集成流的组件"></a>集成流的组件</h2><ul>
 <li>Channels（通道） —Pass messages from one element to another.<ul>
 <li>例如：PublishSubscribeChanne、QueueChannel、PriorityChannel</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210628428.png"><span class="image-caption">image-20231123210628428</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210628428.png"><span class="image-caption">image-20231123210628428</span></li>
 </ul>
 </li>
 <li>Filters（过滤器） —Conditionally allow messages to pass through the flow based on some criteria.<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210721288.png"><span class="image-caption">image-20231123210721288</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210721288.png"><span class="image-caption">image-20231123210721288</span></li>
 </ul>
 </li>
 <li>Transformers（转换器） —Change message values and&#x2F;or convert message payloads from one type to another.<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210821660.png"><span class="image-caption">image-20231123210821660</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123210821660.png"><span class="image-caption">image-20231123210821660</span></li>
 </ul>
 </li>
 <li>Routers（路由器） —Direct messages to one of several channels, typically based on message headers.<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212118322.png"><span class="image-caption">image-20231123212118322</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212118322.png"><span class="image-caption">image-20231123212118322</span></li>
 </ul>
 </li>
 <li>Splitters（切分器） —Split incoming messages into two or more messages, each sent to different channels. <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212211014.png"><span class="image-caption">image-20231123212211014</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212211014.png"><span class="image-caption">image-20231123212211014</span></li>
 <li>切分的是消息，不是router到多个channel</li>
 </ul>
 </li>
 <li>Aggregators（聚合器） —The opposite of splitters, combining multiple messages coming in from separate channels into a  single message.</li>
 <li>Service activators（服务激活器） —Hand a message off to some Java method for processing, and then publish the return  value on an output channel. <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212241684.png"><span class="image-caption">image-20231123212241684</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212241684.png"><span class="image-caption">image-20231123212241684</span></li>
 <li>类似transformers，语义上不同</li>
 </ul>
 </li>
@@ -1303,7 +1303,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 </li>
 <li>Gateways（网关） —Pass data into an integration flow via an interface<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212410022.png"><span class="image-caption">image-20231123212410022</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231123212410022.png"><span class="image-caption">image-20231123212410022</span></li>
 </ul>
 </li>
 </ul>
@@ -1316,12 +1316,12 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 <h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><ul>
 <li>命令式编程范式<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207183004199.png"><span class="image-caption">image-20231207183004199</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207183004199.png"><span class="image-caption">image-20231207183004199</span></li>
 <li>强调顺序，强调怎么做</li>
 </ul>
 </li>
 <li>反应式编程范式<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207190905257.png"><span class="image-caption">image-20231207190905257</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207190905257.png"><span class="image-caption">image-20231207190905257</span></li>
 <li>关注数据流和事件变化，强调什么要做</li>
 <li>将计算看作是一系列数据流的转换和响应事件的触发。</li>
 </ul>
@@ -1339,7 +1339,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 </li>
 <li>用尽量少的线程，解决多请求。事件队列<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207191850202.png"><span class="image-caption">image-20231207191850202</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207191850202.png"><span class="image-caption">image-20231207191850202</span></li>
 </ul>
 </li>
 </ul>
@@ -1366,7 +1366,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 <h2 id="反应式流规范定义的4个接口（-重要）"><a href="#反应式流规范定义的4个接口（-重要）" class="headerlink" title="反应式流规范定义的4个接口（++重要）"></a>反应式流规范定义的4个接口（++重要）</h2><p>问答题</p>
 <p>注意①②③④⑤</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207183850643.png"><span class="image-caption">image-20231207183850643</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207183850643.png"><span class="image-caption">image-20231207183850643</span></p>
 <ol>
 <li>Publisher（发布者）：表示数据的<strong>生产者</strong>，可以发布数据流。<ol>
 <li>submit：发布数据给subscription，<strong>每个subscriber对应一个subscription</strong></li>
@@ -1405,21 +1405,21 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <ul>
 <li><p>创建操作</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207202800486.png"><span class="image-caption">image-20231207202800486</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207202800486.png"><span class="image-caption">image-20231207202800486</span></li>
 <li>根据对象&#x2F;集合&#x2F;迭代器，甚至是时间间隔（interval）创建。<ul>
 <li>消费时，多线程自动编排</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207203538187.png"><span class="image-caption">ww</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207203538187.png"><span class="image-caption">ww</span></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>组合操作</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207205111813.png"><span class="image-caption">image-20231207205111813</span><ul>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207205111813.png"><span class="image-caption">image-20231207205111813</span><ul>
 <li>merge：合并同类型</li>
 <li>zip：合并不同类型到tuple，也可以自己改造元素</li>
 <li>first：只看第一个有数据的流</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207212923617.png"><span class="image-caption">image-20231207212923617</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207212923617.png"><span class="image-caption">image-20231207212923617</span></li>
 </ul>
 </li>
 </ul>
@@ -1427,24 +1427,24 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li><p>过滤操作</p>
 <ul>
 <li>Predicate：返回True或False</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213307397.png"><span class="image-caption">image-20231207213307397</span><ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213359092.png"><span class="image-caption">image-20231207213359092</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213307397.png"><span class="image-caption">image-20231207213307397</span><ul>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213359092.png"><span class="image-caption">image-20231207213359092</span></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><strong>转换操作（重要）</strong></p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213626300.png"><span class="image-caption">image-20231207213626300</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213626300.png"><span class="image-caption">image-20231207213626300</span></p>
 </li>
 <li><p>map：转换类型，<strong>返回的是数据</strong></p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213646882.png"><span class="image-caption">image-20231207213646882</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207213646882.png"><span class="image-caption">image-20231207213646882</span></li>
 </ul>
 </li>
 <li><p>flatMap：<strong>返回的是流</strong>，所以类型是Mono&#x2F;Flux</p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214205506.png"><span class="image-caption">image-20231207214205506</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214205506.png"><span class="image-caption">image-20231207214205506</span></p>
 <ul>
 <li>Schedulers：可以决定是否并行，顺序不可控</li>
 </ul>
@@ -1453,11 +1453,11 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </li>
 </ul>
 </li>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214531371.png"><span class="image-caption">image-20231207214531371</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214531371.png"><span class="image-caption">image-20231207214531371</span></p>
 </li>
 <li><p>返回分组（List）的流。类似MapReduce</p>
 <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214827674.png"><span class="image-caption">image-20231207214827674</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207214827674.png"><span class="image-caption">image-20231207214827674</span></li>
 </ul>
 </li>
 </ul>
@@ -1469,7 +1469,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 </li>
 </ul>
-<h1 id="Lecture-14-WebFlux"><a href="#Lecture-14-WebFlux" class="headerlink" title="Lecture 14 WebFlux"></a>Lecture 14 WebFlux</h1><h1 id="WebFlux"><a href="#WebFlux" class="headerlink" title="WebFlux"></a>WebFlux</h1><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207200211792.png"><span class="image-caption">image-20231207200211792</span></p>
+<h1 id="Lecture-14-WebFlux"><a href="#Lecture-14-WebFlux" class="headerlink" title="Lecture 14 WebFlux"></a>Lecture 14 WebFlux</h1><h1 id="WebFlux"><a href="#WebFlux" class="headerlink" title="WebFlux"></a>WebFlux</h1><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20231207200211792.png"><span class="image-caption">image-20231207200211792</span></p>
 <ul>
 <li>必须Subscribe才能操作数据</li>
 </ul>
@@ -1492,48 +1492,73 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -1625,36 +1650,20 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -1674,6 +1683,7 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

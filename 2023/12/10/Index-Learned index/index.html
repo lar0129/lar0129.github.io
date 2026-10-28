@@ -28,22 +28,26 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
+    
 <link rel="stylesheet" href="/lib/katex/katex.min.css">
 
-
-  
-    
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
-
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +56,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +78,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +146,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +207,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">Learned index 综述</h1>
     <div class="head-info">
@@ -230,7 +234,7 @@
 <li>Kraska[1], [2] 等人提出使用机器学习模型代替传统的 B 树索引，并在真实数据集上取得了不错的效果，但其提出的模型假设工作负载是静态的、只读的，对于索引更新问题没有提出很好的解决办法. [3] 提出了基于中间层的可扩展的学习索引模型 Dabble，用来解决索引更新引发的模型重新训练问题.</li>
 </ul>
 <h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a><strong>内容</strong></h2><h3 id="B-Trees-可以看成模型"><a href="#B-Trees-可以看成模型" class="headerlink" title="B-Trees 可以看成模型"></a><strong>B-Trees 可以看成模型</strong></h3><p>范围索引, 比如 B-Trees, 可以视为一个机器学习模型, 给定输入 Key 返回 position.</p>
-<p><img src="https://pic3.zhimg.com/v2-86bbd7ed6fc91f848e656fe03bbc6c1e_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic3.zhimg.com/v2-86bbd7ed6fc91f848e656fe03bbc6c1e_r.jpg"></p>
 <h4 id="一个极端的例子与数据分布"><a href="#一个极端的例子与数据分布" class="headerlink" title="一个极端的例子与数据分布"></a>一个极端的例子与数据分布</h4><p>一个极端的例子，一亿条数据，主键是整型从1到1亿，如果用B树的话，从根节点到一个个中间节点，非常麻烦，如果知道数据是这样分布的话，那肯定不会选择建索引，直接通过偏移量访问了。索引，<strong>一般索引都是不知道数据分布的，这样更具有通用性</strong>，但是通常来说，知道数据分布对于索引的优化(空间和查询效率)是通常都是非常有效的(比如对于稠密数据，用ART肯定没有用普通的span为8的前缀树表现好，尤其是索引的构建上)。但是对于这些传统索引来说，无论是了解数据分布，还是让索引为每种数据分布做专门的优化都过于复杂了。</p>
 <p>于是有了用机器学习来学习出一个能够<strong>反映数据分布</strong>，并能<strong>自动生成出特定的索引结构</strong>的想法。</p>
 <blockquote>
@@ -240,12 +244,12 @@
 <ul>
 <li>因为 x 是排序过的, 所以 f 实际上是在给数据的 CDF 建模 [4]. 下图是学习索引的一个示例.</li>
 </ul>
-<p><img src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
 <h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
 <p>同时<strong>为了提高模型的准确率, 使用层级模型</strong>. 损失函数如下所示</p>
-<p><img src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
 <p>模型架构如下所示:</p>
-<p><img src="https://pic4.zhimg.com/v2-5d87b69d40b38df60082e7f9cd22becf_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic4.zhimg.com/v2-5d87b69d40b38df60082e7f9cd22becf_r.jpg"></p>
 <p>层级模型和集成模型的思路相似, 都是通过集成弱分类器得到性能更好的分类器.</p>
 <h3 id="学习索引-learned-index-如何预测"><a href="#学习索引-learned-index-如何预测" class="headerlink" title="学习索引 (learned index) 如何预测"></a><strong>学习索引 (learned index) 如何预测</strong></h3><p>不同于一般的机器学习任务, 在使用学习索引 (learned index) 的时候, <strong>需要考虑模型输出偏差 delta</strong></p>
 <ul>
@@ -263,11 +267,11 @@
 <li>(3) 在神经网络训练阶段, <strong>重点关注访问频率高的热点数据</strong>, 从而使神经网络对这些数据的预测精度更高. 另外, 为了更快地处理动态插入以及更新操作, Dabble 模型提出了一种基于中间层的数据插入机制, 从而使得不同的神经网络模型之间解耦, 模型之间保持独立性. <strong><u>当数据插入时, 只需要重新训练有数据插入的那个数据区域对应的模型即可</u></strong>, 不需要对整个 Dabble 重新训练, 从而提高了模型的可扩展性.</li>
 </ul>
 <p>Dabble 模型架构图如下所示</p>
-<p><img src="https://pic3.zhimg.com/v2-95e0ac3a2beda40d3057dbe875c4a47a_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic3.zhimg.com/v2-95e0ac3a2beda40d3057dbe875c4a47a_r.jpg"></p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a><strong>实验</strong></h2><p>论文 [1][2] 在 2 亿网站日志数据 weblogs 数据集上跑了实验. 将经过 cache 优化过的 B-Tree 页大小为 128 作为 baseline, 对于学习索引, 使用两阶段模型, 在没有 GPU 和 TPU 的机器上运行结果如下图所示. 可以看到学习索引<strong>比 B-Tree 更快的同时, 内存占用更少.</strong></p>
-<p><img src="https://pic4.zhimg.com/v2-f9429d9ab98ad58ff6bfb795a40bb5e7_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic4.zhimg.com/v2-f9429d9ab98ad58ff6bfb795a40bb5e7_r.jpg"></p>
 <p>论文 [3] 在 weblogs 和 lognormal 数据集上进行评测, 结果如下图.</p>
-<p><img src="https://pic3.zhimg.com/v2-5b1c81aeadaf50e7a052ec60435d7242_r.jpg"></p>
+<p><img decoding="async" loading="lazy" src="https://pic3.zhimg.com/v2-5b1c81aeadaf50e7a052ec60435d7242_r.jpg"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文总结了三篇文章, 主要探讨了结合机器学习技术的范围索引架构. 相较于传统的索引结构, 可学习型的索引展示了更好的可适应性.</p>
 <p>参考文献 </p>
 <p>[1] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “A Machine Learning Approach to Databases Indexes”NIPS 2017</p>
@@ -281,8 +285,8 @@
         
         
   <nav class="nav">
-    <a href="/2023/12/10/Index-Masstree/"><i class="iconfont iconleft"></i>Masstree：A cache-friendly mashup of tries and B-trees</a>
-    <a href="/2023/07/10/k8s%E5%85%A5%E9%97%A8/">k8s概念整合<i class="iconfont iconright"></i></a>
+    <a href="/2023/12/10/Index-HOT/"><i class="iconfont iconleft"></i>HOT：A Height Optimized Trie Index</a>
+    <a href="/2023/12/10/Index-Masstree/">Masstree：A cache-friendly mashup of tries and B-trees<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -292,48 +296,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -425,36 +454,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -474,6 +487,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

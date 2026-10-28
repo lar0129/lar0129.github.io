@@ -28,22 +28,22 @@ lec...">
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@ lec...">
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@ lec...">
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@ lec...">
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@ lec...">
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记9-外部存储器</h1>
     <div class="head-info">
@@ -251,7 +251,7 @@ lec...">
 </li>
 </ul>
 <p>类型：硬盘、软盘</p>
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109143209663.png"><span class="image-caption">image-20221109143209663</span></p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109143209663.png"><span class="image-caption">image-20221109143209663</span></p>
 <ul>
 <li>轴逆时针转</li>
 <li>每个盘片有一个读写磁头，通过机械方式固定的同时移动</li>
@@ -276,7 +276,7 @@ lec...">
 </ul>
 </li>
 </ul>
-<h2 id="磁头读写机制"><a href="#磁头读写机制" class="headerlink" title="磁头读写机制"></a>磁头读写机制</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144837544.png"><span class="image-caption">image-20221109144837544</span></p>
+<h2 id="磁头读写机制"><a href="#磁头读写机制" class="headerlink" title="磁头读写机制"></a>磁头读写机制</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144837544.png"><span class="image-caption">image-20221109144837544</span></p>
 <ul>
 <li>读或写期间，磁头静止，盘片在下方旋转</li>
 <li>磁头数量<ul>
@@ -304,7 +304,7 @@ lec...">
 </ul>
 </li>
 </ul>
-<h2 id="数据组织（结构）"><a href="#数据组织（结构）" class="headerlink" title="数据组织（结构）"></a>数据组织（结构）</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144933827.png"><span class="image-caption">image-20221109144933827</span></p>
+<h2 id="数据组织（结构）"><a href="#数据组织（结构）" class="headerlink" title="数据组织（结构）"></a>数据组织（结构）</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109144933827.png"><span class="image-caption">image-20221109144933827</span></p>
 <ul>
 <li>一组同心圆环，称为<strong>磁道</strong></li>
 <li>数据以<strong>扇区</strong>的形式传输或传出到磁盘<ul>
@@ -314,7 +314,7 @@ lec...">
 <li>磁道间有间隙</li>
 <li>从外往里编号递增，磁头停止时在磁道0外侧</li>
 </ul>
-<h3 id="扇区划分"><a href="#扇区划分" class="headerlink" title="扇区划分"></a>扇区划分</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109151721899.png"><span class="image-caption">image-20221109151721899</span></p>
+<h3 id="扇区划分"><a href="#扇区划分" class="headerlink" title="扇区划分"></a>扇区划分</h3><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109151721899.png"><span class="image-caption">image-20221109151721899</span></p>
 <ul>
 <li>恒定角速度<ul>
 <li>增大信息位区隔，使得磁盘能够以恒定的速度扫描信息，即<strong>恒定的数据传输率</strong></li>
@@ -329,9 +329,9 @@ lec...">
 </ul>
 </li>
 <li><strong>所有盘片上处于相同的相对位置的一组磁道被称为柱面(cylinder)</strong></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130001959538.png"><span class="image-caption">image-20221130001959538</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130001959538.png"><span class="image-caption">image-20221130001959538</span></li>
 </ul>
-<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109152855187.png"><span class="image-caption">image-20221109152855187</span></p>
+<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221109152855187.png"><span class="image-caption">image-20221109152855187</span></p>
 <ul>
 <li><p>低级格式化&#x2F;<strong>物理格式化</strong></p>
 <ul>
@@ -368,7 +368,7 @@ lec...">
 </ul>
 </li>
 <li>传送时间<ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083624412.png"></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083624412.png"></li>
 </ul>
 </li>
 </ul>
@@ -376,7 +376,7 @@ lec...">
 <ul>
 <li><p>平均访问时间</p>
 <ul>
-<li><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083839385.png"><span class="image-caption">image-20221130083839385</span></p>
+<li><p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130083839385.png"><span class="image-caption">image-20221130083839385</span></p>
 </li>
 <li><p>对于每个磁道都需要考虑旋转延迟</p>
 </li>
@@ -406,14 +406,14 @@ lec...">
 </li>
 <li><p><strong>缺点：</strong>如果有大量访问磁盘的任务，且请求<strong>访问的磁道很分散，则性</strong></p>
 <p><strong>能上很差</strong>，寻道时间长</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153724164.png"><span class="image-caption">image-20221130153724164</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153724164.png"><span class="image-caption">image-20221130153724164</span></p>
 </li>
 </ul>
 <h3 id="最短寻道时间优先（-SSTF-）"><a href="#最短寻道时间优先（-SSTF-）" class="headerlink" title="最短寻道时间优先（ SSTF ）"></a><strong>最短寻道时间优先（</strong> <strong>SSTF</strong> <strong>）</strong></h3><ul>
 <li>优先处理起始位置<strong>与当前磁头位置最接近</strong>的读写任务<ul>
 <li><strong>优点</strong>：每次的寻道时间最短（局部最优），平均寻道时间缩短</li>
 <li><strong>缺点</strong>：可能产生<strong>饥饿现象</strong>，尤其是位于两端的磁道请求</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153804668.png"><span class="image-caption">image-20221130153804668</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130153804668.png"><span class="image-caption">image-20221130153804668</span></li>
 </ul>
 </li>
 </ul>
@@ -424,24 +424,24 @@ lec...">
 <li>缺点：只有到最边上的磁道才能改变磁头的移动方向，对于各个位置磁</li>
 </ul>
 <p>道<strong>响应频率不平均</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154209832.png"><span class="image-caption">image-20221130154209832</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154209832.png"><span class="image-caption">image-20221130154209832</span></p>
 </li>
 </ul>
 <h3 id="循环扫描（-C-SCAN-）"><a href="#循环扫描（-C-SCAN-）" class="headerlink" title="循环扫描（ C-SCAN ）"></a><strong>循环扫描（</strong> <strong>C-SCAN</strong> <strong>）</strong></h3><ul>
 <li><strong>只有磁头朝某个方向移动时才会响应请求，移动到边缘后立即让磁头返</strong> <strong>回起点，返回途中不做任何处理</strong><ul>
 <li>优点：<strong>与SCAN算法相比，对于各位置磁道的响应频率平均</strong></li>
 <li>缺点：与SCAN算法相比，平均寻道时间更长</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154312152.png"><span class="image-caption">image-20221130154312152</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154312152.png"><span class="image-caption">image-20221130154312152</span></li>
 </ul>
 </li>
 </ul>
 <h3 id="LOOK算法"><a href="#LOOK算法" class="headerlink" title="LOOK算法"></a>LOOK算法</h3><ul>
 <li><strong>SCAN算法的升级</strong>，只要磁头移动方向上不再有请求就<strong>立即改变磁头的方向</strong></li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154533757.png"><span class="image-caption">image-20221130154533757</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154533757.png"><span class="image-caption">image-20221130154533757</span></li>
 </ul>
 <h2 id="C-LOOK算法"><a href="#C-LOOK算法" class="headerlink" title="C-LOOK算法"></a>C-LOOK算法</h2><ul>
 <li><strong>C-SCAN算法的改进</strong>，只要在磁头移动方向上不再有请求，就立即让磁头返回起点</li>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154604440.png"><span class="image-caption">image-20221130154604440</span></li>
+<li><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221130154604440.png"><span class="image-caption">image-20221130154604440</span></li>
 </ul>
 <h1 id="光储存器"><a href="#光储存器" class="headerlink" title="光储存器"></a>光储存器</h1><ul>
 <li><p>类型</p>
@@ -474,7 +474,7 @@ lec...">
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110163431534.png"><span class="image-caption">image-20221110163431534</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110163431534.png"><span class="image-caption">image-20221110163431534</span></p>
 <ul>
 <li><p>读取</p>
 <ul>
@@ -531,7 +531,7 @@ lec...">
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110170609076.png"><span class="image-caption">image-20221110170609076</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221110170609076.png"><span class="image-caption">image-20221110170609076</span></p>
 <h3 id="U盘和固态硬盘"><a href="#U盘和固态硬盘" class="headerlink" title="U盘和固态硬盘"></a>U盘和固态硬盘</h3><ul>
 <li>U盘<ul>
 <li>采用了<strong>快闪存储器</strong>，属于非易失性半导体存储器</li>
@@ -562,48 +562,73 @@ lec...">
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -695,36 +720,20 @@ lec...">
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -744,6 +753,7 @@ lec...">
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

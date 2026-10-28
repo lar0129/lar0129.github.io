@@ -26,22 +26,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -50,12 +50,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -72,7 +72,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -140,8 +140,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -201,7 +201,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">量化投资入门2：量化投资概念和基本模型</h1>
     <div class="head-info">
@@ -229,7 +229,7 @@
 <p>传统投资主要基于个人的逻辑分析和判断。举个栗子来说，如果有一天你看了苹果的iPhone X发布会，觉得这个产品很牛，肯定大卖。产品大卖肯定会给公司带来可观的利润，紧接着你就去买了苹果公司的股票（NASDAQ: AAPL），等着产品大卖之后股票涨价，卖出股票赚得差价。再或者你觉得楼下彭阿姨买的煎饼果子味道独特，一直有很多回头客来购买，在未来的一两年内煎饼果子摊能扩大生产规模和盈利能力，于是你就去买了彭阿姨煎饼果子摊的股票（NASDAQ: JBGZ，误），以期获取收益。这样的投资方法主要靠投资者个人的推理和判断，并不经过太多的数值计算，我们称之为传统投资方法。大家都很熟悉的巴菲特（Warren Edward Buffett）就更多地采取这样的方法，其投资决定的形成当然也会基于一定的数据和调研，但是最后的决定主要还是由其个人的主观判断形成。当然，比较厉害的就在于其个人判断十分准确，因此取得了很好的投资业绩。不过并不是人人都有巴菲特的这样一个大脑，因此，这种方法可能会非常成功，但是不可复制。</p>
 <p>而量化投资主要是基于数据和模型。举例来说，你观察了彭阿姨煎饼果子摊，通过煎饼果子摊资产定价模型，结合你调查到的该公司营业数据，算得该公司价值10w，该公司发行了1w股股票，平均每股价值10元&#x2F;股，但是目前该公司股价只有5元&#x2F;股，因此你觉得该公司股票有很大的上涨空间，因此去投资了该公司股票。指出一下，量化投资并不都像这样通过估计股票价值这样来预测股票未来的走势，也有其他的方式。在此领域成功的代表就是西蒙斯（James Harris Simons），如果按盈利能力来算，西蒙斯所管理的大奖章基金的年化收益率可能是巴菲特的两到三倍，并且在数次金融危机中都屹立不倒。其本人就是一名颇有建树的数学家，在转行做金融之后，也是建立了复杂的数学模型来进行量化投资。在赚了很多钱之后，还养了一帮数学家、物理学家做研究，毕竟物理学家好像也不是很贵（自嘲）。我们学校就有西蒙斯本人捐的一栋楼——陈-赛蒙斯楼，现在被用作外国专家楼。</p>
 <p>图：陈-赛蒙斯楼（出处见水印）</p>
-<p><img src="/images/posts/quant-2/01.jpg"><span class="image-caption">图片注释</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/quant-2/01.jpg"><span class="image-caption">图片注释</span></p>
 <p>借用看来的一个比喻，说传统投资方法就像是中医，讲求的是望、闻、问、切，通过医生自己的经验和判断来给患者开方治疗；量化投资就像是西医，需要通过化验、拍片来确定患者的病灶，然后根据一套生理学的理论来给出治疗的方法。西医需要做的抽血化验、拍片检查就好像量化投资里面的数据，数据越准确，越可能得到更好的结论；西医中的生理学理论就好像量化投资中搭建的模型，根据化验检查的结果进行分析得到结论。所以我们常常看到，有很多老中医医术高超，但这种医术并不是刻意轻易学得来的，需要通过一带一的学徒制来传授。而西医讲究的是系统性的方法，可以通过在医学院的学习把这样的方法复制。</p>
 <p>总结一下，传统投资方法就好比中医，通过较为主观的分析和判断来进行投资，可复制性较差；量化投资方法好比西医，关键在于数据和模型，通过数值计算来得到投资决策，具有较强可复制性。</p>
 <p><strong>量化投资与有效市场假说</strong></p>
@@ -248,14 +248,14 @@
 <p>现代资产组合理论（modern portfolio theory，MPT），是由Harry Markowitz在1952年提出的，他本人也是在38年之后获得了诺贝尔经济学奖。不过，在讲这个模型之前，我们先来讲一下风险。</p>
 <p>我们常常说一个理性的投资人是追求利润并且厌恶风险的，所以理性的投资人一直在做的事情就是最大化利润，并且最小化风险。但是我们怎样来衡量风险呢？我们熟知的余额宝就属于风险比较低的理财产品，而股票市场就属于风险比较高的投资。但这样的认识是我们凭感觉得来的，我们能不能用什么办法具体地来计算相应的风险呢？答案是我们可以使用<strong>收益率序列的方差来表征风险</strong>。（还有其他表征风险的方式，方差是一种最基本的方法，见风险价值（VaR）是否是有史以来最蠢的衡量指标？）</p>
 <p>举个栗子，我们可以查看一下余额宝（天弘基金）和平安银行股票（000001.SZ）近期的每日收益率（这里只是举例子，计算可能不科学，因为余额宝在非交易日也会有收益）</p>
-<p><img src="/images/posts/quant-2/02.png"><span class="image-caption">image-20221226175016913</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/quant-2/02.png"><span class="image-caption">image-20221226175016913</span></p>
 <p>当我们要来评价相应的风险的时候就可以计算出两者实际的“风险”究竟是多少。余额宝收益率序列标准差为σ&#x3D;0.0123，平安银行股票收益率序列标准差为σ&#x3D;221.8064。（风险一般用<strong>方差var</strong>来表示，由于这个例子中其方差差距太大，因此就只写标准差）有了这样的数字我们就可以对于其“风险”进行比较了。</p>
 <p>下面来讲一下MPT是什么。MPT中的portfolio中文叫做资产组合，资产组合是什么呢？假设市面上有n个可以进行投资的标的，一个资产组合可以表示为一个n维的向量P&#x3D;(w₁,w₂,⋯,wₙ)，向量的每一维代表该投资组合投资到相应标的的金额比例，且满足∑ni&#x3D;1wi&#x3D;1。</p>
 <p>每个标的的收益ri都是一个随机变量。资产组合的<strong>收益rp</strong>也是一个随机变量，并且可以表示为rp&#x3D;∑ni&#x3D;1wiri。</p>
 <p>刚刚我们说了，每个<strong>标的的风险可以写成var(ri)&#x3D;cov(ri,ri)</strong>。资产组合的的风险也可以写出来var(rₚ)&#x3D;∑ᵢ₌₁ⁿ∑ⱼ₌₁ⁿ wᵢwⱼ cov(rᵢ,rⱼ)。</p>
 <p>MPT这个理论要做的就是在<strong>达到期望收益的情况下，最小化投资风险</strong>。因此，对于一个理性的投资者来说，就是要解如下的一个优化问题</p>
 <p>最小化 var(rₚ)&#x3D;∑ᵢ₌₁ⁿ∑ⱼ₌₁ⁿ wᵢwⱼ cov(rᵢ,rⱼ)，约束为 E(rₚ)&#x3D;∑ᵢ₌₁ⁿ wᵢE(rᵢ)≥μ，且 ∑ᵢ₌₁ⁿ wᵢ&#x3D;1。 其中的μ就是预期的收益率。我们可以看出，给定一个预期的收益率μ，我们可以解到一个可以最小化风险的资产组合，并且可以得到该资产组合的风险。相应地，我们可以画出在MPT框架下的收益-风险曲线。这条曲线就是下图中的蓝线，也称作<strong>有效前沿（efficient frontier）或者马科维兹子弹（Markowitz bullet）。</strong></p>
-<p><img src="/images/posts/quant-2/03.png"><span class="image-caption">图片注释</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/quant-2/03.png"><span class="image-caption">图片注释</span></p>
 <p>图中的红点为代表无风险利率，我们可以看到它的风险为0，收益为一个特定的值rf，可以简单地把它理解为银行存款利率。蓝线上绿色的点是这条线上<strong>夏普比率最高的点</strong>，这一点对应的资产组合称作<strong>市场组合</strong>（market portfolio）。夏普比率定义为相比于无风险投资的超额收益相对于所承受风险的比值</p>
 <p>Sharpe&#x3D;[E(rₚ)−r𝒻]&#x2F;σ(rₚ)，其中 σ(rₚ)&#x3D;√var(rₚ)。 可以简单地这样理解，<strong>有效前沿上的资产组合</strong>都是相应给定收益下<strong>风险最小的资产组合</strong>，而市场组合是有效前沿上投资收益-风险比（即投资效率）最高的资产组合。注意到，市场组合中不包括无风险资产。如果资产组合能够包括无风险资产，那么还可以组合出橙线以下区域的收益-风险配置，这条<strong>橙色的线我们称之为资本市场线</strong>（capital market line）。为什么这条线上的点可以通过加入无风险资产构建出来呢？简单来说，比如资本市场线上红点和绿点之间的线段，可以通过购买α比例的无风险资产再加上1−α比例的市场组合来得到。当α&#x3D;1时，全部购买无风险资产，在红点处；当α&#x3D;0时，就为市场组合，在绿点处。其实α还可以为负数，这时候相当于以无风险利率从市场借钱，然后购买更多的市场组合，对应的点就在绿点上方的射线上了。</p>
 <p>敲黑板 1、我们使用方差来衡量风险 2、通过资产组合的配置可以降低风险，中和收益 3、有效前沿是在诸多有风险资产上配置资产组合能达到的最好情况，市场组合是其中投资效率最高的一个资产组合 4、资本市场线是加入无风险资产资产之后能够配置出来收益-风险特征的边界</p>
@@ -354,48 +354,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -487,36 +512,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -536,6 +545,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

@@ -26,22 +26,22 @@ Lecture...">
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -50,12 +50,12 @@ Lecture...">
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -72,7 +72,7 @@ Lecture...">
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -140,8 +140,8 @@ Lecture...">
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -201,7 +201,7 @@ Lecture...">
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">计算机组成原理-学习笔记7-存储器</h1>
     <div class="head-info">
@@ -228,7 +228,7 @@ Lecture...">
 </li>
 </ul>
 <h3 id="2-层次结构"><a href="#2-层次结构" class="headerlink" title="2.层次结构"></a>2.层次结构</h3><p>原因：达到容量和速度间的平衡。成本的约束</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20221020162140913.png"><span class="image-caption">image-20221020162140913</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20221020162140913.png"><span class="image-caption">image-20221020162140913</span></p>
 <h3 id="3-半导体存储器"><a href="#3-半导体存储器" class="headerlink" title="3.半导体存储器"></a>3.半导体存储器</h3><p>目前的主流做法。半导体芯片</p>
 <ul>
 <li>半稳态：类似弹簧</li>
@@ -377,7 +377,7 @@ Lecture...">
 <p>​	• EPROM</p>
 <p>​	• EEPROM</p>
 <p>​	• Flash memory</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103111650302.png"><span class="image-caption">image-20221103111650302</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103111650302.png"><span class="image-caption">image-20221103111650302</span></p>
 <h2 id="4-从存储位元到主存储器"><a href="#4-从存储位元到主存储器" class="headerlink" title="4.从存储位元到主存储器"></a>4.从存储位元到主存储器</h2><p><strong>位元-&gt;寻址单元-&gt;储存阵列-&gt;芯片 ➔ 模块组织 ➔ 主存</strong></p>
 <h3 id="4-1如何寻址"><a href="#4-1如何寻址" class="headerlink" title="4.1如何寻址"></a>4.1如何寻址</h3><p>寻址单元（Addressable unit）：由若干相同地址的位元组成</p>
 <ul>
@@ -387,7 +387,7 @@ Lecture...">
 <p>• 字节（Byte）：常用</p>
 <p>• 字（Word）</p>
 <p><strong>存储阵列（Memory Array）：由大量寻址单元组成</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103112534056.png"><span class="image-caption">image-20221103112534056</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103112534056.png"><span class="image-caption">image-20221103112534056</span></p>
 <h3 id="4-2-如何刷新"><a href="#4-2-如何刷新" class="headerlink" title="4.2 如何刷新"></a>4.2 如何刷新</h3><p><strong>约束：刷新会占用片选线、地址线、地址译码器</strong></p>
 <p>• <strong>集中式刷新（<strong><strong>Centralized refresh</strong></strong>）</strong></p>
 <p>​	• 停止读写操作，并<strong>逐行刷新</strong></p>
@@ -431,7 +431,7 @@ Lecture...">
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103120054038.png"><span class="image-caption">image-20221103120054038</span></p>
+<p><img decoding="async" loading="lazy" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103120054038.png"><span class="image-caption">image-20221103120054038</span></p>
 <p>(左侧地址线，右侧数据线)</p>
       </section>
       <section class="extra">
@@ -451,48 +451,73 @@ Lecture...">
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -584,36 +609,20 @@ Lecture...">
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -633,6 +642,7 @@ Lecture...">
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

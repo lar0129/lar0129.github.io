@@ -28,22 +28,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -52,12 +52,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -74,7 +74,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -142,8 +142,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -203,7 +203,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">Leetcode个人笔记-medium</h1>
     <div class="head-info">
@@ -279,7 +279,7 @@
 <li>举例推导dp数组</li>
 </ol>
 <p>以示例1，输入：[7,1,5,3,6,4]为例，dp数组状态如下：</p>
-<p><img src="/images/posts/repaired/20210224225642465.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/20210224225642465.png"><span class="image-caption">image</span></p>
 <h2 id="1997-访问完所有房间的第一天"><a href="#1997-访问完所有房间的第一天" class="headerlink" title="1997. 访问完所有房间的第一天"></a><strong>1997. 访问完所有房间的第一天</strong></h2><h3 id="前缀和优化"><a href="#前缀和优化" class="headerlink" title="前缀和优化"></a>前缀和优化</h3><p>通过前缀和，我们可以把<strong>连续子数组的元素和转换成两个前缀和的差</strong></p>
 <ul>
 <li>前缀和大小比原数组大1</li>
@@ -328,9 +328,9 @@
 <h2 id="遍历方向如何判断？"><a href="#遍历方向如何判断？" class="headerlink" title="遍历方向如何判断？"></a>遍历方向如何判断？</h2><p><strong>要理解递归的本质和递推的方向</strong>。</p>
 <p>dp[i][j] &#x3D; max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]); 递归公式中可以看出dp[i][j]是靠dp[i-1][j]和dp[i - 1][j - weight[i]]推导出来的。</p>
 <p>dp[i-1][j]和dp[i - 1][j - weight[i]] 都在dp[i][j]的左上角方向（包括正上方向），那么先遍历物品，再遍历背包的过程如图所示：</p>
-<p><img src="/images/posts/repaired/202101101032124.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/202101101032124.png"><span class="image-caption">image</span></p>
 <p>再来看看先遍历背包，再遍历物品呢，如图：</p>
-<p><img src="/images/posts/repaired/20210110103244701.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/20210110103244701.png"><span class="image-caption">image</span></p>
 <p>可以看出，虽然两个for循环遍历的次序不同，但是<strong>dp[i][j]所需要的数据就是左上角</strong>，根本不影响dp[i][j]公式的推导！</p>
 <ul>
 <li>其他变体，就不一定都行了，得看数据是否在左上角</li>
@@ -348,7 +348,7 @@
 <p><strong>每次递归都只做一次乘法操作，这是一个常数项操作，因此这个递归算法的时间复杂度才是真正的 O(logn)</strong>。</p>
 <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><strong>C++中二维数组在地址空间上是连续的</strong>。</p>
 <p>Java的二维数组可能是如下排列的方式：</p>
-<p><img src="/images/posts/repaired/20201214111631844.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/20201214111631844.png"><span class="image-caption">image</span></p>
 <h2 id="704-二分查找"><a href="#704-二分查找" class="headerlink" title="704.二分查找"></a>704.二分查找</h2><p><strong>前提是数组为有序数组</strong>，同时题目还强调<strong>数组中无重复元素</strong></p>
 <p>区间的定义这就决定了二分法的代码应该如何写，<strong>因为定义target在[left, right]区间，所以有如下两点：</strong></p>
 <ul>
@@ -613,7 +613,7 @@
 <li><p>要在文本串：aabaabaafa 中查找是否出现过一个模式串：aabaaf。</p>
 </li>
 <li><p>下标5之前这部分的字符串（也就是字符串aabaa）的最长相等的前缀 和 后缀字符串是 子字符串aa ，因为找到了最长相等的前缀和后缀，匹配失败的位置是后缀子串的后面，那么我们<strong>找到与其相同的前缀</strong>的后面重新匹配就可以了。</p>
-<p><img src="/images/posts/repaired/KMP%E7%B2%BE%E8%AE%B22.gif"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/KMP%E7%B2%BE%E8%AE%B22.gif"><span class="image-caption">image</span></p>
 </li>
 <li><p>找到的不匹配的位置， 那么此时我们要看它的前一个字符的前缀表的数值是多少。</p>
 </li>
@@ -725,13 +725,13 @@
 <h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20. 有效的括号"></a><strong>20. 有效的括号</strong></h2><p><strong>分析很重要，代码要囊括所有情况：</strong>有哪几种不匹配的情况</p>
 <ol>
 <li><p>第一种情况，字符串里左方向的括号多余了 ，所以不匹配。</p>
-<p><img src="/images/posts/repaired/2020080915505387.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/2020080915505387.png"><span class="image-caption">image</span></p>
 </li>
 <li><p>第二种情况，括号没有多余，但是 括号的类型没有匹配上。</p>
-<p><img src="/images/posts/repaired/20200809155107397.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/20200809155107397.png"><span class="image-caption">image</span></p>
 </li>
 <li><p>第三种情况，字符串里右方向的括号多余了，所以不匹配。</p>
-<p><img src="/images/posts/repaired/20200809155115779.png"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/20200809155115779.png"><span class="image-caption">image</span></p>
 </li>
 </ol>
 <h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><h2 id="739-每日温度"><a href="#739-每日温度" class="headerlink" title="739. 每日温度"></a><strong>739. 每日温度</strong></h2><ul>
@@ -757,10 +757,10 @@
 <li></li>
 </ul>
 <p>加入T[6]，需要将栈里的T[5]，T[2]弹出</p>
-<p><img src="/images/posts/repaired/2021021912483374.jpg"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/2021021912483374.jpg"><span class="image-caption">image</span></p>
 <hr>
 <p>同理，继续弹出</p>
-<p><img src="/images/posts/repaired/2021021912490098.jpg"><span class="image-caption">image</span></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/repaired/2021021912490098.jpg"><span class="image-caption">image</span></p>
 <h2 id="496-下一个更大元素-I"><a href="#496-下一个更大元素-I" class="headerlink" title="496.下一个更大元素 I"></a><strong>496.下一个更大元素 I</strong></h2><ol>
 <li>没有重复元素，我们就可以用map哈希表来做映射了</li>
 <li>求每个元素下一个比当前元素大的元素的位置，用单调栈。</li>
@@ -993,7 +993,7 @@
         
         
   <nav class="nav">
-    <a href="/2026/10/27/%E8%A5%BF%E6%96%B9%E7%BE%8E%E6%9C%AF%E5%8F%B2%E7%AC%94%E8%AE%B0/"><i class="iconfont iconleft"></i>西方美术史笔记</a>
+    <a></a>
     <a href="/2023/12/12/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生<i class="iconfont iconright"></i></a>
   </nav>
 
@@ -1004,48 +1004,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -1137,36 +1162,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -1186,6 +1195,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 

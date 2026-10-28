@@ -73,31 +73,29 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
         } else {
           $(".navbar").addClass("hide");
         }
-        $(window).on("scroll", ZHAOO.utils.throttle(function () {
-          var before = $(this).scrollTop();
-          $(window).on("scroll", function () {
-            var after = $(this).scrollTop();
-            if (!CONFIG.isHome) {
-              if (before > after && after > 300) {
-                $(".navbar").removeClass("hide");
-              } else if (before < after || after < 300) {
-                $(".navbar").addClass("hide");
-              }
+        var before = $(window).scrollTop();
+        $(window).off('scroll.navbar').on("scroll.navbar", ZHAOO.utils.throttle(function () {
+          var after = $(window).scrollTop();
+          if (!CONFIG.isHome) {
+            if (before > after && after > 300) {
+              $(".navbar").removeClass("hide");
+            } else if (before < after || after < 300) {
+              $(".navbar").addClass("hide");
             }
-            if (CONFIG.isHome) {
-              if (before < after && after > height) {
-                $(".navbar").removeClass("transparent");
-              } else if (before > after && after < height) {
-                $(".navbar").addClass("transparent");
-              } else if (before > after) {
-                $(".navbar").removeClass("hide");
-              } else if (before < after) {
-                $(".navbar").addClass("hide");
-              }
+          }
+          if (CONFIG.isHome) {
+            if (before < after && after > height) {
+              $(".navbar").removeClass("transparent");
+            } else if (before > after && after < height) {
+              $(".navbar").addClass("transparent");
+            } else if (before > after) {
+              $(".navbar").removeClass("hide");
+            } else if (before < after) {
+              $(".navbar").addClass("hide");
             }
-            before = after;
-          })
-        }, 500));
+          }
+          before = after;
+        }, 100));
       },
       desktop: function () {
         $(".navbar").addClass("transparent");
@@ -112,19 +110,17 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
           }
         }
         center();
-        $(window).on("scroll", ZHAOO.utils.throttle(function () {
+        var before = $(window).scrollTop();
+        $(window).off('scroll.navbar').on("scroll.navbar", ZHAOO.utils.throttle(function () {
           center();
-          var before = $(this).scrollTop();
-          $(window).on("scroll", function () {
-            var after = $(this).scrollTop();
-            if (before > after) {
-              $(".navbar").removeClass("hide");
-            } else if (before < after) {
-              $(".navbar").addClass("hide");
-            }
-            before = after;
-          })
-        }, 500));
+          var after = $(window).scrollTop();
+          if (before > after) {
+            $(".navbar").removeClass("hide");
+          } else if (before < after) {
+            $(".navbar").addClass("hide");
+          }
+          before = after;
+        }, 100));
       },
     },
     motto: function () {
@@ -261,7 +257,7 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
       });
     },
     loading: function () {
-      $(".loading").delay(500).fadeOut(300);
+      $(".loading").fadeOut(150);
       $("body").removeClass("lock-screen");
     },
     fab: function () {
@@ -326,17 +322,6 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
         $("#qrcode-donate").hide();
       });
     },
-    lazyload: function () {
-      $("img.lazyload").lazyload({
-        effect: "fadeIn",
-        threshold: 200,
-      });
-    },
-    fixLazyloadFancybox: function () {
-      $(document).find('.article img[data-original]').each(function () {
-        $(this).parent().attr("href", $(this).attr("data-original"));
-      });
-    },
     carrier: function () {
       $(".j-carrier-btn").on("click", ZHAOO.utils.throttle(function () {
         $(".j-carrier-data").select();
@@ -386,26 +371,34 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
       }
     },
     toc: function () {
-      var current = [];
-      var titleList = new Map();
-      $("article .content h1,h2,h3,h4,h5,h6").each(function () {
-        var title = $(this).attr("id");
-        var height = $(this).offset().top;
-        titleList.set(height, title);
-      });
-      $(window).on("scroll", f);
-      function f() {
-        var height = $(this).scrollTop() || $(window).scrollTop();
-        for (var item of titleList) {
-          if (item[0] >= height) {
-            current = item;
-            break;
-          }
-        }
-        $(".toc-link").removeClass("active");
-        $(".toc-link[href='#" + current[1] + "']").addClass("active");
+      var headings = $("article .content").find("h1,h2,h3,h4,h5,h6");
+      if (!headings.length) return;
+      var titleList = [];
+      var activeTitle;
+      var update = function () {
+        var height = $(window).scrollTop() + 80;
+        var current = titleList[0];
+        titleList.forEach(function (heading) {
+          if (heading.top <= height) current = heading;
+        });
+        if (!current || current.id === activeTitle) return;
+        activeTitle = current.id;
+        $(".toc-link").removeClass("active").filter(function () {
+          return this.hash === '#' + activeTitle || decodeURIComponent(this.hash) === '#' + activeTitle;
+        }).addClass("active");
       };
-      f();
+      var measure = function () {
+        titleList = headings.map(function () {
+          return { id: this.id, top: $(this).offset().top };
+        }).get();
+        update();
+      };
+      var remeasure = ZHAOO.utils.debounce(measure, 100);
+      $(window).on("scroll", ZHAOO.utils.throttle(update, 100));
+      $(window).on("resize", remeasure);
+      $("article img").on("load", remeasure);
+      if (document.fonts) document.fonts.ready.then(measure);
+      measure();
     },
     scrollbar: function () {
       var totalH = $(document).height();
@@ -477,16 +470,14 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
     action.preview();
     CONFIG.fancybox && action.fancybox();
     CONFIG.pjax && action.pjax();
-    CONFIG.lazyload.enable && action.lazyload();
     CONFIG.donate.enable && action.donate();
-    (CONFIG.lazyload && CONFIG.fancybox) && action.fixLazyloadFancybox();
     CONFIG.carrier.enable && action.carrier();
     CONFIG.qrcode.enable && action.qrcode();
     CONFIG.toc.enable && action.toc();
     CONFIG.scrollbar.type === 'simple' && action.scrollbar();
     CONFIG.notification.enable && action.notification();
     CONFIG.search.enable && action.search();
-    CONFIG.loading.lottie && action.lottie();
+    document.getElementById('loading') && CONFIG.loading.lottie && action.lottie();
   });
 
 })(jQuery);

@@ -23,22 +23,22 @@
   
 
   
+
+  
 <link rel="stylesheet" href="/css/style.css">
 
 
   
-<link rel="stylesheet" href="/lib/katex/katex.min.css">
-
 
   
     
-<link rel="stylesheet" href="https://at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
 
   
 
   
     
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 
   
 
@@ -47,12 +47,12 @@
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+<link rel="stylesheet" href="/lib/highlight/xcode.min.css" name="highlight-style" mode="light">
 
       
         
         
-<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+<link rel="stylesheet" href="/lib/highlight/solarized-dark.min.css" name="highlight-style" mode="dark">
 
       
   
@@ -69,7 +69,7 @@
         lottie: ''
       },
       lazyload: {
-        enable: false,
+        enable: true,
         only_post: 'false',
         loading: {
           gif: '/images/theme/loading.gif',
@@ -137,8 +137,8 @@
 
 <meta name="generator" content="Hexo 6.3.0"></head>
 
-<body class="lock-screen">
-  <div class="loading" id="loading"></div>
+<body>
+  
   
     
 
@@ -198,7 +198,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
+  <img decoding="async" loading="eager" src="https://lar-main.oss-cn-shanghai.aliyuncs.com/gallery/gallery/%E9%A3%8E%E5%85%89/5D4F56FB9E1CB22675B95332AE79BE23.png" draggable="false">
   <div class="head-mask">
     <h1 class="head-title">Masstree：A cache-friendly mashup of tries and B-trees</h1>
     <div class="head-info">
@@ -223,7 +223,7 @@
 <p>在 16 核的机器上测试，打开日志，查询请求通过网络发送， Masstree 可以达到超过 600w&#x2F;s 的简单查询。这个数据和memcached、非持久化的 hash-table 服务相当，通常比 VoltDB、MongoDB 和 Redis 高很多。</p>
 </blockquote>
 <h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>在结构上 Masstree 可以视作 Trie 和 B+ tree 的结合，Trie 中的一个节点，是一棵 B+ 树。</p>
-<p><img src="/images/posts/masstree/01.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/01.png"></p>
 <p>Masstree 的结构如上图所示，圆形的节点称为 interior node，也就是 B+ 树中的非叶子节点，矩形称为 border node，也就是 B+ 树中的叶子节点。五角星代表 value。</p>
 <ul>
 <li>Masstree 的 <strong>border node 上可能存放的是 value ，也有可能是下一层  B+ 树的根节点</strong>。</li>
@@ -281,7 +281,7 @@
 </li>
 </ol>
 <p>Masstree 中节点数据结构如下图所示：</p>
-<p><img src="/images/posts/masstree/02.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/02.png"></p>
 <p>B+ 树<strong>每个节点可以放 15 个 key</strong>，叶子节点之间通过指针链接起来，用以支持 remove 和 getrange。</p>
 <p>keyslice 变量用于存储 8 字节的 key ，必要时字节之间可以交换，以便本地进行比较时能获得与字典序比较相同的结果，这是非常有用的编码技巧，能将性能提升 13%-19% 。对于较短的 key ，用 0 进行填充。</p>
 <p>border  node 存储 key slice， length 及 suffix。</p>
@@ -297,14 +297,14 @@
 <ul>
 <li>read 在进行读之前及读完后都会检查节点的 version number，来判断节点是否发生修改，如果发生修改 read 需要 retry；write 操作之前会先修改节点 version number，在插入 key 之前会设置 inserting 标记位，插入完成之后将 vinsert 加 1；split 操作之前先设置 splitting 标记位，完成后 vsplit 加 1。 version number 的 layout 如下图所示:</li>
 </ul>
-<p><img src="/images/posts/masstree/03.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/03.png"></p>
 <p>查找算法的伪代码如下：</p>
-<p><img src="/images/posts/masstree/04.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/04.png"></p>
 <h3 id="INSERT-amp-SPLIT"><a href="#INSERT-amp-SPLIT" class="headerlink" title="INSERT &amp; SPLIT"></a>INSERT &amp; SPLIT</h3><p>为处理 write-write 竞争，使用 fine-grained lock ，即节点锁，同一时刻只有一个线程能对当前节点进行写操作。</p>
 <p>获取当前的 version number ，如果 inserting 或 splitting 标记位被设置，则 retry；</p>
 <p>对节点加锁，设置  inserting 或 splitting 标记位 完成写动作；解锁，verinsert  或 vsplit 加 1 ，取消  inserting 或 splitting 标记位设置；</p>
 <p>更新父节点。</p>
-<p><img src="/images/posts/masstree/05.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/05.png"></p>
 <h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><p>update 操作用于修改一个已经存在的 key 的值，通过对齐的写入指令以原子的方式实现更新。对读操作而言，要么读到老的数据，要么读到新数据。因此 update 不需要更新 node 的 version number，也不需要 read 操作 retry 。</p>
 <p>对于已经被 read 访问到的数据，如果要删除要等到 read 操作结束，垃圾数据清理通过 read-copy update 技术，是一种 epoch-based 回收机制。</p>
 <h3 id="BORDER-NODE-INSERT"><a href="#BORDER-NODE-INSERT" class="headerlink" title="BORDER NODE INSERT"></a>BORDER NODE INSERT</h3><p>传统的 B+ 树在叶子节点进行插入时，需要对 key 执行排列以保持有序，过程中节点会出现一些无效的中间状态。</p>
@@ -312,31 +312,31 @@
 <p>读操作要么读不到新插入的 key ，要么读到且新 key 在正确的位置。不需要重新排列 key ，因此也不需要增加 version number。</p>
 <p>permutation 是 64 位的，被分成 16 个 4 位区域。最低的四位是 nkeys ，表示节点内的 key 的数量，范围是 0 - 15 。剩余的 15 个 4 位 表示一个长度为 15 的数组， keyindex[15]。</p>
 <p>permutation 的 layout 如下图所示，其中 keyindex[0] - keyindex[14] 存储 border node 中存在的 key 的索引，以 key 升序的方式。</p>
-<p><img src="/images/posts/masstree/06.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/06.png"></p>
 <p>执行插入时，需要对节点加锁，然后加载 permutation，然后对 permutation 进行重排列，正确标记新插入的 key 正确的位置，然后增加 nkeys 的值；再将新的 key 和 value 写入之前没有使用的位置，最后一步将更新完的 permutation 回写，释放节点加的锁。只有在完成最后一步后，新的 key 对于 read 操作才是可见的。 这里需要注意，key 和 value 的写入，及 permutation 的回写需要设置编译器栅栏，以防止指令重排，影响执行顺序。</p>
 <h3 id="BORDER-NODE-SPLIT"><a href="#BORDER-NODE-SPLIT" class="headerlink" title="BORDER NODE SPLIT"></a>BORDER NODE SPLIT</h3><p>分裂 border  node ，插入新 key；</p>
 <p>生成一个新的 border node，原来的节点设置 splitting 位；拷贝 version number 到新生成的节点；</p>
 <p>重新分配 key，插入新 key，完成分裂动作。</p>
 <p>向上更新父节点。</p>
-<p><img src="/images/posts/masstree/07.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/07.png"></p>
 <h3 id="SEARCH"><a href="#SEARCH" class="headerlink" title="SEARCH"></a>SEARCH</h3><p>查找包含某个 key 的 border node 算法如下：</p>
 <p>获取正确的 root 节点，需要检查 isroot 位；</p>
 <p>查找到 border node，返回；</p>
 <p>否则查找包含 key 的子节点，如果检查到发生分裂，则从 root 节点开始重试；</p>
 <p>向下查找，直到找到 border node。</p>
-<p><img src="/images/posts/masstree/08.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/08.png"></p>
 <h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>只讨论<strong>逻辑删除</strong>，<strong>物理删除</strong>需要额外的技术，比如 hazard pointer，epoch-based reclamation 等。</p>
 <p>逻辑删除并不对 key 少的节点进行合并，当节点 key 减少到0时，需要标记这个节点为 deleted，然后将其从父节点删除，同时如果是叶节点的话，还需要维护叶节点的链接指针。</p>
 <p>如果某棵子树为空的话也可以删除整棵子树。当其他线程发现节点处于 <code>deleted</code> 状态时，需要进行重试，因为这个节点逻辑上是不存在的。</p>
 <p>另外需要处理一种特殊情况：</p>
-<p><img src="/images/posts/masstree/09.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/09.png"></p>
 <p>线程 1 查找 k1 找到位置 i，在读取 v1 前节点上 i 位置的 k1 被线程 2 删除；同时线程 2 在 j 位置插入了 k2 ；如果 i &#x3D; j ，则可能线程 1 读到 v2 这个值。</p>
 <p>为解决此问题，要在 i 被删除后重新插入时增加 vinsert 的值，然后线程 1 检查 version number 后进行重试。</p>
 <h2 id="实验数据"><a href="#实验数据" class="headerlink" title="实验数据"></a>实验数据</h2><p>对比了 Masstree、MongoDB、VoltDB、Redis 和 memcached 的性能数据，基本上 Masstree 远超其他对比的数据库。</p>
 <p>下图是对比数据，对比的是吞吐，单位是 百万请求&#x2F;秒</p>
-<p><img src="/images/posts/masstree/10.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/10.png"></p>
 <p>另外，有人对比了 Masstree 和其他一些数据结构的性能，总体而言拥有非常不错的性能。</p>
-<p><img src="/images/posts/masstree/11.png"></p>
+<p><img decoding="async" loading="lazy" src="/images/posts/masstree/11.png"></p>
 <p>其他数据，不一一列举了</p>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
 <li>Masstree 结构上Trie 和 B+ 两种索引树的结合。下降过程中的重试不需要从整棵树的根节点开始，同时可以加快拥有相同前缀的 key 的处理速度</li>
@@ -357,8 +357,8 @@
         
         
   <nav class="nav">
-    <a href="/2023/12/10/Index-HOT/"><i class="iconfont iconleft"></i>HOT：A Height Optimized Trie Index</a>
-    <a href="/2023/12/10/Index-Learned%20index/">Learned index 综述<i class="iconfont iconright"></i></a>
+    <a href="/2023/12/10/Index-Learned%20index/"><i class="iconfont iconleft"></i>Learned index 综述</a>
+    <a href="/2023/07/10/k8s%E5%85%A5%E9%97%A8/">k8s概念整合<i class="iconfont iconright"></i></a>
   </nav>
 
       </section>
@@ -368,48 +368,73 @@
     <div class="btn" id="comments-btn">查看评论</div>
   
   
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@3.15.2/dist/waline.css">
 <div id="waline"></div>
-<script defer src="https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js"></script>
 <script>
   (function () {
     var initialized = false;
+    var clientPromise;
     var buttonMode = true;
 
-    var initWaline = function () {
+    var loadClient = function () {
+      if (clientPromise) return clientPromise;
+      var stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.css';
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/@waline/client@3.15.2/dist/waline.umd.js';
+      script.async = true;
+      var resources = [stylesheet, script];
+
+      clientPromise = Promise.all(resources.map(function (resource) {
+        return new Promise(function (resolve, reject) {
+          resource.onload = resolve;
+          resource.onerror = function () { reject(new Error('Could not load comments')); };
+          document.head.appendChild(resource);
+        });
+      })).catch(function (error) {
+        resources.forEach(function (resource) { resource.remove(); });
+        clientPromise = null;
+        throw error;
+      });
+      return clientPromise;
+    };
+
+    var initWaline = function (button) {
       if (initialized) return;
-      if (!window.Waline || typeof window.Waline.init !== 'function') {
-        window.setTimeout(initWaline, 50);
-        return;
+      if (button) {
+        button.textContent = '正在加载评论…';
+        button.style.pointerEvents = 'none';
       }
 
-      initialized = true;
-      window.Waline.init({
-        el: '#waline',
-        serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
-        placeholder: "畅所欲言！",
-        avatar: "mp",
-        pageSize: 10,
-        lang: "zh-CN"
+      loadClient().then(function () {
+        if (initialized) return;
+        window.Waline.init({
+          el: '#waline',
+          serverURL: "https://blog-comment-d3gp8fivf3f335222-1318341780.ap-shanghai.app.tcloudbase.com/waline",
+          placeholder: "畅所欲言！",
+          avatar: "mp",
+          pageSize: 10,
+          lang: "zh-CN"
+        });
+        initialized = true;
+        if (button) button.style.display = 'none';
+      }).catch(function () {
+        if (button) {
+          button.textContent = '评论加载失败，点击重试';
+          button.style.pointerEvents = '';
+        } else {
+          document.getElementById('waline').textContent = '评论暂时无法加载，请稍后刷新重试。';
+        }
       });
     };
 
     var bind = function () {
-      if (!buttonMode) {
+      var button = buttonMode && document.getElementById('comments-btn');
+      if (button) {
+        button.addEventListener('click', function () { initWaline(button); });
+      } else {
         initWaline();
-        return;
       }
-
-      var button = document.getElementById('comments-btn');
-      if (!button) {
-        initWaline();
-        return;
-      }
-
-      button.addEventListener('click', function () {
-        button.style.display = 'none';
-        initWaline();
-      }, { once: true });
     };
 
     if (document.readyState === 'loading') {
@@ -501,36 +526,20 @@
   
   
 </body>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script defer src="/lib/jquery/jquery.js"></script>
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-
-
-
-
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script defer src="/lib/fancybox/fancybox.js"></script>
 
 
 
 
 
 
-  
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-
-
-
-
-<script src="/js/utils.js"></script>
-<script src="/js/script.js"></script>
-
+<script defer src="/js/utils.js"></script>
+<script defer src="/js/script.js"></script>
 
 
 
@@ -550,6 +559,7 @@
       s.parentNode.insertBefore(bp, s);
     })();
   </script>
+
 
 
 
