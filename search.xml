@@ -2827,6 +2827,200 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
+    <title>Adaptive radix tree：高效自适应树状索引结构</title>
+    <url>/2023/12/10/Index-ART/</url>
+    <content><![CDATA[<p>文献阅读：The adaptive radix tree: ARTful indexing for main-memory databases</p>
+<span id="more"></span>
+
+<blockquote>
+<p> <a href="https://zhuanlan.zhihu.com/p/644667990">高效内存索引：Adaptive Radix Tree - 知乎 (zhihu.com)</a></p>
+<p><a href="https://blog.51cto.com/u_11908275/6405376">数据库索引数据结构总结——ART树就是前缀树_11898275的技术博客_51CTO博客</a></p>
+<p><a href="https://blog.csdn.net/qq_35423154/article/details/130119444">高级数据结构与算法 | 自适应基数树（Adaptive Radix Tree）-CSDN博客</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/617343461">论文阅读: The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><p>我们以每个节点存 2-bits 为例，假设 Trie 中存储了 7, 10, 12，从下图可以看到这三个数的二进制表示。每个节点的值由 0 和 1 组成，同时每个节点包含指向所有子节点的指针，指针为 * 代表该子节点存在，指针为 Ø 代表改子节点不存在。最终由叶子节点指向实际的数据。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-4ab897ae16b3786ebdcbe45d581f74f3_1440w.webp"><span class="image-caption">img</span></p>
+<h1 id="Radix-Trie"><a href="#Radix-Trie" class="headerlink" title="Radix Trie"></a>Radix Trie</h1><p>压缩后的节点需要将路径的前缀存储下来，如下：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-fc40986adca46f26ef480f3e98133e53_1440w.webp"><span class="image-caption">img</span></p>
+<p>前两层的节点都只有一个子节点，将它们折叠到第三层的节点，保存折叠路径的前缀 0000，形成一个新节点，如下所示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fdd41137e2c6622b65a8bea74548941c_1440w.webp"><span class="image-caption">img</span></p>
+<p>查找时，遇到折叠过的节点，要比较前缀是否匹配。经过垂直压缩，减少了节点树和层级树，节约了大量空间，但是依然没有解决空指针浪费的问题。</p>
+<h1 id="AdaptiveRadixTree"><a href="#AdaptiveRadixTree" class="headerlink" title="AdaptiveRadixTree"></a>AdaptiveRadixTree</h1><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><blockquote>
+<p>论文链接：<br><a href="https://db.in.tum.de/~leis/papers/ART.pdf">The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases</a><br><a href="https://db.in.tum.de/~leis/papers/artsync.pdf">The ART of Practical Synchronization</a></p>
+</blockquote>
+<p>Adaptive Radix Tree（ART）是由 Phil Bagwell 在 2000 年提出的一种基于 Trie Tree 实现的数据结构，旨在解决 Trie Tree 在空间效率和查找性能方面存在的问题。与其他基于 Trie 的数据结构（如 Radix Tree、Digital Search Tree）相比，其引入了自适应节点，高度压缩等特性，具有更好的空间效率和更快的查找速度。</p>
+<p>相对于传统的基于比较的搜索树（如红黑树、AVL 树、B+ 树），ART 具有以下特点：</p>
+<ul>
+<li>ART 的高度取决于 Key 的长度，而非树中元素的数量。</li>
+<li>ART 不需要平衡操作，且所有插入顺序产生的树都是相同的。</li>
+<li>Key 按照字典序进行存储。</li>
+<li>从根节点到叶子节点的路径代表着其对应的 Key，因此 Key 是隐式存储的，可以通过路径重新构造。</li>
+</ul>
+<p>假设字符串比较操作开销为 O(1)，字符串长度为 k，基于比较的搜索树的查询复杂度为 O(klogn)，而 ART 为 O(k)。</p>
+<p>ART 适用于许多高效查找的应用场景，例如数据库内存索引，路由表等。</p>
+<h3 id="自适应节点"><a href="#自适应节点" class="headerlink" title="自适应节点"></a>自适应节点</h3><p>ART 中包含了两种类型的节点：</p>
+<ul>
+<li><strong>内部节点</strong>：内部节点，将 key 映射到其他节点，用于表示路径。</li>
+<li><strong>叶子节点</strong>：存储实际的 value 数据。</li>
+</ul>
+<h4 id="内部节点"><a href="#内部节点" class="headerlink" title="内部节点"></a>内部节点</h4><p>根据容量不同，ART 内部节点使用了四种不一样的内部结构。</p>
+<ul>
+<li><p><strong>Node4</strong></p>
+<ul>
+<li><p>Node4 是最小的节点类型，其由 4 个 key 以及对应 4 个子指针组成。key 和子指针存储在相同的位置，并以 key 为基准进行排序。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/af7f3dee5c1130e5617cc9c4e078c151.png"><span class="image-caption">img</span></p>
+<p><strong>Node4</strong>，由一个长度为 4 的 byte 数组和长度为 4 的指针数组构成，最多存储 4 个不同的 key 及其对应的子节点指针。一共占用 40（4<em>1 + 4</em>8）bytes。有效指针个数小于等于 4 时，使用这种类型的节点存储如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-fdafe53b5a266456b3315a053a563ee8_1440w.webp"><span class="image-caption">img</span></p>
+<p>查找时，需要遍历 byte 数组，判断当前要查找的 key 是否在数组中。由于数据长度小，遍历的开销也就很低。</p>
+</li>
+</ul>
+</li>
+<li><p>Node16</p>
+<ul>
+<li>Node16 是 Node4 的扩容版本，其存储着 16 个 key 和子指针。<img src="https://img-blog.csdnimg.cn/img_convert/0a5a6fa97dd5a6bd8d597958ce4cc970.png"><span class="image-caption">img</span></li>
+</ul>
+</li>
+<li><p>Node48</p>
+<ul>
+<li><p>由于节点中存储的内容增加，遍历 key 数组的开销也随之增加，因此 Node48 采用了另一种存储方式，不再显式存储 key，而是由一个长度为 256 的索引和 48 个指针组成。索引的每个位置正好对应了 <code>unsigned char</code> 类型的 0~255。每个索引的对应位置存储了对应子指针的下标（不存在的始终标记为 0）。这里为了节省空间，带来了间接查询的开销。<img src="https://img-blog.csdnimg.cn/img_convert/c1866f48d7321eefcc587610d8074499.png"><span class="image-caption">img</span></p>
+</li>
+<li><p><img src="https://pic3.zhimg.com/80/v2-d0681f378ca7818b19a92d2df0a76366_1440w.webp"><span class="image-caption">img</span></p>
+<p>由于 byte 数组和指针数组长度不对齐，需要通过一定的方式将它们映射起来：byte 数组的下标表示 key，值表示 key 对应的子节点指针在指针数组的位置。</p>
+<p>查找 Node48 时，我们可以跟据查找的 key 快速定位到其在节点中的位置（key的值便是下标值），获取其对应的子节点指针。时间复杂多为 O(1) ，这是典型的空间换时间做法，但需要多一次内存访问时间。</p>
+</li>
+</ul>
+</li>
+<li><p>Node256</p>
+<ul>
+<li><p>Node256 是一个包含了 256 个指针的数组，相比较与 Node48，其一次查询即可得到结果。由于只存储指针，即使大部分位置为空，也不会过于浪费空间。<img src="https://img-blog.csdnimg.cn/img_convert/6e61c8e4abe1d04433891baae05714f3.png"><span class="image-caption">img</span></p>
+</li>
+<li><p><strong>Node256</strong>，由长度为 256 的指针数组构成，一共占用 2048（256 * 8）bytes。有效指针个数在 49~256 时，使用这种类型的节点存储，如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2d4ce8456363a9ddc230b73b3cd2a2f0_1440w.webp"><span class="image-caption">img</span></p>
+<p>指针数组的下标代表 key，值代表其对应的子节点指针。查找是，可以快速得到子节点指针，时间复杂度为 O(1) 。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>每个内部节点中还包含了一个 header，用于存储节点类型、子节点数量和压缩的路径以及 span（标识压缩路径的深度）。</p>
+<h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>除了内部节点存储的路径之外，ART 还需要将 value 存储在叶子节点上。假设只存储唯一 key，叶节点可以使用以下三种不同的结构：</p>
+<ul>
+<li><strong>单值叶节点</strong>：使用额外的叶节点类型存储一个值。</li>
+<li><strong>多值叶节点</strong>：使用四种不同的叶节点类型之一来存储值，这些叶节点类型可以复用内部节点的结构，但存储值而不是指针</li>
+<li><strong>组合指针&#x2F;值 slot</strong>：如果值适合指针，则不需要单独的节点类型。相反，内部节点中的每个指针存储位置可以存储指针或值。每个指针可以使用一个额外的附加位或在指针中做标记来区分。</li>
+</ul>
+<p>单值叶节点是最通用的方法，其允许在一个树中使用不同长度的 key 和 value。但是，由于树高度的增加，每次查找的时候都会有一次额外的指针遍历。</p>
+<p>多值叶节点避免了这种开销，但要求树中的所有 key 具有相同的长度。</p>
+<p>组合指针&#x2F;值 slot 是最高效的，允许存储不同长度的 key。通常情况下都会考虑使用这个，它特别适用于存储元组标识符或与指针相同大小的数据库二级索引。</p>
+<h3 id="与其他数据结构比较"><a href="#与其他数据结构比较" class="headerlink" title="与其他数据结构比较"></a>与其他数据结构比较</h3><p>数据库常用的索引结构有 Hash 索引、B+ Tree 等，那么 ART 对比这些索引有什么优势呢？</p>
+<p>ART 通过路径压缩、自适应节点分配极大的减少了空间浪费。相比 B+ Tree，其内部节点更小，占用空间更少，更适合 cpu cache，在纯内存场景，ART 优势明显。同时 ART 也拥有极佳的点查性能（最坏情况为 O(k) ），也更适合前缀匹配查询。</p>
+<p>B+ Tree 的优势在于树高度小且平衡，更适合作为传统数据库的磁盘索引。B+ Tree 能提供稳定高效的查询性能，且范围查询性能也很突出。因此作为磁盘索引，B+ Tree 更有优势。</p>
+<p><img src="https://s2.51cto.com/images/blog/202305/30103228_6475603cb89ee32978.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=/format,webp/resize,m_fixed,w_1184"><span class="image-caption">数据库索引数据结构总结——ART树就是前缀树_数据库</span></p>
+<p>Hash 索引常常能提供高效的点查性能，但是范围查询、前缀查询性能极差（全扫）。因此，Hash 索引常常用于加速点查，使用比较局限。</p>
+<h3 id="高度压缩"><a href="#高度压缩" class="headerlink" title="高度压缩"></a>高度压缩</h3><p>如下图，为了节省空间，ART 中采用了 Path Compression（路径压缩） 和 Lazy Expansion（惰性拓展） 两种技术来尽可能的减少节点数量，压缩树的高度。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5a8d4e623a326c9adf9469854dd58a45.png"><span class="image-caption">img</span></p>
+<p>Path Compression &amp;&amp; Lazy Expansion</p>
+<h4 id="Path-Compression"><a href="#Path-Compression" class="headerlink" title="Path Compression"></a>Path Compression</h4><p>Path Compression 用于移除只有单个子节点的节点，例如图左侧中，B 节点仅有单个子节点 A，此时会将它们合并为 BA。由于合并后出现了前缀，此时需要在存储结构中将其表述出来，通常有以下两种方式：</p>
+<ul>
+<li><strong>悲观</strong>：每个节点额外使用一个变长 vector 存储前缀，在查找过程中要额外对其进行比较，因此称为悲观。</li>
+<li><strong>乐观</strong>：用一个计数器记录前缀的长度，向下遍历时跳过这个长度，到了叶子节点后在回头进行前缀的比较。</li>
+</ul>
+<p>悲观策略使用更多的空间，同时变长 vector 可能会导致内存碎片。而乐观策略则增加了额外的字符串比较开销。由于两者各有优缺点，在 ART 中会根据使用场景的不同来决定具体的策略。默认使用悲观策略，每个节点最多存储 8 字节的前缀，如果超过这个大小，则切换到乐观策略。</p>
+<h4 id="Lazy-Expansion"><a href="#Lazy-Expansion" class="headerlink" title="Lazy Expansion"></a>Lazy Expansion</h4><p>Lazy Expansion 指的是只有在需要使用内部节点来区分两个叶子节点时，才会创建内部节点。如上图右侧，在 F 路径中只存在 FOO 单个节点，不需要区分，因此两个 O 节点会被删除掉，只有再插入另外一个共享前缀 F 的节点时才会拓展。</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h4 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/7ca14677a1cf65056b2da1ea8a69bf44.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>查找算法</p>
+<p>上图为查找逻辑的伪代码，执行的流程如下：</p>
+<ol>
+<li>判断节点是否为空，如果空则返回，否则继续。</li>
+<li>判断节点是否为叶子节点，如果是叶子节点，则根据节点存储的 key 是否完全相等，判断查询是否成功（乐观策略在这个地方进行）。</li>
+<li>如果当前节点不是叶子节点，则判断当前节点的前缀和需要查找的是否一致，如果不一致则中止匹配（悲观策略在这个地方进行）。</li>
+<li>如果前面几轮判断都没查找到，此时则通过 <code>findChild</code> 找到下一个节点，继续递归下去查询。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/52d022423a27369b11b4340bc26d4762.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>内部节点查找算法</p>
+<p><code>findChild</code> 中主要描述了四种不同的内部节点类型中如何通过 key 找到子节点指针：</p>
+<ul>
+<li>Node4：遍历 key 数组，返回对应的 child。</li>
+<li>Node16：通过 SIMD（不可用时使用二分搜索）来进行数组匹配，找到对应的 child。</li>
+<li>Node48：通过字符序，判断 index 中对应下标存储的 child 数组下标是否为 0，如果不为 0 则根据下标找到对应的 child。</li>
+<li>Node256：直接根据字符序，返回对应下标存储的 child。</li>
+</ul>
+<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/abf453718f36401253c3b5aa4bf5b8d7.png"><span class="image-caption">img</span></p>
+<p>插入算法</p>
+<p>插入的流程如下：</p>
+<ol>
+<li>判断节点是否为空，如果为空则用叶子节点替换掉该节点。</li>
+<li>判断节点是否为叶子节点，如果是则判断 key 是否相同，如果相同则直接返回。如果不同，此时则考虑对 lazy expansion 的拓展操作，将两个节点的公共前缀作为新内部节点的 Key，并将两个节点作为其子节点。</li>
+<li>如果不是叶子节点，则首先比较前缀，如果前缀不相同，此时将生成一个新节点，将两个节点的公共前缀作为该节点的前缀，并将叶子节点节点和原来的老节点（截断公共前缀后）一起插入到这个新节点中。</li>
+<li>如果仍然存在下一个节点，则继续向下递归执行，否则先判断节点是否已满，决定是否要调用 <code>grow</code> 进行节点扩容，再将叶子节点插入。</li>
+</ol>
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p>删除算法的思路与插入的大致相同，为其逆向操作，在这里就不过多赘述。如果删除叶子节点后内部节点过少，则会收缩内部节点的容量，如果只有一个子节点，此时则使用 Path Compression 压缩路径。</p>
+<h4 id="Bulk-loading"><a href="#Bulk-loading" class="headerlink" title="Bulk loading"></a>Bulk loading</h4><p>在存在大量数据时，使用下面的递归算法可以加速索引的构建：</p>
+<ol>
+<li>将每个 key 的第一个字节用于基数分区（分为 256 个），并创建相应类型的内部节点。</li>
+<li>在返回该内部节点之前，通过对每个分区使用下一个字节的 key，来递归加载其子节点。</li>
+<li>重复步骤 2，直到所有的 key&#x2F;value 都被插入树中。</li>
+</ol>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>传统的细粒度锁的拓展性较差（对于现代 CPU），而无锁结构虽然拓展性好，但是其实现又十分复杂、困难，因此在 ART 中采取了另外两种方法，<strong>Optimistic Lock Coupling</strong>（乐观锁耦合）和 <strong>Read-Optimized Write EXclusion</strong>（ROWEX，读优化写排除）。</p>
+<h4 id="乐观锁耦合Optimistic-Lock-Coupling"><a href="#乐观锁耦合Optimistic-Lock-Coupling" class="headerlink" title="乐观锁耦合Optimistic Lock Coupling"></a>乐观锁耦合Optimistic Lock Coupling</h4><p>首先介绍一下什么是<strong>锁耦合（Lock Coupling）</strong>，其是多线程操作树结构时使用的一种同步技术。<strong>其有两个锁，当遍历树时，一个锁住父节点，一个锁住当前的节点</strong>，然后向下行走，重复这个过程，直到完成对节点的操作。（由于很像螃蟹行走的方式，所以有的人称其为蟹形协议）。</p>
+<p>乐观锁耦合就是将乐观锁的思路与锁耦合合并起来，引入了版本号，下面给出悲观锁耦合和乐观锁耦合的对比代码：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2ff5a58e5c2673b0e4fc42442869eca3.png"><span class="image-caption">image-20230409030735775</span><br>这里引入了两个原语</p>
+<ul>
+<li><strong>readLockOrRestart</strong>：不获取锁，等待写锁释放后获取节点当前的版本。</li>
+<li><strong>readUnlockOrRestart</strong>：等待写锁释放，检测版本号，如果版本变更则重启读操作。</li>
+</ul>
+<p>总结一下，其具有以下范式：</p>
+<ol>
+<li>读不会获取锁，但是其会检测版本号，如果版本号变更则从根开始重新读。</li>
+<li>写不会被读阻塞。</li>
+<li>写需要获取锁，且写入后更新版本信息。</li>
+</ol>
+<blockquote>
+<p>上面的算法需要满足以下条件才能正常运行：</p>
+<ol>
+<li>调用 <code>readLockOrRestart</code> 时，读线程可能会看到不一致的中间状态，为了避免无限循环和访问空指针，必须进行版本检查和指针检查。</li>
+<li>删除节点时不能立即进行回收，需要延迟释放——即将节点标记后，等待没有线程引用时再进行回收。</li>
+<li>极端情况下，读可能会被多次重启，为了确保读能够执行，可以限制重启的次数，次数达到限制后采用读写锁。</li>
+</ol>
+</blockquote>
+<h4 id="读优化写排除（ROWEX）-乐观读悲观写"><a href="#读优化写排除（ROWEX）-乐观读悲观写" class="headerlink" title="读优化写排除（ROWEX）(乐观读悲观写)"></a>读优化写排除（ROWEX）(乐观读悲观写)</h4><p>从上面可以看出，当读在进行时，如果有人写入，则会因版本号变更而重启读行为。而如果这种冲突极端严重，则会导致读行为不断重启，甚至可能永远无法执行。因此 ART 通过 ROWEX 来改进这一问题，ROWEX 的核心就是<strong>读取不会被阻塞或者重启</strong>。</p>
+<p>ROWEX 具有以下范式：</p>
+<ol>
+<li>读不需要加锁、阻塞，也不需要检查版本信息，因此其总是成功的。</li>
+<li>每个节点中需要维护一个互斥锁，当进行读操作时获取该锁，该锁仅用于阻塞其他写行为。</li>
+<li>写操作保证同一个节点读一致性，即写操作必须通过原子指令执行。</li>
+</ol>
+<h5 id="适配-ROWEX"><a href="#适配-ROWEX" class="headerlink" title="适配 ROWEX"></a>适配 ROWEX</h5><p>为了适配 ROWEX，ART 的结构需要进行以下变动：</p>
+<ol>
+<li>为了支持并发局部修改，内部节点的 key 和指针需要用 <code>std::atomic</code> 来管理。</li>
+<li>对于线性内部结构（Node4、Node16），为了避免排序，采用仅追加的方式，删除则直接将子指针指向空。（虽然不排序时需要遍历整个数组，但是还可以用 SIMD 进行优化），</li>
+</ol>
+<p>下面以节点替换和路径压缩为例，说明 ART 中 ROWEX 是如何工作的。</p>
+<h5 id="节点替换"><a href="#节点替换" class="headerlink" title="节点替换"></a>节点替换</h5><p>当一个节点容量过大&#x2F;小时，需要替换成其他内部节点类型，此时执行以下流程：</p>
+<ol>
+<li>对该节点和其父节点进行加锁，并创建一个新节点，将旧节点中的数据全部拷贝到新节点中。</li>
+<li>通过原子操作修改父节点的子指针，让其指向新节点。</li>
+<li>解锁旧节点，将其标记为删除。</li>
+</ol>
+<p>任何被阻塞的写操作在检测到该节点被标记后，都会重新开始整个插入&#x2F;删除行为。因此对于读操作来说，读取是始终安全的。</p>
+<h5 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/b3a142d9652bac2b779a5a24b2797db8.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
+<p>对于路径压缩来说，情况又更加复杂，这主要是因为<strong>创建节点和更新前缀这两个步骤无法在单个原子操作</strong>中完成，如果不做处理，则读取时可以会读到中间状态。</p>
+<p>例如上图，一开始树中只有 ARE，ART，通过 Path Compression 将 AR 作为公共前缀。此时插入一个新节点 AS，此时会进行以下操作：</p>
+<ol>
+<li>创建一个新的内部节点 A，让根节点将子指针从 AR 指向它，它指向 R 和 S。（创建节点）</li>
+<li>将 R 节点原先的前缀清空（更新前缀）</li>
+</ol>
+<p>由于这两个都是独立的原子操作，当我们在完成第一步后，此时的 R 节点仍然保留着前缀，对于它来说此时存储的路径变为了 ARR，这就导致了当前<strong>状态的不一致</strong>。</p>
+<p>为了解决这个问题，每个节点中都需要增加一个 level 字段（代表存储节点的实际高度，即未被 Compression 前应该处于哪一层），这个字段初始化后就不再变更，其保证了中间状态始终安全。</p>
+<ul>
+<li>如果一个读取操作在某个节点看到了中间状态，它可以通过<strong>检查该节点的 level，判断出该节点的前缀是否已经被截断</strong>。如果前缀已经被截断，则读取操作可以跳过该节点，继续向下搜索。如果前缀没有被截断，则读取操作可以根据该节点的 level 字段，查找出缺失的 key。</li>
+<li>以上图为例，当我们看到蓝色节点的中间状态时，会直接跳过该处的前缀（此时 level 应当为 3，检测到 2 说明为中间状态）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+  </entry>
+  <entry>
     <title>HOT：A Height Optimized Trie Index</title>
     <url>/2023/12/10/Index-HOT/</url>
     <content><![CDATA[<p>文献阅读：HOT: A Height Optimized Trie Index for Main-memory Database System</p>
@@ -3164,200 +3358,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
-    <title>Adaptive radix tree：高效自适应树状索引结构</title>
-    <url>/2023/12/10/Index-ART/</url>
-    <content><![CDATA[<p>文献阅读：The adaptive radix tree: ARTful indexing for main-memory databases</p>
-<span id="more"></span>
-
-<blockquote>
-<p> <a href="https://zhuanlan.zhihu.com/p/644667990">高效内存索引：Adaptive Radix Tree - 知乎 (zhihu.com)</a></p>
-<p><a href="https://blog.51cto.com/u_11908275/6405376">数据库索引数据结构总结——ART树就是前缀树_11898275的技术博客_51CTO博客</a></p>
-<p><a href="https://blog.csdn.net/qq_35423154/article/details/130119444">高级数据结构与算法 | 自适应基数树（Adaptive Radix Tree）-CSDN博客</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/617343461">论文阅读: The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases - 知乎 (zhihu.com)</a></p>
-</blockquote>
-<h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><p>我们以每个节点存 2-bits 为例，假设 Trie 中存储了 7, 10, 12，从下图可以看到这三个数的二进制表示。每个节点的值由 0 和 1 组成，同时每个节点包含指向所有子节点的指针，指针为 * 代表该子节点存在，指针为 Ø 代表改子节点不存在。最终由叶子节点指向实际的数据。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-4ab897ae16b3786ebdcbe45d581f74f3_1440w.webp"><span class="image-caption">img</span></p>
-<h1 id="Radix-Trie"><a href="#Radix-Trie" class="headerlink" title="Radix Trie"></a>Radix Trie</h1><p>压缩后的节点需要将路径的前缀存储下来，如下：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-fc40986adca46f26ef480f3e98133e53_1440w.webp"><span class="image-caption">img</span></p>
-<p>前两层的节点都只有一个子节点，将它们折叠到第三层的节点，保存折叠路径的前缀 0000，形成一个新节点，如下所示：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-fdd41137e2c6622b65a8bea74548941c_1440w.webp"><span class="image-caption">img</span></p>
-<p>查找时，遇到折叠过的节点，要比较前缀是否匹配。经过垂直压缩，减少了节点树和层级树，节约了大量空间，但是依然没有解决空指针浪费的问题。</p>
-<h1 id="AdaptiveRadixTree"><a href="#AdaptiveRadixTree" class="headerlink" title="AdaptiveRadixTree"></a>AdaptiveRadixTree</h1><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><blockquote>
-<p>论文链接：<br><a href="https://db.in.tum.de/~leis/papers/ART.pdf">The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases</a><br><a href="https://db.in.tum.de/~leis/papers/artsync.pdf">The ART of Practical Synchronization</a></p>
-</blockquote>
-<p>Adaptive Radix Tree（ART）是由 Phil Bagwell 在 2000 年提出的一种基于 Trie Tree 实现的数据结构，旨在解决 Trie Tree 在空间效率和查找性能方面存在的问题。与其他基于 Trie 的数据结构（如 Radix Tree、Digital Search Tree）相比，其引入了自适应节点，高度压缩等特性，具有更好的空间效率和更快的查找速度。</p>
-<p>相对于传统的基于比较的搜索树（如红黑树、AVL 树、B+ 树），ART 具有以下特点：</p>
-<ul>
-<li>ART 的高度取决于 Key 的长度，而非树中元素的数量。</li>
-<li>ART 不需要平衡操作，且所有插入顺序产生的树都是相同的。</li>
-<li>Key 按照字典序进行存储。</li>
-<li>从根节点到叶子节点的路径代表着其对应的 Key，因此 Key 是隐式存储的，可以通过路径重新构造。</li>
-</ul>
-<p>假设字符串比较操作开销为 O(1)，字符串长度为 k，基于比较的搜索树的查询复杂度为 O(klogn)，而 ART 为 O(k)。</p>
-<p>ART 适用于许多高效查找的应用场景，例如数据库内存索引，路由表等。</p>
-<h3 id="自适应节点"><a href="#自适应节点" class="headerlink" title="自适应节点"></a>自适应节点</h3><p>ART 中包含了两种类型的节点：</p>
-<ul>
-<li><strong>内部节点</strong>：内部节点，将 key 映射到其他节点，用于表示路径。</li>
-<li><strong>叶子节点</strong>：存储实际的 value 数据。</li>
-</ul>
-<h4 id="内部节点"><a href="#内部节点" class="headerlink" title="内部节点"></a>内部节点</h4><p>根据容量不同，ART 内部节点使用了四种不一样的内部结构。</p>
-<ul>
-<li><p><strong>Node4</strong></p>
-<ul>
-<li><p>Node4 是最小的节点类型，其由 4 个 key 以及对应 4 个子指针组成。key 和子指针存储在相同的位置，并以 key 为基准进行排序。</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/af7f3dee5c1130e5617cc9c4e078c151.png"><span class="image-caption">img</span></p>
-<p><strong>Node4</strong>，由一个长度为 4 的 byte 数组和长度为 4 的指针数组构成，最多存储 4 个不同的 key 及其对应的子节点指针。一共占用 40（4<em>1 + 4</em>8）bytes。有效指针个数小于等于 4 时，使用这种类型的节点存储如下：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-fdafe53b5a266456b3315a053a563ee8_1440w.webp"><span class="image-caption">img</span></p>
-<p>查找时，需要遍历 byte 数组，判断当前要查找的 key 是否在数组中。由于数据长度小，遍历的开销也就很低。</p>
-</li>
-</ul>
-</li>
-<li><p>Node16</p>
-<ul>
-<li>Node16 是 Node4 的扩容版本，其存储着 16 个 key 和子指针。<img src="https://img-blog.csdnimg.cn/img_convert/0a5a6fa97dd5a6bd8d597958ce4cc970.png"><span class="image-caption">img</span></li>
-</ul>
-</li>
-<li><p>Node48</p>
-<ul>
-<li><p>由于节点中存储的内容增加，遍历 key 数组的开销也随之增加，因此 Node48 采用了另一种存储方式，不再显式存储 key，而是由一个长度为 256 的索引和 48 个指针组成。索引的每个位置正好对应了 <code>unsigned char</code> 类型的 0~255。每个索引的对应位置存储了对应子指针的下标（不存在的始终标记为 0）。这里为了节省空间，带来了间接查询的开销。<img src="https://img-blog.csdnimg.cn/img_convert/c1866f48d7321eefcc587610d8074499.png"><span class="image-caption">img</span></p>
-</li>
-<li><p><img src="https://pic3.zhimg.com/80/v2-d0681f378ca7818b19a92d2df0a76366_1440w.webp"><span class="image-caption">img</span></p>
-<p>由于 byte 数组和指针数组长度不对齐，需要通过一定的方式将它们映射起来：byte 数组的下标表示 key，值表示 key 对应的子节点指针在指针数组的位置。</p>
-<p>查找 Node48 时，我们可以跟据查找的 key 快速定位到其在节点中的位置（key的值便是下标值），获取其对应的子节点指针。时间复杂多为 O(1) ，这是典型的空间换时间做法，但需要多一次内存访问时间。</p>
-</li>
-</ul>
-</li>
-<li><p>Node256</p>
-<ul>
-<li><p>Node256 是一个包含了 256 个指针的数组，相比较与 Node48，其一次查询即可得到结果。由于只存储指针，即使大部分位置为空，也不会过于浪费空间。<img src="https://img-blog.csdnimg.cn/img_convert/6e61c8e4abe1d04433891baae05714f3.png"><span class="image-caption">img</span></p>
-</li>
-<li><p><strong>Node256</strong>，由长度为 256 的指针数组构成，一共占用 2048（256 * 8）bytes。有效指针个数在 49~256 时，使用这种类型的节点存储，如下：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-2d4ce8456363a9ddc230b73b3cd2a2f0_1440w.webp"><span class="image-caption">img</span></p>
-<p>指针数组的下标代表 key，值代表其对应的子节点指针。查找是，可以快速得到子节点指针，时间复杂度为 O(1) 。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>每个内部节点中还包含了一个 header，用于存储节点类型、子节点数量和压缩的路径以及 span（标识压缩路径的深度）。</p>
-<h4 id="叶子节点"><a href="#叶子节点" class="headerlink" title="叶子节点"></a>叶子节点</h4><p>除了内部节点存储的路径之外，ART 还需要将 value 存储在叶子节点上。假设只存储唯一 key，叶节点可以使用以下三种不同的结构：</p>
-<ul>
-<li><strong>单值叶节点</strong>：使用额外的叶节点类型存储一个值。</li>
-<li><strong>多值叶节点</strong>：使用四种不同的叶节点类型之一来存储值，这些叶节点类型可以复用内部节点的结构，但存储值而不是指针</li>
-<li><strong>组合指针&#x2F;值 slot</strong>：如果值适合指针，则不需要单独的节点类型。相反，内部节点中的每个指针存储位置可以存储指针或值。每个指针可以使用一个额外的附加位或在指针中做标记来区分。</li>
-</ul>
-<p>单值叶节点是最通用的方法，其允许在一个树中使用不同长度的 key 和 value。但是，由于树高度的增加，每次查找的时候都会有一次额外的指针遍历。</p>
-<p>多值叶节点避免了这种开销，但要求树中的所有 key 具有相同的长度。</p>
-<p>组合指针&#x2F;值 slot 是最高效的，允许存储不同长度的 key。通常情况下都会考虑使用这个，它特别适用于存储元组标识符或与指针相同大小的数据库二级索引。</p>
-<h3 id="与其他数据结构比较"><a href="#与其他数据结构比较" class="headerlink" title="与其他数据结构比较"></a>与其他数据结构比较</h3><p>数据库常用的索引结构有 Hash 索引、B+ Tree 等，那么 ART 对比这些索引有什么优势呢？</p>
-<p>ART 通过路径压缩、自适应节点分配极大的减少了空间浪费。相比 B+ Tree，其内部节点更小，占用空间更少，更适合 cpu cache，在纯内存场景，ART 优势明显。同时 ART 也拥有极佳的点查性能（最坏情况为 O(k) ），也更适合前缀匹配查询。</p>
-<p>B+ Tree 的优势在于树高度小且平衡，更适合作为传统数据库的磁盘索引。B+ Tree 能提供稳定高效的查询性能，且范围查询性能也很突出。因此作为磁盘索引，B+ Tree 更有优势。</p>
-<p><img src="https://s2.51cto.com/images/blog/202305/30103228_6475603cb89ee32978.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=/format,webp/resize,m_fixed,w_1184"><span class="image-caption">数据库索引数据结构总结——ART树就是前缀树_数据库</span></p>
-<p>Hash 索引常常能提供高效的点查性能，但是范围查询、前缀查询性能极差（全扫）。因此，Hash 索引常常用于加速点查，使用比较局限。</p>
-<h3 id="高度压缩"><a href="#高度压缩" class="headerlink" title="高度压缩"></a>高度压缩</h3><p>如下图，为了节省空间，ART 中采用了 Path Compression（路径压缩） 和 Lazy Expansion（惰性拓展） 两种技术来尽可能的减少节点数量，压缩树的高度。</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/5a8d4e623a326c9adf9469854dd58a45.png"><span class="image-caption">img</span></p>
-<p>Path Compression &amp;&amp; Lazy Expansion</p>
-<h4 id="Path-Compression"><a href="#Path-Compression" class="headerlink" title="Path Compression"></a>Path Compression</h4><p>Path Compression 用于移除只有单个子节点的节点，例如图左侧中，B 节点仅有单个子节点 A，此时会将它们合并为 BA。由于合并后出现了前缀，此时需要在存储结构中将其表述出来，通常有以下两种方式：</p>
-<ul>
-<li><strong>悲观</strong>：每个节点额外使用一个变长 vector 存储前缀，在查找过程中要额外对其进行比较，因此称为悲观。</li>
-<li><strong>乐观</strong>：用一个计数器记录前缀的长度，向下遍历时跳过这个长度，到了叶子节点后在回头进行前缀的比较。</li>
-</ul>
-<p>悲观策略使用更多的空间，同时变长 vector 可能会导致内存碎片。而乐观策略则增加了额外的字符串比较开销。由于两者各有优缺点，在 ART 中会根据使用场景的不同来决定具体的策略。默认使用悲观策略，每个节点最多存储 8 字节的前缀，如果超过这个大小，则切换到乐观策略。</p>
-<h4 id="Lazy-Expansion"><a href="#Lazy-Expansion" class="headerlink" title="Lazy Expansion"></a>Lazy Expansion</h4><p>Lazy Expansion 指的是只有在需要使用内部节点来区分两个叶子节点时，才会创建内部节点。如上图右侧，在 F 路径中只存在 FOO 单个节点，不需要区分，因此两个 O 节点会被删除掉，只有再插入另外一个共享前缀 F 的节点时才会拓展。</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h4 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/7ca14677a1cf65056b2da1ea8a69bf44.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
-<p>查找算法</p>
-<p>上图为查找逻辑的伪代码，执行的流程如下：</p>
-<ol>
-<li>判断节点是否为空，如果空则返回，否则继续。</li>
-<li>判断节点是否为叶子节点，如果是叶子节点，则根据节点存储的 key 是否完全相等，判断查询是否成功（乐观策略在这个地方进行）。</li>
-<li>如果当前节点不是叶子节点，则判断当前节点的前缀和需要查找的是否一致，如果不一致则中止匹配（悲观策略在这个地方进行）。</li>
-<li>如果前面几轮判断都没查找到，此时则通过 <code>findChild</code> 找到下一个节点，继续递归下去查询。</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/52d022423a27369b11b4340bc26d4762.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
-<p>内部节点查找算法</p>
-<p><code>findChild</code> 中主要描述了四种不同的内部节点类型中如何通过 key 找到子节点指针：</p>
-<ul>
-<li>Node4：遍历 key 数组，返回对应的 child。</li>
-<li>Node16：通过 SIMD（不可用时使用二分搜索）来进行数组匹配，找到对应的 child。</li>
-<li>Node48：通过字符序，判断 index 中对应下标存储的 child 数组下标是否为 0，如果不为 0 则根据下标找到对应的 child。</li>
-<li>Node256：直接根据字符序，返回对应下标存储的 child。</li>
-</ul>
-<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/abf453718f36401253c3b5aa4bf5b8d7.png"><span class="image-caption">img</span></p>
-<p>插入算法</p>
-<p>插入的流程如下：</p>
-<ol>
-<li>判断节点是否为空，如果为空则用叶子节点替换掉该节点。</li>
-<li>判断节点是否为叶子节点，如果是则判断 key 是否相同，如果相同则直接返回。如果不同，此时则考虑对 lazy expansion 的拓展操作，将两个节点的公共前缀作为新内部节点的 Key，并将两个节点作为其子节点。</li>
-<li>如果不是叶子节点，则首先比较前缀，如果前缀不相同，此时将生成一个新节点，将两个节点的公共前缀作为该节点的前缀，并将叶子节点节点和原来的老节点（截断公共前缀后）一起插入到这个新节点中。</li>
-<li>如果仍然存在下一个节点，则继续向下递归执行，否则先判断节点是否已满，决定是否要调用 <code>grow</code> 进行节点扩容，再将叶子节点插入。</li>
-</ol>
-<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p>删除算法的思路与插入的大致相同，为其逆向操作，在这里就不过多赘述。如果删除叶子节点后内部节点过少，则会收缩内部节点的容量，如果只有一个子节点，此时则使用 Path Compression 压缩路径。</p>
-<h4 id="Bulk-loading"><a href="#Bulk-loading" class="headerlink" title="Bulk loading"></a>Bulk loading</h4><p>在存在大量数据时，使用下面的递归算法可以加速索引的构建：</p>
-<ol>
-<li>将每个 key 的第一个字节用于基数分区（分为 256 个），并创建相应类型的内部节点。</li>
-<li>在返回该内部节点之前，通过对每个分区使用下一个字节的 key，来递归加载其子节点。</li>
-<li>重复步骤 2，直到所有的 key&#x2F;value 都被插入树中。</li>
-</ol>
-<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><p>传统的细粒度锁的拓展性较差（对于现代 CPU），而无锁结构虽然拓展性好，但是其实现又十分复杂、困难，因此在 ART 中采取了另外两种方法，<strong>Optimistic Lock Coupling</strong>（乐观锁耦合）和 <strong>Read-Optimized Write EXclusion</strong>（ROWEX，读优化写排除）。</p>
-<h4 id="乐观锁耦合Optimistic-Lock-Coupling"><a href="#乐观锁耦合Optimistic-Lock-Coupling" class="headerlink" title="乐观锁耦合Optimistic Lock Coupling"></a>乐观锁耦合Optimistic Lock Coupling</h4><p>首先介绍一下什么是<strong>锁耦合（Lock Coupling）</strong>，其是多线程操作树结构时使用的一种同步技术。<strong>其有两个锁，当遍历树时，一个锁住父节点，一个锁住当前的节点</strong>，然后向下行走，重复这个过程，直到完成对节点的操作。（由于很像螃蟹行走的方式，所以有的人称其为蟹形协议）。</p>
-<p>乐观锁耦合就是将乐观锁的思路与锁耦合合并起来，引入了版本号，下面给出悲观锁耦合和乐观锁耦合的对比代码：</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/2ff5a58e5c2673b0e4fc42442869eca3.png"><span class="image-caption">image-20230409030735775</span><br>这里引入了两个原语</p>
-<ul>
-<li><strong>readLockOrRestart</strong>：不获取锁，等待写锁释放后获取节点当前的版本。</li>
-<li><strong>readUnlockOrRestart</strong>：等待写锁释放，检测版本号，如果版本变更则重启读操作。</li>
-</ul>
-<p>总结一下，其具有以下范式：</p>
-<ol>
-<li>读不会获取锁，但是其会检测版本号，如果版本号变更则从根开始重新读。</li>
-<li>写不会被读阻塞。</li>
-<li>写需要获取锁，且写入后更新版本信息。</li>
-</ol>
-<blockquote>
-<p>上面的算法需要满足以下条件才能正常运行：</p>
-<ol>
-<li>调用 <code>readLockOrRestart</code> 时，读线程可能会看到不一致的中间状态，为了避免无限循环和访问空指针，必须进行版本检查和指针检查。</li>
-<li>删除节点时不能立即进行回收，需要延迟释放——即将节点标记后，等待没有线程引用时再进行回收。</li>
-<li>极端情况下，读可能会被多次重启，为了确保读能够执行，可以限制重启的次数，次数达到限制后采用读写锁。</li>
-</ol>
-</blockquote>
-<h4 id="读优化写排除（ROWEX）-乐观读悲观写"><a href="#读优化写排除（ROWEX）-乐观读悲观写" class="headerlink" title="读优化写排除（ROWEX）(乐观读悲观写)"></a>读优化写排除（ROWEX）(乐观读悲观写)</h4><p>从上面可以看出，当读在进行时，如果有人写入，则会因版本号变更而重启读行为。而如果这种冲突极端严重，则会导致读行为不断重启，甚至可能永远无法执行。因此 ART 通过 ROWEX 来改进这一问题，ROWEX 的核心就是<strong>读取不会被阻塞或者重启</strong>。</p>
-<p>ROWEX 具有以下范式：</p>
-<ol>
-<li>读不需要加锁、阻塞，也不需要检查版本信息，因此其总是成功的。</li>
-<li>每个节点中需要维护一个互斥锁，当进行读操作时获取该锁，该锁仅用于阻塞其他写行为。</li>
-<li>写操作保证同一个节点读一致性，即写操作必须通过原子指令执行。</li>
-</ol>
-<h5 id="适配-ROWEX"><a href="#适配-ROWEX" class="headerlink" title="适配 ROWEX"></a>适配 ROWEX</h5><p>为了适配 ROWEX，ART 的结构需要进行以下变动：</p>
-<ol>
-<li>为了支持并发局部修改，内部节点的 key 和指针需要用 <code>std::atomic</code> 来管理。</li>
-<li>对于线性内部结构（Node4、Node16），为了避免排序，采用仅追加的方式，删除则直接将子指针指向空。（虽然不排序时需要遍历整个数组，但是还可以用 SIMD 进行优化），</li>
-</ol>
-<p>下面以节点替换和路径压缩为例，说明 ART 中 ROWEX 是如何工作的。</p>
-<h5 id="节点替换"><a href="#节点替换" class="headerlink" title="节点替换"></a>节点替换</h5><p>当一个节点容量过大&#x2F;小时，需要替换成其他内部节点类型，此时执行以下流程：</p>
-<ol>
-<li>对该节点和其父节点进行加锁，并创建一个新节点，将旧节点中的数据全部拷贝到新节点中。</li>
-<li>通过原子操作修改父节点的子指针，让其指向新节点。</li>
-<li>解锁旧节点，将其标记为删除。</li>
-</ol>
-<p>任何被阻塞的写操作在检测到该节点被标记后，都会重新开始整个插入&#x2F;删除行为。因此对于读操作来说，读取是始终安全的。</p>
-<h5 id="路径压缩"><a href="#路径压缩" class="headerlink" title="路径压缩"></a>路径压缩</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/b3a142d9652bac2b779a5a24b2797db8.webp?x-oss-process=image/format,png"><span class="image-caption">img</span></p>
-<p>对于路径压缩来说，情况又更加复杂，这主要是因为<strong>创建节点和更新前缀这两个步骤无法在单个原子操作</strong>中完成，如果不做处理，则读取时可以会读到中间状态。</p>
-<p>例如上图，一开始树中只有 ARE，ART，通过 Path Compression 将 AR 作为公共前缀。此时插入一个新节点 AS，此时会进行以下操作：</p>
-<ol>
-<li>创建一个新的内部节点 A，让根节点将子指针从 AR 指向它，它指向 R 和 S。（创建节点）</li>
-<li>将 R 节点原先的前缀清空（更新前缀）</li>
-</ol>
-<p>由于这两个都是独立的原子操作，当我们在完成第一步后，此时的 R 节点仍然保留着前缀，对于它来说此时存储的路径变为了 ARR，这就导致了当前<strong>状态的不一致</strong>。</p>
-<p>为了解决这个问题，每个节点中都需要增加一个 level 字段（代表存储节点的实际高度，即未被 Compression 前应该处于哪一层），这个字段初始化后就不再变更，其保证了中间状态始终安全。</p>
-<ul>
-<li>如果一个读取操作在某个节点看到了中间状态，它可以通过<strong>检查该节点的 level，判断出该节点的前缀是否已经被截断</strong>。如果前缀已经被截断，则读取操作可以跳过该节点，继续向下搜索。如果前缀没有被截断，则读取操作可以根据该节点的 level 字段，查找出缺失的 key。</li>
-<li>以上图为例，当我们看到蓝色节点的中间状态时，会直接跳过该处的前缀（此时 level 应当为 3，检测到 2 说明为中间状态）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-  </entry>
-  <entry>
     <title>k8s概念整合</title>
     <url>/2023/07/10/k8s%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>Kubernetes的概念和基本原理繁杂。本文对部分个人的疑难混乱概念做了整理</p>
@@ -3647,6 +3647,68 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>只需看被除数首位是否为1，为1则商1</li>
 <li>异或运算</li>
 </ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>计算机组成原理-学习笔记12-虚拟存储器</title>
+    <url>/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记12-虚拟存储器</p>
+<span id="more"></span>
+
+
+
+<p>作业已写，考前抱佛脚整理</p>
+<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
+<p>主存中包含操作系统和若干个用户程序  </p>
+<p>在多道程序系统中， 主存需要进一步划分给多个任务， 划分的任务由<strong>操作系统动态执行</strong>  </p>
+<p>不区分“进程” 和“任务  </p>
+<ul>
+<li>虚拟存储器<ul>
+<li>请求分页：每次访问仅将当前需要的页面调入主存， 而其他不活跃的页面放在外存磁盘上</li>
+</ul>
+</li>
+</ul>
+<h2 id="分区方式"><a href="#分区方式" class="headerlink" title="分区方式"></a>分区方式</h2><ul>
+<li><p>将主存分为两大区域<br>• 系统区： 固定的地址范围内，存放操作系统<br>• 用户区：存放所有用户程序  </p>
+</li>
+<li><p>简单<strong>固定</strong>分区<br>• 用户区划分成长度不等的固定长的分区<br>• 当一个任务调入主存时，分配一个<strong>可用的、能容纳它的、最小的</strong>分区<br>• 优点：简单<br>• 缺点：<strong>浪费主存</strong>空间  </p>
+</li>
+<li><p>可变长分区<br>• 用户区按每个任务所需要的内存大小进行分配<br>• 优点：提高了主存的利用率<br>• 缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
+<p><strong>帧 &#x2F; 页帧 &#x2F; 页框</strong> —— <strong>存储器</strong>分成相当小的、相等的固定长度的存储块，每个存储块被成为页帧、帧 </p>
+<p>页 —— 每个进程划分为小的固定长的程序块，程序的每个程序块成为页 </p>
+<p>页表 —— 记录了进程每页的帧地址 </p>
+<p>逻辑地址 —— 页号和页中相对地址 </p>
+<p>物理地址 —— 帧号和相对地址 </p>
+<p>进程和主存划分的块的大小相同</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
+<ul>
+<li>优点<br>• 在不扩大物理内存的前提下，可以载入更多的任务<br>• 编写程序时<strong>不需要考虑可用物理内存</strong>的状态<br>• 程序员认为可以独享一个连续的、很大的内存<br>• 可以在<strong>大于物理内存</strong>的逻辑地址空间中编程</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
+<h2 id="分页式"><a href="#分页式" class="headerlink" title="分页式"></a>分页式</h2><ul>
+<li>页表<ul>
+<li>页表中包含了所有虚拟页的信息， 包括虚拟页的存放位置、 装入位（valid） 、修改位（dirty） 、 存取权限位等等  </li>
+<li><strong>保存在主存中</strong>  </li>
+<li>虚拟页号 + 页内偏移量</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
+<p><img src="/images/posts/repaired/image-20230226001538018.png"><span class="image-caption">image-20230226001538018</span></p>
+<p><strong>快表</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
+<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
+<p>4：page 1次，cache miss 1次</p>
+<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
+<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
+<p><strong>段号 + 页号 + 页内偏移量</strong></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -5243,332 +5305,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
-    <title>计算机组成原理-学习笔记12-虚拟存储器</title>
-    <url>/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记12-虚拟存储器</p>
-<span id="more"></span>
-
-
-
-<p>作业已写，考前抱佛脚整理</p>
-<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
-<p>主存中包含操作系统和若干个用户程序  </p>
-<p>在多道程序系统中， 主存需要进一步划分给多个任务， 划分的任务由<strong>操作系统动态执行</strong>  </p>
-<p>不区分“进程” 和“任务  </p>
-<ul>
-<li>虚拟存储器<ul>
-<li>请求分页：每次访问仅将当前需要的页面调入主存， 而其他不活跃的页面放在外存磁盘上</li>
-</ul>
-</li>
-</ul>
-<h2 id="分区方式"><a href="#分区方式" class="headerlink" title="分区方式"></a>分区方式</h2><ul>
-<li><p>将主存分为两大区域<br>• 系统区： 固定的地址范围内，存放操作系统<br>• 用户区：存放所有用户程序  </p>
-</li>
-<li><p>简单<strong>固定</strong>分区<br>• 用户区划分成长度不等的固定长的分区<br>• 当一个任务调入主存时，分配一个<strong>可用的、能容纳它的、最小的</strong>分区<br>• 优点：简单<br>• 缺点：<strong>浪费主存</strong>空间  </p>
-</li>
-<li><p>可变长分区<br>• 用户区按每个任务所需要的内存大小进行分配<br>• 优点：提高了主存的利用率<br>• 缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
-</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
-<p><strong>帧 &#x2F; 页帧 &#x2F; 页框</strong> —— <strong>存储器</strong>分成相当小的、相等的固定长度的存储块，每个存储块被成为页帧、帧 </p>
-<p>页 —— 每个进程划分为小的固定长的程序块，程序的每个程序块成为页 </p>
-<p>页表 —— 记录了进程每页的帧地址 </p>
-<p>逻辑地址 —— 页号和页中相对地址 </p>
-<p>物理地址 —— 帧号和相对地址 </p>
-<p>进程和主存划分的块的大小相同</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
-<ul>
-<li>优点<br>• 在不扩大物理内存的前提下，可以载入更多的任务<br>• 编写程序时<strong>不需要考虑可用物理内存</strong>的状态<br>• 程序员认为可以独享一个连续的、很大的内存<br>• 可以在<strong>大于物理内存</strong>的逻辑地址空间中编程</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
-<h2 id="分页式"><a href="#分页式" class="headerlink" title="分页式"></a>分页式</h2><ul>
-<li>页表<ul>
-<li>页表中包含了所有虚拟页的信息， 包括虚拟页的存放位置、 装入位（valid） 、修改位（dirty） 、 存取权限位等等  </li>
-<li><strong>保存在主存中</strong>  </li>
-<li>虚拟页号 + 页内偏移量</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
-<p><img src="/images/posts/repaired/image-20230226001538018.png"><span class="image-caption">image-20230226001538018</span></p>
-<p><strong>快表</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
-<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
-<p>4：page 1次，cache miss 1次</p>
-<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
-<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
-<p><strong>段号 + 页号 + 页内偏移量</strong></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>计算机组成原理-学习笔记8-cache</title>
-    <url>/2023/02/10/Lecture%208%20cache/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记8-cache</p>
-<span id="more"></span>
-
-
-
-<p>主板内储存器：寄存器 &#x2F; Cache &#x2F; 主存</p>
-<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><p>内存墙：CPU运算速度比内存的速度快，且两者差距不断扩大</p>
-<p>解决： CPU和内存之间增加Cache</p>
-<ul>
-<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
-<li>Cache位于CPU和主存之间，可以<strong>集成在CPU内部</strong>或作为主板上的一个模块</li>
-<li>Cache中存放了主存中的<strong>部分信息的副本</strong></li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101165348656.png"><span class="image-caption">image-20221101165348656</span></p>
-<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>• <strong>检查（Check）</strong>：当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中</p>
-<ul>
-<li>检查后分两种情况处理：</li>
-</ul>
-<p>• <strong>命中（Hit）</strong>：如果在cache中，则把这个字传送给CPU</p>
-<p>• <strong>未命中（Miss）</strong>：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</p>
-<h2 id="1-Questions"><a href="#1-Questions" class="headerlink" title="1.Questions"></a>1.Questions</h2><h4 id="如何判断是命中还是未命中"><a href="#如何判断是命中还是未命中" class="headerlink" title="如何判断是命中还是未命中?"></a>如何判断是命中还是未命中?</h4><p>• CPU通过<strong>位置</strong>对主存中的内容进行寻址，不关心存储在其中的内容</p>
-<p>• Cache通过<strong>标记（tags）</strong>来标识其内容在主存中的对应位置（tag存放在块之前）</p>
-<h4 id="如果未命中，为什么不直接把所需要的字从内存传送到CPU"><a href="#如果未命中，为什么不直接把所需要的字从内存传送到CPU" class="headerlink" title="如果未命中，为什么不直接把所需要的字从内存传送到CPU?"></a>如果未命中，为什么不直接把所需要的字从内存传送到CPU?</h4><p>以便再次访问时命中。</p>
-<p>局部性原理：处理器频繁访问主存中相同或相邻位置的现象。</p>
-<ul>
-<li>时间局部性 ：短时间周期访问相同位置</li>
-<li>空间局部性：短时间周期内访问相邻储存位置<ul>
-<li>顺序局部性：线性排列（如数组）</li>
-</ul>
-</li>
-</ul>
-<h4 id="如果未命中，为什么从内存中读入一个块而不只读入一个字"><a href="#如果未命中，为什么从内存中读入一个块而不只读入一个字" class="headerlink" title="如果未命中，为什么从内存中读入一个块而不只读入一个字?"></a>如果未命中，为什么从内存中读入一个块而不只读入一个字?</h4><p>利用空间局部性。</p>
-<ul>
-<li>块是预先划分好的</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101172526290.png"><span class="image-caption">image-20221101172526290</span></p>
-<h4 id="使用Cache后需要更多的操作，为什么还可以节省时间"><a href="#使用Cache后需要更多的操作，为什么还可以节省时间" class="headerlink" title="使用Cache后需要更多的操作，为什么还可以节省时间"></a>使用Cache后需要更多的操作，为什么还可以节省时间</h4><p>假设p是<strong>命中率</strong>， 𝑇𝐶 是cache的访问时间， 𝑇𝑀 是主存的访问时间，使用cache时的<strong>平均访问时间</strong>𝑇𝐴为：</p>
-<p>𝑇𝐴 &#x3D; 𝑝 × 𝑇𝐶 + 1 − 𝑝 × 𝑇𝐶 + 𝑇𝑀</p>
-<p>&#x3D; 𝑇𝐶 + (1 − 𝑝) × 𝑇𝑀</p>
-<p>命中率p越大， 𝑇𝐶越小， 效果越好（降低TM很难，故要么提高p要么减少TC）</p>
-<ul>
-<li><p>如果想要 𝑇𝐴 &lt; 𝑇𝑀, 必须要求</p>
-<ul>
-<li>𝑝 &gt; 𝑇𝐶 &#x2F; 𝑇𝑀</li>
-</ul>
-</li>
-<li><p>难点：cache的容量远远小于主存的容量（随机访问时𝑝 &#x3D; Cache容量 &#x2F;主存容量）</p>
-</li>
-</ul>
-<h2 id="2-未命中的原因"><a href="#2-未命中的原因" class="headerlink" title="2.未命中的原因"></a>2.未命中的原因</h2><p><strong>义务失效（Compulsory Miss）&#x2F; 冷启动失效（Cold Start Miss）</strong></p>
-<ul>
-<li>第一次访问一个块时</li>
-</ul>
-<p>• 例如：第一次访问一个数组，会发生义务失效</p>
-<ul>
-<li><strong>容量失效 （Capacity Miss）</strong></li>
-</ul>
-<p>• Cache无法保存程序访问所需的所有数据块，则当某数据块被替换后，又重新被访问，则发生失效</p>
-<p>• 例如： cache大小为8KB，如果需要重复访问一个16KB大小的数组，数组无法全部放入cache，会发生容量失效</p>
-<ul>
-<li><strong>冲突失效（Conflict Miss）</strong></li>
-</ul>
-<p>• 多个存储器位置映射到同一Cache位置</p>
-<p>• 例如：有两个4KB大小的数组都映射到了相同的地址，需要来回访问，则发生冲突失效</p>
-<h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
-<p>good: 增大了命中率𝑝</p>
-<p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
-<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C<strong>（M 为块的数量）</strong></p>
-<p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
-<p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
-<p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>
-<p><strong>主存地址映射为：</strong>标记 | Cache行号 | 块内地址</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103162423116.png"><span class="image-caption">image-20221103162423116</span></p>
-<ul>
-<li>主存标记与字块标记比较</li>
-<li>未命中，则说明映射到同mod块，需替换</li>
-</ul>
-<p><strong>优缺点</strong></p>
-<ul>
-<li>优点<ul>
-<li>简单</li>
-<li>快速映射</li>
-<li>快速检查</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中,且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低，即发生冲突失效</li>
-</ul>
-</li>
-<li>适合<strong>大容量的cache</strong><ul>
-<li>行数变多，发生冲突失效的概率降低</li>
-<li>硬件电路简单，增大容量对𝑇𝐶的影响不明显，且能增大p</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h4><p>一个主存块可以装入cache<strong>任意一行</strong></p>
-<p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀（M为块的数量）</p>
-<p>主存地址映射为：标记 | 字</p>
-<p><strong>示例</strong></p>
-<p>• 假设cache有4行，每行包含8个字；主存中包含128个字。访问主存的地址长度为7&#x3D;log2(128)位，则：</p>
-<p>​	• 最低的3位：块内地址</p>
-<p>​	• 最高的4位：块号，记录为Cache标记</p>
-<p><strong>优缺点</strong></p>
-<p>• 优点</p>
-<p>​	• 避免抖动</p>
-<p>• 缺点</p>
-<p>​	• 实现起来比较复杂</p>
-<p>​	• Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</p>
-<p>• 适合<strong>容量较小的cache</strong></p>
-<p>​	• 小容量更容易发生冲突失效</p>
-<p>​	• 小容量检查的时间短</p>
-<h4 id="3-组关联映射"><a href="#3-组关联映射" class="headerlink" title="3.组关联映射"></a>3.组关联映射</h4><p>结合上两种映射方式的优点（也结合了缺点）：</p>
-<ul>
-<li>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<strong>固定组的任意一行</strong></li>
-<li>假设𝑠是cache组号，𝑗是主存块号，𝑆是组数<ul>
-<li>s &#x3D; 𝑗 𝑚𝑜𝑑 𝑆</li>
-</ul>
-</li>
-<li>K-路（K路：每组有多少行）组关联映射：<ul>
-<li>𝐾 &#x3D; 𝐶&#x2F;𝑆 （总行数column&#x2F;总组数segment）（小心考试弄反）</li>
-</ul>
-</li>
-</ul>
-<p>​	</p>
-<p>标记：地址中最高𝑛位，𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2𝑆</p>
-<p><strong>主存地址映射为：</strong>标记 | Cache<strong>组</strong>号 | 块内地址</p>
-<h4 id="4-三种比较"><a href="#4-三种比较" class="headerlink" title="4.三种比较"></a>4.三种比较</h4><p>• 关联度（Correlation）：一个主存块映射到cache中可能存放的位置个数</p>
-<p>​	• 直接映射：1</p>
-<p>​	• 关联映射：𝐶</p>
-<p>​	• 组关联映射：𝐾</p>
-<p>• 关联度越低，<strong>命中率越低</strong></p>
-<p>​	• 直接映射的命中率最低，关联映射的命中率最高</p>
-<p>• 关联度越低，判断是否命中的时间越短（即<strong>搜索成本越低）</strong></p>
-<p>​	• 直接映射的命中时间最短，关联映射的命中时间最长</p>
-<p>• 关联度越低，标记所占额外空间开销越小（即<strong>标记长度越短</strong>）</p>
-<p>​	• 直接映射的标记最短，关联映射的标记最长</p>
-<h3 id="3-3-替换算法"><a href="#3-3-替换算法" class="headerlink" title="3.3 替换算法"></a>3.3 替换算法</h3><ul>
-<li>采用替换算法的情景是，多行可选且多行均被占（直接映射不需要算法，直接换）</li>
-<li>替换算法通过<strong>硬件</strong>来实现</li>
-<li>设计替换算法的<strong>目标是提高命中率</strong>（比随机好）</li>
-</ul>
-<h4 id="最近最少使用算法（Least-Recently-Used-LRU）"><a href="#最近最少使用算法（Least-Recently-Used-LRU）" class="headerlink" title="最近最少使用算法（Least Recently Used, LRU）"></a>最近最少使用算法（Least Recently Used, LRU）</h4><p>假设：<strong>最近使用</strong>过的数据块有可能会被再次使用</p>
-<p>策略：替换在cache中<strong>最长时间未被访问</strong>的数据块</p>
-<p>2路组实现实例：</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103165510353.png"><span class="image-caption">image-20221103165510353</span></p>
-<p>4路组实例：</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103170805466.png"><span class="image-caption">image-20221103170805466</span></p>
-<p>即：命中时清零，其他加一。</p>
-<p>未命中时，淘汰k-1的,其他加一</p>
-<h4 id="先进先出算法（First-In-First-Out-FIFO）"><a href="#先进先出算法（First-In-First-Out-FIFO）" class="headerlink" title="先进先出算法（First In First Out, FIFO）"></a>先进先出算法（First In First Out, FIFO）</h4><p>• <strong>假设：</strong>最近由<strong>主存载入</strong>Cache的数据块更有可能被使用</p>
-<p>• <strong>策略：</strong>替换掉在Cache中停留时间最长的块</p>
-<p>• <strong>实现：</strong>时间片轮转法 或 环形缓冲技术</p>
-<p>​	• 每行包含一个标识位</p>
-<p>​	• 当同一组中的某行被替换时，将其标识位设为1，同时将其下一行的标识位设为0</p>
-<p>​		• 如果被替换的是该组中的最后一行，则将该组中的第一行的标识位设为0</p>
-<p>​	• 当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</p>
-<p><strong>样例：</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221103172513489.png"><span class="image-caption">image-20221103172513489</span></p>
-<ul>
-<li><strong>与LRU的区别：LRU是访问时间，FIFO为总停留时间</strong></li>
-</ul>
-<h4 id="最不经常使用算法（Least-Frequently-Used-LFU）"><a href="#最不经常使用算法（Least-Frequently-Used-LFU）" class="headerlink" title="最不经常使用算法（Least Frequently Used, LFU）"></a>最不经常使用算法（Least Frequently Used, LFU）</h4><p>• 假设：访问越频繁的数据块越有可能被再次使用</p>
-<p>• 策略：替换掉cache中被访问次数最少的数据块</p>
-<p>• 实现：为每一行设置计数器LFU</p>
-<ul>
-<li><strong>与LRU的区别：LRU是访问时间，LFU为访问次数</strong></li>
-</ul>
-<h4 id="随机替换算法（Random）"><a href="#随机替换算法（Random）" class="headerlink" title="随机替换算法（Random）"></a>随机替换算法（Random）</h4><p>• 假设：每个数据块被再次使用的可能性是相同的</p>
-<p>• 策略：随机替换cache中的数据块</p>
-<p>• 实现：随机替换</p>
-<p>• 随机替换算法在性能上只稍逊于使用其它替换算法</p>
-<h3 id="3-4-写策略"><a href="#3-4-写策略" class="headerlink" title="3.4 写策略"></a>3.4 写策略</h3><ul>
-<li><p>主存和cache的一致性</p>
-<ul>
-<li>cache被替换时，需考虑该cache数据块是否被修改</li>
-</ul>
-</li>
-<li><p>替换时</p>
-<ul>
-<li>如果没被修改，则该数据块可以直接被替换</li>
-<li>如果被修改，则在替换之前必须将修改后的数据块写入主存</li>
-</ul>
-</li>
-<li><p><strong>写策略</strong></p>
-<p>• 写直达（Write Through）</p>
-<p>• 写回法（Write Back）</p>
-</li>
-</ul>
-<h4 id="缓存命中时的写策略"><a href="#缓存命中时的写策略" class="headerlink" title="缓存命中时的写策略"></a>缓存命中时的写策略</h4><ol>
-<li><strong>写直达</strong></li>
-</ol>
-<p>• <strong>所有写操作同时对cache和主存进行</strong></p>
-<p>• <strong>优点</strong>：确保主存中的数据总是和cache中的数据一致，总是最新的（例如多CPU同步的场景）</p>
-<p>• <strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
-<p>• 搭配写不分配</p>
-<ol start="2">
-<li><strong>写回法</strong></li>
-</ol>
-<p>• <strong>先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</strong></p>
-<p>• <strong>利用一个脏位（dirty bit）或者使用位（use bit）来表示块是否被修改</strong></p>
-<p>• <strong>优点</strong>：减少了访问主存的次数</p>
-<p>• <strong>缺点</strong></p>
-<p>​	• 部分主存数据可能不是最新的（例如未发生替换但需要读主存的场景）</p>
-<p>​		• I&#x2F;O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂且有可能带来性能瓶颈</p>
-<p>• 搭配写分配</p>
-<h4 id="缓存未命中时的写策略"><a href="#缓存未命中时的写策略" class="headerlink" title="缓存未命中时的写策略"></a>缓存未命中时的写策略</h4><p>• <strong>写不分配（<strong><strong>Write Non-Allocate</strong></strong>）：</strong>直接将数据写入主存，无需读入cache</p>
-<p>​	• 优点：避免cache和主存中的数据不一致</p>
-<p>​	• 通常搭配：写直达</p>
-<p>• <strong>写分配（<strong><strong>Write Allocate</strong></strong>）：</strong>将数据所在的块读入cache后，在cache中更新内容</p>
-<p>​	• 优点：利用了cache的高速特性，<strong>减少写内存次数</strong></p>
-<p>​	• 通常搭配：写回法</p>
-<h3 id="3-5-行大小"><a href="#3-5-行大小" class="headerlink" title="3.5 行大小"></a>3.5 行大小</h3><p>Cache命中率先升后降</p>
-<ul>
-<li><p>假设从行的大小为一个字开始，随着<strong>行大小的逐步增大</strong>，则Cache命中率会增加</p>
-<ul>
-<li>原因：装入了<strong>更多数据</strong></li>
-</ul>
-</li>
-<li><p>行大小变得较大之后，<strong>继续增加行大小</strong>，则Cache命中率会下降</p>
-<ul>
-<li>Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入cache中的<strong>数据块数量减少</strong>，进而造成<strong>数据块被频繁替换</strong></li>
-<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
-</ul>
-</li>
-<li><p>行大小与命中率之间的关系较为复杂</p>
-<ul>
-<li>行太小，<strong>行数太多</strong>反时间局部性</li>
-<li>行太大<strong>，行数太少</strong>反空间局部性</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-6-Cache数目"><a href="#3-6-Cache数目" class="headerlink" title="3.6 Cache数目"></a>3.6 Cache数目</h3><ul>
-<li>一级<ul>
-<li>cache与处理器至于同一芯片</li>
-<li>减少处理器在总线上的执行时间</li>
-</ul>
-</li>
-<li>多级<ul>
-<li>当L1（一级缓存）未命中时，减少处理器对总线上DRAM或ROM的访问</li>
-<li>使用单独的数据路径，代替系统总线在L2缓存和处理器之间传输数据，部分处理器将L2（二级缓存） cache结合到处理器芯片上</li>
-</ul>
-</li>
-</ul>
-<p>统一VS分立</p>
-<ul>
-<li>统一<ul>
-<li>更高的命中率，在获取<strong>指令和数据</strong>的负载之间自动进行平衡</li>
-<li>只需要设计和实现一个cache</li>
-</ul>
-</li>
-<li>分立<ul>
-<li>实现多个cache</li>
-<li>消除cache在指令的<strong>取值&#x2F;译码单元和执行单元</strong>之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-  </entry>
-  <entry>
     <title>计算机组成原理-学习笔记7-存储器</title>
     <url>/2023/02/10/Lecture%207%20%E5%82%A8%E5%AD%98%E5%99%A8/</url>
     <content><![CDATA[<p>计算机组成原理-学习笔记7-存储器</p>
@@ -6127,6 +5863,270 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>固态硬盘<ul>
 <li>与U盘没有本质区别：容量更大，存储性能更好</li>
 <li>与硬磁盘存储器相比：抗振性好，无噪声，能耗低，发热量低</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>计算机组成原理-学习笔记8-cache</title>
+    <url>/2023/02/10/Lecture%208%20cache/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记8-cache</p>
+<span id="more"></span>
+
+
+
+<p>主板内储存器：寄存器 &#x2F; Cache &#x2F; 主存</p>
+<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><p>内存墙：CPU运算速度比内存的速度快，且两者差距不断扩大</p>
+<p>解决： CPU和内存之间增加Cache</p>
+<ul>
+<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
+<li>Cache位于CPU和主存之间，可以<strong>集成在CPU内部</strong>或作为主板上的一个模块</li>
+<li>Cache中存放了主存中的<strong>部分信息的副本</strong></li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101165348656.png"><span class="image-caption">image-20221101165348656</span></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>• <strong>检查（Check）</strong>：当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中</p>
+<ul>
+<li>检查后分两种情况处理：</li>
+</ul>
+<p>• <strong>命中（Hit）</strong>：如果在cache中，则把这个字传送给CPU</p>
+<p>• <strong>未命中（Miss）</strong>：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</p>
+<h2 id="1-Questions"><a href="#1-Questions" class="headerlink" title="1.Questions"></a>1.Questions</h2><h4 id="如何判断是命中还是未命中"><a href="#如何判断是命中还是未命中" class="headerlink" title="如何判断是命中还是未命中?"></a>如何判断是命中还是未命中?</h4><p>• CPU通过<strong>位置</strong>对主存中的内容进行寻址，不关心存储在其中的内容</p>
+<p>• Cache通过<strong>标记（tags）</strong>来标识其内容在主存中的对应位置（tag存放在块之前）</p>
+<h4 id="如果未命中，为什么不直接把所需要的字从内存传送到CPU"><a href="#如果未命中，为什么不直接把所需要的字从内存传送到CPU" class="headerlink" title="如果未命中，为什么不直接把所需要的字从内存传送到CPU?"></a>如果未命中，为什么不直接把所需要的字从内存传送到CPU?</h4><p>以便再次访问时命中。</p>
+<p>局部性原理：处理器频繁访问主存中相同或相邻位置的现象。</p>
+<ul>
+<li>时间局部性 ：短时间周期访问相同位置</li>
+<li>空间局部性：短时间周期内访问相邻储存位置<ul>
+<li>顺序局部性：线性排列（如数组）</li>
+</ul>
+</li>
+</ul>
+<h4 id="如果未命中，为什么从内存中读入一个块而不只读入一个字"><a href="#如果未命中，为什么从内存中读入一个块而不只读入一个字" class="headerlink" title="如果未命中，为什么从内存中读入一个块而不只读入一个字?"></a>如果未命中，为什么从内存中读入一个块而不只读入一个字?</h4><p>利用空间局部性。</p>
+<ul>
+<li>块是预先划分好的</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101172526290.png"><span class="image-caption">image-20221101172526290</span></p>
+<h4 id="使用Cache后需要更多的操作，为什么还可以节省时间"><a href="#使用Cache后需要更多的操作，为什么还可以节省时间" class="headerlink" title="使用Cache后需要更多的操作，为什么还可以节省时间"></a>使用Cache后需要更多的操作，为什么还可以节省时间</h4><p>假设p是<strong>命中率</strong>， 𝑇𝐶 是cache的访问时间， 𝑇𝑀 是主存的访问时间，使用cache时的<strong>平均访问时间</strong>𝑇𝐴为：</p>
+<p>𝑇𝐴 &#x3D; 𝑝 × 𝑇𝐶 + 1 − 𝑝 × 𝑇𝐶 + 𝑇𝑀</p>
+<p>&#x3D; 𝑇𝐶 + (1 − 𝑝) × 𝑇𝑀</p>
+<p>命中率p越大， 𝑇𝐶越小， 效果越好（降低TM很难，故要么提高p要么减少TC）</p>
+<ul>
+<li><p>如果想要 𝑇𝐴 &lt; 𝑇𝑀, 必须要求</p>
+<ul>
+<li>𝑝 &gt; 𝑇𝐶 &#x2F; 𝑇𝑀</li>
+</ul>
+</li>
+<li><p>难点：cache的容量远远小于主存的容量（随机访问时𝑝 &#x3D; Cache容量 &#x2F;主存容量）</p>
+</li>
+</ul>
+<h2 id="2-未命中的原因"><a href="#2-未命中的原因" class="headerlink" title="2.未命中的原因"></a>2.未命中的原因</h2><p><strong>义务失效（Compulsory Miss）&#x2F; 冷启动失效（Cold Start Miss）</strong></p>
+<ul>
+<li>第一次访问一个块时</li>
+</ul>
+<p>• 例如：第一次访问一个数组，会发生义务失效</p>
+<ul>
+<li><strong>容量失效 （Capacity Miss）</strong></li>
+</ul>
+<p>• Cache无法保存程序访问所需的所有数据块，则当某数据块被替换后，又重新被访问，则发生失效</p>
+<p>• 例如： cache大小为8KB，如果需要重复访问一个16KB大小的数组，数组无法全部放入cache，会发生容量失效</p>
+<ul>
+<li><strong>冲突失效（Conflict Miss）</strong></li>
+</ul>
+<p>• 多个存储器位置映射到同一Cache位置</p>
+<p>• 例如：有两个4KB大小的数组都映射到了相同的地址，需要来回访问，则发生冲突失效</p>
+<h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
+<p>good: 增大了命中率𝑝</p>
+<p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
+<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C<strong>（M 为块的数量）</strong></p>
+<p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
+<p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
+<p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache行号 | 块内地址</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103162423116.png"><span class="image-caption">image-20221103162423116</span></p>
+<ul>
+<li>主存标记与字块标记比较</li>
+<li>未命中，则说明映射到同mod块，需替换</li>
+</ul>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>优点<ul>
+<li>简单</li>
+<li>快速映射</li>
+<li>快速检查</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中,且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低，即发生冲突失效</li>
+</ul>
+</li>
+<li>适合<strong>大容量的cache</strong><ul>
+<li>行数变多，发生冲突失效的概率降低</li>
+<li>硬件电路简单，增大容量对𝑇𝐶的影响不明显，且能增大p</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h4><p>一个主存块可以装入cache<strong>任意一行</strong></p>
+<p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀（M为块的数量）</p>
+<p>主存地址映射为：标记 | 字</p>
+<p><strong>示例</strong></p>
+<p>• 假设cache有4行，每行包含8个字；主存中包含128个字。访问主存的地址长度为7&#x3D;log2(128)位，则：</p>
+<p>​	• 最低的3位：块内地址</p>
+<p>​	• 最高的4位：块号，记录为Cache标记</p>
+<p><strong>优缺点</strong></p>
+<p>• 优点</p>
+<p>​	• 避免抖动</p>
+<p>• 缺点</p>
+<p>​	• 实现起来比较复杂</p>
+<p>​	• Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</p>
+<p>• 适合<strong>容量较小的cache</strong></p>
+<p>​	• 小容量更容易发生冲突失效</p>
+<p>​	• 小容量检查的时间短</p>
+<h4 id="3-组关联映射"><a href="#3-组关联映射" class="headerlink" title="3.组关联映射"></a>3.组关联映射</h4><p>结合上两种映射方式的优点（也结合了缺点）：</p>
+<ul>
+<li>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<strong>固定组的任意一行</strong></li>
+<li>假设𝑠是cache组号，𝑗是主存块号，𝑆是组数<ul>
+<li>s &#x3D; 𝑗 𝑚𝑜𝑑 𝑆</li>
+</ul>
+</li>
+<li>K-路（K路：每组有多少行）组关联映射：<ul>
+<li>𝐾 &#x3D; 𝐶&#x2F;𝑆 （总行数column&#x2F;总组数segment）（小心考试弄反）</li>
+</ul>
+</li>
+</ul>
+<p>​	</p>
+<p>标记：地址中最高𝑛位，𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2𝑆</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache<strong>组</strong>号 | 块内地址</p>
+<h4 id="4-三种比较"><a href="#4-三种比较" class="headerlink" title="4.三种比较"></a>4.三种比较</h4><p>• 关联度（Correlation）：一个主存块映射到cache中可能存放的位置个数</p>
+<p>​	• 直接映射：1</p>
+<p>​	• 关联映射：𝐶</p>
+<p>​	• 组关联映射：𝐾</p>
+<p>• 关联度越低，<strong>命中率越低</strong></p>
+<p>​	• 直接映射的命中率最低，关联映射的命中率最高</p>
+<p>• 关联度越低，判断是否命中的时间越短（即<strong>搜索成本越低）</strong></p>
+<p>​	• 直接映射的命中时间最短，关联映射的命中时间最长</p>
+<p>• 关联度越低，标记所占额外空间开销越小（即<strong>标记长度越短</strong>）</p>
+<p>​	• 直接映射的标记最短，关联映射的标记最长</p>
+<h3 id="3-3-替换算法"><a href="#3-3-替换算法" class="headerlink" title="3.3 替换算法"></a>3.3 替换算法</h3><ul>
+<li>采用替换算法的情景是，多行可选且多行均被占（直接映射不需要算法，直接换）</li>
+<li>替换算法通过<strong>硬件</strong>来实现</li>
+<li>设计替换算法的<strong>目标是提高命中率</strong>（比随机好）</li>
+</ul>
+<h4 id="最近最少使用算法（Least-Recently-Used-LRU）"><a href="#最近最少使用算法（Least-Recently-Used-LRU）" class="headerlink" title="最近最少使用算法（Least Recently Used, LRU）"></a>最近最少使用算法（Least Recently Used, LRU）</h4><p>假设：<strong>最近使用</strong>过的数据块有可能会被再次使用</p>
+<p>策略：替换在cache中<strong>最长时间未被访问</strong>的数据块</p>
+<p>2路组实现实例：</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103165510353.png"><span class="image-caption">image-20221103165510353</span></p>
+<p>4路组实例：</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103170805466.png"><span class="image-caption">image-20221103170805466</span></p>
+<p>即：命中时清零，其他加一。</p>
+<p>未命中时，淘汰k-1的,其他加一</p>
+<h4 id="先进先出算法（First-In-First-Out-FIFO）"><a href="#先进先出算法（First-In-First-Out-FIFO）" class="headerlink" title="先进先出算法（First In First Out, FIFO）"></a>先进先出算法（First In First Out, FIFO）</h4><p>• <strong>假设：</strong>最近由<strong>主存载入</strong>Cache的数据块更有可能被使用</p>
+<p>• <strong>策略：</strong>替换掉在Cache中停留时间最长的块</p>
+<p>• <strong>实现：</strong>时间片轮转法 或 环形缓冲技术</p>
+<p>​	• 每行包含一个标识位</p>
+<p>​	• 当同一组中的某行被替换时，将其标识位设为1，同时将其下一行的标识位设为0</p>
+<p>​		• 如果被替换的是该组中的最后一行，则将该组中的第一行的标识位设为0</p>
+<p>​	• 当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</p>
+<p><strong>样例：</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221103172513489.png"><span class="image-caption">image-20221103172513489</span></p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，FIFO为总停留时间</strong></li>
+</ul>
+<h4 id="最不经常使用算法（Least-Frequently-Used-LFU）"><a href="#最不经常使用算法（Least-Frequently-Used-LFU）" class="headerlink" title="最不经常使用算法（Least Frequently Used, LFU）"></a>最不经常使用算法（Least Frequently Used, LFU）</h4><p>• 假设：访问越频繁的数据块越有可能被再次使用</p>
+<p>• 策略：替换掉cache中被访问次数最少的数据块</p>
+<p>• 实现：为每一行设置计数器LFU</p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，LFU为访问次数</strong></li>
+</ul>
+<h4 id="随机替换算法（Random）"><a href="#随机替换算法（Random）" class="headerlink" title="随机替换算法（Random）"></a>随机替换算法（Random）</h4><p>• 假设：每个数据块被再次使用的可能性是相同的</p>
+<p>• 策略：随机替换cache中的数据块</p>
+<p>• 实现：随机替换</p>
+<p>• 随机替换算法在性能上只稍逊于使用其它替换算法</p>
+<h3 id="3-4-写策略"><a href="#3-4-写策略" class="headerlink" title="3.4 写策略"></a>3.4 写策略</h3><ul>
+<li><p>主存和cache的一致性</p>
+<ul>
+<li>cache被替换时，需考虑该cache数据块是否被修改</li>
+</ul>
+</li>
+<li><p>替换时</p>
+<ul>
+<li>如果没被修改，则该数据块可以直接被替换</li>
+<li>如果被修改，则在替换之前必须将修改后的数据块写入主存</li>
+</ul>
+</li>
+<li><p><strong>写策略</strong></p>
+<p>• 写直达（Write Through）</p>
+<p>• 写回法（Write Back）</p>
+</li>
+</ul>
+<h4 id="缓存命中时的写策略"><a href="#缓存命中时的写策略" class="headerlink" title="缓存命中时的写策略"></a>缓存命中时的写策略</h4><ol>
+<li><strong>写直达</strong></li>
+</ol>
+<p>• <strong>所有写操作同时对cache和主存进行</strong></p>
+<p>• <strong>优点</strong>：确保主存中的数据总是和cache中的数据一致，总是最新的（例如多CPU同步的场景）</p>
+<p>• <strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
+<p>• 搭配写不分配</p>
+<ol start="2">
+<li><strong>写回法</strong></li>
+</ol>
+<p>• <strong>先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</strong></p>
+<p>• <strong>利用一个脏位（dirty bit）或者使用位（use bit）来表示块是否被修改</strong></p>
+<p>• <strong>优点</strong>：减少了访问主存的次数</p>
+<p>• <strong>缺点</strong></p>
+<p>​	• 部分主存数据可能不是最新的（例如未发生替换但需要读主存的场景）</p>
+<p>​		• I&#x2F;O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂且有可能带来性能瓶颈</p>
+<p>• 搭配写分配</p>
+<h4 id="缓存未命中时的写策略"><a href="#缓存未命中时的写策略" class="headerlink" title="缓存未命中时的写策略"></a>缓存未命中时的写策略</h4><p>• <strong>写不分配（<strong><strong>Write Non-Allocate</strong></strong>）：</strong>直接将数据写入主存，无需读入cache</p>
+<p>​	• 优点：避免cache和主存中的数据不一致</p>
+<p>​	• 通常搭配：写直达</p>
+<p>• <strong>写分配（<strong><strong>Write Allocate</strong></strong>）：</strong>将数据所在的块读入cache后，在cache中更新内容</p>
+<p>​	• 优点：利用了cache的高速特性，<strong>减少写内存次数</strong></p>
+<p>​	• 通常搭配：写回法</p>
+<h3 id="3-5-行大小"><a href="#3-5-行大小" class="headerlink" title="3.5 行大小"></a>3.5 行大小</h3><p>Cache命中率先升后降</p>
+<ul>
+<li><p>假设从行的大小为一个字开始，随着<strong>行大小的逐步增大</strong>，则Cache命中率会增加</p>
+<ul>
+<li>原因：装入了<strong>更多数据</strong></li>
+</ul>
+</li>
+<li><p>行大小变得较大之后，<strong>继续增加行大小</strong>，则Cache命中率会下降</p>
+<ul>
+<li>Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入cache中的<strong>数据块数量减少</strong>，进而造成<strong>数据块被频繁替换</strong></li>
+<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
+</ul>
+</li>
+<li><p>行大小与命中率之间的关系较为复杂</p>
+<ul>
+<li>行太小，<strong>行数太多</strong>反时间局部性</li>
+<li>行太大<strong>，行数太少</strong>反空间局部性</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-Cache数目"><a href="#3-6-Cache数目" class="headerlink" title="3.6 Cache数目"></a>3.6 Cache数目</h3><ul>
+<li>一级<ul>
+<li>cache与处理器至于同一芯片</li>
+<li>减少处理器在总线上的执行时间</li>
+</ul>
+</li>
+<li>多级<ul>
+<li>当L1（一级缓存）未命中时，减少处理器对总线上DRAM或ROM的访问</li>
+<li>使用单独的数据路径，代替系统总线在L2缓存和处理器之间传输数据，部分处理器将L2（二级缓存） cache结合到处理器芯片上</li>
+</ul>
+</li>
+</ul>
+<p>统一VS分立</p>
+<ul>
+<li>统一<ul>
+<li>更高的命中率，在获取<strong>指令和数据</strong>的负载之间自动进行平衡</li>
+<li>只需要设计和实现一个cache</li>
+</ul>
+</li>
+<li>分立<ul>
+<li>实现多个cache</li>
+<li>消除cache在指令的<strong>取值&#x2F;译码单元和执行单元</strong>之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
 </ul>
 </li>
 </ul>
