@@ -1119,7 +1119,6 @@ body input {
   z-index: 40;
   height: 90vh;
   width: 100%;
-  background-image: var(--background-image);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1128,6 +1127,20 @@ body input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .preview .preview-image {
+    background-image: url("/images/theme/galaxy-monochrome-mobile.webp");
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+  }
+}
+@media not all and (max-width: 768px) {
+  .preview .preview-image {
+    background-image: var(--background-image);
+  }
 }
 .preview .preview-image .preview-video {
   object-fit: cover;
@@ -1182,6 +1195,11 @@ body input {
   z-index: 50;
   width: 100%;
   text-align: center;
+}
+@media (max-width: 768px) {
+  .preview .preview-motto-wrapper {
+    top: 22vh;
+  }
 }
 .preview .preview-motto-wrapper .preview-motto {
   display: inline;

@@ -3021,6 +3021,75 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
+    <title>Learned index 综述</title>
+    <url>/2023/12/10/Index-Learned%20index/</url>
+    <content><![CDATA[<p>Learned index 综述</p>
+<span id="more"></span>
+
+
+
+<h2 id="学习索引-learned-index-技术"><a href="#学习索引-learned-index-技术" class="headerlink" title="学习索引 (learned index) 技术"></a><strong>学习索引 (learned index) 技术</strong></h2><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a><strong>摘要</strong></h2><p>索引技术在数据库中扮演着重要角色, 在数据库中有 b tree, hash 索引等. 但是这些数据结构<strong>没有利用到被索引数据分布的信息</strong>. </p>
+<p>本文总结了谷歌发表于 NIPS 2017 和 SIGMOD 2018 的两篇文章, 探讨如何利用机器学习技术得到更好的范围索引, 使用机器学习模型替代传统的 B-trees 索引, 以及在这之上的改进, 使得学习索引技术可扩展, 解决学习索引更新问题.</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>数据库依靠索引结构来高效地执行众多核心操作. <strong>B-trees 用于范围检索, Hash-Maps 用于按照键值搜索, 布隆过滤器用于判断 record 是否存在.</strong> </p>
+<ul>
+<li>但是这些索引是广义目的的数据结构, 没有利用到被索引数据的信息, 在一些极端情况下会表现得较差, </li>
+<li>比如当数据键值为从 1 递增到 n, 如果使用 b-tree 索引, 查询的时间复杂度为 o(logn), 实际上只需要 o(1) 的复杂度. 同样索引的空间复杂度也只需要 o(1), 而不是 o(n).</li>
+</ul>
+<p>如果能够<strong>学习到一个模型反映数据的模式,</strong> 就有可能<strong>自动构建索引结构</strong>即学习索引 (learned index) , 进而得到显著性能提升.</p>
+<ul>
+<li>Kraska[1], [2] 等人提出使用机器学习模型代替传统的 B 树索引，并在真实数据集上取得了不错的效果，但其提出的模型假设工作负载是静态的、只读的，对于索引更新问题没有提出很好的解决办法. [3] 提出了基于中间层的可扩展的学习索引模型 Dabble，用来解决索引更新引发的模型重新训练问题.</li>
+</ul>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a><strong>内容</strong></h2><h3 id="B-Trees-可以看成模型"><a href="#B-Trees-可以看成模型" class="headerlink" title="B-Trees 可以看成模型"></a><strong>B-Trees 可以看成模型</strong></h3><p>范围索引, 比如 B-Trees, 可以视为一个机器学习模型, 给定输入 Key 返回 position.</p>
+<p><img src="https://pic3.zhimg.com/v2-86bbd7ed6fc91f848e656fe03bbc6c1e_r.jpg"></p>
+<h4 id="一个极端的例子与数据分布"><a href="#一个极端的例子与数据分布" class="headerlink" title="一个极端的例子与数据分布"></a>一个极端的例子与数据分布</h4><p>一个极端的例子，一亿条数据，主键是整型从1到1亿，如果用B树的话，从根节点到一个个中间节点，非常麻烦，如果知道数据是这样分布的话，那肯定不会选择建索引，直接通过偏移量访问了。索引，<strong>一般索引都是不知道数据分布的，这样更具有通用性</strong>，但是通常来说，知道数据分布对于索引的优化(空间和查询效率)是通常都是非常有效的(比如对于稠密数据，用ART肯定没有用普通的span为8的前缀树表现好，尤其是索引的构建上)。但是对于这些传统索引来说，无论是了解数据分布，还是让索引为每种数据分布做专门的优化都过于复杂了。</p>
+<p>于是有了用机器学习来学习出一个能够<strong>反映数据分布</strong>，并能<strong>自动生成出特定的索引结构</strong>的想法。</p>
+<blockquote>
+<p>前面提到了B树需要保证要要查询的key必须在一个区间内，第一感觉用机器学习模型不简单，但事实并非如此。因为这个保证是给已经存储的key，而不是任意key，<strong>对于新来的key，B树需要重新平衡，对于学习型索引需要重新训练</strong>。再有就是这个错误边界并不是一定要有的，因为数据是有序的，误差也很容易纠正通过在预测值附近进行local search，比如用指数查找。因此，可以用其他回归模型，比如线性回归或神经网络来取代B树。</p>
+</blockquote>
+<h3 id="学习索引-learned-index"><a href="#学习索引-learned-index" class="headerlink" title="学习索引 (learned index)"></a><strong>学习索引 (learned index)</strong></h3><p><strong>学习索引要做的事是学习到一个映射函数, f(key)-&gt;pos, 将 key 写成 x, pos 写成 y, 希望学习到一个模型 f(x) 约等于 y.</strong> </p>
+<ul>
+<li>因为 x 是排序过的, 所以 f 实际上是在给数据的 CDF 建模 [4]. 下图是学习索引的一个示例.</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
+<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
+<p>同时<strong>为了提高模型的准确率, 使用层级模型</strong>. 损失函数如下所示</p>
+<p><img src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
+<p>模型架构如下所示:</p>
+<p><img src="https://pic4.zhimg.com/v2-5d87b69d40b38df60082e7f9cd22becf_r.jpg"></p>
+<p>层级模型和集成模型的思路相似, 都是通过集成弱分类器得到性能更好的分类器.</p>
+<h3 id="学习索引-learned-index-如何预测"><a href="#学习索引-learned-index-如何预测" class="headerlink" title="学习索引 (learned index) 如何预测"></a><strong>学习索引 (learned index) 如何预测</strong></h3><p>不同于一般的机器学习任务, 在使用学习索引 (learned index) 的时候, <strong>需要考虑模型输出偏差 delta</strong></p>
+<ul>
+<li>需要找到最大的误差 delta_max, 在 [y_pred-delta_max, y_pred+delta_max] 范围内搜寻起始点, 但是这个搜寻起始点可以使用二分查找, 时间复杂度不是很高.</li>
+</ul>
+<h3 id="Dabble-模型"><a href="#Dabble-模型" class="headerlink" title="Dabble 模型"></a><strong>Dabble 模型</strong></h3><p>之前其提出的模型假设工作负载是静态的、只读的，对于<strong>索引更新问题</strong>没有提出很好的解决办法. 因此提出了<strong>基于中间层的可扩展的学习索引模型 Dabble</strong></p>
+<ul>
+<li>用来解决<strong>索引更新引发的模型重训练</strong>问题</li>
+</ul>
+<p>实验：</p>
+<p>Dabble 模型中设计了 3 个机制:</p>
+<ul>
+<li>(1) 利用聚类算法将数据集按照数据的聚集方式划分为 K 个部分, 得到 K 个数据区域, 使得<strong>在每一个数据区域内部, 数据分布尽可能相同</strong>; </li>
+<li>(2) 对于每一个数据区域, <strong>分别利用神经网络对其进行训练</strong>, 使网络能够对该数据区域的分布得到一个比较好的拟合; </li>
+<li>(3) 在神经网络训练阶段, <strong>重点关注访问频率高的热点数据</strong>, 从而使神经网络对这些数据的预测精度更高. 另外, 为了更快地处理动态插入以及更新操作, Dabble 模型提出了一种基于中间层的数据插入机制, 从而使得不同的神经网络模型之间解耦, 模型之间保持独立性. <strong><u>当数据插入时, 只需要重新训练有数据插入的那个数据区域对应的模型即可</u></strong>, 不需要对整个 Dabble 重新训练, 从而提高了模型的可扩展性.</li>
+</ul>
+<p>Dabble 模型架构图如下所示</p>
+<p><img src="https://pic3.zhimg.com/v2-95e0ac3a2beda40d3057dbe875c4a47a_r.jpg"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a><strong>实验</strong></h2><p>论文 [1][2] 在 2 亿网站日志数据 weblogs 数据集上跑了实验. 将经过 cache 优化过的 B-Tree 页大小为 128 作为 baseline, 对于学习索引, 使用两阶段模型, 在没有 GPU 和 TPU 的机器上运行结果如下图所示. 可以看到学习索引<strong>比 B-Tree 更快的同时, 内存占用更少.</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-f9429d9ab98ad58ff6bfb795a40bb5e7_r.jpg"></p>
+<p>论文 [3] 在 weblogs 和 lognormal 数据集上进行评测, 结果如下图.</p>
+<p><img src="https://pic3.zhimg.com/v2-5b1c81aeadaf50e7a052ec60435d7242_r.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文总结了三篇文章, 主要探讨了结合机器学习技术的范围索引架构. 相较于传统的索引结构, 可学习型的索引展示了更好的可适应性.</p>
+<p>参考文献 </p>
+<p>[1] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “A Machine Learning Approach to Databases Indexes”NIPS 2017</p>
+<p>[2] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “The Case for Learned Index Structures”SIGMOD 2018</p>
+<p>[3] 高远宁, 叶金标, 杨念祖, 高晓沨, 陈贵海. 基于中间层的可扩展学习索引技术 [J]. 软件学报, 2020, 31(3): 620-633. <a href="https://link.zhihu.com/?target=http://www.jos.org.cn/1000-9825/5910.htm">http://www.jos.org.cn/1000-9825/5910.htm</a></p>
+<p>[4] M. Magdon-Ismail and A. F. Atiya. Neural networks for density estimation. In M. J. Kearns, S. A. Solla, and D. A. Cohn, editors, Advances in Neural Information Processing Systems 11, pages 522–528. MIT Press, 1999.</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+  </entry>
+  <entry>
     <title>HOT：A Height Optimized Trie Index</title>
     <url>/2023/12/10/Index-HOT/</url>
     <content><![CDATA[<p>文献阅读：HOT: A Height Optimized Trie Index for Main-memory Database System</p>
@@ -3135,75 +3204,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 <p>删除的时候给节点标记为废弃而不是直接删除，两个好处，一是废弃标记可以让writer检测受影响节点有没有废弃的，然后restart；二是reader与并发的写之间不需要锁，因为写的过程中要把原来的节点标记为废弃但没有删除，reader还是可以读，又不耽误写。</p>
 <p>回收策略是epoch-based reclaim，没有reader和writer访问时删除标记为废弃的节点。</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Learned index 综述</title>
-    <url>/2023/12/10/Index-Learned%20index/</url>
-    <content><![CDATA[<p>Learned index 综述</p>
-<span id="more"></span>
-
-
-
-<h2 id="学习索引-learned-index-技术"><a href="#学习索引-learned-index-技术" class="headerlink" title="学习索引 (learned index) 技术"></a><strong>学习索引 (learned index) 技术</strong></h2><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a><strong>摘要</strong></h2><p>索引技术在数据库中扮演着重要角色, 在数据库中有 b tree, hash 索引等. 但是这些数据结构<strong>没有利用到被索引数据分布的信息</strong>. </p>
-<p>本文总结了谷歌发表于 NIPS 2017 和 SIGMOD 2018 的两篇文章, 探讨如何利用机器学习技术得到更好的范围索引, 使用机器学习模型替代传统的 B-trees 索引, 以及在这之上的改进, 使得学习索引技术可扩展, 解决学习索引更新问题.</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h2><p>数据库依靠索引结构来高效地执行众多核心操作. <strong>B-trees 用于范围检索, Hash-Maps 用于按照键值搜索, 布隆过滤器用于判断 record 是否存在.</strong> </p>
-<ul>
-<li>但是这些索引是广义目的的数据结构, 没有利用到被索引数据的信息, 在一些极端情况下会表现得较差, </li>
-<li>比如当数据键值为从 1 递增到 n, 如果使用 b-tree 索引, 查询的时间复杂度为 o(logn), 实际上只需要 o(1) 的复杂度. 同样索引的空间复杂度也只需要 o(1), 而不是 o(n).</li>
-</ul>
-<p>如果能够<strong>学习到一个模型反映数据的模式,</strong> 就有可能<strong>自动构建索引结构</strong>即学习索引 (learned index) , 进而得到显著性能提升.</p>
-<ul>
-<li>Kraska[1], [2] 等人提出使用机器学习模型代替传统的 B 树索引，并在真实数据集上取得了不错的效果，但其提出的模型假设工作负载是静态的、只读的，对于索引更新问题没有提出很好的解决办法. [3] 提出了基于中间层的可扩展的学习索引模型 Dabble，用来解决索引更新引发的模型重新训练问题.</li>
-</ul>
-<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a><strong>内容</strong></h2><h3 id="B-Trees-可以看成模型"><a href="#B-Trees-可以看成模型" class="headerlink" title="B-Trees 可以看成模型"></a><strong>B-Trees 可以看成模型</strong></h3><p>范围索引, 比如 B-Trees, 可以视为一个机器学习模型, 给定输入 Key 返回 position.</p>
-<p><img src="https://pic3.zhimg.com/v2-86bbd7ed6fc91f848e656fe03bbc6c1e_r.jpg"></p>
-<h4 id="一个极端的例子与数据分布"><a href="#一个极端的例子与数据分布" class="headerlink" title="一个极端的例子与数据分布"></a>一个极端的例子与数据分布</h4><p>一个极端的例子，一亿条数据，主键是整型从1到1亿，如果用B树的话，从根节点到一个个中间节点，非常麻烦，如果知道数据是这样分布的话，那肯定不会选择建索引，直接通过偏移量访问了。索引，<strong>一般索引都是不知道数据分布的，这样更具有通用性</strong>，但是通常来说，知道数据分布对于索引的优化(空间和查询效率)是通常都是非常有效的(比如对于稠密数据，用ART肯定没有用普通的span为8的前缀树表现好，尤其是索引的构建上)。但是对于这些传统索引来说，无论是了解数据分布，还是让索引为每种数据分布做专门的优化都过于复杂了。</p>
-<p>于是有了用机器学习来学习出一个能够<strong>反映数据分布</strong>，并能<strong>自动生成出特定的索引结构</strong>的想法。</p>
-<blockquote>
-<p>前面提到了B树需要保证要要查询的key必须在一个区间内，第一感觉用机器学习模型不简单，但事实并非如此。因为这个保证是给已经存储的key，而不是任意key，<strong>对于新来的key，B树需要重新平衡，对于学习型索引需要重新训练</strong>。再有就是这个错误边界并不是一定要有的，因为数据是有序的，误差也很容易纠正通过在预测值附近进行local search，比如用指数查找。因此，可以用其他回归模型，比如线性回归或神经网络来取代B树。</p>
-</blockquote>
-<h3 id="学习索引-learned-index"><a href="#学习索引-learned-index" class="headerlink" title="学习索引 (learned index)"></a><strong>学习索引 (learned index)</strong></h3><p><strong>学习索引要做的事是学习到一个映射函数, f(key)-&gt;pos, 将 key 写成 x, pos 写成 y, 希望学习到一个模型 f(x) 约等于 y.</strong> </p>
-<ul>
-<li>因为 x 是排序过的, 所以 f 实际上是在给数据的 CDF 建模 [4]. 下图是学习索引的一个示例.</li>
-</ul>
-<p><img src="https://pic2.zhimg.com/v2-6dd6a7a18af54282533a8e0726f0f2d1_r.jpg"></p>
-<h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a><strong>模型架构</strong></h3><p>上面的问题<strong>实质上是一个回归问题</strong>（给<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>求y。通过输入特征来预测连续数值输出）, 可以使用均方差作为损失函数, 训练模型. </p>
-<p>同时<strong>为了提高模型的准确率, 使用层级模型</strong>. 损失函数如下所示</p>
-<p><img src="https://pic2.zhimg.com/v2-ae8d609e8746db0082b9ac74ce86d605_r.jpg"></p>
-<p>模型架构如下所示:</p>
-<p><img src="https://pic4.zhimg.com/v2-5d87b69d40b38df60082e7f9cd22becf_r.jpg"></p>
-<p>层级模型和集成模型的思路相似, 都是通过集成弱分类器得到性能更好的分类器.</p>
-<h3 id="学习索引-learned-index-如何预测"><a href="#学习索引-learned-index-如何预测" class="headerlink" title="学习索引 (learned index) 如何预测"></a><strong>学习索引 (learned index) 如何预测</strong></h3><p>不同于一般的机器学习任务, 在使用学习索引 (learned index) 的时候, <strong>需要考虑模型输出偏差 delta</strong></p>
-<ul>
-<li>需要找到最大的误差 delta_max, 在 [y_pred-delta_max, y_pred+delta_max] 范围内搜寻起始点, 但是这个搜寻起始点可以使用二分查找, 时间复杂度不是很高.</li>
-</ul>
-<h3 id="Dabble-模型"><a href="#Dabble-模型" class="headerlink" title="Dabble 模型"></a><strong>Dabble 模型</strong></h3><p>之前其提出的模型假设工作负载是静态的、只读的，对于<strong>索引更新问题</strong>没有提出很好的解决办法. 因此提出了<strong>基于中间层的可扩展的学习索引模型 Dabble</strong></p>
-<ul>
-<li>用来解决<strong>索引更新引发的模型重训练</strong>问题</li>
-</ul>
-<p>实验：</p>
-<p>Dabble 模型中设计了 3 个机制:</p>
-<ul>
-<li>(1) 利用聚类算法将数据集按照数据的聚集方式划分为 K 个部分, 得到 K 个数据区域, 使得<strong>在每一个数据区域内部, 数据分布尽可能相同</strong>; </li>
-<li>(2) 对于每一个数据区域, <strong>分别利用神经网络对其进行训练</strong>, 使网络能够对该数据区域的分布得到一个比较好的拟合; </li>
-<li>(3) 在神经网络训练阶段, <strong>重点关注访问频率高的热点数据</strong>, 从而使神经网络对这些数据的预测精度更高. 另外, 为了更快地处理动态插入以及更新操作, Dabble 模型提出了一种基于中间层的数据插入机制, 从而使得不同的神经网络模型之间解耦, 模型之间保持独立性. <strong><u>当数据插入时, 只需要重新训练有数据插入的那个数据区域对应的模型即可</u></strong>, 不需要对整个 Dabble 重新训练, 从而提高了模型的可扩展性.</li>
-</ul>
-<p>Dabble 模型架构图如下所示</p>
-<p><img src="https://pic3.zhimg.com/v2-95e0ac3a2beda40d3057dbe875c4a47a_r.jpg"></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a><strong>实验</strong></h2><p>论文 [1][2] 在 2 亿网站日志数据 weblogs 数据集上跑了实验. 将经过 cache 优化过的 B-Tree 页大小为 128 作为 baseline, 对于学习索引, 使用两阶段模型, 在没有 GPU 和 TPU 的机器上运行结果如下图所示. 可以看到学习索引<strong>比 B-Tree 更快的同时, 内存占用更少.</strong></p>
-<p><img src="https://pic4.zhimg.com/v2-f9429d9ab98ad58ff6bfb795a40bb5e7_r.jpg"></p>
-<p>论文 [3] 在 weblogs 和 lognormal 数据集上进行评测, 结果如下图.</p>
-<p><img src="https://pic3.zhimg.com/v2-5b1c81aeadaf50e7a052ec60435d7242_r.jpg"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文总结了三篇文章, 主要探讨了结合机器学习技术的范围索引架构. 相较于传统的索引结构, 可学习型的索引展示了更好的可适应性.</p>
-<p>参考文献 </p>
-<p>[1] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “A Machine Learning Approach to Databases Indexes”NIPS 2017</p>
-<p>[2] Alex Beutel, Tim Kraska∗, Ed H. Chi, Jeffrey Dean, Neoklis Polyzotis “The Case for Learned Index Structures”SIGMOD 2018</p>
-<p>[3] 高远宁, 叶金标, 杨念祖, 高晓沨, 陈贵海. 基于中间层的可扩展学习索引技术 [J]. 软件学报, 2020, 31(3): 620-633. <a href="https://link.zhihu.com/?target=http://www.jos.org.cn/1000-9825/5910.htm">http://www.jos.org.cn/1000-9825/5910.htm</a></p>
-<p>[4] M. Magdon-Ismail and A. F. Atiya. Neural networks for density estimation. In M. J. Kearns, S. A. Solla, and D. A. Cohn, editors, Advances in Neural Information Processing Systems 11, pages 522–528. MIT Press, 1999.</p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -3653,68 +3653,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
-    <title>计算机组成原理-学习笔记12-虚拟存储器</title>
-    <url>/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记12-虚拟存储器</p>
-<span id="more"></span>
-
-
-
-<p>作业已写，考前抱佛脚整理</p>
-<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
-<p>主存中包含操作系统和若干个用户程序  </p>
-<p>在多道程序系统中， 主存需要进一步划分给多个任务， 划分的任务由<strong>操作系统动态执行</strong>  </p>
-<p>不区分“进程” 和“任务  </p>
-<ul>
-<li>虚拟存储器<ul>
-<li>请求分页：每次访问仅将当前需要的页面调入主存， 而其他不活跃的页面放在外存磁盘上</li>
-</ul>
-</li>
-</ul>
-<h2 id="分区方式"><a href="#分区方式" class="headerlink" title="分区方式"></a>分区方式</h2><ul>
-<li><p>将主存分为两大区域<br>• 系统区： 固定的地址范围内，存放操作系统<br>• 用户区：存放所有用户程序  </p>
-</li>
-<li><p>简单<strong>固定</strong>分区<br>• 用户区划分成长度不等的固定长的分区<br>• 当一个任务调入主存时，分配一个<strong>可用的、能容纳它的、最小的</strong>分区<br>• 优点：简单<br>• 缺点：<strong>浪费主存</strong>空间  </p>
-</li>
-<li><p>可变长分区<br>• 用户区按每个任务所需要的内存大小进行分配<br>• 优点：提高了主存的利用率<br>• 缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
-</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
-<p><strong>帧 &#x2F; 页帧 &#x2F; 页框</strong> —— <strong>存储器</strong>分成相当小的、相等的固定长度的存储块，每个存储块被成为页帧、帧 </p>
-<p>页 —— 每个进程划分为小的固定长的程序块，程序的每个程序块成为页 </p>
-<p>页表 —— 记录了进程每页的帧地址 </p>
-<p>逻辑地址 —— 页号和页中相对地址 </p>
-<p>物理地址 —— 帧号和相对地址 </p>
-<p>进程和主存划分的块的大小相同</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
-<ul>
-<li>优点<br>• 在不扩大物理内存的前提下，可以载入更多的任务<br>• 编写程序时<strong>不需要考虑可用物理内存</strong>的状态<br>• 程序员认为可以独享一个连续的、很大的内存<br>• 可以在<strong>大于物理内存</strong>的逻辑地址空间中编程</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
-<h2 id="分页式"><a href="#分页式" class="headerlink" title="分页式"></a>分页式</h2><ul>
-<li>页表<ul>
-<li>页表中包含了所有虚拟页的信息， 包括虚拟页的存放位置、 装入位（valid） 、修改位（dirty） 、 存取权限位等等  </li>
-<li><strong>保存在主存中</strong>  </li>
-<li>虚拟页号 + 页内偏移量</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
-<p><img src="/images/posts/repaired/image-20230226001538018.png"><span class="image-caption">image-20230226001538018</span></p>
-<p><strong>快表</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
-<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
-<p>4：page 1次，cache miss 1次</p>
-<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
-<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
-<p><strong>段号 + 页号 + 页内偏移量</strong></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-  </entry>
-  <entry>
     <title>计算机组成原理-学习笔记11-RAID阵列</title>
     <url>/2023/02/10/Lecture%2011%20Raid%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97/</url>
     <content><![CDATA[<p>计算机组成原理-学习笔记11-RAID</p>
@@ -3776,6 +3714,68 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <p>23：并行读写（同步轴）</p>
 <p>45(6?)：不能并行写，能IO并行处理</p>
 <p>可靠性：6&gt; 1 &gt; 2345 &gt; 0</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>计算机组成原理-学习笔记12-虚拟存储器</title>
+    <url>/2023/02/10/Lecture%2012%20%E8%99%9A%E6%8B%9F%E5%82%A8%E5%AD%98%E5%99%A8/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记12-虚拟存储器</p>
+<span id="more"></span>
+
+
+
+<p>作业已写，考前抱佛脚整理</p>
+<h1 id="Lecture-12-虚拟存储器"><a href="#Lecture-12-虚拟存储器" class="headerlink" title="Lecture 12 虚拟存储器"></a>Lecture 12 虚拟存储器</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230225235941654.png"><span class="image-caption">image-20230225235941654</span></p>
+<p>主存中包含操作系统和若干个用户程序  </p>
+<p>在多道程序系统中， 主存需要进一步划分给多个任务， 划分的任务由<strong>操作系统动态执行</strong>  </p>
+<p>不区分“进程” 和“任务  </p>
+<ul>
+<li>虚拟存储器<ul>
+<li>请求分页：每次访问仅将当前需要的页面调入主存， 而其他不活跃的页面放在外存磁盘上</li>
+</ul>
+</li>
+</ul>
+<h2 id="分区方式"><a href="#分区方式" class="headerlink" title="分区方式"></a>分区方式</h2><ul>
+<li><p>将主存分为两大区域<br>• 系统区： 固定的地址范围内，存放操作系统<br>• 用户区：存放所有用户程序  </p>
+</li>
+<li><p>简单<strong>固定</strong>分区<br>• 用户区划分成长度不等的固定长的分区<br>• 当一个任务调入主存时，分配一个<strong>可用的、能容纳它的、最小的</strong>分区<br>• 优点：简单<br>• 缺点：<strong>浪费主存</strong>空间  </p>
+</li>
+<li><p>可变长分区<br>• 用户区按每个任务所需要的内存大小进行分配<br>• 优点：提高了主存的利用率<br>• 缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001016471.png"><span class="image-caption">image-20230226001016471</span></p>
+<p><strong>帧 &#x2F; 页帧 &#x2F; 页框</strong> —— <strong>存储器</strong>分成相当小的、相等的固定长度的存储块，每个存储块被成为页帧、帧 </p>
+<p>页 —— 每个进程划分为小的固定长的程序块，程序的每个程序块成为页 </p>
+<p>页表 —— 记录了进程每页的帧地址 </p>
+<p>逻辑地址 —— 页号和页中相对地址 </p>
+<p>物理地址 —— 帧号和相对地址 </p>
+<p>进程和主存划分的块的大小相同</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001222532.png"><span class="image-caption">image-20230226001222532</span></p>
+<ul>
+<li>优点<br>• 在不扩大物理内存的前提下，可以载入更多的任务<br>• 编写程序时<strong>不需要考虑可用物理内存</strong>的状态<br>• 程序员认为可以独享一个连续的、很大的内存<br>• 可以在<strong>大于物理内存</strong>的逻辑地址空间中编程</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001306568.png"><span class="image-caption">image-20230226001306568</span></p>
+<h2 id="分页式"><a href="#分页式" class="headerlink" title="分页式"></a>分页式</h2><ul>
+<li>页表<ul>
+<li>页表中包含了所有虚拟页的信息， 包括虚拟页的存放位置、 装入位（valid） 、修改位（dirty） 、 存取权限位等等  </li>
+<li><strong>保存在主存中</strong>  </li>
+<li>虚拟页号 + 页内偏移量</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001433001.png"><span class="image-caption">image-20230226001433001</span></p>
+<p><img src="/images/posts/repaired/image-20230226001538018.png"><span class="image-caption">image-20230226001538018</span></p>
+<p><strong>快表</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001605842.png"><span class="image-caption">image-20230226001605842</span></p>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图<img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001749622.png"><span class="image-caption">image-20230226001749622</span></h3><p>绿色就是第八章cache学的</p>
+<h3 id="多种可能"><a href="#多种可能" class="headerlink" title="多种可能"></a>多种可能</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226001931586.png"><span class="image-caption">image-20230226001931586</span></p>
+<p>4：page 1次，cache miss 1次</p>
+<h2 id="分段式"><a href="#分段式" class="headerlink" title="分段式"></a>分段式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002138094.png"><span class="image-caption">image-20230226002138094</span></p>
+<h2 id="段页式"><a href="#段页式" class="headerlink" title="段页式"></a>段页式</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230226002153775.png"><span class="image-caption">image-20230226002153775</span></p>
+<p><strong>段号 + 页号 + 页内偏移量</strong></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -4079,6 +4079,235 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
+    <title>计算机组成原理-学习笔记15-指令流水线</title>
+    <url>/2023/02/10/Lecture%2015%20%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记15-指令流水线</p>
+<span id="more"></span>
+
+
+
+<h1 id="1-指令周期"><a href="#1-指令周期" class="headerlink" title="1. 指令周期"></a>1. 指令周期</h1><h2 id="1-0指令周期纵观"><a href="#1-0指令周期纵观" class="headerlink" title="1.0指令周期纵观"></a>1.0<strong>指令周期纵观</strong></h2><ul>
+<li><p>定义：处理单个指令的过程</p>
+</li>
+<li><p>分为取指周期、执行周期</p>
+</li>
+</ul>
+<p><img src="/images/posts/repaired/image-20221208163611041.png"><span class="image-caption">image-20221208163611041</span></p>
+<p>并非所有指令的周期都一样</p>
+<h3 id="带中断的指令周期"><a href="#带中断的指令周期" class="headerlink" title="带中断的指令周期"></a>带中断的指令周期</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114423694.png"><span class="image-caption">image-20230210114423694</span></p>
+<h3 id="间址周期"><a href="#间址周期" class="headerlink" title="间址周期"></a>间址周期</h3><p>把间接地址的读取看成是一个额外的指令子周期  </p>
+<p>提出目的：与数据流，指令流水线有关</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114806911.png"><span class="image-caption">image-20230210114806911</span></p>
+<h3 id="在指令周期中的CPU"><a href="#在指令周期中的CPU" class="headerlink" title="在指令周期中的CPU"></a>在指令周期中的CPU</h3><ul>
+<li><p>任务</p>
+<ul>
+<li><strong>取指令：</strong> CPU必须从存储器（寄存器、 cache、 主存） 读取指令  </li>
+<li><strong>解释指令：</strong> 必须对指令进行译码， 以确定所要求的动作  </li>
+<li><strong>取数据：</strong> 指令的执行可能要求从存储器或输入&#x2F;输出（I&#x2F;O） 模块中读取数据  </li>
+<li><strong>处理数据</strong>： 指令的执行可能要求对数据完成某些算术或逻辑运算  </li>
+<li><strong>写数据：</strong> 执行的结果可能要求写数据到存储器或I&#x2F;O模块</li>
+</ul>
+</li>
+<li><p>需求：寄存器</p>
+<ul>
+<li>临时保存指令数据</li>
+<li>记录当前指令位置</li>
+<li>（需要小容量的内部储存器）</li>
+<li>假定CPU已有的寄存器<ul>
+<li>MAR存储地址</li>
+<li>MBR存储缓冲&#x2F;MDR存储数据</li>
+<li>IR指令寄存器</li>
+<li>PC程序计数器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-1取指周期"><a href="#1-1取指周期" class="headerlink" title="1.1取指周期"></a>1.1取指周期</h2><p>流程：</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115704765.png"><span class="image-caption">image-20230210115704765</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115825621.png"><span class="image-caption">image-20230210115825621</span></p>
+<ol>
+<li>PC-&gt;MAR-&gt;地址总线</li>
+<li>控制器通过控制线通知存储器地址就绪</li>
+<li>存储器读取地址 地址总线-&gt;存储器  </li>
+<li>存储器通过数据总线将（指令）数据发送给MBR-&gt;IR</li>
+<li>如果是异步总线，存储器提供反馈 ，告知准备好了</li>
+<li>指令取回来后， PC+“1”  （未画出,为控制器-&gt;PC）</li>
+</ol>
+<h2 id="1-2间址周期"><a href="#1-2间址周期" class="headerlink" title="1.2间址周期"></a>1.2间址周期</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120043533.png"><span class="image-caption">image-20230210120043533</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120208616.png"><span class="image-caption">image-20230210120208616</span></p>
+<ol>
+<li>将MBR缓存中的地址引用送入MAR得到地址（MAR可认为与地址总线绑定，MBR可认为与数据总线绑定）</li>
+<li>MAR将地址传入地址总线</li>
+<li>控制器通知存储器取地址  </li>
+<li>存储器通过数据总线将有效地址发送给MBR</li>
+</ol>
+<p><strong>实际上间址周期取回的是一个有效地址，不是操作数本身</strong>。取操作数在执行周期</p>
+<h2 id="1-3中断周期"><a href="#1-3中断周期" class="headerlink" title="1.3中断周期"></a>1.3中断周期</h2><p>中断周期的任务：处理中断请求。需保存旧地址和旧地址内容</p>
+<p>假设程序断点存入堆栈中，并用SP指示栈顶地址,进栈操作是先修改栈顶指针，后存入数据。</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120613987.png"><span class="image-caption">image-20230210120613987</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210122314159.png"><br><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120925912.png"></p>
+<p>箭头往右，说明都是写的操作</p>
+<ol>
+<li>处理中断前，将<strong>下一条指令</strong>放到MBR中，再放到数据总线上 （以告知下一条指令需要返回到哪）（存入断点）</li>
+<li>控制器将<strong>下一条指令的取值地址</strong>通过MAR放到地址总线上  </li>
+<li>控制器通知存储器获得数据</li>
+<li>存储器从地址线获得地址</li>
+<li>存储器从数据线获得数据，并将数据写入到获得的地址</li>
+</ol>
+<h1 id="2-指令流水线"><a href="#2-指令流水线" class="headerlink" title="2.指令流水线"></a>2.指令流水线</h1><ul>
+<li>流水处理（pipelining）<ul>
+<li>如果一个产品要经过几个制作步骤，通过把制作过程安排在一条装配线上，多个产品能在各个阶段同时被加工</li>
+</ul>
+</li>
+<li>指令流水线：一条指令的处理过程分成若干个阶段，每个阶段由相应的功能部<br>件完成  <ul>
+<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210152420723.png"><span class="image-caption">image-20230210152420723</span></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-1两阶段方法"><a href="#2-1两阶段方法" class="headerlink" title="2.1两阶段方法"></a>2.1两阶段方法</h2><ul>
+<li>将指令处理分成两个阶段：取指令和执行指令</li>
+<li>在当前指令的执行期间取下一条指令</li>
+<li>问题： 执行时间一般要长于取指时间  <ul>
+<li>性能瓶颈，工作量分配不均匀</li>
+<li>主存访问冲突</li>
+<li><strong>条件分支指令</strong>使下一条指令的地址是未知的（导致原指令作废，执行指令需等待）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-2六阶段方法"><a href="#2-2六阶段方法" class="headerlink" title="2.2六阶段方法"></a>2.2六阶段方法</h2><p>为了进一步的加速，流水线必须有更多的阶段</p>
+<ul>
+<li>取指令（Fetch instruction， FI）： 读下一条预期的指令到缓冲器</li>
+<li>译码指令（Decode instruction， DI）： 确定操作码和操作数指定符</li>
+<li>计算操作数（Calculate operands， CO）： 计算每个源操作数的有效地址</li>
+<li>取操作数（Fetch operands， FO）： 从存储器取出每个操作数，寄存器中的操作不需要取</li>
+<li>执行指令（Execute instruction， EI）： 完成指定的操作。若有指定的目的操作数位置，则将结果写入此位置</li>
+<li>写操作数（Write operand， WO）： 将结果存入存储器</li>
+</ul>
+<p>各个阶段所需要的时间几乎是相等的 。</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154320143.png"><span class="image-caption">image-20230210154320143</span></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>不是所有指令都包含6个阶段<ul>
+<li>例：一条LOAD指令不需要WO阶段</li>
+<li>为了简化流水线硬件设计，在<strong>假定每条指令都要求这6个阶段</strong>的基础上来建立时序</li>
+</ul>
+</li>
+<li>不是所有的阶段都能并行完成<ul>
+<li>例： FI、 FO和 WO都涉及存储器访问</li>
+</ul>
+</li>
+<li>若6个阶段不全是相等的时间，则会在各个流水阶段涉及某种等待<ul>
+<li>以最长的为基准</li>
+</ul>
+</li>
+</ul>
+<p><strong>条件转移指令损失图解</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154624695.png"><span class="image-caption">image-20230210154624695</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155033296.png"><span class="image-caption">image-20230210155033296</span></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155042586.png"><span class="image-caption">image-20230210155042586</span></p>
+<p>本质：转移指令需要清空流水线造成的损失</p>
+<h2 id="2-3流水线性能"><a href="#2-3流水线性能" class="headerlink" title="2.3流水线性能"></a>2.3流水线性能</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155218162.png"><span class="image-caption">image-20230210155218162</span></p>
+<p>𝑡𝑚 &#x3D; max [𝑡𝑖]</p>
+<p><strong>单周期时间</strong>：𝑡 &#x3D; max [𝑡𝑖] + 𝑑 &#x3D; 𝑡𝑚 + 𝑑  </p>
+<p><strong>总时间：</strong>𝑇𝑘,𝑛 &#x3D; [𝑘 + 𝑛 - 1] 𝑡（理想情况） </p>
+<p><strong>加速比</strong> &#x3D;  没有使用流水线 &#x2F; 使用流水线  &gt;  1 </p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155433099.png"><span class="image-caption">image-20230210155433099</span></p>
+<p>根据公式推导加速</p>
+<ul>
+<li>误解<ul>
+<li>流水线中的阶段数越多，执行速度越快</li>
+</ul>
+</li>
+<li>原因  <ul>
+<li>将数据从一个缓冲区移动到另一个缓冲区以及执行各种准备和传递功能都涉及一些开销（比如<strong>锁存延时</strong>）</li>
+<li>处理内存和寄存器依赖以及优化管道使用所需的<strong>控制逻辑数量</strong>随着阶段的增加而急剧增加</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-冒险"><a href="#3-冒险" class="headerlink" title="3.冒险"></a>3.冒险</h1><p>定义：在某些情况下，指令流水线会阻塞或停顿（stall），导致后续指令无法正确执行  </p>
+<p>类型：</p>
+<ul>
+<li>结构冒险（Structure hazard） &#x2F; 硬件资源冲突<ul>
+<li>不同指令同时使用相同的硬件资源，比如访存</li>
+</ul>
+</li>
+<li>数据冒险（Data hazard） &#x2F; 数据依赖性<ul>
+<li>有些数据要等前序计算完成</li>
+</ul>
+</li>
+<li>控制冒险（Control hazard） <ul>
+<li>比如条件转移</li>
+</ul>
+</li>
+</ul>
+<h2 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h2><ul>
+<li><p>原因： 已进入流水线的不同指令在同一时刻访问相同的硬件资源</p>
+</li>
+<li><p>解决</p>
+<ul>
+<li>使用多个不同的硬件资源</li>
+<li>或者分时使用同一个硬件资源 （分时复用）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160237237.png"><span class="image-caption">image-20230210160237237</span></p>
+<h2 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h2><p>原因：未生成指令所需要的数据  </p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160554784.png"><span class="image-caption">image-20230210160554784</span></p>
+<p>解决1：插入nop（啥都不做）</p>
+<p>解决2：插入bubble </p>
+<p>（都有时间开销）</p>
+<p><strong>解决3：转发（forwarding） &#x2F; 旁路（bypassing）</strong>  </p>
+<p>从ALU（或ALU后的步骤）直接提前打听R1</p>
+<p>什么时候失效：非计算指令时（如load)</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160712506.png"><span class="image-caption">image-20230210160712506</span></p>
+<p><strong>解决方案4：交换指令顺序</strong>  </p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210161010109.png"><span class="image-caption">image-20230210161010109</span></p>
+<h2 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h2><ul>
+<li>原因：指令的执行顺序被更改<ul>
+<li>转移（Transfer） : 分支（branch） , 循环（loop） , …</li>
+<li>中断（Interrupt）</li>
+<li>异常（Exception）</li>
+<li>调用 &#x2F; 返回（Call &#x2F; return）</li>
+</ul>
+</li>
+</ul>
+<p><strong>解决方案1：取多条指令</strong></p>
+<ul>
+<li>多个指令流： 复制流水线的开始部分， 并允许流水线同时取这两条指令，  使用两个指令流</li>
+<li>预取分支目标： 识别出一个条件分支指令时， 除了取此分支指令之后的指<br>令外， 分支目标处的指令也被取来</li>
+</ul>
+<p>缺点：指令膨胀</p>
+<ul>
+<li>循环缓冲器： 由流水线指令取指含有 n 条最近顺序取来的指令</li>
+</ul>
+<p>多线程终究有效率损害，于是有了预测</p>
+<p><strong>解决方案2：分支预测</strong></p>
+<ul>
+<li>静态预测（规则不变）<ul>
+<li>预测绝不发生跳转</li>
+<li>预测总是发生跳转（到目标地址取指令 ）</li>
+<li>依操作码预测</li>
+</ul>
+</li>
+<li>动态预测（规则变化）<ul>
+<li>发生 &#x2F; 不发生切换</li>
+<li>转移历史表</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支动态预测"><a href="#分支动态预测" class="headerlink" title="分支动态预测"></a>分支动态预测</h3><p><strong>方法一：发生 &#x2F; 不发生切换</strong>  </p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164601006.png"><span class="image-caption">image-20230210164601006</span></p>
+<p>初始状态-&gt;两次错误时改变状态</p>
+<p>假设：状态的连贯性</p>
+<p><strong>方法二：转移历史表</strong>  </p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164736260.png"><span class="image-caption">image-20230210164736260</span></p>
+<p>未命中时记录转移历史，查表来预测</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
     <title>计算机组成原理-学习笔记14-指令集</title>
     <url>/2023/02/10/Lecture%2014%20%E6%8C%87%E4%BB%A4%E9%9B%86/</url>
     <content><![CDATA[<p>计算机组成原理-学习笔记14-指令集</p>
@@ -4330,235 +4559,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </ul>
 </li>
 </ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>计算机组成原理-学习笔记15-指令流水线</title>
-    <url>/2023/02/10/Lecture%2015%20%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记15-指令流水线</p>
-<span id="more"></span>
-
-
-
-<h1 id="1-指令周期"><a href="#1-指令周期" class="headerlink" title="1. 指令周期"></a>1. 指令周期</h1><h2 id="1-0指令周期纵观"><a href="#1-0指令周期纵观" class="headerlink" title="1.0指令周期纵观"></a>1.0<strong>指令周期纵观</strong></h2><ul>
-<li><p>定义：处理单个指令的过程</p>
-</li>
-<li><p>分为取指周期、执行周期</p>
-</li>
-</ul>
-<p><img src="/images/posts/repaired/image-20221208163611041.png"><span class="image-caption">image-20221208163611041</span></p>
-<p>并非所有指令的周期都一样</p>
-<h3 id="带中断的指令周期"><a href="#带中断的指令周期" class="headerlink" title="带中断的指令周期"></a>带中断的指令周期</h3><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114423694.png"><span class="image-caption">image-20230210114423694</span></p>
-<h3 id="间址周期"><a href="#间址周期" class="headerlink" title="间址周期"></a>间址周期</h3><p>把间接地址的读取看成是一个额外的指令子周期  </p>
-<p>提出目的：与数据流，指令流水线有关</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210114806911.png"><span class="image-caption">image-20230210114806911</span></p>
-<h3 id="在指令周期中的CPU"><a href="#在指令周期中的CPU" class="headerlink" title="在指令周期中的CPU"></a>在指令周期中的CPU</h3><ul>
-<li><p>任务</p>
-<ul>
-<li><strong>取指令：</strong> CPU必须从存储器（寄存器、 cache、 主存） 读取指令  </li>
-<li><strong>解释指令：</strong> 必须对指令进行译码， 以确定所要求的动作  </li>
-<li><strong>取数据：</strong> 指令的执行可能要求从存储器或输入&#x2F;输出（I&#x2F;O） 模块中读取数据  </li>
-<li><strong>处理数据</strong>： 指令的执行可能要求对数据完成某些算术或逻辑运算  </li>
-<li><strong>写数据：</strong> 执行的结果可能要求写数据到存储器或I&#x2F;O模块</li>
-</ul>
-</li>
-<li><p>需求：寄存器</p>
-<ul>
-<li>临时保存指令数据</li>
-<li>记录当前指令位置</li>
-<li>（需要小容量的内部储存器）</li>
-<li>假定CPU已有的寄存器<ul>
-<li>MAR存储地址</li>
-<li>MBR存储缓冲&#x2F;MDR存储数据</li>
-<li>IR指令寄存器</li>
-<li>PC程序计数器</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-1取指周期"><a href="#1-1取指周期" class="headerlink" title="1.1取指周期"></a>1.1取指周期</h2><p>流程：</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115704765.png"><span class="image-caption">image-20230210115704765</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210115825621.png"><span class="image-caption">image-20230210115825621</span></p>
-<ol>
-<li>PC-&gt;MAR-&gt;地址总线</li>
-<li>控制器通过控制线通知存储器地址就绪</li>
-<li>存储器读取地址 地址总线-&gt;存储器  </li>
-<li>存储器通过数据总线将（指令）数据发送给MBR-&gt;IR</li>
-<li>如果是异步总线，存储器提供反馈 ，告知准备好了</li>
-<li>指令取回来后， PC+“1”  （未画出,为控制器-&gt;PC）</li>
-</ol>
-<h2 id="1-2间址周期"><a href="#1-2间址周期" class="headerlink" title="1.2间址周期"></a>1.2间址周期</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120043533.png"><span class="image-caption">image-20230210120043533</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120208616.png"><span class="image-caption">image-20230210120208616</span></p>
-<ol>
-<li>将MBR缓存中的地址引用送入MAR得到地址（MAR可认为与地址总线绑定，MBR可认为与数据总线绑定）</li>
-<li>MAR将地址传入地址总线</li>
-<li>控制器通知存储器取地址  </li>
-<li>存储器通过数据总线将有效地址发送给MBR</li>
-</ol>
-<p><strong>实际上间址周期取回的是一个有效地址，不是操作数本身</strong>。取操作数在执行周期</p>
-<h2 id="1-3中断周期"><a href="#1-3中断周期" class="headerlink" title="1.3中断周期"></a>1.3中断周期</h2><p>中断周期的任务：处理中断请求。需保存旧地址和旧地址内容</p>
-<p>假设程序断点存入堆栈中，并用SP指示栈顶地址,进栈操作是先修改栈顶指针，后存入数据。</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120613987.png"><span class="image-caption">image-20230210120613987</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210122314159.png"><br><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210120925912.png"></p>
-<p>箭头往右，说明都是写的操作</p>
-<ol>
-<li>处理中断前，将<strong>下一条指令</strong>放到MBR中，再放到数据总线上 （以告知下一条指令需要返回到哪）（存入断点）</li>
-<li>控制器将<strong>下一条指令的取值地址</strong>通过MAR放到地址总线上  </li>
-<li>控制器通知存储器获得数据</li>
-<li>存储器从地址线获得地址</li>
-<li>存储器从数据线获得数据，并将数据写入到获得的地址</li>
-</ol>
-<h1 id="2-指令流水线"><a href="#2-指令流水线" class="headerlink" title="2.指令流水线"></a>2.指令流水线</h1><ul>
-<li>流水处理（pipelining）<ul>
-<li>如果一个产品要经过几个制作步骤，通过把制作过程安排在一条装配线上，多个产品能在各个阶段同时被加工</li>
-</ul>
-</li>
-<li>指令流水线：一条指令的处理过程分成若干个阶段，每个阶段由相应的功能部<br>件完成  <ul>
-<li><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210152420723.png"><span class="image-caption">image-20230210152420723</span></li>
-</ul>
-</li>
-</ul>
-<h2 id="2-1两阶段方法"><a href="#2-1两阶段方法" class="headerlink" title="2.1两阶段方法"></a>2.1两阶段方法</h2><ul>
-<li>将指令处理分成两个阶段：取指令和执行指令</li>
-<li>在当前指令的执行期间取下一条指令</li>
-<li>问题： 执行时间一般要长于取指时间  <ul>
-<li>性能瓶颈，工作量分配不均匀</li>
-<li>主存访问冲突</li>
-<li><strong>条件分支指令</strong>使下一条指令的地址是未知的（导致原指令作废，执行指令需等待）</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-2六阶段方法"><a href="#2-2六阶段方法" class="headerlink" title="2.2六阶段方法"></a>2.2六阶段方法</h2><p>为了进一步的加速，流水线必须有更多的阶段</p>
-<ul>
-<li>取指令（Fetch instruction， FI）： 读下一条预期的指令到缓冲器</li>
-<li>译码指令（Decode instruction， DI）： 确定操作码和操作数指定符</li>
-<li>计算操作数（Calculate operands， CO）： 计算每个源操作数的有效地址</li>
-<li>取操作数（Fetch operands， FO）： 从存储器取出每个操作数，寄存器中的操作不需要取</li>
-<li>执行指令（Execute instruction， EI）： 完成指定的操作。若有指定的目的操作数位置，则将结果写入此位置</li>
-<li>写操作数（Write operand， WO）： 将结果存入存储器</li>
-</ul>
-<p>各个阶段所需要的时间几乎是相等的 。</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154320143.png"><span class="image-caption">image-20230210154320143</span></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li>不是所有指令都包含6个阶段<ul>
-<li>例：一条LOAD指令不需要WO阶段</li>
-<li>为了简化流水线硬件设计，在<strong>假定每条指令都要求这6个阶段</strong>的基础上来建立时序</li>
-</ul>
-</li>
-<li>不是所有的阶段都能并行完成<ul>
-<li>例： FI、 FO和 WO都涉及存储器访问</li>
-</ul>
-</li>
-<li>若6个阶段不全是相等的时间，则会在各个流水阶段涉及某种等待<ul>
-<li>以最长的为基准</li>
-</ul>
-</li>
-</ul>
-<p><strong>条件转移指令损失图解</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210154624695.png"><span class="image-caption">image-20230210154624695</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155033296.png"><span class="image-caption">image-20230210155033296</span></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155042586.png"><span class="image-caption">image-20230210155042586</span></p>
-<p>本质：转移指令需要清空流水线造成的损失</p>
-<h2 id="2-3流水线性能"><a href="#2-3流水线性能" class="headerlink" title="2.3流水线性能"></a>2.3流水线性能</h2><p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155218162.png"><span class="image-caption">image-20230210155218162</span></p>
-<p>𝑡𝑚 &#x3D; max [𝑡𝑖]</p>
-<p><strong>单周期时间</strong>：𝑡 &#x3D; max [𝑡𝑖] + 𝑑 &#x3D; 𝑡𝑚 + 𝑑  </p>
-<p><strong>总时间：</strong>𝑇𝑘,𝑛 &#x3D; [𝑘 + 𝑛 - 1] 𝑡（理想情况） </p>
-<p><strong>加速比</strong> &#x3D;  没有使用流水线 &#x2F; 使用流水线  &gt;  1 </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210155433099.png"><span class="image-caption">image-20230210155433099</span></p>
-<p>根据公式推导加速</p>
-<ul>
-<li>误解<ul>
-<li>流水线中的阶段数越多，执行速度越快</li>
-</ul>
-</li>
-<li>原因  <ul>
-<li>将数据从一个缓冲区移动到另一个缓冲区以及执行各种准备和传递功能都涉及一些开销（比如<strong>锁存延时</strong>）</li>
-<li>处理内存和寄存器依赖以及优化管道使用所需的<strong>控制逻辑数量</strong>随着阶段的增加而急剧增加</li>
-</ul>
-</li>
-</ul>
-<h1 id="3-冒险"><a href="#3-冒险" class="headerlink" title="3.冒险"></a>3.冒险</h1><p>定义：在某些情况下，指令流水线会阻塞或停顿（stall），导致后续指令无法正确执行  </p>
-<p>类型：</p>
-<ul>
-<li>结构冒险（Structure hazard） &#x2F; 硬件资源冲突<ul>
-<li>不同指令同时使用相同的硬件资源，比如访存</li>
-</ul>
-</li>
-<li>数据冒险（Data hazard） &#x2F; 数据依赖性<ul>
-<li>有些数据要等前序计算完成</li>
-</ul>
-</li>
-<li>控制冒险（Control hazard） <ul>
-<li>比如条件转移</li>
-</ul>
-</li>
-</ul>
-<h2 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h2><ul>
-<li><p>原因： 已进入流水线的不同指令在同一时刻访问相同的硬件资源</p>
-</li>
-<li><p>解决</p>
-<ul>
-<li>使用多个不同的硬件资源</li>
-<li>或者分时使用同一个硬件资源 （分时复用）</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160237237.png"><span class="image-caption">image-20230210160237237</span></p>
-<h2 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h2><p>原因：未生成指令所需要的数据  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160554784.png"><span class="image-caption">image-20230210160554784</span></p>
-<p>解决1：插入nop（啥都不做）</p>
-<p>解决2：插入bubble </p>
-<p>（都有时间开销）</p>
-<p><strong>解决3：转发（forwarding） &#x2F; 旁路（bypassing）</strong>  </p>
-<p>从ALU（或ALU后的步骤）直接提前打听R1</p>
-<p>什么时候失效：非计算指令时（如load)</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210160712506.png"><span class="image-caption">image-20230210160712506</span></p>
-<p><strong>解决方案4：交换指令顺序</strong>  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210161010109.png"><span class="image-caption">image-20230210161010109</span></p>
-<h2 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h2><ul>
-<li>原因：指令的执行顺序被更改<ul>
-<li>转移（Transfer） : 分支（branch） , 循环（loop） , …</li>
-<li>中断（Interrupt）</li>
-<li>异常（Exception）</li>
-<li>调用 &#x2F; 返回（Call &#x2F; return）</li>
-</ul>
-</li>
-</ul>
-<p><strong>解决方案1：取多条指令</strong></p>
-<ul>
-<li>多个指令流： 复制流水线的开始部分， 并允许流水线同时取这两条指令，  使用两个指令流</li>
-<li>预取分支目标： 识别出一个条件分支指令时， 除了取此分支指令之后的指<br>令外， 分支目标处的指令也被取来</li>
-</ul>
-<p>缺点：指令膨胀</p>
-<ul>
-<li>循环缓冲器： 由流水线指令取指含有 n 条最近顺序取来的指令</li>
-</ul>
-<p>多线程终究有效率损害，于是有了预测</p>
-<p><strong>解决方案2：分支预测</strong></p>
-<ul>
-<li>静态预测（规则不变）<ul>
-<li>预测绝不发生跳转</li>
-<li>预测总是发生跳转（到目标地址取指令 ）</li>
-<li>依操作码预测</li>
-</ul>
-</li>
-<li>动态预测（规则变化）<ul>
-<li>发生 &#x2F; 不发生切换</li>
-<li>转移历史表</li>
-</ul>
-</li>
-</ul>
-<h3 id="分支动态预测"><a href="#分支动态预测" class="headerlink" title="分支动态预测"></a>分支动态预测</h3><p><strong>方法一：发生 &#x2F; 不发生切换</strong>  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164601006.png"><span class="image-caption">image-20230210164601006</span></p>
-<p>初始状态-&gt;两次错误时改变状态</p>
-<p>假设：状态的连贯性</p>
-<p><strong>方法二：转移历史表</strong>  </p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20230210164736260.png"><span class="image-caption">image-20230210164736260</span></p>
-<p>未命中时记录转移历史，查表来预测</p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -4891,6 +4891,234 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 </li>
 <li>缺点：要比采用相同或相近半导体工艺的硬布线控制器慢一些</li>
 </ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>计算机组成原理-学习笔记7-存储器</title>
+    <url>/2023/02/10/Lecture%207%20%E5%82%A8%E5%AD%98%E5%99%A8/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记7-存储器</p>
+<span id="more"></span>
+
+<h2 id="Lecture-7-存储器"><a href="#Lecture-7-存储器" class="headerlink" title="Lecture 7 存储器"></a>Lecture 7 存储器</h2><h3 id="1-存储器概念"><a href="#1-存储器概念" class="headerlink" title="1.存储器概念"></a>1.存储器概念</h3><p>存储器由一定数量单元构成</p>
+<p>每个单元可被唯一标识</p>
+<p>每个单元都能储存一个数值</p>
+<ul>
+<li>地址：单元的唯一标识符</li>
+<li>地址空间：单元总数（标识符总数）</li>
+<li><strong>寻址能力：</strong>储存在每个单元中的信息的位数<ul>
+<li>大多数存储器是字节（8）寻址的，而执行科学计算的计算机通常是64位寻址的</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-层次结构"><a href="#2-层次结构" class="headerlink" title="2.层次结构"></a>2.层次结构</h3><p>原因：达到容量和速度间的平衡。成本的约束</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20221020162140913.png"><span class="image-caption">image-20221020162140913</span></p>
+<h3 id="3-半导体存储器"><a href="#3-半导体存储器" class="headerlink" title="3.半导体存储器"></a>3.半导体存储器</h3><p>目前的主流做法。半导体芯片</p>
+<ul>
+<li>半稳态：类似弹簧</li>
+</ul>
+<p><strong>位元：</strong></p>
+<ul>
+<li><p>基本元件。存储1位数据</p>
+</li>
+<li><p>特性</p>
+<p>• 呈现两种稳态（或半稳态）：分别表示二进制的0和1</p>
+<p>• 它们能够至少被写入（write）数据一次：用来设置状态</p>
+<p>• 它们能够被读取（read）来获得状态信息</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>写入方式</th>
+<th>断电后数据</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SRAM</td>
+<td>电信号读写，无需刷新</td>
+<td>丢失</td>
+<td>Cache</td>
+</tr>
+<tr>
+<td>DRAM</td>
+<td>电信号读写，需要周期刷新</td>
+<td>丢失</td>
+<td>主存</td>
+</tr>
+<tr>
+<td>ROM</td>
+<td>制造时写入</td>
+<td>保留</td>
+<td>固定程序</td>
+</tr>
+<tr>
+<td>PROM</td>
+<td>用户一次性编程</td>
+<td>保留</td>
+<td>固定配置</td>
+</tr>
+<tr>
+<td>EPROM</td>
+<td>紫外线擦除后重新编程</td>
+<td>保留</td>
+<td>可更新固件</td>
+</tr>
+<tr>
+<td>EEPROM &#x2F; Flash</td>
+<td>电擦除后重新编程</td>
+<td>保留</td>
+<td>固件、非易失存储</td>
+</tr>
+</tbody></table>
+<p>RAM的写、擦除效率相对EPROM最高</p>
+<h3 id="3-1-RAM-Random-Access-Memory"><a href="#3-1-RAM-Random-Access-Memory" class="headerlink" title="3.1 RAM Random-Access Memory"></a>3.1 RAM Random-Access Memory</h3><ul>
+<li>Random 随机访问：对存储器中任意数据访问花费时间  与数据所在位置无关</li>
+<li>特性：<ul>
+<li>可以简单快速读写</li>
+<li>易失的（Volatile）</li>
+</ul>
+</li>
+<li>类型：SRAM &#x2F; DRAM 静态 &#x2F; 动态</li>
+</ul>
+<h4 id="SRAM"><a href="#SRAM" class="headerlink" title="SRAM"></a><strong>SRAM</strong></h4><p>SRAM 通过双稳态电路保存一位数据，只要持续供电就能保持状态，不需要周期刷新。</p>
+<ul>
+<li>RS触发器：即锁存器。储存一个1&#x2F;0。</li>
+<li>典型的 6T SRAM 单元包含两个交叉耦合的反相器和两个访问晶体管，由字线控制与位线之间的数据读写。</li>
+</ul>
+<p>读：CS&#x3D;0 RW &#x3D; 1</p>
+<p>写：CS&#x3D;1 RW &#x3D; 0</p>
+<p>WL始终为1，BL由CS、RW决定</p>
+<p>一个SRAM位元，共需要6个晶体管,成本较高。</p>
+<h4 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a><strong>DRAM</strong></h4><p>典型的 DRAM 单元由一个晶体管和一个电容组成，通过电容中的电荷表示数据。电荷会泄漏，因此需要周期刷新；读取后也需要恢复电荷。</p>
+<p>放大器补充电荷</p>
+<h4 id="SRAM和DRAM对比"><a href="#SRAM和DRAM对比" class="headerlink" title="SRAM和DRAM对比"></a>SRAM和DRAM对比</h4><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>SRAM</th>
+<th>DRAM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储单元</td>
+<td>典型为 6 个晶体管</td>
+<td>典型为 1 个晶体管和 1 个电容</td>
+</tr>
+<tr>
+<td>刷新</td>
+<td>不需要</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>访问速度</td>
+<td>较快</td>
+<td>较慢</td>
+</tr>
+<tr>
+<td>集成密度</td>
+<td>较低</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>单位容量成本</td>
+<td>较高</td>
+<td>较低</td>
+</tr>
+</tbody></table>
+<p>根据优缺点<strong>应用</strong>：SRAM常用于Cache, DRAM常用于内存条</p>
+<h3 id="3-2-ROM与PROM-只读存储器"><a href="#3-2-ROM与PROM-只读存储器" class="headerlink" title="3.2 ROM与PROM 只读存储器"></a>3.2 ROM与PROM 只读存储器</h3><p>Read Only。</p>
+<p><strong>ROM</strong></p>
+<ul>
+<li>特性:<ul>
+<li>非易失的，断电后信息仍保存</li>
+<li>可读，不可写入数据</li>
+</ul>
+</li>
+<li>无出错处理机会</li>
+<li>用户无法写入数据：唯一的数据写入机会在出厂时完成</li>
+</ul>
+<p><strong>PROM</strong></p>
+<ul>
+<li><p>非易失的</p>
+</li>
+<li><p>只能被写入一次</p>
+<ul>
+<li>写过程是用电信号执行</li>
+<li>需要特殊设备来完成写或“编程”过程</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-EPROM光可擦除-EEPROM电可擦除-快闪储存器"><a href="#3-3-EPROM光可擦除-EEPROM电可擦除-快闪储存器" class="headerlink" title="3.3 EPROM光可擦除 EEPROM电可擦除 快闪储存器"></a>3.3 EPROM光可擦除 EEPROM电可擦除 快闪储存器</h3><p>• Read-Mostly Memory</p>
+<p>• 特性</p>
+<p>​	• 非易失的</p>
+<p>​	• 写操作与读操作相比，较为困难</p>
+<p>• 应用</p>
+<p>​	• 读操作比写操作频繁得多的场景</p>
+<p>• 类型</p>
+<p>​	• EPROM</p>
+<p>​	• EEPROM</p>
+<p>​	• Flash memory</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103111650302.png"><span class="image-caption">image-20221103111650302</span></p>
+<h2 id="4-从存储位元到主存储器"><a href="#4-从存储位元到主存储器" class="headerlink" title="4.从存储位元到主存储器"></a>4.从存储位元到主存储器</h2><p><strong>位元-&gt;寻址单元-&gt;储存阵列-&gt;芯片 ➔ 模块组织 ➔ 主存</strong></p>
+<h3 id="4-1如何寻址"><a href="#4-1如何寻址" class="headerlink" title="4.1如何寻址"></a>4.1如何寻址</h3><p>寻址单元（Addressable unit）：由若干相同地址的位元组成</p>
+<ul>
+<li>位元 比特指二进制中的一位</li>
+</ul>
+<p>寻址模式</p>
+<p>• 字节（Byte）：常用</p>
+<p>• 字（Word）</p>
+<p><strong>存储阵列（Memory Array）：由大量寻址单元组成</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103112534056.png"><span class="image-caption">image-20221103112534056</span></p>
+<h3 id="4-2-如何刷新"><a href="#4-2-如何刷新" class="headerlink" title="4.2 如何刷新"></a>4.2 如何刷新</h3><p><strong>约束：刷新会占用片选线、地址线、地址译码器</strong></p>
+<p>• <strong>集中式刷新（<strong><strong>Centralized refresh</strong></strong>）</strong></p>
+<p>​	• 停止读写操作，并<strong>逐行刷新</strong></p>
+<p>​	• 刷新时无法操作内存（死区）</p>
+<p>• <strong>分散式刷新（<strong><strong>Decentralized refresh</strong></strong>）</strong></p>
+<p>​	• 在<strong>每个存储周期</strong>中，当读写操作完成时进行刷新</p>
+<p>​	• 一次读写刷新一行，逐行刷新</p>
+<p>​	• 会增加每个存储周期的时间</p>
+<p>• <strong>异步刷新（<strong><strong>Asynchronous refresh</strong></strong>）</strong></p>
+<p>​	• 每一行各自以固定间隔（小于最大刷新周期，毫秒级）刷新</p>
+<p>​	• 将DRAM的刷新<strong>安排在CPU对指令的译码阶段</strong>，可有效避免死区</p>
+<p>​	• 效率高：常用 </p>
+<h3 id="4-3-DRAM架构"><a href="#4-3-DRAM架构" class="headerlink" title="4.3 DRAM架构"></a>4.3 DRAM架构</h3><p><strong>问题：传统DRAM是异步的</strong></p>
+<p>​	• 传统的DRAM芯片受到其<strong>内部架构和与处理器内存总线接口</strong>的限制</p>
+<p>​	• 处理器向内存提供地址和控制信号，表示内存中特定单元的一组数据应该被读出或写入DRAM</p>
+<p>​	• DRAM执行各种内部功能，如激活行和列地址线的高电容，读取数据，以及通过输出缓冲将数据输出，处理器只能等待这段延迟，即存取时间</p>
+<p>​	• 延时后，DRAM才写入或读取数据</p>
+<p>• <strong>解决：高级DRAM架构是同步的</strong></p>
+<p>​	• 同步DRAM（Synchronous DRAM, SDRAM）</p>
+<p>​	• 双速率SDRAM（Double-Data-Rate SDRAM，DDR SDRAM &#x2F; DDR）</p>
+<h4 id="DDR-SDRAM"><a href="#DDR-SDRAM" class="headerlink" title="DDR SDRAM"></a>DDR SDRAM</h4><p>Double Data Rate：每个时钟周期发送两次数据，一次在时钟脉冲的上升沿，一次在下降沿。</p>
+<p>优化：1、增加操作频率。2、增加预取缓冲区</p>
+<p><strong>主要提升的是带宽</strong>。</p>
+<h3 id="4-4-模块组织"><a href="#4-4-模块组织" class="headerlink" title="4.4 模块组织"></a>4.4 模块组织</h3><p><strong>储存阵列-&gt;芯片 ➔ 模块组织 ➔ 主存</strong></p>
+<ul>
+<li>位扩展(每字的位)：地址线不变，数据线增加<ul>
+<li>使用 8 块 4K*1 bit 的芯片组成 4K*8 bit的存储器</li>
+<li>需增加7根数据线</li>
+</ul>
+</li>
+<li>字扩展(含多少字)：地址线增加，数据线不变<ul>
+<li>使用 4 个 16K *8 bit 的芯片组成 64K*8 bit 的存储器</li>
+<li>需增加2根地址线 (log2[（64&#x2F;16）])<ul>
+<li>地址是寻字的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字、位同时扩展：地址线增加，数据线增加<ul>
+<li>使用 8 个 16K*4 bit 的芯片组成 64K*8 bit 的存储器</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103120054038.png"><span class="image-caption">image-20221103120054038</span></p>
+<p>(左侧地址线，右侧数据线)</p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -5305,228 +5533,264 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
       </categories>
   </entry>
   <entry>
-    <title>计算机组成原理-学习笔记7-存储器</title>
-    <url>/2023/02/10/Lecture%207%20%E5%82%A8%E5%AD%98%E5%99%A8/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记7-存储器</p>
+    <title>计算机组成原理-学习笔记8-cache</title>
+    <url>/2023/02/10/Lecture%208%20cache/</url>
+    <content><![CDATA[<p>计算机组成原理-学习笔记8-cache</p>
 <span id="more"></span>
 
-<h2 id="Lecture-7-存储器"><a href="#Lecture-7-存储器" class="headerlink" title="Lecture 7 存储器"></a>Lecture 7 存储器</h2><h3 id="1-存储器概念"><a href="#1-存储器概念" class="headerlink" title="1.存储器概念"></a>1.存储器概念</h3><p>存储器由一定数量单元构成</p>
-<p>每个单元可被唯一标识</p>
-<p>每个单元都能储存一个数值</p>
+
+
+<p>主板内储存器：寄存器 &#x2F; Cache &#x2F; 主存</p>
+<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><p>内存墙：CPU运算速度比内存的速度快，且两者差距不断扩大</p>
+<p>解决： CPU和内存之间增加Cache</p>
 <ul>
-<li>地址：单元的唯一标识符</li>
-<li>地址空间：单元总数（标识符总数）</li>
-<li><strong>寻址能力：</strong>储存在每个单元中的信息的位数<ul>
-<li>大多数存储器是字节（8）寻址的，而执行科学计算的计算机通常是64位寻址的</li>
+<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
+<li>Cache位于CPU和主存之间，可以<strong>集成在CPU内部</strong>或作为主板上的一个模块</li>
+<li>Cache中存放了主存中的<strong>部分信息的副本</strong></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-层次结构"><a href="#2-层次结构" class="headerlink" title="2.层次结构"></a>2.层次结构</h3><p>原因：达到容量和速度间的平衡。成本的约束</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/AppData/Roaming/Typora/typora-user-images/image-20221020162140913.png"><span class="image-caption">image-20221020162140913</span></p>
-<h3 id="3-半导体存储器"><a href="#3-半导体存储器" class="headerlink" title="3.半导体存储器"></a>3.半导体存储器</h3><p>目前的主流做法。半导体芯片</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101165348656.png"><span class="image-caption">image-20221101165348656</span></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>• <strong>检查（Check）</strong>：当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中</p>
 <ul>
-<li>半稳态：类似弹簧</li>
+<li>检查后分两种情况处理：</li>
 </ul>
-<p><strong>位元：</strong></p>
+<p>• <strong>命中（Hit）</strong>：如果在cache中，则把这个字传送给CPU</p>
+<p>• <strong>未命中（Miss）</strong>：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</p>
+<h2 id="1-Questions"><a href="#1-Questions" class="headerlink" title="1.Questions"></a>1.Questions</h2><h4 id="如何判断是命中还是未命中"><a href="#如何判断是命中还是未命中" class="headerlink" title="如何判断是命中还是未命中?"></a>如何判断是命中还是未命中?</h4><p>• CPU通过<strong>位置</strong>对主存中的内容进行寻址，不关心存储在其中的内容</p>
+<p>• Cache通过<strong>标记（tags）</strong>来标识其内容在主存中的对应位置（tag存放在块之前）</p>
+<h4 id="如果未命中，为什么不直接把所需要的字从内存传送到CPU"><a href="#如果未命中，为什么不直接把所需要的字从内存传送到CPU" class="headerlink" title="如果未命中，为什么不直接把所需要的字从内存传送到CPU?"></a>如果未命中，为什么不直接把所需要的字从内存传送到CPU?</h4><p>以便再次访问时命中。</p>
+<p>局部性原理：处理器频繁访问主存中相同或相邻位置的现象。</p>
 <ul>
-<li><p>基本元件。存储1位数据</p>
-</li>
-<li><p>特性</p>
-<p>• 呈现两种稳态（或半稳态）：分别表示二进制的0和1</p>
-<p>• 它们能够至少被写入（write）数据一次：用来设置状态</p>
-<p>• 它们能够被读取（read）来获得状态信息</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>写入方式</th>
-<th>断电后数据</th>
-<th>常见用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SRAM</td>
-<td>电信号读写，无需刷新</td>
-<td>丢失</td>
-<td>Cache</td>
-</tr>
-<tr>
-<td>DRAM</td>
-<td>电信号读写，需要周期刷新</td>
-<td>丢失</td>
-<td>主存</td>
-</tr>
-<tr>
-<td>ROM</td>
-<td>制造时写入</td>
-<td>保留</td>
-<td>固定程序</td>
-</tr>
-<tr>
-<td>PROM</td>
-<td>用户一次性编程</td>
-<td>保留</td>
-<td>固定配置</td>
-</tr>
-<tr>
-<td>EPROM</td>
-<td>紫外线擦除后重新编程</td>
-<td>保留</td>
-<td>可更新固件</td>
-</tr>
-<tr>
-<td>EEPROM &#x2F; Flash</td>
-<td>电擦除后重新编程</td>
-<td>保留</td>
-<td>固件、非易失存储</td>
-</tr>
-</tbody></table>
-<p>RAM的写、擦除效率相对EPROM最高</p>
-<h3 id="3-1-RAM-Random-Access-Memory"><a href="#3-1-RAM-Random-Access-Memory" class="headerlink" title="3.1 RAM Random-Access Memory"></a>3.1 RAM Random-Access Memory</h3><ul>
-<li>Random 随机访问：对存储器中任意数据访问花费时间  与数据所在位置无关</li>
-<li>特性：<ul>
-<li>可以简单快速读写</li>
-<li>易失的（Volatile）</li>
+<li>时间局部性 ：短时间周期访问相同位置</li>
+<li>空间局部性：短时间周期内访问相邻储存位置<ul>
+<li>顺序局部性：线性排列（如数组）</li>
 </ul>
 </li>
-<li>类型：SRAM &#x2F; DRAM 静态 &#x2F; 动态</li>
 </ul>
-<h4 id="SRAM"><a href="#SRAM" class="headerlink" title="SRAM"></a><strong>SRAM</strong></h4><p>SRAM 通过双稳态电路保存一位数据，只要持续供电就能保持状态，不需要周期刷新。</p>
+<h4 id="如果未命中，为什么从内存中读入一个块而不只读入一个字"><a href="#如果未命中，为什么从内存中读入一个块而不只读入一个字" class="headerlink" title="如果未命中，为什么从内存中读入一个块而不只读入一个字?"></a>如果未命中，为什么从内存中读入一个块而不只读入一个字?</h4><p>利用空间局部性。</p>
 <ul>
-<li>RS触发器：即锁存器。储存一个1&#x2F;0。</li>
-<li>典型的 6T SRAM 单元包含两个交叉耦合的反相器和两个访问晶体管，由字线控制与位线之间的数据读写。</li>
+<li>块是预先划分好的</li>
 </ul>
-<p>读：CS&#x3D;0 RW &#x3D; 1</p>
-<p>写：CS&#x3D;1 RW &#x3D; 0</p>
-<p>WL始终为1，BL由CS、RW决定</p>
-<p>一个SRAM位元，共需要6个晶体管,成本较高。</p>
-<h4 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a><strong>DRAM</strong></h4><p>典型的 DRAM 单元由一个晶体管和一个电容组成，通过电容中的电荷表示数据。电荷会泄漏，因此需要周期刷新；读取后也需要恢复电荷。</p>
-<p>放大器补充电荷</p>
-<h4 id="SRAM和DRAM对比"><a href="#SRAM和DRAM对比" class="headerlink" title="SRAM和DRAM对比"></a>SRAM和DRAM对比</h4><table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>SRAM</th>
-<th>DRAM</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>存储单元</td>
-<td>典型为 6 个晶体管</td>
-<td>典型为 1 个晶体管和 1 个电容</td>
-</tr>
-<tr>
-<td>刷新</td>
-<td>不需要</td>
-<td>需要</td>
-</tr>
-<tr>
-<td>访问速度</td>
-<td>较快</td>
-<td>较慢</td>
-</tr>
-<tr>
-<td>集成密度</td>
-<td>较低</td>
-<td>较高</td>
-</tr>
-<tr>
-<td>单位容量成本</td>
-<td>较高</td>
-<td>较低</td>
-</tr>
-</tbody></table>
-<p>根据优缺点<strong>应用</strong>：SRAM常用于Cache, DRAM常用于内存条</p>
-<h3 id="3-2-ROM与PROM-只读存储器"><a href="#3-2-ROM与PROM-只读存储器" class="headerlink" title="3.2 ROM与PROM 只读存储器"></a>3.2 ROM与PROM 只读存储器</h3><p>Read Only。</p>
-<p><strong>ROM</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101172526290.png"><span class="image-caption">image-20221101172526290</span></p>
+<h4 id="使用Cache后需要更多的操作，为什么还可以节省时间"><a href="#使用Cache后需要更多的操作，为什么还可以节省时间" class="headerlink" title="使用Cache后需要更多的操作，为什么还可以节省时间"></a>使用Cache后需要更多的操作，为什么还可以节省时间</h4><p>假设p是<strong>命中率</strong>， 𝑇𝐶 是cache的访问时间， 𝑇𝑀 是主存的访问时间，使用cache时的<strong>平均访问时间</strong>𝑇𝐴为：</p>
+<p>𝑇𝐴 &#x3D; 𝑝 × 𝑇𝐶 + 1 − 𝑝 × 𝑇𝐶 + 𝑇𝑀</p>
+<p>&#x3D; 𝑇𝐶 + (1 − 𝑝) × 𝑇𝑀</p>
+<p>命中率p越大， 𝑇𝐶越小， 效果越好（降低TM很难，故要么提高p要么减少TC）</p>
 <ul>
-<li>特性:<ul>
-<li>非易失的，断电后信息仍保存</li>
-<li>可读，不可写入数据</li>
-</ul>
-</li>
-<li>无出错处理机会</li>
-<li>用户无法写入数据：唯一的数据写入机会在出厂时完成</li>
-</ul>
-<p><strong>PROM</strong></p>
+<li><p>如果想要 𝑇𝐴 &lt; 𝑇𝑀, 必须要求</p>
 <ul>
-<li><p>非易失的</p>
+<li>𝑝 &gt; 𝑇𝐶 &#x2F; 𝑇𝑀</li>
+</ul>
 </li>
-<li><p>只能被写入一次</p>
+<li><p>难点：cache的容量远远小于主存的容量（随机访问时𝑝 &#x3D; Cache容量 &#x2F;主存容量）</p>
+</li>
+</ul>
+<h2 id="2-未命中的原因"><a href="#2-未命中的原因" class="headerlink" title="2.未命中的原因"></a>2.未命中的原因</h2><p><strong>义务失效（Compulsory Miss）&#x2F; 冷启动失效（Cold Start Miss）</strong></p>
 <ul>
-<li>写过程是用电信号执行</li>
-<li>需要特殊设备来完成写或“编程”过程</li>
+<li>第一次访问一个块时</li>
 </ul>
-</li>
-</ul>
-<h3 id="3-3-EPROM光可擦除-EEPROM电可擦除-快闪储存器"><a href="#3-3-EPROM光可擦除-EEPROM电可擦除-快闪储存器" class="headerlink" title="3.3 EPROM光可擦除 EEPROM电可擦除 快闪储存器"></a>3.3 EPROM光可擦除 EEPROM电可擦除 快闪储存器</h3><p>• Read-Mostly Memory</p>
-<p>• 特性</p>
-<p>​	• 非易失的</p>
-<p>​	• 写操作与读操作相比，较为困难</p>
-<p>• 应用</p>
-<p>​	• 读操作比写操作频繁得多的场景</p>
-<p>• 类型</p>
-<p>​	• EPROM</p>
-<p>​	• EEPROM</p>
-<p>​	• Flash memory</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103111650302.png"><span class="image-caption">image-20221103111650302</span></p>
-<h2 id="4-从存储位元到主存储器"><a href="#4-从存储位元到主存储器" class="headerlink" title="4.从存储位元到主存储器"></a>4.从存储位元到主存储器</h2><p><strong>位元-&gt;寻址单元-&gt;储存阵列-&gt;芯片 ➔ 模块组织 ➔ 主存</strong></p>
-<h3 id="4-1如何寻址"><a href="#4-1如何寻址" class="headerlink" title="4.1如何寻址"></a>4.1如何寻址</h3><p>寻址单元（Addressable unit）：由若干相同地址的位元组成</p>
+<p>• 例如：第一次访问一个数组，会发生义务失效</p>
 <ul>
-<li>位元 比特指二进制中的一位</li>
+<li><strong>容量失效 （Capacity Miss）</strong></li>
 </ul>
-<p>寻址模式</p>
-<p>• 字节（Byte）：常用</p>
-<p>• 字（Word）</p>
-<p><strong>存储阵列（Memory Array）：由大量寻址单元组成</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103112534056.png"><span class="image-caption">image-20221103112534056</span></p>
-<h3 id="4-2-如何刷新"><a href="#4-2-如何刷新" class="headerlink" title="4.2 如何刷新"></a>4.2 如何刷新</h3><p><strong>约束：刷新会占用片选线、地址线、地址译码器</strong></p>
-<p>• <strong>集中式刷新（<strong><strong>Centralized refresh</strong></strong>）</strong></p>
-<p>​	• 停止读写操作，并<strong>逐行刷新</strong></p>
-<p>​	• 刷新时无法操作内存（死区）</p>
-<p>• <strong>分散式刷新（<strong><strong>Decentralized refresh</strong></strong>）</strong></p>
-<p>​	• 在<strong>每个存储周期</strong>中，当读写操作完成时进行刷新</p>
-<p>​	• 一次读写刷新一行，逐行刷新</p>
-<p>​	• 会增加每个存储周期的时间</p>
-<p>• <strong>异步刷新（<strong><strong>Asynchronous refresh</strong></strong>）</strong></p>
-<p>​	• 每一行各自以固定间隔（小于最大刷新周期，毫秒级）刷新</p>
-<p>​	• 将DRAM的刷新<strong>安排在CPU对指令的译码阶段</strong>，可有效避免死区</p>
-<p>​	• 效率高：常用 </p>
-<h3 id="4-3-DRAM架构"><a href="#4-3-DRAM架构" class="headerlink" title="4.3 DRAM架构"></a>4.3 DRAM架构</h3><p><strong>问题：传统DRAM是异步的</strong></p>
-<p>​	• 传统的DRAM芯片受到其<strong>内部架构和与处理器内存总线接口</strong>的限制</p>
-<p>​	• 处理器向内存提供地址和控制信号，表示内存中特定单元的一组数据应该被读出或写入DRAM</p>
-<p>​	• DRAM执行各种内部功能，如激活行和列地址线的高电容，读取数据，以及通过输出缓冲将数据输出，处理器只能等待这段延迟，即存取时间</p>
-<p>​	• 延时后，DRAM才写入或读取数据</p>
-<p>• <strong>解决：高级DRAM架构是同步的</strong></p>
-<p>​	• 同步DRAM（Synchronous DRAM, SDRAM）</p>
-<p>​	• 双速率SDRAM（Double-Data-Rate SDRAM，DDR SDRAM &#x2F; DDR）</p>
-<h4 id="DDR-SDRAM"><a href="#DDR-SDRAM" class="headerlink" title="DDR SDRAM"></a>DDR SDRAM</h4><p>Double Data Rate：每个时钟周期发送两次数据，一次在时钟脉冲的上升沿，一次在下降沿。</p>
-<p>优化：1、增加操作频率。2、增加预取缓冲区</p>
-<p><strong>主要提升的是带宽</strong>。</p>
-<h3 id="4-4-模块组织"><a href="#4-4-模块组织" class="headerlink" title="4.4 模块组织"></a>4.4 模块组织</h3><p><strong>储存阵列-&gt;芯片 ➔ 模块组织 ➔ 主存</strong></p>
+<p>• Cache无法保存程序访问所需的所有数据块，则当某数据块被替换后，又重新被访问，则发生失效</p>
+<p>• 例如： cache大小为8KB，如果需要重复访问一个16KB大小的数组，数组无法全部放入cache，会发生容量失效</p>
 <ul>
-<li>位扩展(每字的位)：地址线不变，数据线增加<ul>
-<li>使用 8 块 4K*1 bit 的芯片组成 4K*8 bit的存储器</li>
-<li>需增加7根数据线</li>
+<li><strong>冲突失效（Conflict Miss）</strong></li>
+</ul>
+<p>• 多个存储器位置映射到同一Cache位置</p>
+<p>• 例如：有两个4KB大小的数组都映射到了相同的地址，需要来回访问，则发生冲突失效</p>
+<h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
+<p>good: 增大了命中率𝑝</p>
+<p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
+<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C<strong>（M 为块的数量）</strong></p>
+<p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
+<p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
+<p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache行号 | 块内地址</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103162423116.png"><span class="image-caption">image-20221103162423116</span></p>
+<ul>
+<li>主存标记与字块标记比较</li>
+<li>未命中，则说明映射到同mod块，需替换</li>
+</ul>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>优点<ul>
+<li>简单</li>
+<li>快速映射</li>
+<li>快速检查</li>
 </ul>
 </li>
-<li>字扩展(含多少字)：地址线增加，数据线不变<ul>
-<li>使用 4 个 16K *8 bit 的芯片组成 64K*8 bit 的存储器</li>
-<li>需增加2根地址线 (log2[（64&#x2F;16）])<ul>
-<li>地址是寻字的</li>
+<li>缺点<ul>
+<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中,且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低，即发生冲突失效</li>
+</ul>
+</li>
+<li>适合<strong>大容量的cache</strong><ul>
+<li>行数变多，发生冲突失效的概率降低</li>
+<li>硬件电路简单，增大容量对𝑇𝐶的影响不明显，且能增大p</li>
 </ul>
 </li>
 </ul>
+<h4 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h4><p>一个主存块可以装入cache<strong>任意一行</strong></p>
+<p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀（M为块的数量）</p>
+<p>主存地址映射为：标记 | 字</p>
+<p><strong>示例</strong></p>
+<p>• 假设cache有4行，每行包含8个字；主存中包含128个字。访问主存的地址长度为7&#x3D;log2(128)位，则：</p>
+<p>​	• 最低的3位：块内地址</p>
+<p>​	• 最高的4位：块号，记录为Cache标记</p>
+<p><strong>优缺点</strong></p>
+<p>• 优点</p>
+<p>​	• 避免抖动</p>
+<p>• 缺点</p>
+<p>​	• 实现起来比较复杂</p>
+<p>​	• Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</p>
+<p>• 适合<strong>容量较小的cache</strong></p>
+<p>​	• 小容量更容易发生冲突失效</p>
+<p>​	• 小容量检查的时间短</p>
+<h4 id="3-组关联映射"><a href="#3-组关联映射" class="headerlink" title="3.组关联映射"></a>3.组关联映射</h4><p>结合上两种映射方式的优点（也结合了缺点）：</p>
+<ul>
+<li>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<strong>固定组的任意一行</strong></li>
+<li>假设𝑠是cache组号，𝑗是主存块号，𝑆是组数<ul>
+<li>s &#x3D; 𝑗 𝑚𝑜𝑑 𝑆</li>
+</ul>
 </li>
-<li>字、位同时扩展：地址线增加，数据线增加<ul>
-<li>使用 8 个 16K*4 bit 的芯片组成 64K*8 bit 的存储器</li>
+<li>K-路（K路：每组有多少行）组关联映射：<ul>
+<li>𝐾 &#x3D; 𝐶&#x2F;𝑆 （总行数column&#x2F;总组数segment）（小心考试弄反）</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103120054038.png"><span class="image-caption">image-20221103120054038</span></p>
-<p>(左侧地址线，右侧数据线)</p>
+<p>​	</p>
+<p>标记：地址中最高𝑛位，𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2𝑆</p>
+<p><strong>主存地址映射为：</strong>标记 | Cache<strong>组</strong>号 | 块内地址</p>
+<h4 id="4-三种比较"><a href="#4-三种比较" class="headerlink" title="4.三种比较"></a>4.三种比较</h4><p>• 关联度（Correlation）：一个主存块映射到cache中可能存放的位置个数</p>
+<p>​	• 直接映射：1</p>
+<p>​	• 关联映射：𝐶</p>
+<p>​	• 组关联映射：𝐾</p>
+<p>• 关联度越低，<strong>命中率越低</strong></p>
+<p>​	• 直接映射的命中率最低，关联映射的命中率最高</p>
+<p>• 关联度越低，判断是否命中的时间越短（即<strong>搜索成本越低）</strong></p>
+<p>​	• 直接映射的命中时间最短，关联映射的命中时间最长</p>
+<p>• 关联度越低，标记所占额外空间开销越小（即<strong>标记长度越短</strong>）</p>
+<p>​	• 直接映射的标记最短，关联映射的标记最长</p>
+<h3 id="3-3-替换算法"><a href="#3-3-替换算法" class="headerlink" title="3.3 替换算法"></a>3.3 替换算法</h3><ul>
+<li>采用替换算法的情景是，多行可选且多行均被占（直接映射不需要算法，直接换）</li>
+<li>替换算法通过<strong>硬件</strong>来实现</li>
+<li>设计替换算法的<strong>目标是提高命中率</strong>（比随机好）</li>
+</ul>
+<h4 id="最近最少使用算法（Least-Recently-Used-LRU）"><a href="#最近最少使用算法（Least-Recently-Used-LRU）" class="headerlink" title="最近最少使用算法（Least Recently Used, LRU）"></a>最近最少使用算法（Least Recently Used, LRU）</h4><p>假设：<strong>最近使用</strong>过的数据块有可能会被再次使用</p>
+<p>策略：替换在cache中<strong>最长时间未被访问</strong>的数据块</p>
+<p>2路组实现实例：</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103165510353.png"><span class="image-caption">image-20221103165510353</span></p>
+<p>4路组实例：</p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103170805466.png"><span class="image-caption">image-20221103170805466</span></p>
+<p>即：命中时清零，其他加一。</p>
+<p>未命中时，淘汰k-1的,其他加一</p>
+<h4 id="先进先出算法（First-In-First-Out-FIFO）"><a href="#先进先出算法（First-In-First-Out-FIFO）" class="headerlink" title="先进先出算法（First In First Out, FIFO）"></a>先进先出算法（First In First Out, FIFO）</h4><p>• <strong>假设：</strong>最近由<strong>主存载入</strong>Cache的数据块更有可能被使用</p>
+<p>• <strong>策略：</strong>替换掉在Cache中停留时间最长的块</p>
+<p>• <strong>实现：</strong>时间片轮转法 或 环形缓冲技术</p>
+<p>​	• 每行包含一个标识位</p>
+<p>​	• 当同一组中的某行被替换时，将其标识位设为1，同时将其下一行的标识位设为0</p>
+<p>​		• 如果被替换的是该组中的最后一行，则将该组中的第一行的标识位设为0</p>
+<p>​	• 当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</p>
+<p><strong>样例：</strong></p>
+<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221103172513489.png"><span class="image-caption">image-20221103172513489</span></p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，FIFO为总停留时间</strong></li>
+</ul>
+<h4 id="最不经常使用算法（Least-Frequently-Used-LFU）"><a href="#最不经常使用算法（Least-Frequently-Used-LFU）" class="headerlink" title="最不经常使用算法（Least Frequently Used, LFU）"></a>最不经常使用算法（Least Frequently Used, LFU）</h4><p>• 假设：访问越频繁的数据块越有可能被再次使用</p>
+<p>• 策略：替换掉cache中被访问次数最少的数据块</p>
+<p>• 实现：为每一行设置计数器LFU</p>
+<ul>
+<li><strong>与LRU的区别：LRU是访问时间，LFU为访问次数</strong></li>
+</ul>
+<h4 id="随机替换算法（Random）"><a href="#随机替换算法（Random）" class="headerlink" title="随机替换算法（Random）"></a>随机替换算法（Random）</h4><p>• 假设：每个数据块被再次使用的可能性是相同的</p>
+<p>• 策略：随机替换cache中的数据块</p>
+<p>• 实现：随机替换</p>
+<p>• 随机替换算法在性能上只稍逊于使用其它替换算法</p>
+<h3 id="3-4-写策略"><a href="#3-4-写策略" class="headerlink" title="3.4 写策略"></a>3.4 写策略</h3><ul>
+<li><p>主存和cache的一致性</p>
+<ul>
+<li>cache被替换时，需考虑该cache数据块是否被修改</li>
+</ul>
+</li>
+<li><p>替换时</p>
+<ul>
+<li>如果没被修改，则该数据块可以直接被替换</li>
+<li>如果被修改，则在替换之前必须将修改后的数据块写入主存</li>
+</ul>
+</li>
+<li><p><strong>写策略</strong></p>
+<p>• 写直达（Write Through）</p>
+<p>• 写回法（Write Back）</p>
+</li>
+</ul>
+<h4 id="缓存命中时的写策略"><a href="#缓存命中时的写策略" class="headerlink" title="缓存命中时的写策略"></a>缓存命中时的写策略</h4><ol>
+<li><strong>写直达</strong></li>
+</ol>
+<p>• <strong>所有写操作同时对cache和主存进行</strong></p>
+<p>• <strong>优点</strong>：确保主存中的数据总是和cache中的数据一致，总是最新的（例如多CPU同步的场景）</p>
+<p>• <strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
+<p>• 搭配写不分配</p>
+<ol start="2">
+<li><strong>写回法</strong></li>
+</ol>
+<p>• <strong>先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</strong></p>
+<p>• <strong>利用一个脏位（dirty bit）或者使用位（use bit）来表示块是否被修改</strong></p>
+<p>• <strong>优点</strong>：减少了访问主存的次数</p>
+<p>• <strong>缺点</strong></p>
+<p>​	• 部分主存数据可能不是最新的（例如未发生替换但需要读主存的场景）</p>
+<p>​		• I&#x2F;O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂且有可能带来性能瓶颈</p>
+<p>• 搭配写分配</p>
+<h4 id="缓存未命中时的写策略"><a href="#缓存未命中时的写策略" class="headerlink" title="缓存未命中时的写策略"></a>缓存未命中时的写策略</h4><p>• <strong>写不分配（<strong><strong>Write Non-Allocate</strong></strong>）：</strong>直接将数据写入主存，无需读入cache</p>
+<p>​	• 优点：避免cache和主存中的数据不一致</p>
+<p>​	• 通常搭配：写直达</p>
+<p>• <strong>写分配（<strong><strong>Write Allocate</strong></strong>）：</strong>将数据所在的块读入cache后，在cache中更新内容</p>
+<p>​	• 优点：利用了cache的高速特性，<strong>减少写内存次数</strong></p>
+<p>​	• 通常搭配：写回法</p>
+<h3 id="3-5-行大小"><a href="#3-5-行大小" class="headerlink" title="3.5 行大小"></a>3.5 行大小</h3><p>Cache命中率先升后降</p>
+<ul>
+<li><p>假设从行的大小为一个字开始，随着<strong>行大小的逐步增大</strong>，则Cache命中率会增加</p>
+<ul>
+<li>原因：装入了<strong>更多数据</strong></li>
+</ul>
+</li>
+<li><p>行大小变得较大之后，<strong>继续增加行大小</strong>，则Cache命中率会下降</p>
+<ul>
+<li>Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入cache中的<strong>数据块数量减少</strong>，进而造成<strong>数据块被频繁替换</strong></li>
+<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
+</ul>
+</li>
+<li><p>行大小与命中率之间的关系较为复杂</p>
+<ul>
+<li>行太小，<strong>行数太多</strong>反时间局部性</li>
+<li>行太大<strong>，行数太少</strong>反空间局部性</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-Cache数目"><a href="#3-6-Cache数目" class="headerlink" title="3.6 Cache数目"></a>3.6 Cache数目</h3><ul>
+<li>一级<ul>
+<li>cache与处理器至于同一芯片</li>
+<li>减少处理器在总线上的执行时间</li>
+</ul>
+</li>
+<li>多级<ul>
+<li>当L1（一级缓存）未命中时，减少处理器对总线上DRAM或ROM的访问</li>
+<li>使用单独的数据路径，代替系统总线在L2缓存和处理器之间传输数据，部分处理器将L2（二级缓存） cache结合到处理器芯片上</li>
+</ul>
+</li>
+</ul>
+<p>统一VS分立</p>
+<ul>
+<li>统一<ul>
+<li>更高的命中率，在获取<strong>指令和数据</strong>的负载之间自动进行平衡</li>
+<li>只需要设计和实现一个cache</li>
+</ul>
+</li>
+<li>分立<ul>
+<li>实现多个cache</li>
+<li>消除cache在指令的<strong>取值&#x2F;译码单元和执行单元</strong>之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -5863,270 +6127,6 @@ redis.afterPropertiesSet(); // if this were declared as a bean, you wouldn&#39;t
 <li>固态硬盘<ul>
 <li>与U盘没有本质区别：容量更大，存储性能更好</li>
 <li>与硬磁盘存储器相比：抗振性好，无噪声，能耗低，发热量低</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>计算机组成原理-学习笔记8-cache</title>
-    <url>/2023/02/10/Lecture%208%20cache/</url>
-    <content><![CDATA[<p>计算机组成原理-学习笔记8-cache</p>
-<span id="more"></span>
-
-
-
-<p>主板内储存器：寄存器 &#x2F; Cache &#x2F; 主存</p>
-<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><p>内存墙：CPU运算速度比内存的速度快，且两者差距不断扩大</p>
-<p>解决： CPU和内存之间增加Cache</p>
-<ul>
-<li>在使用主存（相对大而慢）之余，添加一块小而快的cache</li>
-<li>Cache位于CPU和主存之间，可以<strong>集成在CPU内部</strong>或作为主板上的一个模块</li>
-<li>Cache中存放了主存中的<strong>部分信息的副本</strong></li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101165348656.png"><span class="image-caption">image-20221101165348656</span></p>
-<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>• <strong>检查（Check）</strong>：当CPU试图访问主存中的某个字时，首先检查这个字是否在cache中</p>
-<ul>
-<li>检查后分两种情况处理：</li>
-</ul>
-<p>• <strong>命中（Hit）</strong>：如果在cache中，则把这个字传送给CPU</p>
-<p>• <strong>未命中（Miss）</strong>：如果不在cache中, 则将主存中包含这个字固定大小的块（block）读入cache中，然后再从cache传送该字给CPU</p>
-<h2 id="1-Questions"><a href="#1-Questions" class="headerlink" title="1.Questions"></a>1.Questions</h2><h4 id="如何判断是命中还是未命中"><a href="#如何判断是命中还是未命中" class="headerlink" title="如何判断是命中还是未命中?"></a>如何判断是命中还是未命中?</h4><p>• CPU通过<strong>位置</strong>对主存中的内容进行寻址，不关心存储在其中的内容</p>
-<p>• Cache通过<strong>标记（tags）</strong>来标识其内容在主存中的对应位置（tag存放在块之前）</p>
-<h4 id="如果未命中，为什么不直接把所需要的字从内存传送到CPU"><a href="#如果未命中，为什么不直接把所需要的字从内存传送到CPU" class="headerlink" title="如果未命中，为什么不直接把所需要的字从内存传送到CPU?"></a>如果未命中，为什么不直接把所需要的字从内存传送到CPU?</h4><p>以便再次访问时命中。</p>
-<p>局部性原理：处理器频繁访问主存中相同或相邻位置的现象。</p>
-<ul>
-<li>时间局部性 ：短时间周期访问相同位置</li>
-<li>空间局部性：短时间周期内访问相邻储存位置<ul>
-<li>顺序局部性：线性排列（如数组）</li>
-</ul>
-</li>
-</ul>
-<h4 id="如果未命中，为什么从内存中读入一个块而不只读入一个字"><a href="#如果未命中，为什么从内存中读入一个块而不只读入一个字" class="headerlink" title="如果未命中，为什么从内存中读入一个块而不只读入一个字?"></a>如果未命中，为什么从内存中读入一个块而不只读入一个字?</h4><p>利用空间局部性。</p>
-<ul>
-<li>块是预先划分好的</li>
-</ul>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221101172526290.png"><span class="image-caption">image-20221101172526290</span></p>
-<h4 id="使用Cache后需要更多的操作，为什么还可以节省时间"><a href="#使用Cache后需要更多的操作，为什么还可以节省时间" class="headerlink" title="使用Cache后需要更多的操作，为什么还可以节省时间"></a>使用Cache后需要更多的操作，为什么还可以节省时间</h4><p>假设p是<strong>命中率</strong>， 𝑇𝐶 是cache的访问时间， 𝑇𝑀 是主存的访问时间，使用cache时的<strong>平均访问时间</strong>𝑇𝐴为：</p>
-<p>𝑇𝐴 &#x3D; 𝑝 × 𝑇𝐶 + 1 − 𝑝 × 𝑇𝐶 + 𝑇𝑀</p>
-<p>&#x3D; 𝑇𝐶 + (1 − 𝑝) × 𝑇𝑀</p>
-<p>命中率p越大， 𝑇𝐶越小， 效果越好（降低TM很难，故要么提高p要么减少TC）</p>
-<ul>
-<li><p>如果想要 𝑇𝐴 &lt; 𝑇𝑀, 必须要求</p>
-<ul>
-<li>𝑝 &gt; 𝑇𝐶 &#x2F; 𝑇𝑀</li>
-</ul>
-</li>
-<li><p>难点：cache的容量远远小于主存的容量（随机访问时𝑝 &#x3D; Cache容量 &#x2F;主存容量）</p>
-</li>
-</ul>
-<h2 id="2-未命中的原因"><a href="#2-未命中的原因" class="headerlink" title="2.未命中的原因"></a>2.未命中的原因</h2><p><strong>义务失效（Compulsory Miss）&#x2F; 冷启动失效（Cold Start Miss）</strong></p>
-<ul>
-<li>第一次访问一个块时</li>
-</ul>
-<p>• 例如：第一次访问一个数组，会发生义务失效</p>
-<ul>
-<li><strong>容量失效 （Capacity Miss）</strong></li>
-</ul>
-<p>• Cache无法保存程序访问所需的所有数据块，则当某数据块被替换后，又重新被访问，则发生失效</p>
-<p>• 例如： cache大小为8KB，如果需要重复访问一个16KB大小的数组，数组无法全部放入cache，会发生容量失效</p>
-<ul>
-<li><strong>冲突失效（Conflict Miss）</strong></li>
-</ul>
-<p>• 多个存储器位置映射到同一Cache位置</p>
-<p>• 例如：有两个4KB大小的数组都映射到了相同的地址，需要来回访问，则发生冲突失效</p>
-<h2 id="3-设计Cache所需考虑要素"><a href="#3-设计Cache所需考虑要素" class="headerlink" title="3.设计Cache所需考虑要素"></a>3.设计Cache所需考虑要素</h2><h3 id="3-1Chche容量"><a href="#3-1Chche容量" class="headerlink" title="3.1Chche容量"></a>3.1Chche容量</h3><p>扩大cache容量带来的结果：</p>
-<p>good: 增大了命中率𝑝</p>
-<p>bad: 增加了cache的开销和访问时间 𝑇𝐶</p>
-<h3 id="3-2映射功能"><a href="#3-2映射功能" class="headerlink" title="3.2映射功能"></a>3.2映射功能</h3><h4 id="1-直接映射："><a href="#1-直接映射：" class="headerlink" title="1.直接映射："></a>1.直接映射：</h4><p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2C<strong>（M 为块的数量）</strong></p>
-<p>每个块映射到<strong>一个固定可用的</strong>cache行中.</p>
-<p>假设𝑖是cache行号，𝑗是主存储器的块号，𝐶是cache的行数,则i &#x3D; j mod c</p>
-<p>（同行号则低l𝑜𝑔2 𝐶位相同）</p>
-<p><strong>主存地址映射为：</strong>标记 | Cache行号 | 块内地址</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103162423116.png"><span class="image-caption">image-20221103162423116</span></p>
-<ul>
-<li>主存标记与字块标记比较</li>
-<li>未命中，则说明映射到同mod块，需替换</li>
-</ul>
-<p><strong>优缺点</strong></p>
-<ul>
-<li>优点<ul>
-<li>简单</li>
-<li>快速映射</li>
-<li>快速检查</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中,且来自不同块的字，则这两个块不断地被交换到cache中，cache的命中率将会降低，即发生冲突失效</li>
-</ul>
-</li>
-<li>适合<strong>大容量的cache</strong><ul>
-<li>行数变多，发生冲突失效的概率降低</li>
-<li>硬件电路简单，增大容量对𝑇𝐶的影响不明显，且能增大p</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-关联映射"><a href="#2-关联映射" class="headerlink" title="2.关联映射"></a>2.关联映射</h4><p>一个主存块可以装入cache<strong>任意一行</strong></p>
-<p>地址中最高𝑛位, 𝑛 &#x3D; 𝑙𝑜𝑔2𝑀（M为块的数量）</p>
-<p>主存地址映射为：标记 | 字</p>
-<p><strong>示例</strong></p>
-<p>• 假设cache有4行，每行包含8个字；主存中包含128个字。访问主存的地址长度为7&#x3D;log2(128)位，则：</p>
-<p>​	• 最低的3位：块内地址</p>
-<p>​	• 最高的4位：块号，记录为Cache标记</p>
-<p><strong>优缺点</strong></p>
-<p>• 优点</p>
-<p>​	• 避免抖动</p>
-<p>• 缺点</p>
-<p>​	• 实现起来比较复杂</p>
-<p>​	• Cache搜索代价很大，即在检查的时候需要去访问cache的每一行</p>
-<p>• 适合<strong>容量较小的cache</strong></p>
-<p>​	• 小容量更容易发生冲突失效</p>
-<p>​	• 小容量检查的时间短</p>
-<h4 id="3-组关联映射"><a href="#3-组关联映射" class="headerlink" title="3.组关联映射"></a>3.组关联映射</h4><p>结合上两种映射方式的优点（也结合了缺点）：</p>
-<ul>
-<li>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<strong>固定组的任意一行</strong></li>
-<li>假设𝑠是cache组号，𝑗是主存块号，𝑆是组数<ul>
-<li>s &#x3D; 𝑗 𝑚𝑜𝑑 𝑆</li>
-</ul>
-</li>
-<li>K-路（K路：每组有多少行）组关联映射：<ul>
-<li>𝐾 &#x3D; 𝐶&#x2F;𝑆 （总行数column&#x2F;总组数segment）（小心考试弄反）</li>
-</ul>
-</li>
-</ul>
-<p>​	</p>
-<p>标记：地址中最高𝑛位，𝑛 &#x3D; 𝑙𝑜𝑔2𝑀 − 𝑙𝑜𝑔2𝑆</p>
-<p><strong>主存地址映射为：</strong>标记 | Cache<strong>组</strong>号 | 块内地址</p>
-<h4 id="4-三种比较"><a href="#4-三种比较" class="headerlink" title="4.三种比较"></a>4.三种比较</h4><p>• 关联度（Correlation）：一个主存块映射到cache中可能存放的位置个数</p>
-<p>​	• 直接映射：1</p>
-<p>​	• 关联映射：𝐶</p>
-<p>​	• 组关联映射：𝐾</p>
-<p>• 关联度越低，<strong>命中率越低</strong></p>
-<p>​	• 直接映射的命中率最低，关联映射的命中率最高</p>
-<p>• 关联度越低，判断是否命中的时间越短（即<strong>搜索成本越低）</strong></p>
-<p>​	• 直接映射的命中时间最短，关联映射的命中时间最长</p>
-<p>• 关联度越低，标记所占额外空间开销越小（即<strong>标记长度越短</strong>）</p>
-<p>​	• 直接映射的标记最短，关联映射的标记最长</p>
-<h3 id="3-3-替换算法"><a href="#3-3-替换算法" class="headerlink" title="3.3 替换算法"></a>3.3 替换算法</h3><ul>
-<li>采用替换算法的情景是，多行可选且多行均被占（直接映射不需要算法，直接换）</li>
-<li>替换算法通过<strong>硬件</strong>来实现</li>
-<li>设计替换算法的<strong>目标是提高命中率</strong>（比随机好）</li>
-</ul>
-<h4 id="最近最少使用算法（Least-Recently-Used-LRU）"><a href="#最近最少使用算法（Least-Recently-Used-LRU）" class="headerlink" title="最近最少使用算法（Least Recently Used, LRU）"></a>最近最少使用算法（Least Recently Used, LRU）</h4><p>假设：<strong>最近使用</strong>过的数据块有可能会被再次使用</p>
-<p>策略：替换在cache中<strong>最长时间未被访问</strong>的数据块</p>
-<p>2路组实现实例：</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103165510353.png"><span class="image-caption">image-20221103165510353</span></p>
-<p>4路组实例：</p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/image-20221103170805466.png"><span class="image-caption">image-20221103170805466</span></p>
-<p>即：命中时清零，其他加一。</p>
-<p>未命中时，淘汰k-1的,其他加一</p>
-<h4 id="先进先出算法（First-In-First-Out-FIFO）"><a href="#先进先出算法（First-In-First-Out-FIFO）" class="headerlink" title="先进先出算法（First In First Out, FIFO）"></a>先进先出算法（First In First Out, FIFO）</h4><p>• <strong>假设：</strong>最近由<strong>主存载入</strong>Cache的数据块更有可能被使用</p>
-<p>• <strong>策略：</strong>替换掉在Cache中停留时间最长的块</p>
-<p>• <strong>实现：</strong>时间片轮转法 或 环形缓冲技术</p>
-<p>​	• 每行包含一个标识位</p>
-<p>​	• 当同一组中的某行被替换时，将其标识位设为1，同时将其下一行的标识位设为0</p>
-<p>​		• 如果被替换的是该组中的最后一行，则将该组中的第一行的标识位设为0</p>
-<p>​	• 当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</p>
-<p><strong>样例：</strong></p>
-<p><img src="https://lar-main.oss-cn-shanghai.aliyuncs.com/picGo_img/Typora/typora-user-images/image-20221103172513489.png"><span class="image-caption">image-20221103172513489</span></p>
-<ul>
-<li><strong>与LRU的区别：LRU是访问时间，FIFO为总停留时间</strong></li>
-</ul>
-<h4 id="最不经常使用算法（Least-Frequently-Used-LFU）"><a href="#最不经常使用算法（Least-Frequently-Used-LFU）" class="headerlink" title="最不经常使用算法（Least Frequently Used, LFU）"></a>最不经常使用算法（Least Frequently Used, LFU）</h4><p>• 假设：访问越频繁的数据块越有可能被再次使用</p>
-<p>• 策略：替换掉cache中被访问次数最少的数据块</p>
-<p>• 实现：为每一行设置计数器LFU</p>
-<ul>
-<li><strong>与LRU的区别：LRU是访问时间，LFU为访问次数</strong></li>
-</ul>
-<h4 id="随机替换算法（Random）"><a href="#随机替换算法（Random）" class="headerlink" title="随机替换算法（Random）"></a>随机替换算法（Random）</h4><p>• 假设：每个数据块被再次使用的可能性是相同的</p>
-<p>• 策略：随机替换cache中的数据块</p>
-<p>• 实现：随机替换</p>
-<p>• 随机替换算法在性能上只稍逊于使用其它替换算法</p>
-<h3 id="3-4-写策略"><a href="#3-4-写策略" class="headerlink" title="3.4 写策略"></a>3.4 写策略</h3><ul>
-<li><p>主存和cache的一致性</p>
-<ul>
-<li>cache被替换时，需考虑该cache数据块是否被修改</li>
-</ul>
-</li>
-<li><p>替换时</p>
-<ul>
-<li>如果没被修改，则该数据块可以直接被替换</li>
-<li>如果被修改，则在替换之前必须将修改后的数据块写入主存</li>
-</ul>
-</li>
-<li><p><strong>写策略</strong></p>
-<p>• 写直达（Write Through）</p>
-<p>• 写回法（Write Back）</p>
-</li>
-</ul>
-<h4 id="缓存命中时的写策略"><a href="#缓存命中时的写策略" class="headerlink" title="缓存命中时的写策略"></a>缓存命中时的写策略</h4><ol>
-<li><strong>写直达</strong></li>
-</ol>
-<p>• <strong>所有写操作同时对cache和主存进行</strong></p>
-<p>• <strong>优点</strong>：确保主存中的数据总是和cache中的数据一致，总是最新的（例如多CPU同步的场景）</p>
-<p>• <strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
-<p>• 搭配写不分配</p>
-<ol start="2">
-<li><strong>写回法</strong></li>
-</ol>
-<p>• <strong>先更新cache中的数据，当cache中某个数据块被替换时，如果它被修改了，才被写回主存</strong></p>
-<p>• <strong>利用一个脏位（dirty bit）或者使用位（use bit）来表示块是否被修改</strong></p>
-<p>• <strong>优点</strong>：减少了访问主存的次数</p>
-<p>• <strong>缺点</strong></p>
-<p>​	• 部分主存数据可能不是最新的（例如未发生替换但需要读主存的场景）</p>
-<p>​		• I&#x2F;O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂且有可能带来性能瓶颈</p>
-<p>• 搭配写分配</p>
-<h4 id="缓存未命中时的写策略"><a href="#缓存未命中时的写策略" class="headerlink" title="缓存未命中时的写策略"></a>缓存未命中时的写策略</h4><p>• <strong>写不分配（<strong><strong>Write Non-Allocate</strong></strong>）：</strong>直接将数据写入主存，无需读入cache</p>
-<p>​	• 优点：避免cache和主存中的数据不一致</p>
-<p>​	• 通常搭配：写直达</p>
-<p>• <strong>写分配（<strong><strong>Write Allocate</strong></strong>）：</strong>将数据所在的块读入cache后，在cache中更新内容</p>
-<p>​	• 优点：利用了cache的高速特性，<strong>减少写内存次数</strong></p>
-<p>​	• 通常搭配：写回法</p>
-<h3 id="3-5-行大小"><a href="#3-5-行大小" class="headerlink" title="3.5 行大小"></a>3.5 行大小</h3><p>Cache命中率先升后降</p>
-<ul>
-<li><p>假设从行的大小为一个字开始，随着<strong>行大小的逐步增大</strong>，则Cache命中率会增加</p>
-<ul>
-<li>原因：装入了<strong>更多数据</strong></li>
-</ul>
-</li>
-<li><p>行大小变得较大之后，<strong>继续增加行大小</strong>，则Cache命中率会下降</p>
-<ul>
-<li>Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入cache中的<strong>数据块数量减少</strong>，进而造成<strong>数据块被频繁替换</strong></li>
-<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
-</ul>
-</li>
-<li><p>行大小与命中率之间的关系较为复杂</p>
-<ul>
-<li>行太小，<strong>行数太多</strong>反时间局部性</li>
-<li>行太大<strong>，行数太少</strong>反空间局部性</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-6-Cache数目"><a href="#3-6-Cache数目" class="headerlink" title="3.6 Cache数目"></a>3.6 Cache数目</h3><ul>
-<li>一级<ul>
-<li>cache与处理器至于同一芯片</li>
-<li>减少处理器在总线上的执行时间</li>
-</ul>
-</li>
-<li>多级<ul>
-<li>当L1（一级缓存）未命中时，减少处理器对总线上DRAM或ROM的访问</li>
-<li>使用单独的数据路径，代替系统总线在L2缓存和处理器之间传输数据，部分处理器将L2（二级缓存） cache结合到处理器芯片上</li>
-</ul>
-</li>
-</ul>
-<p>统一VS分立</p>
-<ul>
-<li>统一<ul>
-<li>更高的命中率，在获取<strong>指令和数据</strong>的负载之间自动进行平衡</li>
-<li>只需要设计和实现一个cache</li>
-</ul>
-</li>
-<li>分立<ul>
-<li>实现多个cache</li>
-<li>消除cache在指令的<strong>取值&#x2F;译码单元和执行单元</strong>之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
 </ul>
 </li>
 </ul>

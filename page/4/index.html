@@ -23,8 +23,11 @@
   
 
   
-    <link rel="preload" as="image" href="/images/theme/galaxy-monochrome.jpg" media="(prefers-color-scheme: light)">
-    <link rel="preload" as="image" href="/images/theme/galaxy-monochrome.jpg" media="(prefers-color-scheme: dark)">
+    
+      <link rel="preload" as="image" href="/images/theme/galaxy-monochrome-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    
+    <link rel="preload" as="image" href="/images/theme/galaxy-monochrome.jpg" media="(width &gt; 768px) and (prefers-color-scheme: light)">
+    <link rel="preload" as="image" href="/images/theme/galaxy-monochrome.jpg" media="(width &gt; 768px) and (prefers-color-scheme: dark)">
   
 
   
