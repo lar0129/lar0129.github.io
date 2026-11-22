@@ -1196,11 +1196,6 @@ body input {
   width: 100%;
   text-align: center;
 }
-@media (max-width: 768px) {
-  .preview .preview-motto-wrapper {
-    top: 22vh;
-  }
-}
 .preview .preview-motto-wrapper .preview-motto {
   display: inline;
   text-align: center;
